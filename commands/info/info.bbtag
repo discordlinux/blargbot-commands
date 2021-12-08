@@ -113,7 +113,7 @@ description:{get;~desc}{if;{length;{get;~desc}};>=;1900;{space}[...]}
 }
 
 {//;check input}
-{if;{flag;_};==;{null};
+{if;{regexreplace;{flag;_};/(help|list)/gi;};==;{null};
 {func.infolist};
 {func.getinfo;{flag;_}}
 }
