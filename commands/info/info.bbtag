@@ -92,9 +92,7 @@ description:{get;~desc}{if;{length;{get;~desc}};>=;1900;{space}[...]}
 *{get;~url}*;}}
 }
 
-
-
-
+{//;check input}
 {if;{flag;_};==;{null};
 {func.infolist};
 {func.getinfo;{flag;_}}
