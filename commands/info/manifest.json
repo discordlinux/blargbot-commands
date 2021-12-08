@@ -24,7 +24,9 @@
           "Debian",
           "KDE neon",
           "Kubuntu",
+          "Mageia",
           "Manjaro",
+          "openSUSE",
           "Recommended",
           "RHEL",
           "Ubuntu",
@@ -80,12 +82,20 @@
         "value": "LXQt"
       },
       {
+        "name": "Mageia",
+        "value": "/distros/mageia.json"
+      },
+      {
         "name": "Manjaro",
         "value": "/distros/manjaro.json"
       },
       {
         "name": "MATE",
         "value": "MATE desktop"
+      },
+      {
+        "name": "openSUSE",
+        "value": "/distros/opensuse.json"
       },
       {
         "name": "Plasma",

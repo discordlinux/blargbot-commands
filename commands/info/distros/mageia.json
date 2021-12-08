@@ -1,0 +1,27 @@
+{
+    "fields": [
+        {
+            "value": "• Installer allows choice of Desktop Environment or Window Manager to be used.\r\n• Installer has option to setup drivers for things such as GPUs.\r\n• Mageia Control Center is a very easy to use front end for managing packages and system settings.\r\n• Has recent NVIDIA drivers (currently 470.86) and `mageia-prime` package for NVIDIA Optimus setups.\r\n• Has recent kernel version (currently 5.15.4).",
+            "name": "<:SeemsGood:478441196755091461> Advantages of Mageia",
+            "inline": false
+        },
+        {
+            "value": "• [urpmi](https://en.wikipedia.org/wiki/Urpmi) is separated into multiple commands instead of arguments and is not very intuitive to use, but [dnf](https://en.wikipedia.org/wiki/DNF_(software\\)) is also installed by default.\r\n• 3rd party repositories for Mageia are very rare, so may have troubles finding packages that are not in the base repositories.\r\n• Being independent means they have no financial backing from a corporation and could stop existing at any time.\r\n• Relatively new distribution, so hard to judge long term stability.\r\n• Some strange defaults such as having a separate home partition.\r\n• Uses non LTS kernel and has unknown update schedule for kernel.",
+            "name": "<:glare:504911469943717909> Disadvantages of Mageia",
+            "inline": false
+        },
+        {
+            "value": "If you don't mind treading in uncharted waters and are looking for a distribution that has one of the best GUI frontends for managing packages and system settings, Mageia might be the distribution for you.  Is Mageia beginner friendly?  It's hard to say at this point.  Mageia does aim to be beginner friendly, and it shows in quite a few places, but as a relatively new and independent distribution, it is hard to judge what their future will hold.\r\n**[Download Mageia](https://www.mageia.org/en/downloads/)**\r\n\r\nIf you are looking for a more vetted beginner friendly distribution, see `sudo info recommended`.",
+            "name": "<:think:585665071938666508> Should You Use Mageia?",
+            "inline": false
+        }
+    ],
+    "description": "Mageia is an independent Linux Distribution that was forked from [Mandriva Linux](https://en.wikipedia.org/wiki/Mandriva_Linux).  It uses the [RPM package format](https://en.wikipedia.org/wiki/RPM_Package_Manager) with [urpmi](https://en.wikipedia.org/wiki/Urpmi) as its package manager.  Mageia allows you to pick which Desktop Environment or Window Manager you would like to use during the install process.\r\n**[Screenshot of Mageia](https://i.imgur.com/FhNpQkQ.jpg)**",
+    "color": 2502469,
+    "author": {
+        "url": "https://www.mageia.org/",
+        "proxy_icon_url": "https://images-ext-1.discordapp.net/external/LXKtrJL_J-ZkVyEqSfoLy2CjqN0NpiqCVOivfuKrHuc/https/i.imgur.com/dlIukYU.png",
+        "name": "Mageia",
+        "icon_url": "https://i.imgur.com/dlIukYU.png"
+    }
+}

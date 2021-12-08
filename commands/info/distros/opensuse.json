@@ -1,0 +1,32 @@
+{
+    "footer": {
+        "text": "See 'sudo info tumbleweed' for information about openSUSE Tumbleweed.",
+        "proxy_icon_url": "https://images-ext-1.discordapp.net/external/WMR9XYUygS24yQJp0pIUIRH6OecJJQG8amcxdc56c2c/%3Fv%3D1/https/cdn.discordapp.com/emojis/230547025152835584.png",
+        "icon_url": "https://cdn.discordapp.com/emojis/230547025152835584.png?v=1"
+    },
+    "fields": [
+        {
+            "value": "• Tends to be more stable than most other Linux distributions due to an automated testing system called [openqa](https://openqa.opensuse.org/).\r\n• Point releases keep Leap feeling more up to date than most LTS release distros.\r\n• zypper is intuitive to use while still being fast and versatile.\r\n• Installer allows for lots of customization such as being able to customize what packages are installed.\r\n• Uses [YaST](https://en.opensuse.org/Portal:YaST) which provides easy to access configuration options for many utilities such as systemd, boot loaders, firewall, and more.\r\n• Uses the [Open Build Service](https://build.opensuse.org/) which can be used to find packages, create packages, or even modify packages. [zyp](https://software.opensuse.org/package/zyp) or the [software site](https://software.opensuse.org/search) can be used to find OBS packages.\r\n• Can be [upgraded to openSUSE Tumbleweed](https://en.opensuse.org/openSUSE:Tumbleweed_upgrade) if the user wants to move to rolling release.",
+            "name": "<:SeemsGood:478441196755091461> Advantages of openSUSE Leap",
+            "inline": false
+        },
+        {
+            "value": "• Installer is less intuitive than Ubuntu's installer for things such as setting up dual boots.\r\n• The BTRFS file system is used by default which may come with a bit of overhead and is not recommended for people unfamiliar with it due to the differences from traditional file systems, but can be easily changed to ext4 in the installer.\r\n• Some packages cannot be included in the default repos due to license issues, but the [Packman repo](https://en.opensuse.org/Additional_package_repositories#Packman) is used to work around this.",
+            "name": "<:glare:504911469943717909> Disadvantages of openSUSE Leap",
+            "inline": false
+        },
+        {
+            "value": "If you are looking for a very well tested, stable distribution that allows you to easily install a custom set of packages out of the box, openSUSE Leap may be the distro for you.  If you're a power user, you will most likely appreciate how easy it is to interact with additional repos with zypper compared to something like apt.  The OBS can be used to find additonal or more up to date packages which includes getting newer kernel and MESA versions if desired.\r\n**[Download openSUSE Leap](https://software.opensuse.org/distributions/leap)**",
+            "name": "<:think:585665071938666508> Should You Use openSUSE Leap?",
+            "inline": false
+        }
+    ],
+    "description": "Leap is the LTS release of openSUSE.  It receives major upgrades every 32-46 months with point releases every 6-12 months.  openSUSE uses [zypper](https://en.opensuse.org/Portal:Zypper) as its package manager with [RPM](https://en.wikipedia.org/wiki/RPM_Package_Manager) as its backend.",
+    "color": 7584293,
+    "author": {
+        "url": "https://software.opensuse.org/distributions/leap",
+        "proxy_icon_url": "https://images-ext-1.discordapp.net/external/WMR9XYUygS24yQJp0pIUIRH6OecJJQG8amcxdc56c2c/%3Fv%3D1/https/cdn.discordapp.com/emojis/230547025152835584.png",
+        "name": "openSUSE Leap",
+        "icon_url": "https://cdn.discordapp.com/emojis/230547025152835584.png?v=1"
+    }
+}
