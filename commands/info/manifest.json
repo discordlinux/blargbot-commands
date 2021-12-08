@@ -24,6 +24,7 @@
           "Debian",
           "KDE neon",
           "Kubuntu",
+          "Manjaro",
           "RHEL",
           "Ubuntu"
         ]
@@ -73,6 +74,10 @@
       {
         "name": "LXQt",
         "value": "LXQt"
+      },
+      {
+        "name": "Manjaro",
+        "value": "/distros/manjaro.json"
       },
       {
         "name": "MATE",

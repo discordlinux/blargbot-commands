@@ -1,0 +1,9 @@
+{
+    "description": "• Not a recommended Linux distro due to calling itself a “stable“ release, but actually just holds Arch Linux repositories back for a week.\r\n• Says Manjaro is “suitable for newcomers“, but rolling distributions should not be used by beginners.\r\n• Often has issues with updates that were fine on Arch Linux.\r\n• Uses pamac as an AUR helper while giving the user no knowledge of how to properly use the AUR.\r\n• Has had frequent issues with SSL certificates on their website.\r\n    \r\n**If you are not experienced with Linux, we highly recommend installing a Long Term Support release distro first.  See `sudo info recommended` for a list of recommended beginner distros.\r\n\r\nIf you think you are ready for a rolling release distro, see `sudo info rolling`.**",
+    "color": 3522396,
+    "author": {
+        "proxy_icon_url": "https://images-ext-1.discordapp.net/external/lTwwPPHkxL0KclOOKcC-jNfGptb6RIrvwPZZYPHSuBM/https/upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Manjaro-logo.svg/2000px-Manjaro-logo.svg.png",
+        "name": "Manjaro Linux",
+        "icon_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Manjaro-logo.svg/2000px-Manjaro-logo.svg.png"
+    }
+}
