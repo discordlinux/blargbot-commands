@@ -1,0 +1,101 @@
+{//;function to output main info list}
+{function;infolist;
+{set;!~manifest;{jget;{request;https://github.com/discordlinux/blargbot-commands/raw/main/commands/info/manifest.json};body}}
+{//;setup static parts of embed}
+{set;!~embed;[]}
+{push;~embed;title:Info List}
+{push;~embed;color:yellow}
+{push;~embed;footer.text:Any arguments not listed will return Wikipedia search results.}
+{//;get rest of embed from manifest}
+{foreach;~cat;{jget;~manifest;info.categories};
+{push;~embed;fields.name:• {jget;~cat;name}}
+{push;~embed;fields.value:{repeat;`;3}{newline}{join;{jget;~cat;contents};,{space}}{newline}{repeat;`;3}}}
+{//;output embed}
+{embed;{apply;embedbuild;{get;~embed}}}
+}
+
+{//;function to output a search message while we wait for results}
+{function;searchmsg;
+{set;!~wcolor;{exec;randcolor}}
+{set;!~searchmsg;{output;{embed;{embedbuild;
+color:{get;~wcolor};
+thumbnail.url:{exec;linuxhacker};
+description:Getting info for `{params}`...;}}}}
+}
+
+{//;function to get matching query from wikipedia}
+{function;wikiquery;{fallback;{flag;_}}{lower;{jget;{exec;getjson;https://api.datamuse.com/sug?v=enwiki&s={uriencode;{params}}&max=1};0.word}}{fallback}}
+
+{//;function to check manifest for input}
+{function;getinfo;
+{//;output search message}
+{func.searchmsg;{params}}
+{//;get manifiest}
+{set;!~manifest;{jget;{request;https://github.com/discordlinux/blargbot-commands/raw/main/commands/info/manifest.json};body.info.commands}}
+{//;find matches}
+{set;!~match;{filter;~m;{get;~manifest};{bool;{lower;{params}};==;{lower;{jget;~m;name}}}}}
+{//;check for matches}
+{if;{length;{get;~match}};==;0;
+{//;no matches, send to wikipedia}
+{func.wikipedia;{func.wikiquery;{params}}};
+{//;check matching value}
+{if;{jget;~match;0.value};endswith;.json;
+{//;embed matching value}
+{edit;{channelid};{get;~searchmsg};_delete;{jget;{request;https://github.com/discordlinux/blargbot-commands/raw/main/commands/info{jget;~match;0.value}};body}};
+{//;get wikipedia result for matching value}
+{func.wikipedia;{jget;~match;0.value}}
+}
+}
+}
+
+{//;function to get info via wikipedia}
+{function;wikipedia;
+{//;get results from wikipedia API}
+{set;!~query;{params}}
+{set;!~request;{request;https://wikipedia.org/w/api.php?action=query&format=json&prop=extracts%7Cinfo%7Cpageimages%7Clinks&generator=search&formatversion=2&exintro=1&explaintext=1&inprop=url&piprop=original&pilimit=1&pilicense=any&gsrsearch={uriencode;{get;~query}}&gsrlimit=1&gsrqiprofile=engine_autoselect&gsrwhat=nearmatch&redirects=1&pllimit=25}}
+{fallback;}
+
+{//;setup embed}
+{set;!~url;{jget;~request;body.query.pages.0.fullurl}}
+{//;check if url was found in request}
+{if;{get;~url};==;{null};
+{//;no results}
+{set;!~title;No results found for '{get;~query}'}
+{set;!~wcolor;indianred}
+{set;!~img;{exec;fakeimg;-h 1;-w 1}}
+{set;!~url;https://wikipedia.org};
+{//;get info from request results}
+{set;!~title;{jget;~request;body.query.pages.0.title}}
+{set;!~desc;{clean;{jget;~request;body.query.pages.0.extract}}}
+{set;!~img;{jget;~request;body.query.pages.0.original.source}}
+{set;!~desc;{regexreplace;{regexreplace;{substring;{get;~desc};0;1900};/\.\s?/g;.{space}};/"/g;“}}
+{if;{get;~desc};endswith;refer to:;
+{set;!~desc;{get;~desc}
+{reverse;{replace;{reverse;{foreach;~wlink;{jget;~request;body.query.pages.0.links};{jget;~wlink;title},{space}}};,;}}}}
+{if;{get;~img};==;{null};{set;!~img;{exec;metadata;{uriencode;{get;~url}};-i}}}
+{if;{get;~img};==;https://en.wikipedia.org/static/apple-touch/wikipedia.png;
+{set;!~img;{exec;fakeimg;-w 1;-h 1}}}
+{if;{get;~img};==;;{set;!~img;{exec;fakeimg;-w 1;-h 1}}}
+{if;{get;~img};==;error;{set;!~img;{exec;fakeimg;-w 1;-h 1}}}
+}
+
+{//;edit search message with results}
+{edit;{channelid};{get;~searchmsg};_delete;{embedbuild;
+author.name:{if;{commandname};==;info;{get;~title};Wikipedia.org};
+author.icon_url:{if;{commandname};==;info;{get;~img};https://www.wikipedia.org/portal/wikipedia.org/assets/img/Wikipedia-logo-v2.png};
+author.url:{if;{commandname};==;info;{get;~url};https://wikipedia.org};
+title:{if;{commandname};==;info;{null};{get;~title}};
+color:{get;~wcolor};
+url:{get;~url};
+thumbnail.url:{get;~img};
+description:{get;~desc}{if;{length;{get;~desc}};>=;1900;{space}[...]}
+*{get;~url}*;}}
+}
+
+
+
+
+{if;{flag;_};==;{null};
+{func.infolist};
+{func.getinfo;{flag;_}}
+}
