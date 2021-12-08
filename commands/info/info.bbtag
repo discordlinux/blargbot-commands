@@ -52,6 +52,13 @@ description:Getting info for `{params}`...;}}}}
 }
 }
 
+{//;function to get metadata for wikipedia results}
+{function;metadata;
+{jset;~head;method;POST;c}
+{jset;~head;headers.user-agent;blargbot - {guildname} - {commandname} - {userid};c}
+{jget;{request;http://syretia.cf/metadata?u={uriencode;{params}};{get;~head}};body}
+}
+
 {//;function to get info via wikipedia}
 {function;wikipedia;
 {//;get results from wikipedia API}
@@ -76,11 +83,18 @@ description:Getting info for `{params}`...;}}}}
 {if;{get;~desc};endswith;refer to:;
 {set;!~desc;{get;~desc}
 {reverse;{replace;{reverse;{foreach;~wlink;{jget;~request;body.query.pages.0.links};{jget;~wlink;title},{space}}};,;}}}}
-{if;{get;~img};==;{null};{set;!~img;{exec;metadata;{uriencode;{get;~url}};-i}}}
+{if;{get;~img};==;{null};
+{set;!~img;{jget;{filter;~i;{func.metadata;{get;~url}};{bool;{jget;~i;name};==;og:image}};0.content}}
+}
 {if;{get;~img};==;https://en.wikipedia.org/static/apple-touch/wikipedia.png;
-{set;!~img;{exec;fakeimg;-w 1;-h 1}}}
-{if;{get;~img};==;;{set;!~img;{exec;fakeimg;-w 1;-h 1}}}
-{if;{get;~img};==;error;{set;!~img;{exec;fakeimg;-w 1;-h 1}}}
+{set;!~img;{exec;fakeimg;-w 1;-h 1}}
+}
+{if;{get;~img};==;{null};
+{set;!~img;{exec;fakeimg;-w 1;-h 1}}
+}
+{if;{get;~img};==;error;
+{set;!~img;{exec;fakeimg;-w 1;-h 1}}
+}
 }
 
 {//;edit search message with results}
