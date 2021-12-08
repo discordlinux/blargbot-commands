@@ -19,7 +19,7 @@
 {set;!~wcolor;{exec;randcolor}}
 {set;!~searchmsg;{output;{embed;{embedbuild;
 color:{get;~wcolor};
-thumbnail.url:{exec;linuxhacker};
+thumbnail.url:https://cdn.discordapp.com/emojis/478073442311077889.gif?size=20;
 description:Getting info for `{params}`...;}}}}
 }
 
@@ -73,7 +73,7 @@ description:Getting info for `{params}`...;}}}}
 {//;no results}
 {set;!~title;No results found for '{get;~query}'}
 {set;!~wcolor;indianred}
-{set;!~img;{exec;fakeimg;-h 1;-w 1}}
+{set;!~img;https://fakeimg.pl/1x1/2A2D30/?retina=1&text=.&font=noto}
 {set;!~url;https://wikipedia.org};
 {//;get info from request results}
 {set;!~title;{jget;~request;body.query.pages.0.title}}
@@ -89,13 +89,13 @@ description:Getting info for `{params}`...;}}}}
 {set;!~img;{jget;{filter;~i;{func.metadata;{get;~url}};{bool;{jget;~i;name};==;og:image}};0.content}}
 }
 {if;{get;~img};==;https://en.wikipedia.org/static/apple-touch/wikipedia.png;
-{set;!~img;{exec;fakeimg;-w 1;-h 1}}
+{set;!~img;https://fakeimg.pl/1x1/2A2D30/?retina=1&text=.&font=noto}
 }
 {if;{get;~img};==;{null};
-{set;!~img;{exec;fakeimg;-w 1;-h 1}}
+{set;!~img;https://fakeimg.pl/1x1/2A2D30/?retina=1&text=.&font=noto}
 }
 {if;{get;~img};==;error;
-{set;!~img;{exec;fakeimg;-w 1;-h 1}}
+{set;!~img;https://fakeimg.pl/1x1/2A2D30/?retina=1&text=.&font=noto}
 }
 }
 
