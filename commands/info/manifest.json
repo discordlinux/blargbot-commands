@@ -1,0 +1,23 @@
+{
+  "info": {
+    "categories": [
+      {
+        "name": "Distributions",
+        "contents": [
+          "Arch",
+          "Arch Variants"
+        ]
+      }
+    ],
+    "commands": [
+      {
+        "name": "Arch",
+        "value": "/distros/arch.json"
+      },
+      {
+        "name": "Arch Variants",
+        "value": "/distros/arch_variants.json"
+      }
+    ]
+  }
+}

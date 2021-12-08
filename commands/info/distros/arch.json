@@ -1,0 +1,27 @@
+{
+  "author": {
+    "icon_url": "https://cdn.discordapp.com/emojis/230467805240098816.png?v=1",
+    "name": "Arch Linux",
+    "proxy_icon_url": "https://images-ext-1.discordapp.net/external/fAuyFfbbu01mSsJKlbywjJQU1gFCkOaMFUeoxzqIuKc/%3Fv%3D1/https/cdn.discordapp.com/emojis/230467805240098816.png",
+    "url": "https://archlinux.org/"
+  },
+  "color": 1545169,
+  "description": "Arch is an independent distro built with a base install that users can customize to meet their needs. It is rolling-release, which means that new versions of applications become available as they are released by the developers. It also offers access to unsupported software in the community-maintained Arch User Repository (AUR).",
+  "fields": [
+    {
+      "inline": false,
+      "name": "<:SeemsGood:478441196755091461> Advantages of Arch Linux",
+      "value": "• Because of the install process, you know exactly what packages you have and how the distro works.\r\n• Software is generally newer than point release distros.\r\n• If a package is not available in the regular repos, the chance that it is in the AUR is fairly high.\r\n• Making your own custom packages is simple if you know bash.\r\n• Pacman is generally faster than package managers like apt."
+    },
+    {
+      "inline": false,
+      "name": "<:glare:504911469943717909> Disadvantages of Arch Linux",
+      "value": "• Install process is entirely DIY; no GUI install at all.\r\n• Pacman's syntax is more \"flag soup\" than other package managers (e.g. -Syu instead of update)\r\n• AUR package quality varies since it is user maintained. Packages are also at risk of takeover if they are abandoned.\r\n• The AUR is not officially supported, so you must either use an AUR helper or manually keep up with AUR packages.\r\n• Pacakge mirror list must be kept up to date manually.\r\n• Has no official setup for Optimus laptops and requires a *very* manual setup to get Optimus working."
+    },
+    {
+      "inline": false,
+      "name": "<:think:585665071938666508> Should You Use Arch Linux?",
+      "value": "If you want a good amount of control over your computer's software and are prepared with troubleshooting skills in case something breaks, Arch may be a good choice for you. However, be prepared to do your own research and reading before asking for help. The Arch community generally expects users to read manpages, the wiki, and online resources before asking for help. If you have an laptop with NVIDIA Optimus, Arch is not recommended as they have no good setup for it available in their repos.\r\nPlease see `/info rolling` if you are unsure of whether you are ready for a rolling release distribution.\r\n**[Arch Installation Guide](https://wiki.archlinux.org/index.php/Installation_Guide)\r\n[makepkg](https://wiki.archlinux.org/index.php/Makepkg)\r\n[PKGBUILDs](https://wiki.archlinux.org/index.php/PKGBUILD)\r\n[Installing packages from the AUR](https://wiki.archlinux.org/index.php/Arch_User_Repository#Installing_packages)\r\n[AUR helpers](https://wiki.archlinux.org/index.php/AUR_helpers)**"
+    }
+  ]
+}
