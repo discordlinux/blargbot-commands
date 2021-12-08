@@ -2,6 +2,20 @@
   "info": {
     "categories": [
       {
+        "name": "Desktop Environments",
+        "contents": [
+          "Budgie",
+          "Cinnamon",
+          "GNOME",
+          "LXDE",
+          "LXQt",
+          "MATE",
+          "Plasma",
+          "Trinity",
+          "Xfce"
+        ]
+      },
+      {
         "name": "Distributions",
         "contents": [
           "Arch",
@@ -23,20 +37,56 @@
         "value": "/distros/arch_variants.json"
       },
       {
+        "name": "BSD",
+        "value": "Berkeley Software Distribution"
+      },
+      {
+        "name": "Budgie",
+        "value": "Budgie Desktop"
+      },
+      {
+        "name": "Cinnamon",
+        "value": "Cinnamon (desktop environment)"
+      },
+      {
         "name": "Debian",
         "value": "/distros/debian.json"
       },
       {
-        "name": "BSD",
-        "value": "Berkeley Software Distribution"
+        "name": "GNOME",
+        "value": "GNOME"
+      },
+      {
+        "name": "LXDE",
+        "value": "LXDE"
+      },
+      {
+        "name": "LXQt",
+        "value": "LXQt"
+      },
+      {
+        "name": "MATE",
+        "value": "MATE desktop"
+      },
+      {
+        "name": "Plasma",
+        "value": "KDE Plasma 5"
       },
       {
         "name": "RHEL",
         "value": "RHEL"
       },
       {
+        "name": "Trinity",
+        "value": "Trinity desktop environment"
+      },
+      {
         "name": "Ubuntu",
         "value": "/distros/ubuntu.json"
+      },
+      {
+        "name": "Xfce",
+        "value": "Xfce"
       }
     ]
   }
