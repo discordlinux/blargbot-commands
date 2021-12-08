@@ -5,7 +5,8 @@
         "name": "Distributions",
         "contents": [
           "Arch",
-          "Arch Variants"
+          "Arch Variants",
+          "RHEL"
         ]
       }
     ],
@@ -17,6 +18,10 @@
       {
         "name": "Arch Variants",
         "value": "/distros/arch_variants.json"
+      },
+      {
+        "name": "RHEL",
+        "value": "RHEL"
       }
     ]
   }
