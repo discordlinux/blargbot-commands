@@ -25,6 +25,7 @@
           "KDE neon",
           "Kubuntu",
           "Manjaro",
+          "Recommended",
           "RHEL",
           "Ubuntu",
           "Ubuntu Budgie",
@@ -89,6 +90,10 @@
       {
         "name": "Plasma",
         "value": "KDE Plasma 5"
+      },
+      {
+        "name": "Recommended",
+        "value": "/distros/recommended.json"
       },
       {
         "name": "RHEL",
