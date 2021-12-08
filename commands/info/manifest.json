@@ -6,7 +6,8 @@
         "contents": [
           "Arch",
           "Arch Variants",
-          "RHEL"
+          "RHEL",
+          "Ubuntu"
         ]
       }
     ],
@@ -22,6 +23,10 @@
       {
         "name": "RHEL",
         "value": "RHEL"
+      },
+      {
+        "name": "Ubuntu",
+        "value": "/distros/ubuntu.json"
       }
     ]
   }
