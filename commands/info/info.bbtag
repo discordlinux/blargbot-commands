@@ -16,15 +16,18 @@
 
 {//;function to output a search message while we wait for results}
 {function;searchmsg;
-{set;!~wcolor;{exec;randcolor}}
+{set;!~wcolor;{randchoose;["5865F2","57F287","FEE75C","EB459E"]}}
 {set;!~searchmsg;{output;{embed;{embedbuild;
 color:{get;~wcolor};
 thumbnail.url:https://cdn.discordapp.com/emojis/478073442311077889.gif?size=20;
 description:Getting info for `{params}`...;}}}}
 }
 
+{//;function to get json from website using motyar}
+{function;getjson;{jget;{split;{jget;{request;http://motyar.info/webscrapemaster/try/?url={uriencode;{params}}};body};<input{space}type};0}}
+
 {//;function to get matching query from wikipedia}
-{function;wikiquery;{fallback;{flag;_}}{lower;{jget;{exec;getjson;https://api.datamuse.com/sug?v=enwiki&s={uriencode;{params}}&max=1};0.word}}{fallback}}
+{function;wikiquery;{fallback;{flag;_}}{lower;{jget;{func.getjson;https://api.datamuse.com/sug?v=enwiki&s={uriencode;{params}}&max=1};0.word}}{fallback}}
 
 {//;function to check manifest for input}
 {function;getinfo;
