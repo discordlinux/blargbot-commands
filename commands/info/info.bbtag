@@ -83,7 +83,9 @@ description:Getting info for `{params}`...;}}}}
 {if;{get;~desc};endswith;refer to:;
 {set;!~desc;{get;~desc}
 {reverse;{replace;{reverse;{foreach;~wlink;{jget;~request;body.query.pages.0.links};{jget;~wlink;title},{space}}};,;}}}}
-{if;{get;~img};==;{null};
+{if;{logic;||;
+{bool;{get;~img};==;{null}};
+{bool;{get;~img};endswith;.svg}};
 {set;!~img;{jget;{filter;~i;{func.metadata;{get;~url}};{bool;{jget;~i;name};==;og:image}};0.content}}
 }
 {if;{get;~img};==;https://en.wikipedia.org/static/apple-touch/wikipedia.png;
