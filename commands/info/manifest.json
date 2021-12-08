@@ -26,7 +26,10 @@
           "Kubuntu",
           "Manjaro",
           "RHEL",
-          "Ubuntu"
+          "Ubuntu",
+          "Ubuntu Budgie",
+          "Ubuntu MATE",
+          "Xubuntu"
         ]
       }
     ],
@@ -98,6 +101,18 @@
       {
         "name": "Ubuntu",
         "value": "/distros/ubuntu.json"
+      },
+      {
+        "name": "Ubuntu Budgie",
+        "value": "/distros/ubuntu_budgie.json"
+      },
+      {
+        "name": "Ubuntu MATE",
+        "value": "/distros/ubuntu_mate.json"
+      },
+      {
+        "name": "Xubuntu",
+        "value": "/distros/xubuntu.json"
       },
       {
         "name": "Xfce",

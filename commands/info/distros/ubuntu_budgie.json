@@ -1,0 +1,32 @@
+{
+    "footer": {
+        "text": "See 'sudo info ubuntu' for more information about Ubuntu.",
+        "proxy_icon_url": "https://images-ext-2.discordapp.net/external/ckEj-CkpY4bDVO84L7-IOaN_bZVZn5-08ucESFsKGq0/%3Fv%3D1/https/cdn.discordapp.com/emojis/230469242183483392.png",
+        "icon_url": "https://cdn.discordapp.com/emojis/230469242183483392.png?v=1"
+    },
+    "fields": [
+        {
+            "value": "• Budgie is basically a more customizable version of GNOME.",
+            "name": "<:SeemsGood:478441196755091461> Advantages of Ubuntu Budgie",
+            "inline": false
+        },
+        {
+            "value": "• Relatively new Ubuntu flavor and is still rough around the edges in some areas.",
+            "name": "<:glare:504911469943717909> Disadvantages of Ubuntu Budgie",
+            "inline": false
+        },
+        {
+            "value": "If you like stock Ubuntu, but it isn't quite customizable enough for you, Ubuntu Budgie may be the distribution for you.\r\n**[Download Ubuntu Budgie](http://cdimage.ubuntu.com/ubuntu-budgie/releases/20.04/release/)**\r\n\r\nIf you'd like something even lighter on system resources than Ubuntu Budgie, we recommend checking out Xubuntu (see `sudo info xubuntu`), Ubuntu MATE (see `sudo info ubuntu mate`), or Kubuntu (see `sudo info kubuntu`).",
+            "name": "<:think:585665071938666508> Should You Use Ubuntu Budgie?",
+            "inline": false
+        }
+    ],
+    "description": "Ubuntu Budgie is an [official Ubuntu flavor](https://ubuntu.com/download/flavours) that uses the [Budgie Desktop Environment](https://en.wikipedia.org/wiki/Budgie_(desktop_environment\\)).  As is the case with all [official Ubuntu flavors](https://ubuntu.com/download/flavours), Ubuntu Budgie has access to all of the packages in Ubuntu's repositories and can use PPAs created for Ubuntu.\r\n**[Screenshots of Ubuntu Budgie](https://ubuntubudgie.org/portfolio/screenshots)**",
+    "color": 5412066,
+    "author": {
+        "url": "https://ubuntubudgie.org/",
+        "proxy_icon_url": "https://images-ext-1.discordapp.net/external/RV2gFRSbYQSR14gf1JjlyhsuIpdIKRPs4zmaqHdUdOY/https/raw.githubusercontent.com/UbuntuBudgie/assets/master/Logos/budgie-remix-logo-192by192.png",
+        "name": "Ubuntu Budgie",
+        "icon_url": "https://raw.githubusercontent.com/UbuntuBudgie/assets/master/Logos/budgie-remix-logo-192by192.png"
+    }
+}

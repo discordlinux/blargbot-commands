@@ -1,0 +1,32 @@
+{
+    "footer": {
+        "text": "See 'sudo info ubuntu' for more information about Ubuntu.",
+        "proxy_icon_url": "https://images-ext-2.discordapp.net/external/ckEj-CkpY4bDVO84L7-IOaN_bZVZn5-08ucESFsKGq0/%3Fv%3D1/https/cdn.discordapp.com/emojis/230469242183483392.png",
+        "icon_url": "https://cdn.discordapp.com/emojis/230469242183483392.png?v=1"
+    },
+    "fields": [
+        {
+            "value": "• Fairly small install with around 1900 packages installed by default.\r\n• Easy on CPU and RAM.\r\n• Very easy to customize the way things look and act through MATE Control Center.",
+            "name": "<:SeemsGood:478441196755091461> Advantages of Ubuntu MATE",
+            "inline": false
+        },
+        {
+            "value": "• Default setup might be unattractive to some users, but is easy to change.",
+            "name": "<:glare:504911469943717909> Disadvantages of Ubuntu MATE",
+            "inline": false
+        },
+        {
+            "value": "If you like Xubuntu, but want something a bit more modern feeling, Ubuntu MATE may be the distribution for you.  Ubuntu MATE is very easy to use, highly customizable, stable, and easy on resources.\r\n**[Download Ubuntu MATE](https://ubuntu-mate.org/download/)**\r\n\r\nIf you'd like something even more customizable than Ubuntu MATE, check out Kubuntu (see `sudo info kubuntu`).",
+            "name": "<:think:585665071938666508> Should You Use Ubuntu MATE?",
+            "inline": false
+        }
+    ],
+    "description": "Ubuntu MATE is an [official Ubuntu flavor](https://ubuntu.com/download/flavours) that uses the [MATE Desktop Environment](https://en.wikipedia.org/wiki/MATE_(software\\)).  The MATE Desktop Environment was originally forked from GNOME 2, so Ubuntu MATE feels similar to GNOME, but is much more customizable and easier on resources.  As is the case with all [official Ubuntu flavors](https://ubuntu.com/download/flavours), Ubuntu MATE has access to all of the packages in Ubuntu's repositories and can use PPAs created for Ubuntu.\r\n**[Screenshots of Ubuntu MATE](https://ubuntu-mate.org/gallery/Screenshots/)**",
+    "color": 8889686,
+    "author": {
+        "url": "https://ubuntu-mate.org/",
+        "proxy_icon_url": "https://images-ext-2.discordapp.net/external/h59icP3Qts8VFySouI14RUq1Az5lkQOMPFEI7ew-1xA/https/ubuntu-mate.org/images/get-involved/logo-guidelines/Circle_of_MATEs.png",
+        "name": "Ubuntu MATE",
+        "icon_url": "https://ubuntu-mate.org/images/get-involved/logo-guidelines/Circle_of_MATEs.png"
+    }
+}
