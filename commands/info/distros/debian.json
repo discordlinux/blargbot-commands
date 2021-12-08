@@ -1,0 +1,10 @@
+{
+    "description": "• Has three release cycles:\r\n- [Stable release](https://www.debian.org/releases/stretch/)\r\n- [Testing release](https://www.debian.org/devel/testing) (not recommended for use)\r\n- [Unstable (sid) release](https://www.debian.org/releases/sid/) (not recommended for use)\r\n• Uses the apt package manager which is relatively intuitive and works well under most situations.\r\n• Ubuntu is based on Debian, but Ubuntu is generally much more up to date and has many other benefits.\r\n• Debian is not recommended for use over Ubuntu.\r\n- Ubuntu has an optional rolling kernel.\r\n- Ubuntu has PPAs (extra repos for Debian are very rare).\r\n- Ubuntu has very easy driver installs (easier than Windows in most cases).\r\n- Most games are tested for the latest LTS of Ubuntu.\r\n- Most software is packaged for Ubuntu.\r\n- Ubuntu offers a [Minimal Installation ISO](https://help.ubuntu.com/community/Installation/MinimalCD) which can be used for a very minimal Ubuntu install with a choice of Desktop Environment.\r\n\r\nSee `sudo info recommended` and `sudo info ubuntu` for more information on Ubuntu and recommended Ubuntu flavors.\r\n\r\n[Download Debian](https://www.debian.org/distrib/)",
+    "color": 13500502,
+    "author": {
+        "url": "https://www.debian.org/distrib/",
+        "proxy_icon_url": "https://images-ext-1.discordapp.net/external/0UPTGzFEIIjzvpV661RR3_br4MI9H-b5I5oI855CTLw/%3Fv%3D1/https/cdn.discordapp.com/emojis/503654717188997131.png",
+        "name": "Debian",
+        "icon_url": "https://cdn.discordapp.com/emojis/503654717188997131.png?v=1"
+    }
+}

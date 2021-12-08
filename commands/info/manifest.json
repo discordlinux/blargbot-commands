@@ -6,6 +6,8 @@
         "contents": [
           "Arch",
           "Arch Variants",
+          "BSD",
+          "Debian",
           "RHEL",
           "Ubuntu"
         ]
@@ -19,6 +21,14 @@
       {
         "name": "Arch Variants",
         "value": "/distros/arch_variants.json"
+      },
+      {
+        "name": "Debian",
+        "value": "/distros/debian.json"
+      },
+      {
+        "name": "BSD",
+        "value": "Berkeley Software Distribution"
       },
       {
         "name": "RHEL",
