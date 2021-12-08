@@ -1,0 +1,42 @@
+{
+    "footer": {
+        "text": "See 'sudo info ubuntu' for more information about Ubuntu.",
+        "proxy_icon_url": "https://images-ext-2.discordapp.net/external/ckEj-CkpY4bDVO84L7-IOaN_bZVZn5-08ucESFsKGq0/%3Fv%3D1/https/cdn.discordapp.com/emojis/230469242183483392.png",
+        "icon_url": "https://cdn.discordapp.com/emojis/230469242183483392.png?v=1"
+    },
+    "fields": [
+        {
+            "value": "• Maintained by the KDE developers themselves.\r\n• Small install size; around 1600 packages.\r\n• Offers the latest KDE packages on a stable base.\r\n• Plasma is the most customizable Desktop Environment for Linux.\r\n• More stable and up to date than Kubuntu.",
+            "name": "<:SeemsGood:478441196755091461> Advantages of KDE neon",
+            "inline": false
+        },
+        {
+            "value": "• **Very** frequent package updates, so may not be great for people who are not computer savvy.\r\n• May run into bugs due to frequent Plasma package updates.",
+            "name": "<:glare:504911469943717909> Disadvantages of KDE neon",
+            "inline": false
+        },
+        {
+            "value": "If you are looking for the latest KDE Plasma packages on a stable base, KDE neon is the distribution for you.  KDE neon is extremely customizable, stable, and fairly easy to use.  Please only use the `User Edition` of KDE neon as the other two versions are not intended for normal use.\r\n**[Download KDE neon](https://files.kde.org/neon/images/user/current/neon-user-current.iso.mirrorlist)**",
+            "name": "<:think:585665071938666508> Should You Use KDE neon?",
+            "inline": false
+        },
+        {
+            "value": "• Instead of using `apt upgrade`, it is recommended to use `apt full-upgrade` to avoid problems with updates.\r\n• Contrary to what KDE neon recommends on their website, `pkcon` is ***not recommended***.  `pkcon` is very buggy.",
+            "name": "<:neon:440956328744189960> Updating KDE neon",
+            "inline": false
+        },
+        {
+            "value": "• After installing KDE neon, you can install Ubuntu's driver manager by running the following command in a terminal: `sudo apt install software-properties-gtk`\r\n• Then find Software & Updates in your menu and switch to the Additional Drivers tab.",
+            "name": "<:ubuntu:230469242183483392> Ubuntu Driver Manager",
+            "inline": false
+        }
+    ],
+    "description": "KDE neon is a distribution based on the latest LTS release of [Ubuntu](https://ubuntu.com) that uses the latest stable releases of the [Plasma Desktop Environment](https://en.wikipedia.org/wiki/KDE_Plasma_5).  KDE neon was created by the former project lead of Kubuntu, Jonathan Riddell.  Even though KDE neon is not an [official Ubuntu flavor](https://ubuntu.com/download/flavours), it still has access to all of the packages in Ubuntu's repositories and can use PPAs created for Ubuntu.\r\n**[Screenshot of KDE neon](https://www.omgubuntu.co.uk/wp-content/uploads/2019/06/plasma-5.16-desktop-screenshot.jpg)**",
+    "color": 4046989,
+    "author": {
+        "url": "https://neon.kde.org/",
+        "proxy_icon_url": "https://images-ext-2.discordapp.net/external/3yMzDSm82AYiGzEWuod514uZAdt2T0GWsqeP321Y52c/https/raw.githubusercontent.com/simoniz0r/discord-rss-bot/master/ilya-1.png",
+        "name": "KDE neon",
+        "icon_url": "https://raw.githubusercontent.com/simoniz0r/discord-rss-bot/master/ilya-1.png"
+    }
+}

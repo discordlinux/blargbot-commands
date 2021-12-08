@@ -22,6 +22,8 @@
           "Arch Variants",
           "BSD",
           "Debian",
+          "KDE neon",
+          "Kubuntu",
           "RHEL",
           "Ubuntu"
         ]
@@ -55,6 +57,14 @@
       {
         "name": "GNOME",
         "value": "GNOME"
+      },
+      {
+        "name": "KDE neon",
+        "value": "/distros/kde_neon.json"
+      },
+      {
+        "name": "Kubuntu",
+        "value": "/distros/kubuntu.json"
       },
       {
         "name": "LXDE",
