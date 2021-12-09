@@ -76,6 +76,15 @@
           "Universal Packages",
           "Window Manager"
         ]
+      },
+      {
+        "name": "Window Managers",
+        "contents": [
+          "i3wm",
+          "IceWM",
+          "Sway",
+          "Xmonad"
+        ]
       }
     ],
     "commands": [
@@ -162,6 +171,14 @@
       {
         "name": "GNOME",
         "value": "GNOME"
+      },
+      {
+        "name": "i3wm",
+        "value": "i3wm"
+      },
+      {
+        "name": "IceWM",
+        "value": "IceWM"
       },
       {
         "name": "images",
@@ -300,6 +317,10 @@
         "value": "/distros/solus.json"
       },
       {
+        "name": "Sway",
+        "value": "Sway (window manager)"
+      },
+      {
         "name": "Trinity",
         "value": "Trinity desktop environment"
       },
@@ -340,12 +361,16 @@
         "value": "/distros/windows.json"
       },
       {
-        "name": "Xubuntu",
-        "value": "/distros/xubuntu.json"
-      },
-      {
         "name": "Xfce",
         "value": "Xfce"
+      },
+      {
+        "name": "Xmonad",
+        "value": "Xmonad"
+      },
+      {
+        "name": "Xubuntu",
+        "value": "/distros/xubuntu.json"
       }
     ]
   }
