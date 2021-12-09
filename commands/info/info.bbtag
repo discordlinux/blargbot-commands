@@ -113,8 +113,57 @@ description:{get;~desc}{if;{length;{get;~desc}};>=;1900;{space}[...]}
 *{get;~url}*;}}
 }
 
+{//;supported distros help function}
+{function;supported.help;{embed;{embedbuild;
+color:yellow;
+title:Help for supported;
+description:__**Usage**__: `info supported <distro>`
+Searches the [Discord Linux Supported Distros sheet](https://docs.google.com/spreadsheets/d/124ayAVJ1QPqEYZvtk_0uT3n-8QByf8LR7A43ah8QvDA/edit#gid=0) (maintained by <@!481350122136010755>) and outputs a list of results.;}}
+}
+
+{//;function to get supported distros spreadsheet}
+{function;supported.json;
+{jset;~head;method;POST;c}
+{jset;~head;headers.user-agent;blargbot guild: {guildid} | in: {flag;_};c}
+{slice;{jget;{request;http://syretia.cf/sheets?key=124ayAVJ1QPqEYZvtk_0uT3n-8QByf8LR7A43ah8QvDA;{get;~head}};body.table.rows};2;}
+}
+
+{//;function to search list of supported distros}
+{function;supported;
+{//;output search message}
+{func.searchmsg;{params}}
+{//;search list of distros from google sheet maintained by Faith}
+{set;!~res;{filter;~d;{func.supported.json;{params}};{bool;{lower;{get;~d}};includes;{lower;{params}}}}}
+{//;start setting up embed}
+{set;!~embed;[]}
+{push;~embed;title:Is {capitalize;{params}} Supported in Discord Linux?;url:https://docs.google.com/spreadsheets/d/124ayAVJ1QPqEYZvtk_0uT3n-8QByf8LR7A43ah8QvDA/edit?usp=drivesdk;color:5865F2}
+{//;check for results}
+{if;{length;{get;~res}};==;0;
+{//;no results}
+{push;~embed;description:No results found for `{params}`}
+{push;~embed;color:ED4245};
+{//;finish embed}
+{fallback;}
+{foreach;~r;{get;~res};{push;~embed;fields.name:__{jget;~r;c.0.v}__;fields.inline:true;fields.value:**Supported**: {jget;~r;c.1.v}{newline}**Experience Level**: {jget;~r;c.2.v}{newline}**Recommended**: {jget;~r;c.3.v}{if;{jget;~r;c.4.v};!=;{null};{newline}**Notes**: {jget;~r;c.4.v}}}}
+{commit}
+{fallback}
+}
+{//;edit search msg with results}
+{edit;{channelid};{get;~searchmsg};_delete;{apply;embedbuild;{get;~embed}}}
+}
+
 {//;check input}
-{if;{regexreplace;{flag;_};/(help|list)/gi;};==;{null};
+{fallback;}
+{switch;{lower;{args;0}}
+["help","list",""];
+{//;output info list}
 {func.infolist};
+["supported"];
+{//;supported distros}
+{if;{length;{argsarray}};==;1;
+{func.supported.help};
+{func.supported;{args;1;n}}
+};
+{//;get info for input}
 {func.getinfo;{flag;_}}
 }
