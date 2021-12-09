@@ -1,5 +1,5 @@
 {
     "title": "Image Hosting Sites",
     "description": "[imagebin.ca](https://imagebin.ca)\r\nUpload to imagebin.ca through the command line:\r\n```bash\r\ncurl -F file=\"@/path/to/file.png\" https://imagebin.ca/upload.php\r\n```\r\n[filebin.net](https://filebin.net)\r\nUpload to filebin.net through the command line:\r\n```bash\r\ncurl --data-binary \"@/path/to/file.png\" -H \"filename: file.png\" https://filebin.net\r\n```",
-    "color": 7506394
+    "color": 5793266
 }

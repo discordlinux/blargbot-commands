@@ -1,5 +1,5 @@
 {
     "title": "Help for bash shell scripting and command line",
     "description": "[The art of the command line](https://github.com/jlevy/the-art-of-command-line) (easy to follow command line guide)\r\n[codecademy](https://www.codecademy.com/learn/learn-the-command-line)\r\n[Linux Shell Scripting Tutorial (LSST) v2.0](https://bash.cyberciti.biz/guide/Main_Page)\r\n[tldp bash beginner guide](http://tldp.org/LDP/Bash-Beginners-Guide/html/index.html)\r\n[tldp bash advanced guide](http://www.tldp.org/LDP/abs/html/abs-guide.html)\r\n[Google script styling guide](https://google.github.io/styleguide/shell.xml)\r\n[ShellCheck](https://shellcheck.net) (find bugs in your shell scripts)\r\n[Awesome Shell](https://github.com/alebcay/awesome-shell) (guides and tools)\r\n[SSH tutorial](https://www.digitalocean.com/community/tutorials/ssh-essentials-working-with-ssh-servers-clients-and-keys)",
-    "color": 7506394
+    "color": 5793266
 }

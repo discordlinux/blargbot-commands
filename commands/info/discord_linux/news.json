@@ -1,5 +1,5 @@
 {
     "title": "Info for news",
     "description": "<@&503051931736866816> role\nThis role gives access to all of the news channels without needing to join the distro roles associated with them.\nUse `sudo usermod -a news` to join this role.",
-    "color": 7506394
+    "color": 5793266
 }
