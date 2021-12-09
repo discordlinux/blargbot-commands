@@ -40,11 +40,12 @@ description:Getting info for `{params}`...;}}}}
 {//;check for matches}
 {if;{length;{get;~match}};==;0;
 {//;no matches, try sending input through wikiquery function and check again}
-{set;!~match;{filter;~m;{get;~manifest};{bool;{func.wikiquery;{params}};==;{lower;{jget;~m;name}}}}}
+{set;!~wikiquery;{func.wikiquery;{params}}}
+{set;!~match;{filter;~m;{get;~manifest};{bool;{get;~wikiquery};==;{lower;{jget;~m;name}}}}}
 }
 {if;{length;{get;~match}};==;0;
 {//;no matches, send to wikipedia}
-{func.wikipedia;{func.wikiquery;{params}}};
+{func.wikipedia;{get;~wikiquery}};
 {//;check matching value}
 {if;{jget;~match;0.value};endswith;.json;
 {//;embed matching value}
