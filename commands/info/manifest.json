@@ -20,8 +20,11 @@
         "contents": [
           "blargbot",
           "Images",
+          "mail",
+          "news",
           "Pastes",
-          "Supported"
+          "Supported",
+          "users"
         ]
       },
       {
@@ -229,6 +232,10 @@
         "value": "/distros/mageia.json"
       },
       {
+        "name": "mail",
+        "value": "/discord_linux/mail.json"
+      },
+      {
         "name": "Manjaro",
         "value": "/distros/manjaro.json"
       },
@@ -239,6 +246,10 @@
       {
         "name": "Mint",
         "value": "/distros/mint.json"
+      },
+      {
+        "name": "news",
+        "value": "/discord_linux/news.json"
       },
       {
         "name": "nomodeset",
@@ -347,6 +358,10 @@
       {
         "name": "Universal Packages",
         "value": "/linux/universal_packages.json"
+      },
+      {
+        "name": "users",
+        "value": "/discord_linux/users.json"
       },
       {
         "name": "Void",
