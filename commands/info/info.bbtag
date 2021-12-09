@@ -131,7 +131,7 @@ Searches the [Discord Linux Supported Distros sheet](https://docs.google.com/spr
 {//;function to search list of supported distros}
 {function;supported;
 {//;output search message}
-{func.searchmsg;{params}}
+{func.searchmsg;supported {params}}
 {//;search list of distros from google sheet maintained by Faith}
 {set;!~res;{filter;~d;{func.supported.json;{params}};{bool;{lower;{get;~d}};includes;{lower;{params}}}}}
 {//;start setting up embed}
@@ -154,7 +154,7 @@ Searches the [Discord Linux Supported Distros sheet](https://docs.google.com/spr
 
 {//;check input}
 {fallback;}
-{switch;{lower;{args;0}}
+{switch;{lower;{args;0}};
 ["help","list",""];
 {//;output info list}
 {func.infolist};
