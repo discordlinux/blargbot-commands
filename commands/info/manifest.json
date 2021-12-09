@@ -16,6 +16,15 @@
         ]
       },
       {
+        "name": "Discord Linux",
+        "contents": [
+          "blargbot",
+          "images",
+          "pastes",
+          "supported"
+        ]
+      },
+      {
         "name": "Distributions",
         "contents": [
           "Arch",
@@ -61,6 +70,10 @@
       {
         "name": "Artix",
         "value": "/distros/arch_variants.json"
+      },
+      {
+        "name": "blargbot",
+        "value": "/distros/blargbot.json"
       },
       {
         "name": "BSD",
@@ -113,6 +126,10 @@
       {
         "name": "GNOME",
         "value": "GNOME"
+      },
+      {
+        "name": "images",
+        "value": "/distros/images.json"
       },
       {
         "name": "Kali",
@@ -181,6 +198,10 @@
       {
         "name": "ParrotOS",
         "value": "Parrot OS"
+      },
+      {
+        "name": "pastes",
+        "value": "/distros/pastes.json"
       },
       {
         "name": "Plasma",
