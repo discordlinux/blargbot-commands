@@ -1,0 +1,17 @@
+{
+    "title": "Rolling Release Tips",
+    "fields": [
+        {
+            "value": "• Know how to troubleshoot problems.  Be familiar with the different logging systems for Linux and how to find useful output from them.\r\n• Know the general concept of how a package manager works on Linux.\r\n• Know how packages on Linux interact with each other.  Be aware of how dependencies work.\r\n• Know how to properly partition a Linux drive.\r\n• Know how to work in a terminal.  Terminals give more useful output when managing packages.  Be prepared to work without a GUI at all in case something breaks.\r\n• Know how to work with drivers.  Frequent kernel updates can sometimes mean driver issues.  Know how to troubleshoot these issues.",
+            "name": "**Skills a User Should Have Before Using a Rolling Release Distro**",
+            "inline": false
+        },
+        {
+            "value": "• **[openSUSE Tumbleweed](https://en.opensuse.org/Portal:Tumbleweed)** (see `sudo info opensuse` and `sudo info tumbleweed`)\r\n• **[Arch Linux](https://archlinux.org)** (see `sudo info arch`)",
+            "name": "**Recommended Rolling Release Distros**",
+            "inline": false
+        }
+    ],
+    "description": "**Rolling release Linux distros are a great way to get the latest software, but that does not come without potential problems. Users should have a good understanding of Linux before attempting to use one as their main distro.**\r\n• Rolling release means no set release schedule; new software is released when it is ready.\r\n• Rolling release means always up to date.  Expect several relatively large updates per week.\r\n• Rolling release distros should be kept up to date.  Update checks should be ran at least once a week.\r\n• Rolling release means less time to test packages.  Be prepared for potential issues.",
+    "color": 5793266
+}

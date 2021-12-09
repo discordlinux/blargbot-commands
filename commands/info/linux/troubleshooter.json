@@ -1,0 +1,13 @@
+{
+    "footer": {
+        "text": "Note: if you do not have an internet connection, you can try USB tethering with a smart phone or you can download the troubleshooter script on a device that has internet and transfer it to the problem PC via USB."
+    },
+    "description": "The troubleshooter script collects information from the host system (hardware, logs, etc) that is useful for troubleshooting a wide variety of Linux issues.  In order to use this script, you will need to be able to boot the Linux distro you are having issues with.  If you are, for example, stuck at grub rescue, this script will not help you.\r\nTo use troubleshooter:\r\n- If you are able to load a GUI, [download it from the releases page](https://github.com/simoniz0r/troubleshooter/releases/latest/download/troubleshooter), save it as `~/Downloads/troubleshooter`, and then open a teminal.\r\n- If you cannot load a GUI, switch to a tty (Ctrl + Alt + F2) and run the following command (assumes you have `wget` installed):\r\n```\r\nwget -O ~/Downloads/troubleshooter \"https://github.com/simoniz0r/troubleshooter/releases/latest/download/troubleshooter\"\r\n```\r\n- Run `chmod +x ~/Downloads/troubleshooter` in the terminal or tty.\r\n- Run `~/Downloads/troubleshooter` in the teriminal or tty.\r\n\r\nIf you have an internet connection, the resulting log will be uploaded to [termbin.com](https://termbin.com).  Please share the termbin link here.  If not, the log will be saved in `~/.cache/troubleshooter.DateInUnixTime.log` so it can be copied to another device and shared.",
+    "color": 32769,
+    "author": {
+        "url": "https://github.com/simoniz0r/troubleshooter",
+        "proxy_icon_url": "https://images-ext-1.discordapp.net/external/aJqICv1gqyJ3oZaVifXk4fROabA5ll3Vk9ssDrKzwiE/%3Fsize%3D20/https/cdn.discordapp.com/emojis/478073442311077889.gif",
+        "name": "Troubleshooter Script",
+        "icon_url": "https://cdn.discordapp.com/emojis/478073442311077889.gif?size=20"
+    }
+}

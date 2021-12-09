@@ -19,9 +19,9 @@
         "name": "Discord Linux",
         "contents": [
           "blargbot",
-          "images",
-          "pastes",
-          "supported"
+          "Images",
+          "Pastes",
+          "Supported"
         ]
       },
       {
@@ -56,9 +56,33 @@
           "Windows",
           "Xubuntu"
         ]
+      },
+      {
+        "name": "Linux",
+        "contents": [
+          "AppImages",
+          "boot-repair",
+          "Customization",
+          "Desktop Environment",
+          "ISOtoUSB",
+          "LTS",
+          "nomodeset",
+          "Package Manager",
+          "Panda WiFi",
+          "Rolling",
+          "Shell",
+          "Snaps",
+          "Troubleshooter",
+          "Universal Packages",
+          "Window Manager"
+        ]
       }
     ],
     "commands": [
+      {
+        "name": "AppImages",
+        "value": "/linux/appimages.json"
+      },
       {
         "name": "Arch",
         "value": "/distros/arch.json"
@@ -73,7 +97,11 @@
       },
       {
         "name": "blargbot",
-        "value": "/distros/blargbot.json"
+        "value": "/discord_linux/blargbot.json"
+      },
+      {
+        "name": "boot-repair",
+        "value": "/linux/boot-repair.json"
       },
       {
         "name": "BSD",
@@ -88,12 +116,20 @@
         "value": "Cinnamon (desktop environment)"
       },
       {
+        "name": "Customization",
+        "value": "/linux/customization.json"
+      },
+      {
         "name": "Debian",
         "value": "/distros/debian.json"
       },
       {
         "name": "Deepin",
         "value": "/distros/deepin.json"
+      },
+      {
+        "name": "Desktop Environment",
+        "value": "Desktop Environment"
       },
       {
         "name": "elementary",
@@ -129,7 +165,11 @@
       },
       {
         "name": "images",
-        "value": "/distros/images.json"
+        "value": "/discord_linux/images.json"
+      },
+      {
+        "name": "ISOtoUSB",
+        "value": "/linux/isotousb.json"
       },
       {
         "name": "Kali",
@@ -150,6 +190,10 @@
       {
         "name": "Linux Mint",
         "value": "/distros/mint.json"
+      },
+      {
+        "name": "LTS",
+        "value": "/linux/lts.json"
       },
       {
         "name": "Lubuntu",
@@ -180,12 +224,32 @@
         "value": "/distros/mint.json"
       },
       {
+        "name": "nomodeset",
+        "value": "/linux/nomodeset.json"
+      },
+      {
         "name": "openSUSE",
         "value": "/distros/opensuse.json"
       },
       {
         "name": "openSUSE Tumbleweed",
         "value": "/distros/tumbleweed.json"
+      },
+      {
+        "name": "Package Manager",
+        "value": "Package Manager"
+      },
+      {
+        "name": "Panda",
+        "value": "/linux/panda_wifi.json"
+      },
+      {
+        "name": "Panda-WiFi",
+        "value": "/linux/panda_wifi.json"
+      },
+      {
+        "name": "Panda WiFi",
+        "value": "/linux/panda_wifi.json"
       },
       {
         "name": "Parrot",
@@ -201,7 +265,7 @@
       },
       {
         "name": "pastes",
-        "value": "/distros/pastes.json"
+        "value": "/discord_linux/pastes.json"
       },
       {
         "name": "Plasma",
@@ -216,8 +280,20 @@
         "value": "RHEL"
       },
       {
+        "name": "Rolling",
+        "value": "/linux/rolling.json"
+      },
+      {
         "name": "Slackware",
         "value": "/distros/slackware.json"
+      },
+      {
+        "name": "Shell",
+        "value": "/linux/shell.json"
+      },
+      {
+        "name": "Snaps",
+        "value": "/linux/snaps.json"
       },
       {
         "name": "Solus",
@@ -226,6 +302,10 @@
       {
         "name": "Trinity",
         "value": "Trinity desktop environment"
+      },
+      {
+        "name": "Troubleshooter",
+        "value": "/linux/troubleshooter.json"
       },
       {
         "name": "Tumbleweed",
@@ -244,8 +324,16 @@
         "value": "/distros/ubuntu_mate.json"
       },
       {
+        "name": "Universal Packages",
+        "value": "/linux/universal_packages.json"
+      },
+      {
         "name": "Void",
         "value": "/distros/void.json"
+      },
+      {
+        "name": "Window Manager",
+        "value": "Window Manager"
       },
       {
         "name": "Windows",

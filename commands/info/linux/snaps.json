@@ -1,0 +1,32 @@
+{
+    "fields": [
+        {
+            "value": "• Can be used on almost any distribution.\r\n• Require no external dependencies to be installed other than `snapd` and the `core` snap provided by `snapd`.\r\n• Self contained; will not interfere with already installed packages.\r\n• Usually more up to date than packages in non rolling release distribution's repositories.\r\n• Large variety of packages available.",
+            "name": "<:SeemsGood:478441196755091461> Advantages of Snaps",
+            "inline": false
+        },
+        {
+            "value": "• Listed in Ubuntu's GUI software center along with deb packages.\r\n• No testing is required.\r\n• Anyone can create and submit.\r\n• Any submission is listed for install through `snapd`.\r\n• Automatically update, updates cannot be turned off, and there is no notification of updates.\r\n• Creates 3 loop mounts for every installed snap.\r\n• Sandboxing setup can make many things more difficult to do.\r\n• Sandboxing gives users a false sense of security.",
+            "name": "<:glare:504911469943717909> Disadvantages of Snaps",
+            "inline": false
+        },
+        {
+            "value": "If you can avoid snaps, we highly suggest you do.  The disadvantages above outweight the advantages for most users.  Most times you can find a native package for your distribution that is as up to date as the snap package.  If you have no other choice, snaps are not the worst thing in the world to use, but make sure that you are aware of the disadvantages.  If you have problems with an application that you have installed as a snap package, there is a good chance those problems are because of the snap package and not related to the application itself.\r\n\r\nIf there is no native package available for your distribution, we suggest checking to see if there is an AppImage available before using a snap package (see `sudo info AppImages` for more info).",
+            "name": "<:think:585665071938666508> Should You Use Snap Packages?",
+            "inline": false
+        },
+        {
+            "value": "If you would like to use the GUI software center applications that are available on Ubuntu and Ubuntu flavors without risking installing snap packages, run the following commands in a terminal:\r\n```\r\nsudo apt remove --autoremove --purge snapd\r\nsudo apt-mark hold snapd\r\n```",
+            "name": "<:ubuntu:230469242183483392> Using GUI Software Centers on Ubuntu/Ubuntu Flavors Without Snaps",
+            "inline": false
+        }
+    ],
+    "description": "Snaps are a universal package format for Linux created by Canonical.  They can be used on almost any distribution, but require `snapd` to be installed to use them.",
+    "color": 15291424,
+    "author": {
+        "url": "https://snapcraft.io/",
+        "proxy_icon_url": "https://images-ext-2.discordapp.net/external/3UClTUGxPW6VVsIhcTdWNkLeov7-ilpcOTalFRRyGDg/%3Fs%3D400%26v%3D4/https/avatars0.githubusercontent.com/u/19532717",
+        "name": "Snap Packages",
+        "icon_url": "https://avatars0.githubusercontent.com/u/19532717?s=400&v=4"
+    }
+}

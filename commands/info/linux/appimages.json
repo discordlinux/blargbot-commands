@@ -1,0 +1,11 @@
+{
+    "title": "AppImages",
+    "thumbnail": {
+        "width": 0,
+        "url": "https://u.teknik.io/rEZBa.gif",
+        "proxy_url": "https://images-ext-1.discordapp.net/external/aa0H5D4-CX97RLw4LQmpoS0WWlCCII103JhV4oX92dM/https/u.teknik.io/rEZBa.gif",
+        "height": 0
+    },
+    "description": "**-** Portable, self-contained, universal package type for Linux.\r\n**-** To use an AppImage, just download it, make it executable (either through your file manager or using `chmod +x`), and run it.  \r\n  **\\*** No install required.  \r\n  **\\*** No package manager required.\r\n**-** Include all dependencies needed to run the target program that would not be found on the average Linux system.\r\n**-** Not sandboxed, but are completely self-contained.\r\n**-** Some AppImages can update themselves (but won't do so without telling the user).\r\n**-** [appimagehub](https://appimage.github.io/apps/) is the official listing of available AppImages.",
+    "color": 16776960
+}

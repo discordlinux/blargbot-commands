@@ -1,0 +1,17 @@
+{
+    "title": "Help for customization",
+    "fields": [
+        {
+            "value": "[Xfce](https://github.com/NicoHood/NicoHood.github.io/wiki/Xfce4-Desktop-Environment-Customization)\r\n[Openbox](https://ramsdenj.com/2016/03/28/building-a-custom-linux-environment-with-openbox.html)\r\n[MATE](https://www.addictivetips.com/ubuntu-linux-tips/customize-the-mate-desktop/)\r\n[LXDE](https://medium.com/@LakshyAAAgrawal/tweak-your-lubuntu-appearance-like-a-pro-7fdff72cb2ff)\r\n[LXQt](https://github.com/simoniz0r/guides/wiki/LXQt-Customizaton)",
+            "name": "​",
+            "inline": true
+        },
+        {
+            "value": "[KDE](https://userbase.kde.org/System_Settings#Workspace_Theme)\r\n[GNOME](https://itsfoss.com/gnome-tricks-ubuntu/)\r\n[Enlightenment](https://wiki.archlinux.org/index.php/enlightenment)\r\n[Cinnamon](https://www.lifewire.com/customize-cinnamon-desktop-environment-linux-mint-2202086)\r\n[Budgie](https://www.addictivetips.com/ubuntu-linux-tips/customize-the-budgie-desktop/)",
+            "name": "​",
+            "inline": true
+        }
+    ],
+    "description": "[Click here for the Pling Store application which can be used to download and apply themes on any setup](https://www.opendesktop.org/p/1175480/)",
+    "color": 7506394
+}
