@@ -22,16 +22,29 @@
           "Arch Variants",
           "BSD",
           "Debian",
+          "Deepin",
+          "elementary OS",
+          "Fedora",
+          "Gentoo",
+          "Kali",
           "KDE neon",
           "Kubuntu",
+          "Lubuntu",
           "Mageia",
           "Manjaro",
+          "Mint",
           "openSUSE",
+          "Parrot OS",
           "Recommended",
           "RHEL",
+          "Slackware",
+          "Solus",
+          "Tumbleweed",
           "Ubuntu",
           "Ubuntu Budgie",
           "Ubuntu MATE",
+          "Void",
+          "Windows",
           "Xubuntu"
         ]
       }
@@ -43,6 +56,10 @@
       },
       {
         "name": "Arch Variants",
+        "value": "/distros/arch_variants.json"
+      },
+      {
+        "name": "Artix",
         "value": "/distros/arch_variants.json"
       },
       {
@@ -62,8 +79,48 @@
         "value": "/distros/debian.json"
       },
       {
+        "name": "Deepin",
+        "value": "/distros/deepin.json"
+      },
+      {
+        "name": "elementary",
+        "value": "/distros/elementaryos.json"
+      },
+      {
+        "name": "elementaryOS",
+        "value": "/distros/elementaryos.json"
+      },
+      {
+        "name": "elementary OS",
+        "value": "/distros/elementaryos.json"
+      },
+      {
+        "name": "Endeavour",
+        "value": "/distros/arch_variants.json"
+      },
+      {
+        "name": "EndeavourOS",
+        "value": "/distros/arch_variants.json"
+      },
+      {
+        "name": "Fedora",
+        "value": "/distros/fedora.json"
+      },
+      {
+        "name": "Gentoo",
+        "value": "/distros/gentoo.json"
+      },
+      {
         "name": "GNOME",
         "value": "GNOME"
+      },
+      {
+        "name": "Kali",
+        "value": "/distros/kali.json"
+      },
+      {
+        "name": "Kali Linux",
+        "value": "/distros/kali.json"
       },
       {
         "name": "KDE neon",
@@ -72,6 +129,14 @@
       {
         "name": "Kubuntu",
         "value": "/distros/kubuntu.json"
+      },
+      {
+        "name": "Linux Mint",
+        "value": "/distros/mint.json"
+      },
+      {
+        "name": "Lubuntu",
+        "value": "/distros/lubuntu.json"
       },
       {
         "name": "LXDE",
@@ -94,8 +159,28 @@
         "value": "MATE desktop"
       },
       {
+        "name": "Mint",
+        "value": "/distros/mint.json"
+      },
+      {
         "name": "openSUSE",
         "value": "/distros/opensuse.json"
+      },
+      {
+        "name": "openSUSE Tumbleweed",
+        "value": "/distros/tumbleweed.json"
+      },
+      {
+        "name": "Parrot",
+        "value": "Parrot OS"
+      },
+      {
+        "name": "Parrot OS",
+        "value": "Parrot OS"
+      },
+      {
+        "name": "ParrotOS",
+        "value": "Parrot OS"
       },
       {
         "name": "Plasma",
@@ -110,8 +195,20 @@
         "value": "RHEL"
       },
       {
+        "name": "Slackware",
+        "value": "/distros/slackware.json"
+      },
+      {
+        "name": "Solus",
+        "value": "/distros/solus.json"
+      },
+      {
         "name": "Trinity",
         "value": "Trinity desktop environment"
+      },
+      {
+        "name": "Tumbleweed",
+        "value": "/distros/tumbleweed.json"
       },
       {
         "name": "Ubuntu",
@@ -124,6 +221,14 @@
       {
         "name": "Ubuntu MATE",
         "value": "/distros/ubuntu_mate.json"
+      },
+      {
+        "name": "Void",
+        "value": "/distros/void.json"
+      },
+      {
+        "name": "Windows",
+        "value": "/distros/windows.json"
       },
       {
         "name": "Xubuntu",

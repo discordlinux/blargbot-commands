@@ -1,0 +1,9 @@
+{
+    "description": "• Not a recommended Linux distro due to being a “rolling release“ (not actually rolling; only updates on Friday) that presents itself as being usable by everyone. Rolling distros should only be used by people who have a good understanding of Linux. \r\n• No dkms. Cannot automatically rebuild modules for drivers not in the repos.\r\n• Almost no conflicting packages. For example, wine-staging cannot be in the repos.\r\n• Ignores commonly used standards. For example, revision numbers stay with the release of the distro and not the version of the package.\r\n• No recommended deps. Any package that is kind of needed is required.\r\n• Instead of offering open beta testing, Patreon has been used in the past for beta releases.\r\n\r\n**If you are not experienced with Linux, we highly recommend installing an Long Term Support release distro first. See `sudo info recommended` for a list of recommended beginner distros.\r\n\r\nIf you think you are ready for a rolling release distro, see `sudo info rolling`.**",
+    "color": 4025250,
+    "author": {
+        "proxy_icon_url": "https://images-ext-2.discordapp.net/external/kYhq0CVF-lqpR_Q0tvr0J3z1EONRXIlJM95oDb4xls8/https/raw.githubusercontent.com/simoniz0r/discord-rss-bot/master/solus.png",
+        "name": "Solus",
+        "icon_url": "https://raw.githubusercontent.com/simoniz0r/discord-rss-bot/master/solus.png"
+    }
+}

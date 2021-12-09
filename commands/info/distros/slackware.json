@@ -1,0 +1,10 @@
+{
+    "description": "**• No package manager\r\n• Maintained by literally one guy (what's gonna happen when he retires)\r\n• Why would you use this**",
+    "color": 7110846,
+    "author": {
+        "url": "http://www.slackware.com/",
+        "proxy_icon_url": "https://images-ext-1.discordapp.net/external/xW-tJjOr8a3AekbqP718NYdDWSY5Qz85h-jikXNugjU/https/upload.wikimedia.org/wikipedia/commons/thumb/3/34/Slackware_logo.svg/2000px-Slackware_logo.svg.png",
+        "name": "Slackware",
+        "icon_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Slackware_logo.svg/2000px-Slackware_logo.svg.png"
+    }
+}

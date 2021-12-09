@@ -1,0 +1,9 @@
+{
+    "description": "**• Tracking and embedded advertisements that are hard/impossible to disable and turn themselves back on after an update.\r\n• Preloaded with sponsored apps and games.\r\n• Costs money to download and use beyond the trial period.\r\n- Enterprise and LTSB editions cannot be used for more than one hour at a time after trial expires\r\n• Customization of user experience is extremely limited.\r\n• No real package manager out of the box.\r\n\r\nSee `sudo info recommended` for a list of recommended Linux distros.**",
+    "color": 175856,
+    "author": {
+        "proxy_icon_url": "https://images-ext-2.discordapp.net/external/EolH2V3eWbVOOb9rZ1tWebeDsqEAflJ-6UPY8LydrZw/%3Fv%3D1499972776/http/cdn.shopify.com/s/files/1/1694/1769/products/windows_10_logo_grande.png",
+        "name": "Windows",
+        "icon_url": "http://cdn.shopify.com/s/files/1/1694/1769/products/windows_10_logo_grande.png?v=1499972776"
+    }
+}
