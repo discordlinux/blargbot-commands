@@ -152,6 +152,30 @@ Searches the [Discord Linux Supported Distros sheet](https://docs.google.com/spr
 {edit;{channelid};{get;~searchmsg};_delete;{apply;embedbuild;{get;~embed}}}
 }
 
+{//;output message if not ran in #bot-spam asking if user wants to run command in current channel}
+{if;{guildid};==;96230004047740928;
+{if;{userhasrole;457281742844330004;{userid};quiet};!=;true;
+{if;{lower;{args;0}};!=;recommended;
+{switch;{channelid};
+["174317464337776640"];
+{//;do nothing};
+{set;!~ifchkmsg;{send;{channelid};{null};{embedbuild;
+color:yellow;
+description:Are you sure you want to use the `info` command in this channel?  If you are using it to get information for yourself, you should run it in <#174317464337776640>.
+Enter `y` to run the info command in this channel or `n` to cancel.;}}}
+{set;!~ifwaitmsg;{waitmessage;{channelid};{userid};true;60}}
+{set;!~ifwaitmsgtxt;{messagetext;{channelid};{get;~ifwaitmsg;1}}}
+{void;{delete;{channelid};{get;~ifwaitmsg;1}}
+{delete;{channelid};{get;~ifchkmsg}}}
+{if;{lower;{get;~ifwaitmsgtxt}};!=;y;
+{delete}
+{return}
+}
+}
+}
+}
+}
+
 {//;check input}
 {fallback;}
 {switch;{lower;{args;0}};
