@@ -104,12 +104,10 @@ description:Getting info for `{params}`...;}}}}
 
 {//;edit search message with results}
 {edit;{channelid};{get;~searchmsg};_delete;{embedbuild;
-author.name:{if;{commandname};==;info;{get;~title};Wikipedia.org};
-author.icon_url:{if;{commandname};==;info;{get;~img};https://www.wikipedia.org/portal/wikipedia.org/assets/img/Wikipedia-logo-v2.png};
-author.url:{if;{commandname};==;info;{get;~url};https://wikipedia.org};
-title:{if;{commandname};==;info;{null};{get;~title}};
+author.name:{get;~title};
+author.icon_url:{get;~img};
+author.url:{get;~url};
 color:{get;~wcolor};
-url:{get;~url};
 thumbnail.url:{get;~img};
 description:{get;~desc}{if;{length;{get;~desc}};>=;1900;{space}[...]}
 *{get;~url}*;}}
