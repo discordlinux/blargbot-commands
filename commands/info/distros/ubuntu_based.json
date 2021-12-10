@@ -1,0 +1,9 @@
+{
+    "description": "• Using any distribution that is based on Ubuntu or Debian and not officially supported by Ubuntu or Debian is not recommended (KDE neon is an exception to this; more info below).\r\n• Frequently change the repos of Ubuntu or Debian which makes troubleshooting them much harder.\r\n- For example, may include different packages or versions of packages than the distro they are based on which makes it much harder for anyone using the distro they were based on to help troubleshoot problems.\r\n• Very frequently package things in extremely unsafe ways which would not pass Ubuntu or Debian's standards.\r\n• Very rarely do the maintainers of these distributions have actual experience packaging the things they are working with.\r\n• Many simply preinstall a ton of software from Ubuntu or Debian's repositories, creating a very bloated base install.\r\n• The only exception to this that we are aware of is KDE neon.\r\n- KDE neon is an Ubuntu based distro that does not alter Ubuntu's repos in any way.\r\n- KDE neon simply adds __one__ repo which contains KDE software.\r\n- KDE neon is maintained by the KDE devs themselves.  The KDE devs have a ton of experience packaging their software, so KDE neon can be trusted to have quality package builds.\r\n\r\n**Instead of using Ubuntu or Debian based distributions that are not officially supported, we highly recommend using an official Ubuntu flavor or KDE neon.  See `sudo info recommended`, `sudo info ubuntu`, and `sudo info kde neon` for more information.**",
+    "color": 16711680,
+    "author": {
+        "proxy_icon_url": "https://images-ext-1.discordapp.net/external/0m3nCWWDeabyBpINpuOCcySHhd4QBf9E9zFJueCXTxo/https/ibin.co/4SA0jaE9vW5Y.png",
+        "name": "Ubuntu and Debian based distros",
+        "icon_url": "https://ibin.co/4SA0jaE9vW5Y.png"
+    }
+}

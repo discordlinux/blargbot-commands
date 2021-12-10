@@ -53,6 +53,7 @@
           "Solus",
           "Tumbleweed",
           "Ubuntu",
+          "Ubuntu Based",
           "Ubuntu Budgie",
           "Ubuntu MATE",
           "Void",
@@ -300,6 +301,30 @@
         "value": "KDE Plasma 5"
       },
       {
+        "name": "Pop",
+        "value": "/distros/ubuntu_based.json"
+      },
+      {
+        "name": "Pop!_OS",
+        "value": "/distros/ubuntu_based.json"
+      },
+      {
+        "name": "Pop_OS",
+        "value": "/distros/ubuntu_based.json"
+      },
+      {
+        "name": "Pop_OS!",
+        "value": "/distros/ubuntu_based.json"
+      },
+      {
+        "name": "PopOS",
+        "value": "/distros/ubuntu_based.json"
+      },
+      {
+        "name": "Pop OS",
+        "value": "/distros/ubuntu_based.json"
+      },
+      {
         "name": "Recommended",
         "value": "/distros/recommended.json"
       },
@@ -348,6 +373,10 @@
         "value": "/distros/ubuntu.json"
       },
       {
+        "name": "Ubuntu Based",
+        "value": "/distros/ubuntu_based.json"
+      },
+      {
         "name": "Ubuntu Budgie",
         "value": "/distros/ubuntu_budgie.json"
       },
@@ -386,6 +415,10 @@
       {
         "name": "Xubuntu",
         "value": "/distros/xubuntu.json"
+      },
+      {
+        "name": "Zorin",
+        "value": "/distros/ubuntu_based.json"
       }
     ]
   }
