@@ -419,6 +419,14 @@
       {
         "name": "Zorin",
         "value": "/distros/ubuntu_based.json"
+      },
+      {
+        "name": "Zorin OS",
+        "value": "/distros/ubuntu_based.json"
+      },
+      {
+        "name": "ZorinOS",
+        "value": "/distros/ubuntu_based.json"
       }
     ]
   }
