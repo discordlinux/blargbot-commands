@@ -106,7 +106,7 @@ description:Getting info for `{params}`...;}}}}
 {//;edit search message with results}
 {edit;{channelid};{get;~searchmsg};_delete;{embedbuild;
 author.name:{get;~title};
-author.icon_url:{get;~img};
+author.icon_url:https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/Info_icon-72a7cf.svg/1200px-Info_icon-72a7cf.svg.png;
 author.url:{get;~url};
 color:{get;~wcolor};
 thumbnail.url:{get;~img};
