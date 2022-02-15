@@ -1,5 +1,5 @@
 {
   "color": 153255,
-  "description": "**• Arch variants are not supported on this server.**\r\n**• Most distros based on Arch add unofficial repositories, ship customized software that breaks, or make bad design decisions in general.**\r\n**• If you want the benefits of Arch, install the [official version](https://www.archlinux.org/download/) using the [official installation guide](https://wiki.archlinux.org/index.php/Installation_guide).**",
+  "description": "**• Arch variants are not supported on this server.**\r\n**• Most distros based on Arch add unofficial repositories, ship customized software that breaks, or make bad design decisions in general.**\r\n**• This includes any install scripts.**\r\n**• If you want the benefits of Arch, install the [official version](https://www.archlinux.org/download/) using the [official installation guide](https://wiki.archlinux.org/index.php/Installation_guide).**",
   "title": "I'm using an Arch-based distro and I need help!"
 }
