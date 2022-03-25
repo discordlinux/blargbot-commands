@@ -1,0 +1,12 @@
+{
+    "commands": [
+        {
+            "name": "info",
+            "file_path": "info/info.bbtag"
+        },
+        {
+            "name": "usermod",
+            "file_path": "usermod.bbtag"
+        }
+    ]
+}
