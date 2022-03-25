@@ -1,0 +1,400 @@
+{//;function remove duplicates from an array}
+{function;uniq;
+{set;!~filter.ar;[]}{void;{filter;~ue;{if;{isarray;{params}};{params};{paramsarray}};{if;{indexof;{get;~filter.ar};{get;~ue}};==;-1;{push;~filter.ar;{get;~ue}}true;false}}}{jvalues;~filter.ar}}
+
+{//;function for discord linux colors}
+{function;dlcolors;
+{jget;{j;{
+    "black": "23272a",
+    "red": "ed4245",
+    "green": "57f287",
+    "yellow": "FEE75C",
+    "orange": "d2691e",
+    "blue": "5865f2",
+    "blurple": "5865f2",
+    "fuchsia": "eb459e",
+    "pink": "eb459e",
+    "cyan": "57f2d1",
+    "gray": "5c6166",
+    "brightblack": "3d4145",
+    "brightred": "dd6f71",
+    "brightgreen": "8dfcb0",
+    "brightyellow": "EBDC87",
+    "brightorange": "e68b49",
+    "brightblue": "8b93e8",
+    "brightblurple": "8b93e8",
+    "brightfuchsia": "dd78ae",
+    "brightpink": "dd78ae",
+    "brightcyan": "9ce2d3",
+    "brightgray": "92969b"
+}};{params;0}}
+}
+
+{//;function to get user's color based on role color}
+{function;usrclr;{set;!~usrclrrole;{jget;{filter;~usrclrf;{roles;{userid;{params;0};quiet};quiet};{bool;{rolecolor;{get;~usrclrf}};!=;000000}};0}}{if;{get;~usrclrrole};!=;;{rolecolor;{get;~usrclrrole};quiet};5865F2}}
+
+{//;function to detect if correct prefix was used}
+{function;prefixtest;
+{switch;{guildid};
+["96230004047740928","204061452707954688"];
+{set;!~used.prefix;{jget;{regexmatch;{replace;{messagetext};./{space};};/^(\.\/|sudo\s|su\s|<)/i};0}}
+{if;{get;~used.prefix};==;{null};
+{return}}}
+}
+
+{//;function to check if user is in guild}
+{function;usercheck;{suppresslookup}{if;{params;0};==;;false;{switch;{userid;{params;0};quiet};{guildmembers};true;false}}}
+
+{//;function to output results of command running}
+{function;results;
+{output;{if;{get;~r.mention};==;true;{usermention;{get;~user}}}{embed;{embedbuild;
+title:{get;~r.title};
+color:{get;~r.color};
+description:{get;~r.desc};
+footer.icon_url:{useravatar;{get;~user}};
+footer.text:{username;{get;~user}}#{userdiscrim;{get;~user}} ({get;~user});
+timestamp:{time};}}}
+}
+
+{//;function to add non-colored roles}
+{function;ar;
+{//;get a list of valid roles by slicing beginning at role '176607163580547073' and ending at role '503343500989825045'}
+{set;!~valid.roles;{slice;{roles};{math;+;{indexof;{roles};176607163580547073};1};{indexof;{roles};503343500989825045}}}
+{//;add mail, news, and users roles to array}
+{push;~valid.roles;496063229156392970;503051931736866816}
+{if;{logic;||;
+{bool;{indexof;{get;_users.role.array};{get;~user}};==;-1};
+{bool;{get;_users.role.time.{get;~user}};==;{null}}};
+{push;~valid.roles;428637054922915850}
+}
+{//;remove roles user already has from array}
+{set;!~user.roles;{userroles;{get;~user};quiet}}
+{//;make sure users can't have colored role and normal role of same name}
+{foreach;~ur;{get;~user.roles};
+{set;!~ur.check;{filter;~urf;{roles};{bool;{lower;{rolename;{get;~urf}}};==;{lower;{rolename;{get;~ur}}}}}}
+{if;{length;{get;~ur.check}};>;1;
+{push;~user.roles;{jget;~ur.check;1}}
+}
+}
+{//;get rid of duplicate entries}
+{set;!~user.roles;{func.uniq;{jvalues;~user.roles}}}
+{//;create array of user role names}
+{set;!~user.roles.names;{map;~urn;{get;~user.roles};{lower;{rolename;{get;~urn}}}}}
+{set;!~valid.roles;{filter;~r;{get;~valid.roles};{bool;{indexof;{get;~user.roles};{get;~r}};==;-1}}}
+{//;get list of valid roles to add based on input and list of valid roles created above}
+{set;!~add.roles;[]}
+{foreach;~vr;{get;~valid.roles};
+{if;{indexof;{params};{lower;{rolename;{get;~vr}}}};!=;-1;
+{push;~add.roles;{get;~vr}}
+}
+}
+{//;check if any valid roles added to ~add.roles array}
+{if;{length;{get;~add.roles}};==;0;
+{//;no valid roles found}
+{set;!~r.title;No valid roles found}
+{set;!~r.color;{func.dlcolors;red}}
+{//;check if user already had role(s) inputted}
+{if;{length;{concat;{get;~user.roles.names};{params}}};==;{length;{func.uniq;{concat;{get;~user.roles.names};{params}}}};
+{set;!~desc.txt;Input did not contain any valid roles.};
+{set;!~desc.txt;<@!{get;~user}> already has {if;{length;{params}};==;1;this role;these roles}.}
+}
+{set;!~r.desc;{get;~desc.txt}{newline}Available Roles:{newline}{repeat;`;3}{newline}{join;{map;~dr;{get;~valid.roles};{rolename;{get;~dr}}};,{space}}{newline}{repeat;`;3}}
+{func.results}
+{return;false}
+}
+{//;add roles in ~add.role array to ~user}
+{reason;Role added through 'usermod' command.}
+{set;!~roles.result;{roleadd;{get;~add.roles};{get;~user};quiet}}
+{if;{get;~roles.result};!=;true;
+{set;!~r.title;Failed to add role{if;{length;{get;~add.roles}};>;1;s}}
+{set;!~r.color;{func.dlcolors;red}}
+{set;!~r.desc;An unknown error occurred.  Please report this to <@!86201442112671744>.};
+{set;!~r.title;Role{if;{length;{get;~add.roles}};>;1;s} added}
+{set;!~r.color;{func.usrclr;{get;~user}}}
+{set;!~r.desc;The following role{if;{length;{get;~add.roles}};>;1;s have;{space}has} been added to <@!{get;~user}>:{newline}{join;{map;~dr;{get;~add.roles};<@&{get;~dr}>};,{space}}}
+}
+{func.results}
+}
+
+{//;function to remove roles}
+{function;rr;
+{//;get list of roles that cannot be removed using this command}
+{set;!~invalid.roles;{concat;{slice;{roles};0;{indexof;{roles};475451558218432512}};{filter;~r;{slice;{roles};{math;+;1;{indexof;{roles};503343500989825045}};-1};{switch;{get;~r};["496063229156392970","503051931736866816"];false;true}}}}
+{//;get list of valid roles that can be removed by filtering the above roles from user's roles}
+{set;!~valid.roles;{filter;~ur;{userroles;{get;~user};quiet};{switch;{get;~ur};{get;~invalid.roles};false;true}}}
+{//;get list of valid roles to remove based on input and list of valid roles created above}
+{set;!~rm.roles;[]}
+{foreach;~vr;{get;~valid.roles};
+{if;{indexof;{params};{lower;{rolename;{get;~vr}}}};!=;-1;
+{push;~rm.roles;{get;~vr}}
+}
+}
+{//;check if any valid roles added to ~rm.roles array}
+{if;{length;{get;~rm.roles}};==;0;
+{//;no valid roles found}
+{set;!~r.title;No valid roles found}
+{set;!~r.color;{func.dlcolors;red}}
+{set;!~r.desc;<@!{get;~user}> does not have {if;{length;{params}};==;1;the specified role or it cannot be removed;any of the specified roles or they cannot be removed}.{newline}Removeable Roles:{newline}{repeat;`;3}{join;{map;~dr;{get;~valid.roles};{rolename;{get;~dr}}};,{space}}{newline}{repeat;`;3}}
+{func.results}
+{return;false}
+}
+{//;remove roles in ~rm.role array from ~user}
+{reason;Role removed through 'usermod' command.}
+{set;!~roles.result;{roleremove;{get;~rm.roles};{get;~user};quiet}}
+{if;{get;~roles.result};!=;true;
+{set;!~r.title;Failed to remove role{if;{length;{get;~rm.roles}};>;1;s}}
+{set;!~r.color;{func.dlcolors;red}}
+{set;!~r.desc;An unknown error occurred.  Please report this to <@!86201442112671744>.};
+{set;!~r.title;Role{if;{length;{get;~rm.roles}};>;1;s} removed}
+{set;!~r.color;{func.usrclr;{get;~user}}}
+{set;!~r.desc;The following role{if;{length;{get;~rm.roles}};>;1;s have;{space}has} been removed from <@!{get;~user}>:{newline}{join;{map;~dr;{get;~rm.roles};<@&{get;~dr}>};,{space}}}
+}
+{func.results}
+}
+
+{//;function to set colored role}
+{function;scr;
+{//;check if ~user has 'users' role}
+{if;{userhasrole;428637054922915850;{get;~user};quiet};!=;true;
+{set;!~r.title;Cannot set colored role}
+{set;!~r.color;{func.dlcolors;red}}
+{set;!~r.desc;The <@&428637054922915850> role is required to set a colored role.{newline}{if;{get;_users.role.time.{get;~user}};!=;{null};<@!{get;~user}> will receive the <@&428637054922915850> role <t:{math;+;172800;{get;_users.role.time.{get;~user}}}:R> if they have not gotten any warnings in that time;Please run `usermod -a users` to start a timer for the <@&428637054922915850> role}.}
+{func.results}
+{return;false}
+}
+{//;get a list of valid roles by slicing beginning at role '475451558218432512' and ending at role '176607163580547073'}
+{set;!~valid.roles;{slice;{roles};{math;+;{indexof;{roles};475451558218432512};1};{indexof;{roles};176607163580547073}}}
+{//;remove roles user already has from array}
+{set;!~user.roles;{userroles;{get;~user};quiet}}
+{set;!~user.roles.names;{map;~urn;{get;~user.roles};{lower;{rolename;{get;~urn}}}}}
+{set;!~valid.roles;{filter;~r;{get;~valid.roles};{bool;{indexof;{get;~user.roles};{get;~r}};==;-1}}}
+{//;get list of valid roles to add based on input and list of valid roles created above}
+{set;!~add.roles;[]}
+{foreach;~vr;{get;~valid.roles};
+{if;{params};==;{lower;{rolename;{get;~vr}}};
+{push;~add.roles;{get;~vr}}
+}
+}
+{//;check if any valid roles added to ~add.roles array}
+{if;{length;{get;~add.roles}};==;0;
+{//;no valid roles found}
+{set;!~r.title;No valid roles found}
+{set;!~r.color;{func.dlcolors;red}}
+{//;check if user already had role(s) inputted}
+{if;{length;{concat;{get;~user.roles.names};{params}}};==;{length;{func.uniq;{concat;{get;~user.roles.names};{params}}}};
+{set;!~desc.txt;Input did not contain any valid roles.};
+{set;!~desc.txt;<@!{get;~user}> already has this role.}
+}
+{set;!~r.desc;{get;~desc.txt}{newline}Available Roles:{newline}{join;{map;~dr;{get;~valid.roles};<@&{get;~dr}>};,{space}}}
+{func.results}
+{return;false}
+}
+{//;add non-colored role of the same name to ~rm.roles array}
+{set;!~rm.roles;[]}
+{set;!~nc.check;{filter;~urm;{roles};{bool;{lower;{rolename;{get;~urm}}};==;{lower;{rolename;{jget;~add.roles;0}}}}}}
+{if;{userhasrole;{jget;~nc.check;1};{get;~user};quiet};
+{push;~rm.roles;{jget;~nc.check;1}}
+}
+{//;check if user already has colored role, if so, add non-colored role to ~add.roles array and add colored role to ~rm.roles array}
+{foreach;~ur;{get;~user.roles};
+{switch;{get;~ur};
+{slice;{roles};{math;+;{indexof;{roles};475451558218432512};1};{indexof;{roles};176607163580547073}};
+{//;user has colored role}
+{push;~rm.roles;{get;~ur}}
+{push;~add.roles;{jget;{filter;~ura;{roles};{bool;{lower;{rolename;{get;~ura}}};==;{lower;{rolename;{get;~ur}}}}};1}}
+}
+}
+{//;remove roles in ~rm.roles array from ~user}
+{reason;Colored role set through 'usermod' command.}
+{if;{length;{get;~rm.roles}};>;0;
+{set;!~rm.roles.result;{roleremove;{get;~rm.roles};{get;~user};quiet}};
+{set;!~rm.roles.result;true}
+}
+{//;add roles in ~add.roles array to ~user}
+{set;!~add.roles.result;{roleadd;{get;~add.roles};{get;~user};quiet}}
+{if;{logic;||;
+{bool;{get;~rm.roles.result};!=;true};
+{bool;{get;~add.roles.result};!=;true}};
+{set;!~r.title;Failed to set colored role}
+{set;!~r.color;{func.dlcolors;red}}
+{set;!~r.desc;An unknown error occurred.  Please report this to <@!86201442112671744>.};
+{set;!~r.title;Colored role set}
+{set;!~r.color;{rolecolor;{jget;~add.roles;0}}}
+{set;!~r.desc;Set colored role to <@&{jget;~add.roles;0}> for <@!{get;~user}>.}
+}
+{func.results}
+}
+
+{//;function to start timer for users role}
+{function;urt;
+{switch;{params;0};
+["add"];
+{//;check if user already in array and has timer started}
+{if;{logic;&&;
+{bool;{get;_users.role.array};includes;{get;~user}};
+{bool;{get;_users.role.time.{get;~user}};!=;{null}}};
+{//;already has timer set}
+{set;!~r.title;Timer already started for 'users' role}
+{set;!~r.color;{func.dlcolors;red}}
+{set;!~r.desc;<@!{get;~user}> will receive the <@&428637054922915850> role <t:{math;+;172800;{get;_users.role.time.{get;~user}}}:R> if they have not gotten any warnings in that time.}
+{func.results}
+{return;false}
+}
+{set;!_users.role.time.{get;~user};{time;X}}
+{set;!~r.title;Timer for 'users' role started}
+{set;!~r.color;{rolecolor;428637054922915850}}
+{set;!~r.desc;<@!{get;~user}> will receive the <@&428637054922915850> role <t:{math;+;172800;{get;_users.role.time.{get;~user}}}:R> if they have not gotten any warnings in that time.};
+["remove"];
+{//;check if user has 'users' role}
+{if;{userhasrole;428637054922915850;{get;~user};quiet};!=;true;
+{//;does not have 'users' role}
+{set;!~r.title;Cannot remove role}
+{set;!~r.color;{func.dlcolors;red}}
+{set;!~r.desc;<@!{get;~user}> does not have the <@&428637054922915850> role.}
+{func.results}
+{return;false}
+}
+{//;remove 'users' role}
+{reason;Role removed through 'usermod' command.}
+{set;!~roles.result;{roleremove;428637054922915850;{get;~user};quiet}}
+{if;{get;~roles.result};!=;true;
+{set;!~r.title;Failed to remove role{if;{length;{get;~rm.roles}};>;1;s}}
+{set;!~r.color;{func.dlcolors;red}}
+{set;!~r.desc;An unknown error occurred.  Please report this to <@!86201442112671744>.}
+{func.results}
+{return;false}
+}
+{set;!_users.role.time.{get;~user};{time;X}}
+{set;!~r.mention;true}
+{set;!~r.title;Role removed}
+{set;!~r.color;{func.dlcolors;red}}
+{set;!~r.desc;<@&428637054922915850> role removed from <@!{get;~user}>!{newline}<@!{get;~user}> will receive the <@&428637054922915850> role <t:{math;+;172800;{get;_users.role.time.{get;~user}}}:R> if they have not gotten any warnings in that time.}
+}
+
+
+
+{//;set variables that are checked in _interval}
+{set;!_{get;~user}failedusers;false}
+{set;!_{get;~user}.join.warns;{warnings;{get;~user}}}
+{if;{get;_users.role.array};==;{null};
+{set;!_users.role.array;[]}}
+{//;Only push to _users.role.array if not already in}
+{if;{indexof;{get;_users.role.array};{get;~user}};==;-1;
+{push;_users.role.array;{get;~user}}
+}
+{func.results}
+}
+
+{//;function to output help}
+{function;help;
+{//;get list of roles for help output}
+{if;{userhasrole;428637054922915850;{userid};quiet};
+{//;get a list of valid roles by slicing beginning at role '475451558218432512' and ending at role '176607163580547073'}
+{set;!~valid.roles;{slice;{roles};{math;+;{indexof;{roles};475451558218432512};1};{indexof;{roles};176607163580547073}}}
+{//;add mail and news roles to array}
+{push;~valid.roles;496063229156392970;503051931736866816}
+{//;remove roles user already has from array}
+{set;!~user.roles;{userroles;{get;~user};quiet}}
+{set;!~valid.roles;{filter;~r;{get;~valid.roles};{bool;{indexof;{get;~user.roles};{get;~r}};==;-1}}}
+{set;!~desc.roles;{join;{map;~rr;{get;~valid.roles};<@&{get;~rr}>};,{space}}};
+{//;get a list of valid roles by slicing beginning at role '176607163580547073' and ending at role '503343500989825045'}
+{set;!~valid.roles;{slice;{roles};{math;+;{indexof;{roles};176607163580547073};1};{indexof;{roles};503343500989825045}}}
+{//;add mail and news roles to array}
+{push;~valid.roles;496063229156392970;503051931736866816}
+{//;remove roles user already has from array}
+{set;!~user.roles;{userroles;{get;~user};quiet}}
+{set;!~valid.roles;{filter;~r;{get;~valid.roles};{bool;{indexof;{get;~user.roles};{get;~r}};==;-1}}}
+{set;!~desc.roles;{repeat;`;3}{newline}{join;{map;~rr;{get;~valid.roles};{rolename;{get;~rr}}};,{space}}{newline}{repeat;`;3}}
+}
+{//;output help}
+{embed;{embedbuild;
+title:Help for usermod;
+color:yellow;
+description:__**Usage**__: `usermod <flag> <role|role1,role2>`
+Add or remove roles from the user.
+
+**Available flags**
+{repeat;`;3}
+-a
+Add role(s) to the user.
+Multiple roles must be separated by commas.
+Ex: 'usermod -a Ubuntu'
+Ex: 'usermod -a Ubuntu,Arch,openSUSE,Other'
+
+-r
+Remove role(s) from the user.
+Multiple roles must be separated by commas.
+Ex: 'usermod -r Ubuntu'
+Ex: 'usermod -r Ubuntu,Arch,openSUSE,Other'{if;{userhasrole;428637054922915850;{userid}};{newline}{newline}-c{newline}Set the colored role for the user.{newline}Ex: 'usermod -c Ubuntu'}
+{repeat;`;3}
+**Available roles**
+{get;~desc.roles}
+}}
+}
+
+{//;make sure command only works if prefix is used with space}
+{func.prefixtest}
+{//;only run in allowed channels}
+{if;{commandname};==;usermod;
+{switch;{channelid};
+["461299165100638228","174317464337776640"];
+{//;do nothing};
+{return;false}
+}
+}
+
+{//;parse arguments}
+{//;add role(s)}
+{if;{flagset;a};
+{//;check if user has sudoers role and u flag is valid user}
+{if;{logic;&&;
+{userhasrole;457281742844330004;{userid};quiet};
+{func.usercheck;{flag;u}}};
+{set;!~user;{userid;{flag;u}}};
+{set;!~user;{userid}}
+}
+{//;check if input is 'users'}
+{if;{lower;{flag;a}};==;users;
+{func.urt;add};
+{//;replace 'red hat' with 'rhel', replace ', ' and ' ' with ',', and split on ','}
+{func.ar;{map;~ar;{split;{regexreplace;{regexreplace;{regexreplace;{lower;{flag;a}};/red\s?hat/g;rhel};/(ubuntu|kde) (mate|budgie|neon)/g;$1$2};/(,\s?|\s)/g;,};,};{switch;{get;~ar};["ubuntumate"];ubuntu mate;["ubuntubudgie"];ubuntu budgie;["kdeneon"];kde neon;{get;~ar}}}}
+{return;false}
+}
+}
+
+{//;remove role(s)}
+{if;{flagset;r};
+{//;check if user has sudoers role and u flag is valid user}
+{if;{logic;&&;
+{userhasrole;457281742844330004;{userid};quiet};
+{func.usercheck;{flag;u}}};
+{set;!~user;{userid;{flag;u}}};
+{set;!~user;{userid}}
+}
+{//;check if input is 'users'}
+{if;{logic;&&;
+{userhasrole;457281742844330004;{userid};quiet};
+{bool;{lower;{flag;r}};==;users}};
+{func.urt;remove};
+{//;replace 'red hat' with 'rhel', replace ', ' and ' ' with ',', and split on ','}
+{func.rr;{map;~ar;{split;{regexreplace;{regexreplace;{regexreplace;{lower;{flag;r}};/red\s?hat/g;rhel};/(ubuntu|kde) (mate|budgie|neon)/g;$1$2};/(,\s?|\s)/g;,};,};{switch;{get;~ar};["ubuntumate"];ubuntu mate;["ubuntubudgie"];ubuntu budgie;["kdeneon"];kde neon;{get;~ar}}}}
+{return;false}
+}
+}
+
+{//;set colored role}
+{if;{flagset;c};
+{//;check if user has sudoers role and u flag is valid user}
+{if;{logic;&&;
+{userhasrole;457281742844330004;{userid};quiet};
+{func.usercheck;{flag;u}}};
+{set;!~user;{userid;{flag;u}}};
+{set;!~user;{userid}}
+}
+{//;replace 'red hat' with 'rhel', replace ', ' and ' ' with ',', and split on ','}
+{func.scr;{jget;{map;~ar;{split;{regexreplace;{regexreplace;{regexreplace;{lower;{flag;c}};/red\s?hat/g;rhel};/(ubuntu|kde) (mate|budgie|neon)/g;$1$2};/(,\s?|\s)/g;,};,};{switch;{get;~ar};["ubuntumate"];ubuntu mate;["ubuntubudgie"];ubuntu budgie;["kdeneon"];kde neon;{get;~ar}}};0}}
+{return;false}
+}
+
+{//;output help if no flags used}
+{func.help}
