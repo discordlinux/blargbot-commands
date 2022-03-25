@@ -1,0 +1,46 @@
+{//;function for discord linux colors}
+{function;dlcolors;
+{jget;{j;{
+    "black": "23272a",
+    "red": "ed4245",
+    "green": "57f287",
+    "yellow": "FEE75C",
+    "orange": "d2691e",
+    "blue": "5865f2",
+    "blurple": "5865f2",
+    "fuchsia": "eb459e",
+    "pink": "eb459e",
+    "cyan": "57f2d1",
+    "gray": "5c6166",
+    "brightblack": "3d4145",
+    "brightred": "dd6f71",
+    "brightgreen": "8dfcb0",
+    "brightyellow": "EBDC87",
+    "brightorange": "e68b49",
+    "brightblue": "8b93e8",
+    "brightblurple": "8b93e8",
+    "brightfuchsia": "dd78ae",
+    "brightpink": "dd78ae",
+    "brightcyan": "9ce2d3",
+    "brightgray": "92969b"
+}};{params;0}}
+}
+
+{//;function to detect if correct prefix was used}
+{function;prefixtest;
+{switch;{guildid};
+["96230004047740928","204061452707954688"];
+{set;!~used.prefix;{jget;{regexmatch;{replace;{messagetext};./{space};};/^(\.\/|sudo\s|su\s|<)/i};0}}
+{if;{get;~used.prefix};==;{null};
+{return}}}
+}
+
+{//;function to remove duplicates from an array}
+{function;uniq;
+{set;!~filter.ar;[]}{void;{filter;~ue;{if;{isarray;{params}};{params};{paramsarray}};{if;{indexof;{get;~filter.ar};{get;~ue}};==;-1;{push;~filter.ar;{get;~ue}}true;false}}}{jvalues;~filter.ar}}
+
+{//;function to get user's color based on role color}
+{function;usrclr;{set;!~usrclrrole;{jget;{filter;~usrclrf;{roles;{userid;{params;0};quiet};quiet};{bool;{rolecolor;{get;~usrclrf}};!=;000000}};0}}{if;{get;~usrclrrole};!=;;{rolecolor;{get;~usrclrrole};quiet};5865F2}}
+
+{//;function to check if user is in guild}
+{function;usercheck;{suppresslookup}{if;{params;0};==;;false;{switch;{userid;{params;0};quiet};{guildmembers};true;false}}}
