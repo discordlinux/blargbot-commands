@@ -1,6 +1,10 @@
 {
     "commands": [
         {
+            "name": "functions",
+            "file_path": "functions.bbtag"
+        },
+        {
             "name": "info",
             "file_path": "info/info.bbtag"
         },

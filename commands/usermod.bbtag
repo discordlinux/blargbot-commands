@@ -1,5 +1,5 @@
-{//;load functions from https://raw.githubusercontent.com/discordlinux/blargbot-commands/main/commands/functions.bbtag}
-{inject;{jget;{request;https://raw.githubusercontent.com/discordlinux/blargbot-commands/main/commands/functions.bbtag};body}}
+{//;load functions from variable}
+{inject;{get;_gitcmd.functions}}
 
 {//;function to output results of command running}
 {function;results;
