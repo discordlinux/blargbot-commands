@@ -91,7 +91,6 @@ description:Issue created successfully.
 
 {//;function to update existing issue}
 {function;issues_update;
-{fallback;}
 {//;return if user is not staff}
 {if;{userhasrole;457281742844330004;{userid};quiet};!=;true;
 {embed;{embedbuild;
