@@ -9,7 +9,7 @@ color:{func.dlcolors;yellow};
 footer.text:{usernick} ({userid});
 footer.icon_url:{useravatar};
 timestamp:{time};
-description:__**Usage**__: `feedback <list|create <body text -t issue title> |close <issue number>|open <issue number>>`
+description:__**Usage**__: `feedback <list|create <body text -t issue title> |close <issue number>|open <issue number>|comment <issue number> <text>>`
 List, create, close, or open issues on the [Discord Linux Feedback Repo](https://github.com/discordlinux/feedback)
 
 **Arguments**
@@ -24,6 +24,9 @@ close - Close an issue.  Must be sudoer to use.
 
 open - Open an issue.  Must be sudoer to use.
     Ex: 'feedback open 1'
+
+comment- Add a comment to an issue.
+    Ex: 'feedback comment 1 some comment'
 {repeat;`;3};}}
 }
 
@@ -63,6 +66,7 @@ timestamp:{time};
 description:Missing required arguments. Usage: `feedback create <body text> -t <title>`;}}
 {return}
 }
+{fallback}
 {jset;~data;body;From {usernick} ({userid}):{newline}{params;0};c}
 {jset;~data;title;{params;1};c}
 {jset;~head;method;POST;c}
@@ -139,6 +143,48 @@ State: {jget;~response;body.state}
 [#{jget;~response;body.number} - {jget;~response;body.title}]({jget;~response;body.html_url});}}
 }
 
+{//;function to update existing issue}
+{function;issues_comment;
+{fallback;}
+{//;return if invalid usage}
+{if;{logic;||;
+{bool;{parseint;{params;0}};==;NaN};
+{bool;{params;1};==;{null}}};
+{embed;{embedbuild;
+title:Feedback Error Posting Comment;
+color:{func.dlcolors;red};
+footer.text:{usernick} ({userid});
+footer.icon_url:{useravatar};
+timestamp:{time};
+description:Missing required arguments. Usage: `feedback comment <issue number> <text>`;}}
+{return}
+}
+{fallback}
+{jset;~data;body;{params;1;n};c}
+{jset;~head;method;POST;c}
+{jset;~head;headers.Authorization;token {get;@gittoken};c}
+{jset;~head;headers.accept;application/vnd.github.v3+json;c}
+{set;!~response;{request;https://api.github.com/repos/discordlinux/feedback/issues/{params;0}/comments;{get;~head};{get;~data}}}
+{if;{jget;~response;status};!=;201;
+{embed;{embedbuild;
+title:Feedback Error Posting Comment;
+color:{func.dlcolors;red};
+footer.text:{usernick} ({userid});
+footer.icon_url:{useravatar};
+timestamp:{time};
+description:Failed to comment on issue.{newline}{get;~response};}}
+{return}
+}
+{embed;{embedbuild;
+title:Feedback Comment Posted;
+color:{func.dlcolors;green};
+footer.text:{usernick} ({userid});
+footer.icon_url:{useravatar};
+timestamp:{time};
+description:Comment posted successfully.
+[#{jget;~response;body.number} - {jget;~response;body.title}]({jget;~response;body.html_url});}}
+}
+
 {//;detect arguments}
 {switch;{lower;{args;0}};
 ["list"];
@@ -149,5 +195,7 @@ State: {jget;~response;body.state}
 {func.issues_update;closed;{args;1}};
 ["open"];
 {func.issues_update;open;{args;1}};
+["comment"];
+{func.issues_comment;{args;1};{args;2;n}};
 {func.issues_help}
 }
