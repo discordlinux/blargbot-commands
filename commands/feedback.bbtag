@@ -130,7 +130,7 @@ description:Failed to update issue.{newline}{get;~response};}}
 }
 {embed;{embedbuild;
 title:Feedback Issue Updated;
-color:{switch;{jget;~response;body.state};["open"];{func.dlcolors;green};{func.dlcolors;lightred}};
+color:{switch;{jget;~response;body.state};["open"];{func.dlcolors;green};{func.dlcolors;brightred}};
 footer.text:{usernick} ({userid});
 footer.icon_url:{useravatar};
 timestamp:{time};
