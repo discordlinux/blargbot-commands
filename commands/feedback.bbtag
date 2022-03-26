@@ -160,7 +160,7 @@ description:Missing required arguments. Usage: `feedback comment <issue number> 
 {return}
 }
 {fallback}
-{jset;~data;body;{params;1;n};c}
+{jset;~data;body;From {usernick} ({userid}):{newline}{params;1;n};c}
 {jset;~head;method;POST;c}
 {jset;~head;headers.Authorization;token {get;@gittoken};c}
 {jset;~head;headers.accept;application/vnd.github.v3+json;c}
