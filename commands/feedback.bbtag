@@ -115,7 +115,7 @@ description:Missing required arguments. Usage: `feedback {params;0} <issue numbe
 }
 {jset;~data;state;{params;0};c}
 {jset;~head;method;PATCH;c}
-{jset;~head;headers.Authentication;token {get;@gittoken};c}
+{jset;~head;headers.Authorization;token {get;@gittoken};c}
 {jset;~head;headers.accept;application/vnd.github.v3+json;c}
 {set;!~response;{request;https://api.github.com/repos/discordlinux/feedback/issues/{params;1};{get;~head};{get;~data}}}
 {if;{jget;~response;status};!=;200;
