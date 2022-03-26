@@ -119,7 +119,7 @@ description:Missing required arguments. Usage: `feedback {params;0} <issue numbe
 {jset;~head;headers.Authentication;token {get;@gittoken};c}
 {jset;~head;headers.accept;application/vnd.github.v3+json;c}
 {set;!~response;{request;https://api.github.com/repos/discordlinux/feedback/issues/{params;1};{get;~head};{get;~data}}}
-{if;{jget;~response;status};!=;201;
+{if;{jget;~response;status};!=;200;
 {embed;{embedbuild;
 title:Feedback Error Updating Issue;
 color:{func.dlcolors;red};
