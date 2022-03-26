@@ -182,7 +182,7 @@ footer.text:{usernick} ({userid});
 footer.icon_url:{useravatar};
 timestamp:{time};
 description:Comment posted successfully.
-[#{jget;~response;body.number} - {jget;~response;body.title}]({jget;~response;body.html_url});}}
+{jget;~response;body.html_url};}}
 }
 
 {//;detect arguments}
