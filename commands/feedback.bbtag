@@ -30,7 +30,7 @@ open - Open an issue.  Must be sudoer to use.
 {//;function to list open issues}
 {function;issues_list;
 {//;get issues from API}
-{jset;~head;headers.Authentication;token {get;@gittoken};c}
+{jset;~head;headers.Authorization;token {get;@gittoken};c}
 {jset;~head;headers.accept;application/vnd.github.v3+json;c}
 {set;!~issues;{request;https://api.github.com/repos/discordlinux/feedback/issues;{get;~head}}}
 {//;output issues in embed}
@@ -66,7 +66,7 @@ description:Missing required arguments. Usage: `feedback create <body text> -t <
 {jset;~data;body;From {usernick} ({userid}):{newline}{params;0};c}
 {jset;~data;title;{params;1};c}
 {jset;~head;method;POST;c}
-{jset;~head;headers.Authentication;token {get;@gittoken};c}
+{jset;~head;headers.Authorization;token {get;@gittoken};c}
 {jset;~head;headers.accept;application/vnd.github.v3+json;c}
 {set;!~response;{request;https://api.github.com/repos/discordlinux/feedback/issues;{get;~head};{get;~data}}}
 {if;{jget;~response;status};!=;201;
