@@ -114,7 +114,7 @@ timestamp:{time};
 description:Missing required arguments. Usage: `feedback {params;0} <issue number>`;}}
 {return}
 }
-{set;!~data;state;{params;0}}
+{jset;~data;state;{params;0};c}
 {jset;~head;method;PATCH;c}
 {jset;~head;headers.Authentication;token {get;@gittoken};c}
 {jset;~head;headers.accept;application/vnd.github.v3+json;c}
