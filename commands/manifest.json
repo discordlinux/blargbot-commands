@@ -15,6 +15,10 @@
         {
             "name": "usermod",
             "file_path": "usermod.bbtag"
+        },
+        {
+            "name": "usernicks",
+            "file_path": "usernicks.bbtag"
         }
     ]
 }

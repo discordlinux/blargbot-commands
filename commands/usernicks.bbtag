@@ -1,0 +1,32 @@
+{//;inject functions}
+{inject;{get;_gitcmd.functions}}
+
+{function;nickshelp;{embed;{embedbuild;
+author.name:Help for usernicks;
+color:yellow;
+description:__**Usage**__: `usernicks [user]`
+Tracks and shows all nicknames that have been used by a given user.
+
+**Examples**
+{repeat;`;3}
+usernicks {username;{randuser}}
+usernicks {randuser}
+{repeat;`;3};}}}
+{function;usernicks;
+{if;{get;_usernicks.{params;0}};==;;
+{set;!_usernicks.{params;0};["{usernick;{params}}"]}}
+{if;{get;_usernicks.{params;0}};includes;{usernick;{params;0}};{//;do nothing};
+{push;_usernicks.{params;0};{usernick;{params;0}}}}}
+{function;shownicks;
+{func.usernicks;{params}}
+{embed;{embedbuild;
+author.name:Nicknames used by {username;{params}};
+author.icon_url:{useravatar;{params}};
+color:{func.usrclr;{params}};
+description:{join;{get;_usernicks.{params}};,{space}};}}}
+{switch;{userid;{flag;_};quiet};
+{guildmembers};
+{if;{jget;{split;{commandname};_};1};==;autoresponse;
+{func.usernicks;{userid;{flag;_}}};
+{func.shownicks;{userid;{flag;_}}}};
+{func.nickshelp}}
