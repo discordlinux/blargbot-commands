@@ -54,7 +54,7 @@
 
 {//;function to get metadata using motyar}
 {function;metadata;
-{set;!~mraw;{func.motyar;{params;0};-x /meta}}
+{set;!~mraw;{func.motyar;{params;0};/meta}}
 {set;!~melements;[]}
 {set;!~mvalues;[]}
 {for;~mi;0;<;{length;{jget;{get;~mraw};body}};{if;{jget;{get;~mraw};body.{get;~mi}.http-equiv};!=;;{push;~melements;{jget;{get;~mraw};body.{get;~mi}.http-equiv}}{push;~mvalues;{jget;{get;~mraw};body.{get;~mi}.content}}}{if;{jget;{get;~mraw};body.{get;~mi}.name};!=;;{push;~melements;{jget;{get;~mraw};body.{get;~mi}.name}}{push;~mvalues;{jget;{get;~mraw};body.{get;~mi}.content}}}{if;{jget;{get;~mraw};body.{get;~mi}.property};!=;;{push;~melements;{jget;{get;~mraw};body.{get;~mi}.property}}{push;~mvalues;{jget;{get;~mraw};body.{get;~mi}.content}}}{if;{jget;{get;~mraw};body.{get;~mi}.itemprop};!=;;{push;~melements;{jget;{get;~mraw};body.{get;~mi}.itemprop}}{push;~mvalues;{jget;{get;~mraw};body.{get;~mi}.content}}}}
