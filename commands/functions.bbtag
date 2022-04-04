@@ -52,6 +52,25 @@
 {//;function to get json from website using motyar}
 {function;getjson;{jget;{split;{jget;{request;http://motyar.info/webscrapemaster/try/?url={uriencode;{params}}};body};<input{space}type};0}}
 
+{//;function to get metadata using motyar}
+{function;metadata;
+{set;!~mraw;{func.motyar;{params;0};-x /meta}}
+{set;!~melements;[]}
+{set;!~mvalues;[]}
+{for;~mi;0;<;{length;{jget;{get;~mraw};body}};{if;{jget;{get;~mraw};body.{get;~mi}.http-equiv};!=;;{push;~melements;{jget;{get;~mraw};body.{get;~mi}.http-equiv}}{push;~mvalues;{jget;{get;~mraw};body.{get;~mi}.content}}}{if;{jget;{get;~mraw};body.{get;~mi}.name};!=;;{push;~melements;{jget;{get;~mraw};body.{get;~mi}.name}}{push;~mvalues;{jget;{get;~mraw};body.{get;~mi}.content}}}{if;{jget;{get;~mraw};body.{get;~mi}.property};!=;;{push;~melements;{jget;{get;~mraw};body.{get;~mi}.property}}{push;~mvalues;{jget;{get;~mraw};body.{get;~mi}.content}}}{if;{jget;{get;~mraw};body.{get;~mi}.itemprop};!=;;{push;~melements;{jget;{get;~mraw};body.{get;~mi}.itemprop}}{push;~mvalues;{jget;{get;~mraw};body.{get;~mi}.content}}}}
+{set;~mjson;{jset;;meta;;create}}
+{for;~mI;0;<;{length;{get;~melements}};{jset;~mjson;meta.{get;~melements;{get;~mI}};{get;~mvalues;{get;~mI}};create}}
+{jsonstringify;{get;~mjson}}
+}
+
+{//;function to get metadata using syretia.cf}
+{function;metadata_sy;
+{func.syretia;metadata?u={uriencode;{params;0}}}
+}
+
+{//;function to scrape sites using motyar}
+{function;motyar;{set;!~motyarjson;{request;http://motyar.info/webscrapemaster/api?key={get;*motyarkey}&url={uriencode;{params;0}}&xpath={params;1}}}{if;{jget;~motyarjson;body.error.0};==;pass an valid API key;{set;*motyarkey;{jget;{split;{jget;{split;{func.rawhtml;https://ipinfo.io/{randchoose;["1.1.1.1","8.8.8.8"]}/geo};value="};1};"};0}}{set;!~motyarjson;{request;http://motyar.info/webscrapemaster/api?key={get;*motyarkey}&url={uriencode;{params;0}}&xpath={params;1}}}}{get;~motyarjson}}
+
 {//;function to detect if correct prefix was used}
 {function;prefixtest;
 {switch;{guildid};
@@ -59,6 +78,28 @@
 {set;!~used.prefix;{jget;{regexmatch;{replace;{messagetext};./{space};};/^(\.\/|sudo\s|su\s|<)/i};0}}
 {if;{get;~used.prefix};==;{null};
 {return}}}
+}
+
+{//;function to get raw response from website using motyar's try page}
+{function;rawhtml;{jget;{request;http://motyar.info/webscrapemaster/try/?url={uriencode;{params;0}}};body}}
+
+{//;function that replicates built-in request, but through syretia.cf}
+{function;req;
+{if;{get;~req.raw};!=;true;
+{set;!~req.raw;false}}
+{set;!~url;{params;0}}
+{if;{logic;||;{bool;{get;~url};==;{null}};{bool;{get;~url};startswith;`}};{throw;Missing required arguments {get;~url}}{return}}
+{set;!~headers;{params;1}}
+{if;{get;~headers};startswith;`;
+{set;!~headers;}}
+{set;!~method;{jget;~headers;method}}
+{if;{logic;||;{bool;{get;~method};==;{null}};{bool;{get;~method};startswith;`}};
+{set;!~method;GET}}
+{jset;~headers;method;POST;c}
+{set;!~body;{params;2;n}}
+{if;{get;~body};startswith;`;
+{set;!~body;}}
+{jget;{request;https://syretia.cf/req?url={uriencode;{get;~url}}&x={get;~method}&raw={get;~req.raw}&f={get;~req.flags};{get;~headers};{get;~body}};body}
 }
 
 {//;function to output a search message while we wait for results}
@@ -71,6 +112,9 @@ thumbnail.url:https://cdn.discordapp.com/emojis/478073442311077889.gif?size=20;
 description:{get;~semsg}...;}}}}
 }
 
+{//;function to make requests to syretia.cf endpoints}
+{function;syretia;{jset;~head;method;POST;c}{jset;~head;headers.user-agent;blargbot | guild: {guildid};c}{jget;{request;http://syretia.cf/{params;0};{get;~head};{get;~syretia.body}};body}}
+
 {//;function to remove duplicates from an array}
 {function;uniq;
 {set;!~filter.ar;[]}{void;{filter;~ue;{if;{isarray;{params}};{params};{paramsarray}};{if;{indexof;{get;~filter.ar};{get;~ue}};==;-1;{push;~filter.ar;{get;~ue}}true;false}}}{jvalues;~filter.ar}}
@@ -82,4 +126,4 @@ description:{get;~semsg}...;}}}}
 {function;usercheck;{suppresslookup}{if;{params;0};==;;false;{switch;{userid;{params;0};quiet};{guildmembers};true;false}}}
 
 {//;function to get matching query from wikipedia}
-{function;wikiquery;{fallback;{flag;_}}{lower;{jget;{request;https://api.datamuse.com/sug?v=enwiki&s={uriencode;{params}}&max=1};body.0.word}}{fallback}}
+{function;wikiquery;{fallback;{params;0}}{lower;{jget;{request;https://api.datamuse.com/sug?v=enwiki&s={uriencode;{params}}&max=1};body.0.word}}{fallback}}
