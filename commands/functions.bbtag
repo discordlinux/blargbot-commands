@@ -1,3 +1,26 @@
+{//;function for distro colors}
+{function;distrocolors;
+{switch;{lower;{params;0}};["debian"];CE0056;
+["ubuntu"];E95420;
+["xubuntu"];0044AA;
+["ubuntu mate","ubuntu-mate","ubuntumate","mate"];87A556;
+["kubuntu"];0077c4;
+["kde neon","kde-neon","kdeneon","neon"];3DC08D;
+["arch"];1793D1;
+["gentoo"];7A5ADA;
+["opensuse"];73ba25;
+["elementary","elementaryos"];8a715e;
+["red hat","red-hat","redhat","rhel"];cb2026;
+["manjaro"];34be5b;
+["mint"];8bd83c;
+["void"];478061;
+["slackware"];7f93b4;
+["antergos"];6a7ab9;
+["solus"];5294e2;
+["fedora"];3d65b9;
+5865F2}
+}
+
 {//;function for discord linux colors}
 {function;dlcolors;
 {jget;{j;{
@@ -26,6 +49,9 @@
 }};{params;0}}
 }
 
+{//;function to get json from website using motyar}
+{function;getjson;{jget;{split;{jget;{request;http://motyar.info/webscrapemaster/try/?url={uriencode;{params}}};body};<input{space}type};0}}
+
 {//;function to detect if correct prefix was used}
 {function;prefixtest;
 {switch;{guildid};
@@ -33,6 +59,16 @@
 {set;!~used.prefix;{jget;{regexmatch;{replace;{messagetext};./{space};};/^(\.\/|sudo\s|su\s|<)/i};0}}
 {if;{get;~used.prefix};==;{null};
 {return}}}
+}
+
+{//;function to output a search message while we wait for results}
+{function;searchmsg;
+{set;!~secolor;{jget;{params};color}}
+{set;!~semsg;{jget;{params};message}}
+{set;!~searchmsg;{output;{embed;{embedbuild;
+color:{get;~secolor};
+thumbnail.url:https://cdn.discordapp.com/emojis/478073442311077889.gif?size=20;
+description:{get;~semsg}...;}}}}
 }
 
 {//;function to remove duplicates from an array}
@@ -44,3 +80,6 @@
 
 {//;function to check if user is in guild}
 {function;usercheck;{suppresslookup}{if;{params;0};==;;false;{switch;{userid;{params;0};quiet};{guildmembers};true;false}}}
+
+{//;function to get matching query from wikipedia}
+{function;wikiquery;{fallback;{flag;_}}{lower;{jget;{request;https://api.datamuse.com/sug?v=enwiki&s={uriencode;{params}}&max=1};body.0.word}}{fallback}}
