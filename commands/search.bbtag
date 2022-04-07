@@ -79,9 +79,6 @@ title:{get;~qtitle};
 url:{get;~qurl};
 color:{get;~qcolor};
 thumbnail.url:{get;~qthumb};
-footer.text:{usernick} ({userid});
-footer.icon_url:{useravatar};
-timestamp:{time};
 description:{get;~qdesc};
 }}
 }
