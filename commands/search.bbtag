@@ -186,7 +186,7 @@ description:'{params}' not found.}};
 {if;{get;~platforms};==;{null};
 {set;!~platforms;Windows}}
 {fallback;0}
-{set;!~cplayers;{jget;{exec;motyar;https://steamcharts.com/app/{get;~id};-x //*[@id="app-heading"]/div[1]/span};body.0.text}}
+{set;!~cplayers;{jget;{func.motyar;https://steamcharts.com/app/{get;~id};//*[@id="app-heading"]/div[1]/span};body.0.text}}
 {fallback;}
 {//;output results}
 {edit;{channelid};{get;~searchmsg};_delete;{embedbuild;
@@ -225,13 +225,13 @@ __**[Steam Store Page](https://store.steampowered.com/app/{get;~id})**__
 {//;get results}
 {fallback;}
 {set;!~youtube.out;}
-{set;!~res;{jget;{exec;getjson;https://vid.puffyan.us/api/v1/search?q={uriencode;{params}}&hl=en-US};0.videoId}}
+{set;!~res;{jget;{func.getjson;https://vid.puffyan.us/api/v1/search?q={uriencode;{params}}&hl=en-US};0.videoId}}
 {if;{get;~res};!=;{null};
 {set;!~youtube.out;https://youtu.be/{get;~res}};
-{set;!~instances;{slice;{exec;getjson;https://api.invidious.io/instances.json?sort_by=users,health};0;10}}
+{set;!~instances;{slice;{func.getjson;https://api.invidious.io/instances.json?sort_by=users,health};0;10}}
 
 {foreach;~instance;{get;~instances};{if;{get;~youtube.out};==;{null};
-{set;!~res;{jget;{exec;getjson;{jget;~instance;1.uri}/api/v1/search?q={uriencode;{params}}&hl=en-US};0.videoId}}
+{set;!~res;{jget;{func.getjson;{jget;~instance;1.uri}/api/v1/search?q={uriencode;{params}}&hl=en-US};0.videoId}}
 {if;{get;~res};!=;{null};{set;!~youtube.out;https://youtu.be/{get;~res}}}
 }}}
 {//;output results}
