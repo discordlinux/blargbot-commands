@@ -253,11 +253,10 @@ __**[Steam Store Page](https://store.steampowered.com/app/{get;~id})**__
 ["urban","urbandictionary"];{func.urbandictionary;{args;1;n}};
 ["proton","steam","protondb"];{func.proton;{args;1;n}};
 ["def","define","dict","dictionary"];{func.datamuse-dictionary;{args;1;n}};
-["youtube","yt"];{func.searchmsg}{exec;youtbe;{args;1;n}};
+["youtube","yt"];{func.youtube;{args;1;n}};
 ["lsst"];{set;!~secolor;skyblue}{func.qse;site:bash.cyberciti.biz/guide/ {args;1;n}};
 ["abs"];{set;!~secolor;skyblue}{func.qse;site:tldp.org/LDP/abs/html/ {args;1;n}};
 ["bbg"];{set;!~secolor;skyblue}{func.qse;site:tldp.org/LDP/Bash-Beginners-Guide/html/ {args;1;n}};
-["game"];{exec;mobygames;{args;1;n}};
 ["au","askubuntu"];{set;!~secolor;{func.distrocolors;ubuntu}}{func.qse;site:askubuntu.com {args;1;n}};
 ["-h","help","--help"];{func.help};
 {if;{args};==;;{func.help}{return}}
@@ -266,4 +265,5 @@ __**[Steam Store Page](https://store.steampowered.com/app/{get;~id})**__
 {//;TODO:
 image search
 jargon lexicon
+moby games
 wikipedia}
