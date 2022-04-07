@@ -1,0 +1,272 @@
+{//;load functions}
+{inject;{get;_gitcmd.functions}}
+
+{//;help function}
+{function;help;{embed;{embedbuild;
+title:Help for se;
+color:yellow;
+description:**__Usage:__** `se [arg] <search term>`
+Search the web using Qwant or use one of the arguments listed below to perform a specific search.
+If none of the arguments below are used, a normal search will be ran.
+
+**Available arguments**:
+```
+abs              - tldp Advanced Bash Scripting search
+aw               - Arch wiki Search
+bbg              - tldp Bash Beginners Guide search
+define or def    - Dictionary search
+dw               - Debian wiki search
+fw               - Fedora wiki search
+game             - MobyGames search
+gw               - Gentoo wiki search
+lsst			 - Linux Shell Scripting Tutorial
+osd              - openSUSE docs search
+osw              - openSUSE wiki search
+steam or proton  - Steam Play compatability search
+uw               - Ubuntu wiki search
+youtube or yt    - Youtube search
+```
+;}}}
+
+{//;function to search Qwant}
+{function;qse;
+{//;set searchmsg color and message}
+{if;{get;~secolor};==;{null};
+{jset;~qjson;color;{func.dlcolors;blurple};c};
+{jset;~qjson;color;{get;~secolor};c}}
+{jset;~qjson;message;Searching Qwant for `{params}`;c}
+{//;output message to let users know we're doing something}
+{func.searchmsg;{get;~qjson}}
+{//;get qwant results}
+{set;!~qresults;{func.syetia;qse?q={uriencode;{params}}}}
+{//;check results}
+{if;{length;{get;~qresults}};==;0;
+{//;no results}
+{set;!~qurl;https://www.qwant.com/?q={uriencode;{params}}&t=web}
+{set;!~qtitle;No results for '{params}'.}
+{set;!~qcolor;{func.dlcolors;red}}
+{set;!~qthumb;{func.fakeimg;No results;250;100}}
+{set;!~qdesc;No results for `{params}`.
+> https://www.qwant.com/?q={uriencode;{params}}&t=web};
+{//;results found}
+{set;!~qurl;{jget;~qresults;0.items.0.url}}
+{set;!~qtitle;{jget;~qresults;0.items.0.title}}
+{if;{jget;~qresults;0.items.count};>;1;
+{set;!~qnext;{jget;~qresults;0.items.1.url}};
+{if;{length;{get;~qresults}};>;1;
+{set;!~qnext;{jget;~qresults;1.items.0.url}}}
+}
+{set;!~qdesc;{jget;~qresults;0.items.0.desc}
+> {get;~qurl}
+{if;{get;~qnext};!=;{null};Next Result:{newline}> *{get;~qnext}*}}
+{//;get metadata for color and thumbnail}
+{set;!~qmeta;{func.metadata;{get;~qurl}}}
+{fallback;}
+{if;{jget;~qmeta;meta.theme-color};!=;{null};
+{set;!~qcolor;{jget;~qmeta;meta.theme-color}};
+{set;!~qcolor;{func.dlcolors;blurple}}}
+{if;{jget;~qmeta;meta.og:image};!=;{null};
+{set;!~qthumb;{jget;~qmeta;meta.og:image}};
+{set;!~qthumb;{func.fakeimg;null;1;1}}}
+{fallback}
+}
+{//;output results}
+{edit;{channelid};{get;~searchmsg};_delete;{embedbuild;
+author.name:Qwant;
+author.icon_url:https://play-lh.googleusercontent.com/gZM93E0coPblwJysaGbAVgTRXPld0ZDRtrbmclDqWWrPJLKIjyVB9XKqOX8OM9_3GJI;
+author.url:https://www.qwant.com/?q={uriencode;{params}}&t=web;
+title:{get;~qtitle};
+url:{get;~qurl};
+color:{get;~qcolor};
+thumbnail.url:{get;~qthumb};
+footer.text:{usernick} ({userid});
+footer.icon_url:{useravatar};
+timestamp:{time};
+description:{get;~qdesc};
+}}
+}
+
+{//;function to search urban dictionary}
+{function;urbandictionary;
+{//;set searchmsg color and message}
+{jset;~ujson;color;1D2439;c}
+{jset;~ujson;message;Searching Urban Dictionary for `{params}`;c}
+{//;output message to let users know we're doing something}
+{func.searchmsg;{get;~ujson}}
+{//;get results}
+{if;{flagset;r};{set;~entry;{math;-;{flag;r};1}};{set;~entry;0}}
+{fallback;}
+{set;!~request;{jget;{request;http://api.urbandictionary.com/v0/define?term={uriencode;{params}}};body.list.{get;~entry}}}
+{fallback}
+{//;output results}
+{if;{get;~request};==;{null};
+{edit;{channelid};{get;~searchmsg};_delete;{embedbuild;
+title:No Urban Dictionary results for '{params}'.;
+color:{func.dlcolors;red};
+description:No results for '{params}'.
+}};
+{edit;{channelid};{get;~searchmsg};{embedbuild;
+title:__**Urban Dictionary definition for '{jget;~request;word}'**__;
+url:{jget;~request;permalink};
+color:1D2439;
+description:{regexreplace;{jget;~request;definition};/[\[\]]/g;};
+fields.name:__**Example**__:;
+fields.value:{regexreplace;{jget;~request;example};/[\[\]]/g;};
+fields.inline:false;
+fields.name:✍;
+fields.value:{jget;~request;author};
+fields.inline:true;
+fields.name:👍;
+fields.value:{jget;~request;thumbs_up};
+fields.inline:true;
+fields.name:👎;
+fields.value:{jget;~request;thumbs_down};
+fields.inline:true;
+fields.name:📅;
+fields.value:{jget;~request;written_on};
+fields.inline:true;
+footer.text:Use '{prefix} se urban {params} -r <number>' to see more results.;
+}}}}
+
+{//;function to get definitions from datamuse}
+{function;datamuse-dictionary;
+{//;set searchmsg color and message}
+{jset;~djson;color;{func.dlcolors;blurple};c}
+{jset;~djson;message;Searching for definition of `{params}`;c}
+{//;output message to let users know we're doing something}
+{func.searchmsg;{get;~djson}}
+{fallback;[]}
+{//;get results}
+{set;!~json;{jget;{request;https://api.datamuse.com/words?sp={uriencode;{params}}&max=1&md=d};body}}
+{if;{length;{get;~json}};==;0;
+{set;!~word;{params}}
+{set;!~def;No definition found for `{get;~word}`.};
+{set;!~word;{jget;~json;0.word}}
+{set;!~def;{foreach;~d;{jget;~json;0.defs};•{space}{regexreplace;{get;~d};/\t/g;:{space}}{newline}}}}
+{//;output results}
+{edit;{channelid};{get;~searchmsg};{embedbuild;
+author.name:Datamuse Dictionary;
+author.url:https://datamuse.com;
+title:Definition of {get;~word};
+url:https://api.datamuse.com/words?sp={uriencode;{params}}&max=1&md=d;
+color:{func.dlcolors;blurple};
+description:{get;~def};
+footer.text:Powered by Datamuse.com;}}
+}
+
+{//;function to search steam and get protondb results}
+{function;proton;
+{//;set searchmsg color and message}
+{jset;~pjson;color;1B2838;c}
+{jset;~pjson;message;Searching Steam for `{params}`;c}
+{//;output message to let users know we're doing something}
+{func.searchmsg;{get;~pjson}}
+{//;get results}
+{switch;{lower;{params;0}};
+["appid"];{set;!~id;{params;1}};
+{set;!~gamewiki;{request;https://www.pcgamingwiki.com/w/api.php?action=query&format=json&prop=categories%7Cextlinks%7Cinfo&list=&meta=&generator=search&redirects=1&converttitles=1&utf8=1&formatversion=2&clcategories=Category%3ALinux%7CCategory%3AWindows%7CCategory%3AOS%20X&elprotocol=https&elquery=steamdb.info&elexpandurl=1&inprop=url%7Cdisplaytitle&gsrsearch={uriencode;{params}}&gsrwhat=nearmatch}}
+{fallback;}
+{set;!~id;{jget;{split;{jget;~gamewiki;body.query.pages.0.extlinks.0.url};/};4}}}
+{if;{get;~id};==;{null};
+{edit;{channelid};{get;~searchmsg};_delete;{embedbuild;
+color:red;
+description:'{params}' not found.}};
+{set;!~steam;{jget;{request;https://steamspy.com/api.php?request=appdetails&appid={get;~id}};body}}
+{set;!~pjson;{request;https://www.protondb.com/api/v1/reports/summaries/{get;~id}.json}}
+{set;!~steamjson;{request;http://store.steampowered.com/api/appdetails?appids={get;~id}}}
+{set;!~desc;{jget;~steamjson;body.{get;~id}.data.short_description}}
+{set;!~platforms;[]}
+{if;{jget;~steamjson;body.{get;~id}.data.platforms.windows};==;true;
+{push;~platforms;Windows}
+{commit}}
+{if;{jget;~steamjson;body.{get;~id}.data.platforms.mac};==;true;
+{push;~platforms;macOS}
+{commit}}
+{if;{jget;~steamjson;body.{get;~id}.data.platforms.linux};==;true;
+{push;~platforms;Linux}
+{commit}}
+{set;!~platforms;{join;{get;~platforms};,{space}}}
+{if;{get;~platforms};==;{null};
+{set;!~platforms;Windows}}
+{fallback;0}
+{set;!~cplayers;{jget;{exec;motyar;https://steamcharts.com/app/{get;~id};-x //*[@id="app-heading"]/div[1]/span};body.0.text}}
+{fallback;}
+{//;output results}
+{edit;{channelid};{get;~searchmsg};_delete;{embedbuild;
+author.name:ProtonDB.com · {jget;~steam;name} · AppID: {get;~id};
+author.icon_url:https://cdn.discordapp.com/icons/481706387278397440/f55e7ab1b69de54145c09803d49dbe51.webp;
+author.url:https://www.protondb.com/app/{get;~id};
+color:1B2838;
+thumbnail.url:https://steamcdn-a.akamaihd.net/steam/apps/{get;~id}/header.jpg;
+description:__**[Summary of ProtonDB ratings](https://www.protondb.com/app/{get;~id})**__
+{if;{jget;~pjson;body.confidence};==;;No ratings found.;**Confidence**: {jget;~pjson;body.confidence}
+**Score**: {jget;~pjson;body.score}
+**Tier**: {jget;~pjson;body.tier}
+**Total Ratings**: {jget;~pjson;body.total}
+**Trending Tier**: {jget;~pjson;body.trendingTier}
+**Best Reported Tier**: {jget;~pjson;body.bestReportedTier}}
+__**[Steam Store Page](https://store.steampowered.com/app/{get;~id})**__
+**Description**: {get;~desc}{if;{length;{get;~desc}};>=;300;{space}[...]}
+**Operating System**: {get;~platforms}
+**Developer**: {jget;~steam;developer}
+**Publisher**: {jget;~steam;publisher}
+**Genre**: {regexreplace;{jget;~steam;genre};/,/g;,{space}}
+**Tags**: {regexreplace;{regexreplace;{regexreplace;{replace;{replace;{jget;~steam;tags};{rb};};{lb};};/"/g;};/:[0-9][0-9]?[0-9]?[0-9]?[0-9]?,/g;,{space}};/:[0-9][0-9]?[0-9]?[0-9]?$/;}
+**Price**: {math;/;{jget;~steam;price};100} USD {if;{jget;~steam;discount};!=;0;({jget;~steam;discount}% discount)}
+**Steam Ratings**: {jget;~steam;positive} positive, {jget;~steam;negative} negative
+**Current Players**: {get;~cplayers}
+*https://www.protondb.com/app/{get;~id}*}}}
+}
+
+{//;function to search youtube}
+{function;youtube;
+{//;set searchmsg color and message}
+{jset;~yjson;color;{func.dlcolors;blurple};c}
+{jset;~yjson;message;Searching YouTube for `{params}`;c}
+{//;output message to let users know we're doing something}
+{func.searchmsg;{get;~yjson}}
+{//;get results}
+{fallback;}
+{set;!~youtube.out;}
+{set;!~res;{jget;{exec;getjson;https://vid.puffyan.us/api/v1/search?q={uriencode;{flag;_}}&hl=en-US};0.videoId}}
+{if;{get;~res};!=;{null};
+{set;!~youtube.out;https://youtu.be/{get;~res}};
+{set;!~instances;{slice;{exec;getjson;https://api.invidious.io/instances.json?sort_by=users,health};0;10}}
+
+{foreach;~instance;{get;~instances};{if;{get;~youtube.out};==;{null};
+{set;!~res;{jget;{exec;getjson;{jget;~instance;1.uri}/api/v1/search?q={uriencode;{flag;_}}&hl=en-US};0.videoId}}
+{if;{get;~res};!=;{null};{set;!~youtube.out;https://youtu.be/{get;~res}}}
+}}}
+{//;output results}
+{edit;{channelid};{get;~searchmsg};{if;{get;~youtube.out};!=;{null};{get;~youtube.out};https://youtu.be/c_l6Hu4Y3gI};_delete}
+}
+
+{//;check if prefix used properly}
+{func.prefixtest}
+
+{//;detect arguments}
+{switch;{lower;{args;0}};
+["!aw","aw","archwiki"];{set;!~secolor;{func.distrocolors;arch}}{func.qse;site:wiki.archlinux.org {args;1;n}};
+["dw","debianwiki"];{set;!~secolor;{func.distrocolors;debian}}{func.qse;site:wiki.debian.org {args;1;n}};
+["fw","fedorawiki"];{set;!~secolor;{func.distrocolors;fedora}}{func.qse;site:fedoraproject.org/wiki {args;1;n}};
+["gw","gentoowiki"];{set;!~secolor;{func.distrocolors;gentoo}}{func.qse;site:wiki.gentoo.org {args;1;n}};
+["osw","opensusewiki"];{set;!~secolor;{func.distrocolors;opensuse}}{func.qse;site:en.opensuse.org {args;1;n}};
+["osd","opensusedocs"];{set;!~secolor;{func.distrocolors;opensuse}}{func.qse;site:doc.opensuse.org {args;1;n}};
+["uw","ubuntuwiki"];{set;!~secolor;{func.distrocolors;ubuntu}}{func.qse;site:wiki.ubuntu.com {args;1;n}};
+["urban","urbandictionary"];{func.urbandictionary;{args;1;n}};
+["proton","steam","protondb"];{func.proton;{args;1;n}};
+["def","define","dict","dictionary"];{func.datamuse-dictionary;{args;1;n}};
+["youtube","yt"];{func.searchmsg}{exec;youtbe;{args;1;n}};
+["lsst"];{set;!~secolor;skyblue}{func.qse;site:bash.cyberciti.biz/guide/ {args;1;n}};
+["abs"];{set;!~secolor;skyblue}{func.qse;site:tldp.org/LDP/abs/html/ {args;1;n}};
+["bbg"];{set;!~secolor;skyblue}{func.qse;site:tldp.org/LDP/Bash-Beginners-Guide/html/ {args;1;n}};
+["game"];{exec;mobygames;{args;1;n}};
+["au","askubuntu"];{set;!~secolor;{func.distrocolors;ubuntu}}{func.qse;site:askubuntu.com {args;1;n}};
+["-h","help","--help"];{func.help};
+{if;{args};==;;{func.help}{return}}
+{func.qse;{args}}}
+
+{//;TODO:
+image search
+jargon lexicon
+wikipedia}

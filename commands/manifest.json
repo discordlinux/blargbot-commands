@@ -13,6 +13,10 @@
             "file_path": "info/info.bbtag"
         },
         {
+            "name": "se",
+            "file_path": "search.bbtag"
+        },
+        {
             "name": "usermod",
             "file_path": "usermod.bbtag"
         },
