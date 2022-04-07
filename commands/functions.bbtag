@@ -49,6 +49,9 @@
 }};{params;0}}
 }
 
+{//;function to output a fake image}
+{function;fakeimg;https://fakeimg.pl/{if;{params;1};!=;{null};{params;1};250}x{if;{params;2};!=;{null};{params;2};100}/2A2D30/?retina=1&text={params;0}&font=noto}
+
 {//;function to get json from website using motyar}
 {function;getjson;{jget;{split;{jget;{request;http://motyar.info/webscrapemaster/try/?url={uriencode;{params}}};body};<input{space}type};0}}
 
