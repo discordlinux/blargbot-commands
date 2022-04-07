@@ -17,7 +17,6 @@ bbg              - tldp Bash Beginners Guide search
 define or def    - Dictionary search
 dw               - Debian wiki search
 fw               - Fedora wiki search
-game             - MobyGames search
 gw               - Gentoo wiki search
 lsst			 - Linux Shell Scripting Tutorial
 osd              - openSUSE docs search
@@ -62,9 +61,11 @@ youtube or yt    - Youtube search
 {//;get metadata for color and thumbnail}
 {set;!~qmeta;{func.metadata;{get;~qurl}}}
 {fallback;}
+{if;{get;~secolor};!=;{null};
+{set;!~qcolor;{get;~secolor}};
 {if;{jget;~qmeta;meta.theme-color};!=;{null};
 {set;!~qcolor;{jget;~qmeta;meta.theme-color}};
-{set;!~qcolor;{func.dlcolors;blurple}}}
+{set;!~qcolor;{func.dlcolors;blurple}}}}
 {if;{jget;~qmeta;meta.og:image};!=;{null};
 {set;!~qthumb;{jget;~qmeta;meta.og:image}};
 {set;!~qthumb;{func.fakeimg;null;1;1}}}
