@@ -38,7 +38,7 @@ youtube or yt    - Youtube search
 {//;output message to let users know we're doing something}
 {func.searchmsg;{get;~qjson}}
 {//;get qwant results}
-{set;!~qresults;{func.syetia;qse?q={uriencode;{params}}}}
+{set;!~qresults;{func.syretia;qse?q={uriencode;{params}}}}
 {//;check results}
 {if;{length;{get;~qresults}};==;0;
 {//;no results}
