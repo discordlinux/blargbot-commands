@@ -57,8 +57,8 @@ youtube or yt    - Youtube search
 {set;!~qnext;{jget;~qresults;1.items.0.url}}}
 }
 {set;!~qdesc;{jget;~qresults;0.items.0.desc}
-> {get;~qurl}
-{if;{get;~qnext};!=;{null};Next Result:{newline}> *{get;~qnext}*}}
+{get;~qurl}
+{if;{get;~qnext};!=;{null};Next Result:{newline}*{get;~qnext}*}}
 {//;get metadata for color and thumbnail}
 {set;!~qmeta;{func.metadata;{get;~qurl}}}
 {fallback;}
