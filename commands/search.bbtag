@@ -51,7 +51,7 @@ youtube or yt    - Youtube search
 {//;results found}
 {set;!~qurl;{jget;~qresults;0.items.0.url}}
 {set;!~qtitle;{jget;~qresults;0.items.0.title}}
-{if;{jget;~qresults;0.items.count};>;1;
+{if;{jget;~qresults;0.count};>;1;
 {set;!~qnext;{jget;~qresults;0.items.1.url}};
 {if;{length;{get;~qresults}};>;1;
 {set;!~qnext;{jget;~qresults;1.items.0.url}}}
@@ -72,7 +72,7 @@ youtube or yt    - Youtube search
 }
 {//;output results}
 {edit;{channelid};{get;~searchmsg};_delete;{embedbuild;
-author.name:Qwant;
+author.name:Result via Qwant;
 author.icon_url:https://play-lh.googleusercontent.com/gZM93E0coPblwJysaGbAVgTRXPld0ZDRtrbmclDqWWrPJLKIjyVB9XKqOX8OM9_3GJI;
 author.url:https://www.qwant.com/?q={uriencode;{params}}&t=web;
 title:{get;~qtitle};
