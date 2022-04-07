@@ -225,13 +225,13 @@ __**[Steam Store Page](https://store.steampowered.com/app/{get;~id})**__
 {//;get results}
 {fallback;}
 {set;!~youtube.out;}
-{set;!~res;{jget;{exec;getjson;https://vid.puffyan.us/api/v1/search?q={uriencode;{flag;_}}&hl=en-US};0.videoId}}
+{set;!~res;{jget;{exec;getjson;https://vid.puffyan.us/api/v1/search?q={uriencode;{params}}&hl=en-US};0.videoId}}
 {if;{get;~res};!=;{null};
 {set;!~youtube.out;https://youtu.be/{get;~res}};
 {set;!~instances;{slice;{exec;getjson;https://api.invidious.io/instances.json?sort_by=users,health};0;10}}
 
 {foreach;~instance;{get;~instances};{if;{get;~youtube.out};==;{null};
-{set;!~res;{jget;{exec;getjson;{jget;~instance;1.uri}/api/v1/search?q={uriencode;{flag;_}}&hl=en-US};0.videoId}}
+{set;!~res;{jget;{exec;getjson;{jget;~instance;1.uri}/api/v1/search?q={uriencode;{params}}&hl=en-US};0.videoId}}
 {if;{get;~res};!=;{null};{set;!~youtube.out;https://youtu.be/{get;~res}}}
 }}}
 {//;output results}
