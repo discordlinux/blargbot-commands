@@ -1,0 +1,42 @@
+{//;load functions}
+{inject;{get;_gitcmd.functions}}
+{//;check prefix}
+{func.prefixtest}
+{//;help function}
+{function;help;
+{embed;{embedbuild;
+color:{func.dlcolors;yellow};
+title:Help for ask;
+description:__**Usage**__: `ask`
+Outputs a message with info on how to properly ask questions.;}}
+}
+{//;output help if any arguments passed}
+{if;{flag;_};!=;{null};
+{func.help}
+{return;false}}
+{//;output embed}
+{embed;{embedbuild;
+author.name:Asking for Help;
+author.url:https://www.youtube.com/watch?v=53zkBvL4ZB4;
+author.icon_url:{guildicon};
+color:{func.dlcolors;blurple};
+description:Please describe your issue with as much detail as possible so that people who may be willing to help you can just get right to helping.  This includes what distribution you are running, hardware, error logs, screenshots, etc.
+Please check out the video linked **[here](https://www.youtube.com/watch?v=53zkBvL4ZB4)** for some tips on how to ask technical support questions.;
+fields.name:🧵 Threads;
+fields.value:See <#883598854568689673> for information about creating threads and a list of active threads in the support channels.;
+fields.inline:false;
+fields.name:🗒 Troubleshooter Script;
+fields.value:See `sudo info troubleshooter`
+in <#174317464337776640> for more info.;
+fields.inline:false;
+fields.name:📮 Posting in the Correct Channel;
+fields.value:Please make sure that your issue does not fit into one of the other channels before posting here.
+<#96230004047740928> - discussion and general advice for tech related things
+<#173927645334077441> - discussion about and help with customizing Linux
+<#257592796704145429> - discussion about and help with coding
+<#96230043209981952> - troubleshooting general Linux issues
+<#484513714024874018> - help with installing Linux distributions
+<#484512261382340638> - Linux game issues
+<#162712517053775872> - issues with the official Discord Linux client
+<#484513481802907669> - tech issues that are not related to Linux;
+fields.inline:false;}}

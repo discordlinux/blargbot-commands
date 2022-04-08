@@ -1,6 +1,10 @@
 {
     "commands": [
         {
+            "name": "ask",
+            "file_path": "ask.bbtag"
+        },
+        {
             "name": "feedback",
             "file_path": "feedback.bbtag"
         },
