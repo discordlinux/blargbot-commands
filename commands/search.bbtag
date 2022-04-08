@@ -11,19 +11,36 @@ If none of the arguments below are used, a normal search will be ran.
 
 **Available arguments**:
 ```
-abs              - tldp Advanced Bash Scripting search
-aw               - Arch wiki Search
-bbg              - tldp Bash Beginners Guide search
-define or def    - Dictionary search
-dw               - Debian wiki search
-fw               - Fedora wiki search
-gw               - Gentoo wiki search
-lsst			 - Linux Shell Scripting Tutorial
-osd              - openSUSE docs search
-osw              - openSUSE wiki search
-steam or proton  - Steam Play compatability search
-uw               - Ubuntu wiki search
-youtube or yt    - Youtube search
+• abs
+  tldp Advanced Bash Scripting search
+• aw
+  Arch wiki Search
+• bbg
+  tldp Bash Beginners Guide search
+• define or def
+  Dictionary search
+• dw
+  Debian wiki search
+• fw
+  Fedora wiki search
+• game or games
+  MobyGames search
+• gw
+  Gentoo wiki search
+•lsst
+  Linux Shell Scripting Tutorial
+• osd
+  openSUSE docs search
+• osw
+  openSUSE wiki search
+• steam or proton
+  Steam Play compatability search
+• uw
+  Ubuntu wiki search
+• wiki or wikipedia
+  Wikipedia search
+• youtube or yt
+  Youtube search
 ```
 ;}}}
 
@@ -247,6 +264,7 @@ __**[Steam Store Page](https://store.steampowered.com/app/{get;~id})**__
 ["!aw","aw","archwiki"];{set;!~secolor;{func.distrocolors;arch}}{func.qse;site:wiki.archlinux.org {args;1;n}};
 ["dw","debianwiki"];{set;!~secolor;{func.distrocolors;debian}}{func.qse;site:wiki.debian.org {args;1;n}};
 ["fw","fedorawiki"];{set;!~secolor;{func.distrocolors;fedora}}{func.qse;site:fedoraproject.org/wiki {args;1;n}};
+["game","games"];{set;!~secolor;1673C0}{func.qse;site:mobygames.com {args;1;n}};
 ["gw","gentoowiki"];{set;!~secolor;{func.distrocolors;gentoo}}{func.qse;site:wiki.gentoo.org {args;1;n}};
 ["osw","opensusewiki"];{set;!~secolor;{func.distrocolors;opensuse}}{func.qse;site:en.opensuse.org {args;1;n}};
 ["osd","opensusedocs"];{set;!~secolor;{func.distrocolors;opensuse}}{func.qse;site:doc.opensuse.org {args;1;n}};
@@ -259,12 +277,11 @@ __**[Steam Store Page](https://store.steampowered.com/app/{get;~id})**__
 ["abs"];{set;!~secolor;skyblue}{func.qse;site:tldp.org/LDP/abs/html/ {args;1;n}};
 ["bbg"];{set;!~secolor;skyblue}{func.qse;site:tldp.org/LDP/Bash-Beginners-Guide/html/ {args;1;n}};
 ["au","askubuntu"];{set;!~secolor;{func.distrocolors;ubuntu}}{func.qse;site:askubuntu.com {args;1;n}};
+["wiki","wikipedia"];{set;!~secolor;{func.dlcolors;blurple}}{func.qse;site:wikipedia.org {args;1;n}};
 ["-h","help","--help"];{func.help};
 {if;{args};==;;{func.help}{return}}
 {func.qse;{args}}}
 
 {//;TODO:
 image search
-jargon lexicon
-moby games
-wikipedia}
+jargon lexicon}
