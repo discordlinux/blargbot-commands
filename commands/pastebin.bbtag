@@ -5,9 +5,9 @@
 {function;help;
 {embed;{embedbuild;
 title:Help for pastebin;
-color:yellow;
+color:{func.dlcolors;yellow};
 description:__**Usage**__: `pastebin <text>`
-Uploads the input text to blargbot's site.  {if;{guildid};==;96230004047740928;See `sudo info pastes` if your text is longer than 2000 characters.}}}
+Uploads the input text to blargbot's site.  See `sudo info pastes` if your text is longer than 2000 characters.}}
 }
 
 {//;detect arguments}
