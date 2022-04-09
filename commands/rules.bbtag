@@ -25,7 +25,7 @@ rules spam
 {func.help};
 
 {//;get rules.json from github repo}
-{set;!~rules;{jget;{request;https://raw.githubusercontent.com/discordlinux/blargbot-commands/main/commands/rules.json}}}
+{set;!~rules;{jget;{request;https://raw.githubusercontent.com/discordlinux/blargbot-commands/main/commands/rules.json};body}}
 
 {set;!~rules.ar;{slice;{split;{jget;~rules;rules};{newline}};1;}}
 {push;~rules.ar;{jget;~rules;distros}}
