@@ -47,9 +47,9 @@ If none of the arguments below are used, a normal search will be ran.
 {//;function to search Qwant}
 {function;qse;
 {//;set searchmsg color and message}
-{if;{get;~secolor};==;{null};
+{if;{get;~qsecolor};==;{null};
 {jset;~qjson;color;{func.dlcolors;blurple};c};
-{jset;~qjson;color;{get;~secolor};c}}
+{jset;~qjson;color;{get;~qsecolor};c}}
 {jset;~qjson;message;Searching Qwant for `{params}`;c}
 {//;output message to let users know we're doing something}
 {func.searchmsg;{get;~qjson}}
@@ -78,8 +78,8 @@ If none of the arguments below are used, a normal search will be ran.
 {//;get metadata for color and thumbnail}
 {set;!~qmeta;{func.metadata;{get;~qurl}}}
 {fallback;}
-{if;{get;~secolor};!=;{null};
-{set;!~qcolor;{get;~secolor}};
+{if;{get;~qsecolor};!=;{null};
+{set;!~qcolor;{get;~qsecolor}};
 {if;{jget;~qmeta;meta.theme-color};!=;{null};
 {set;!~qcolor;{jget;~qmeta;meta.theme-color}};
 {set;!~qcolor;{func.dlcolors;blurple}}}}
@@ -261,23 +261,23 @@ __**[Steam Store Page](https://store.steampowered.com/app/{get;~id})**__
 
 {//;detect arguments}
 {switch;{lower;{args;0}};
-["!aw","aw","archwiki"];{set;!~secolor;{func.distrocolors;arch}}{func.qse;site:wiki.archlinux.org {args;1;n}};
-["dw","debianwiki"];{set;!~secolor;{func.distrocolors;debian}}{func.qse;site:wiki.debian.org {args;1;n}};
-["fw","fedorawiki"];{set;!~secolor;{func.distrocolors;fedora}}{func.qse;site:fedoraproject.org/wiki {args;1;n}};
-["game","games"];{set;!~secolor;1673C0}{func.qse;site:mobygames.com {args;1;n}};
-["gw","gentoowiki"];{set;!~secolor;{func.distrocolors;gentoo}}{func.qse;site:wiki.gentoo.org {args;1;n}};
-["osw","opensusewiki"];{set;!~secolor;{func.distrocolors;opensuse}}{func.qse;site:en.opensuse.org {args;1;n}};
-["osd","opensusedocs"];{set;!~secolor;{func.distrocolors;opensuse}}{func.qse;site:doc.opensuse.org {args;1;n}};
-["uw","ubuntuwiki"];{set;!~secolor;{func.distrocolors;ubuntu}}{func.qse;site:wiki.ubuntu.com {args;1;n}};
+["!aw","aw","archwiki"];{set;!~qsecolor;{func.distrocolors;arch}}{func.qse;site:wiki.archlinux.org {args;1;n}};
+["dw","debianwiki"];{set;!~qsecolor;{func.distrocolors;debian}}{func.qse;site:wiki.debian.org {args;1;n}};
+["fw","fedorawiki"];{set;!~qsecolor;{func.distrocolors;fedora}}{func.qse;site:fedoraproject.org/wiki {args;1;n}};
+["game","games"];{set;!~qsecolor;1673C0}{func.qse;site:mobygames.com {args;1;n}};
+["gw","gentoowiki"];{set;!~qsecolor;{func.distrocolors;gentoo}}{func.qse;site:wiki.gentoo.org {args;1;n}};
+["osw","opensusewiki"];{set;!~qsecolor;{func.distrocolors;opensuse}}{func.qse;site:en.opensuse.org {args;1;n}};
+["osd","opensusedocs"];{set;!~qsecolor;{func.distrocolors;opensuse}}{func.qse;site:doc.opensuse.org {args;1;n}};
+["uw","ubuntuwiki"];{set;!~qsecolor;{func.distrocolors;ubuntu}}{func.qse;site:wiki.ubuntu.com {args;1;n}};
 ["urban","urbandictionary"];{func.urbandictionary;{args;1;n}};
 ["proton","steam","protondb"];{func.proton;{args;1;n}};
 ["def","define","dict","dictionary"];{func.datamuse-dictionary;{args;1;n}};
 ["youtube","yt"];{func.youtube;{args;1;n}};
-["lsst"];{set;!~secolor;skyblue}{func.qse;site:bash.cyberciti.biz/guide/ {args;1;n}};
-["abs"];{set;!~secolor;skyblue}{func.qse;site:tldp.org/LDP/abs/html/ {args;1;n}};
-["bbg"];{set;!~secolor;skyblue}{func.qse;site:tldp.org/LDP/Bash-Beginners-Guide/html/ {args;1;n}};
-["au","askubuntu"];{set;!~secolor;{func.distrocolors;ubuntu}}{func.qse;site:askubuntu.com {args;1;n}};
-["wiki","wikipedia"];{set;!~secolor;{func.dlcolors;blurple}}{func.qse;site:wikipedia.org {args;1;n}};
+["lsst"];{set;!~qsecolor;skyblue}{func.qse;site:bash.cyberciti.biz/guide/ {args;1;n}};
+["abs"];{set;!~qsecolor;skyblue}{func.qse;site:tldp.org/LDP/abs/html/ {args;1;n}};
+["bbg"];{set;!~qsecolor;skyblue}{func.qse;site:tldp.org/LDP/Bash-Beginners-Guide/html/ {args;1;n}};
+["au","askubuntu"];{set;!~qsecolor;{func.distrocolors;ubuntu}}{func.qse;site:askubuntu.com {args;1;n}};
+["wiki","wikipedia"];{set;!~qsecolor;{func.dlcolors;blurple}}{func.qse;site:wikipedia.org {args;1;n}};
 ["-h","help","--help"];{func.help};
 {if;{args};==;;{func.help}{return}}
 {func.qse;{args}}}
