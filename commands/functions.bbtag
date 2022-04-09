@@ -56,6 +56,9 @@
 {//;function to get json from website using motyar}
 {function;getjson;{jget;{split;{jget;{request;http://motyar.info/webscrapemaster/try/?url={uriencode;{params}}};body};<input{space}type};0}}
 
+{//;function to turn HTML into markdown using pandoc}
+{function;htmltomd;{func.syretia;pandoc?t=markdown_strict&f=html;-d {params;0}}}
+
 {//;function to get metadata using motyar}
 {function;metadata;
 {set;!~mraw;{func.motyar;{params;0};/meta}}
