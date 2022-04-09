@@ -21,6 +21,10 @@
             "file_path": "man.bbtag"
         },
         {
+            "name": "pastebin",
+            "file_path": "pastebin.bbtag"
+        },
+        {
             "name": "se",
             "file_path": "search.bbtag"
         },

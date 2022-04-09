@@ -1,0 +1,30 @@
+{//;load functions}
+{inject;{get;_gitcmd.functions}}
+
+{//;help function}
+{function;help;
+{embed;{embedbuild;
+title:Help for pastebin;
+color:yellow;
+description:__**Usage**__: `pastebin <text>`
+Uploads the input text to blargbot's site.  {if;{guildid};==;96230004047740928;See `sudo info pastes` if your text is longer than 2000 characters.}}}
+}
+
+{//;detect arguments}
+{switch;{lower;{flag;_}};
+["help",""];
+{func.help};
+{delete}
+{fallback;https://blargbot.xyz/}
+{set;!~bpurl;{dump;{inject;{lb}regexreplace{semi}{messagetext}{semi}/.*{commandname}\s/{semi}{rb}}}.txt}
+{embed;{embedbuild;
+title:**Link to paste**;
+url:{get;~bpurl};
+color:{func.usrclr;{userid}};
+author.name:{usernick};
+author.icon_url:{useravatar};
+timestamp:{time};
+description:*First 800 characters of paste contents*:
+{substring;{args};0;800}
+[...]
+*{get;~bpurl}*;}}}
