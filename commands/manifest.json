@@ -25,6 +25,10 @@
             "file_path": "search.bbtag"
         },
         {
+            "name": "topic",
+            "file_path": "topic.bbtag"
+        },
+        {
             "name": "usermod",
             "file_path": "usermod.bbtag"
         },

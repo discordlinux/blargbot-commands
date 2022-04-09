@@ -1,0 +1,23 @@
+{//;load functions}
+{inject;{get;_gitcmd.functions}}
+
+{//;help function}
+{function;help;{embed;{embedbuild;
+title:Help for topic;
+color:{func.dlcolors;yellow};
+description:Get the topic for a channel.;}}
+}
+
+{//;check prefix}
+{if;{jget;{split;{commandname};_};1};!=;autoresponse;
+{func.prefixtest}}
+
+{//;check arguments}
+{if;{lower;{flag;_}};==;help;
+{func.help};
+{set;!~chan;{channelid;{flag;_}}}
+{output;{embed;{embedbuild;
+color:{func.dlcolors;blurple};
+thumbnail.url:{regexreplace;{guildicon};/(\?size=512)/;?size=40};
+description:**Topic for <#{get;~chan}>**
+{jget;{func.chaninfo;{get;~chan}};topic};}}}}
