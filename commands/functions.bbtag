@@ -23,30 +23,31 @@
 
 {//;function for discord linux colors}
 {function;dlcolors;
-{jget;{j;{
-    "black": "23272a",
-    "red": "ed4245",
-    "green": "57f287",
-    "yellow": "FEE75C",
-    "orange": "d2691e",
-    "blue": "5865f2",
-    "blurple": "5865f2",
-    "fuchsia": "eb459e",
-    "pink": "eb459e",
-    "cyan": "57f2d1",
-    "gray": "5c6166",
-    "brightblack": "3d4145",
-    "brightred": "dd6f71",
-    "brightgreen": "8dfcb0",
-    "brightyellow": "EBDC87",
-    "brightorange": "e68b49",
-    "brightblue": "8b93e8",
-    "brightblurple": "8b93e8",
-    "brightfuchsia": "dd78ae",
-    "brightpink": "dd78ae",
-    "brightcyan": "9ce2d3",
-    "brightgray": "92969b"
-}};{params;0}}
+{switch;{lower;{params;0}};
+["black"];23272a;
+["red"];ed4245;
+["green"];57f287;
+["yellow"];FEE75C;
+["orange"];d2691e;
+["blue"];5865f2;
+["blurple"];5865f2;
+["fuchsia"];eb459e;
+["pink"];eb459e;
+["cyan"];57f2d1;
+["gray"];5c6166;
+["brightblack"];3d4145;
+["brightred"];dd6f71;
+["brightgreen"];8dfcb0;
+["brightyellow"];EBDC87;
+["brightorange"];e68b49;
+["brightblue"];8b93e8;
+["brightblurple"];8b93e8;
+["brightfuchsia"];dd78ae;
+["brightpink"];dd78ae;
+["brightcyan"];9ce2d3;
+["brightgray"];92969b;
+{randchoose;["23272a","ed4245","57f287","FEE75C","d2691e","5865f2","5865f2","eb459e","eb459e","57f2d1","5c6166","3d4145","dd6f71","8dfcb0","EBDC87","e68b49","8b93e8","8b93e8","dd78ae","dd78ae","9ce2d3","92969b"]}
+}
 }
 
 {//;function to output a fake image}
