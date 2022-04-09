@@ -1,5 +1,5 @@
 {//;function to get info for a channel from discord's API}
-{function;chaninfo;{jget;{request;https://discord.com/api/channels/{if;{params;0};==;{null};{channelid};{channelid;{params;0}}};{get;@bot.sh.get}};body}}
+{function;chaninfo;{fallback;{channelid}}{jget;{request;https://discord.com/api/channels/{if;{params;0};==;{null};{channelid};{channelid;{params;0}}};{get;@bot.sh.get}};body}{fallback}}
 
 {//;function for distro colors}
 {function;distrocolors;
