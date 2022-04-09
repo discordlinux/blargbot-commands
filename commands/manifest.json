@@ -25,6 +25,10 @@
             "file_path": "pastebin.bbtag"
         },
         {
+            "name": "rules",
+            "file_path": "rules.bbtag"
+        },
+        {
             "name": "se",
             "file_path": "search.bbtag"
         },

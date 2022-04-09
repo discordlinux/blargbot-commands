@@ -1,0 +1,57 @@
+{//;inject functions}
+{inject;{get;_gitcmd.functions}}
+
+{//;help function}
+{function;help;
+{embed;{embedbuild;
+title:Help for rules;
+color:yellow;
+description:__**Usage**__: `rules [all|rule to show]`
+Displays a message telling someone to read <#172522057291005953>.  Can also show the entire list of rules using the `all` argument or a specific rule from the list that matches the text input.
+
+**Examples**:
+{repeat;`;3}
+rules 1
+rules spam
+{repeat;`;3}}}
+}
+
+{//;check prefix}
+{func.prefixtest}
+
+{//;detect arguments}
+{switch;{lower;{args;0}};
+["help"];
+{func.help};
+
+{//;get rules.json from github repo}
+{set;!~rules;{jget;{request;https://raw.githubusercontent.com/discordlinux/blargbot-commands/main/commands/rules.json}}}
+
+{set;!~rules.ar;{slice;{split;{jget;~rules;rules};{newline}};1;}}
+{push;~rules.ar;{jget;~rules;distros}}
+{push;~rules.ar;{jget;~rules;punishment}}
+{push;~rules.ar;{jget;~rules;intro}}
+{push;~rules.ar;{jget;~rules;rules}}
+{push;~rules.ar;{jget;~rules;staff.info}}
+{push;~rules.ar;{replace;{jget;~rules;channels};You are here.;List of sever rules.}}
+{set;!~default;**Please read the entirety of <#172522057291005953>.**
+**-** Yes, even if you've read them already.
+**-** Yes, this means all the messages in that channel.
+**-** Please read them ***very carefully***.}
+
+{switch;{replace;{flag;_};#;};
+[1...8];
+{set;!~desc;{jget;~rules.ar;{flag;_}}};
+{if;{flag;_};!=;{null};
+{set;!~match.ar;{filter;~rule;~rules.ar;{bool;{lower;{get;~rule}};includes;{lower;{replace;{flag;_};Channels;__**Channels**__}}}}}}
+{if;{length;{get;~match.ar}};>;0;
+{set;!~desc;{jget;~match.ar;0}};
+{set;!~desc;{get;~default}}}}
+
+{embed;{embedbuild;
+author.icon_url:{guildicon};
+author.name:Discord Linux Rules;
+color:{func.dlcolors;blurple};
+thumbnail.url:https://vignette.wikia.nocookie.net/fairlyoddparents/images/1/1e/Da_Rules.png/revision/latest?cb=20180503070000&path-prefix=en;
+description:{get;~desc};
+}}}
