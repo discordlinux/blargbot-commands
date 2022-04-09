@@ -30,6 +30,7 @@
       {
         "name": "Distributions",
         "contents": [
+          "AlmaLinux",
           "Arch",
           "Arch Variants",
           "BSD",
@@ -49,6 +50,7 @@
           "Parrot OS",
           "Recommended",
           "RHEL",
+          "Rocky",
           "Slackware",
           "Solus",
           "Tumbleweed",
@@ -92,6 +94,14 @@
       }
     ],
     "commands": [
+      {
+        "name": "Alma",
+        "value": "AlmaLinux"
+      },
+      {
+        "name": "AlmaLinux",
+        "value": "AlmaLinux"
+      },
       {
         "name": "AppImages",
         "value": "/linux/appimages.json"
@@ -331,6 +341,14 @@
       {
         "name": "RHEL",
         "value": "RHEL"
+      },
+      {
+        "name": "Rocky",
+        "value": "Rocky Linux"
+      },
+      {
+        "name": "Rocky Linux",
+        "value": "Rocky Linux"
       },
       {
         "name": "Rolling",
