@@ -15,7 +15,9 @@ description:Get the topic for a channel.;}}
 {//;check arguments}
 {if;{lower;{flag;_}};==;help;
 {func.help};
+{fallback;{channelid}}
 {set;!~chan;{channelid;{flag;_}}}
+{fallback}
 {output;{embed;{embedbuild;
 color:{func.dlcolors;blurple};
 thumbnail.url:{regexreplace;{guildicon};/(\?size=512)/;?size=40};
