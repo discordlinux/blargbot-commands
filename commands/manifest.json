@@ -5,6 +5,10 @@
             "file_path": "ask.bbtag"
         },
         {
+            "name": "enter",
+            "file_path": "enter.bbtag"
+        },
+        {
             "name": "feedback",
             "file_path": "feedback.bbtag"
         },
