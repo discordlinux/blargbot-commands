@@ -17,6 +17,10 @@
             "file_path": "info/info.bbtag"
         },
         {
+            "name": "man",
+            "file_path": "man.bbtag"
+        },
+        {
             "name": "se",
             "file_path": "search.bbtag"
         },

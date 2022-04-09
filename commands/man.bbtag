@@ -1,0 +1,90 @@
+{//;load functions}
+{inject;{get;_gitcmd.functions}}
+
+{//;help function}
+{function;manhelp;{embed;{embedbuild;
+author.name:ManKier;
+author.url:https://www.makier.com;
+author.icon_url:https://www.mankier.com/img/kier-sq.png;
+color:465870;
+title:Help for man;
+description:Searches [ManKier.com](https://www.mankier.com) for man pages and returns a description and link for the result.}}
+}
+
+{//;check prefix}
+{func.prefixtest}
+
+{//;check arguments}
+{switch;{lower;{flag;_}};
+["help","--help","-h",""];
+{func.manhelp};
+{//;output message while we get results}
+{jset;~mansearch;color;465870;c}
+{jset;~mansearch;message;Searching for `{args}` manpage on [ManKier.com](https://mankier.com);c}
+{func.searchmsg;{get;~mansearch}}
+
+{//;get results}
+{if;{argslength};>;1;
+{//;info about specific flags}
+{set;!~manq;{args}}
+{set;!~manr;{clean;{jget;{request;https://www.mankier.com/api/explain/?q={uriencode;{get;~manq}}&cols=70};body}}}
+{if;{regexreplace;{get;~manr};/(\n)/g;};==;{get;~manq};
+{set;!~mantitle;No results found for '{get;~manq}'}
+{set;!~manurl;https://www.mankier.com/?q={uriencode;{get;~manq}}};
+{set;!~mantitle;{jget;{split;{get;~manr};{newline}};1}}
+{set;!~manurl;{reverse;{jget;{split;{reverse;{get;~manr}};{newline}};1}}}
+{set;!~mandesc;{replace;{reverse;{join;{slice;{split;{reverse;{get;~manr}};{newline}};2;};{newline}}};{get;~mantitle}{newline};}}};
+
+{if;{length;{split;{replace;{replace;{flag;_};(;.};);};.}};==;2;
+{//;input contains section, don't search}
+{set;!~manr;{base64decode;{jget;{request;https://www.mankier.com/api/v2/mans/{uriencode;{replace;{replace;{flag;_};(;.};);}}/sections/Examples_(TL%3BDR)};body}}}
+{//;check results}
+{if;{jget;~manr;error};!=;{null};
+{//;no results found for section, get without section}
+{set;!~manr;{base64decode;{jget;{request;https://www.mankier.com/api/v2/mans/{uriencode;{replace;{replace;{flag;_};(;.};);}}};body}}}
+{if;{jget;~manr;error};!=;{null};
+{//;no results found}
+{set;!~mantitle;No results found for '{flag;_}'}
+{set;!~manurl;https://www.mankier.com/?q={uriencode;{flag;_}}};
+{//;results found}
+{set;!~mantitle;{jget;~manr;name}({jget;~manr;section})}
+{set;!~manurl;{jget;~manr;url}}
+{set;!~mandesc;{jget;~manr;description}}};
+{//;results found}
+{set;!~mantitle;{replace;{replace;{replace;{flag;_};(;.};);};.;(})}
+{set;!~manurl;{jget;{split;{jget;~manr;url};#};0}}
+{set;!~mandesc;{func.htmltomd;{base64encode;{jget;~manr;html}}}}};
+
+{//;input doesn't contain section, search}
+{set;!~manr;{base64decode;{jget;{request;https://www.mankier.com/api/v2/mans/?q={uriencode;{flag;_}}};body}}}
+{//;check results}
+{if;{length;{jget;~manr;results}};==;0;
+{//;no results found}
+{set;!~mantitle;No results found for '{get;~manq}'}
+{set;!~manurl;https://www.mankier.com/?q={uriencode;{get;~manq}}};
+{//;results found}
+{set;!~manq;{jget;~manr;results.0.name}.{jget;~manr;results.0.section}}
+{//;get tldr for result}
+{set;!~manr;{base64decode;{jget;{request;https://www.mankier.com/api/v2/mans/{uriencode;{get;~manq}}/sections/Examples_(TL%3BDR)};body}}}
+{//;check results}
+{if;{jget;~manr;error};!=;{null};
+{//;no results found for section, get without section}
+{set;!~manr;{base64decode;{jget;{request;https://www.mankier.com/api/v2/mans/{uriencode;{get;~manq}}};body}}}
+{set;!~mantitle;{jget;~manr;name}({jget;~manr;section})}
+{set;!~manurl;{jget;~manr;url}}
+{set;!~mandesc;{jget;~manr;description}};
+{//;results found}
+{set;!~mantitle;{flag;_}}
+{set;!~manurl;{jget;{split;{jget;~manr;url};#};0}}
+{set;!~mandesc;{func.htmltomd;{base64encode;{jget;~manr;html}}}}}}
+}}
+
+{edit;{channelid};{get;~searchmsg};_delete;{embedbuild;
+author.name:ManKier;
+author.url:https://www.makier.com;
+author.icon_url:https://www.mankier.com/img/kier-sq.png;
+color:465870;
+footer.text:{get;~manurl};
+title:{get;~mantitle};
+url:{get;~manurl};
+description:{get;~mandesc};}}}
