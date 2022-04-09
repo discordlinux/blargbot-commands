@@ -60,8 +60,8 @@ description:Searches [ManKier.com](https://www.mankier.com) for man pages and re
 {//;check results}
 {if;{length;{jget;~manr;results}};==;0;
 {//;no results found}
-{set;!~mantitle;No results found for '{get;~manq}'}
-{set;!~manurl;https://www.mankier.com/?q={uriencode;{get;~manq}}};
+{set;!~mantitle;No results found for '{flag;_}'}
+{set;!~manurl;https://www.mankier.com/?q={uriencode;{flag;_}}};
 {//;results found}
 {set;!~manq;{jget;~manr;results.0.name}.{jget;~manr;results.0.section}}
 {//;get tldr for result}
