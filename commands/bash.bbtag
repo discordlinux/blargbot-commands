@@ -1,0 +1,343 @@
+{//;load functions}
+{inject;{get;_gitcmd.functions}}
+
+{//;help function}
+{function;bashhelp;
+{embed;{embedbuild;
+title:Help for bash;
+color:{func.dlcolors;yellow};
+description:__**Usage**__: `bash <arg> <text>`
+A simple bash shell-like command.  Any arguments not listed below will attempt to run an existing alias.  If an alias does not exist, the arguments will be executed using the Paiza API.
+
+**Available arguments**
+{repeat;`;3}bash
+alias
+- Set an alias to execute another tag or custom command.
+- USER MUST BE STAFF TO SET ALIASES!
+- Ex: 'bash alias myalias {escapebbtag;{exec;sometag}}'
+- Ex: 'bash alias lsa ls -a'
+
+unalias
+- Unset an alias.
+- USER MUST BE STAFF TO UNSET ALIASES!
+- Ex: 'bash unalias myalias'
+
+export
+- Set a variable to a given value.
+- USER MUST BE STAFF TO SET VARIABLES!
+- Ex: 'bash export VAR some thing'
+
+unset
+- Unset a variable.
+- USER MUST BE STAFF TO UNSET VARIABLES!
+- Ex: 'bash unset VAR'
+{repeat;`;3}
+{if;{jstringify;@{guildid}.bash.aliases};!=;{lb}{rb};
+**Aliases**
+{repeat;`;3}
+{join;{sort;{jkeys;@{guildid}.bash.aliases}};,{space}}
+{repeat;`;3}};}}
+}
+
+{//;function to export variables for use with bashrc function}
+{function;export;
+{//;only staff/sudoers}
+{if;{logic;||;{isstaff;{userid}};
+{userhasrole;457281742844330004;{userid};quiet}};==;false;
+{func.output;export {params}
+export: Permission denied.  User must be staff.}
+{return}
+}
+
+{//;error if no input}
+{if;{length;{split;{params};{space}}};<;2;
+{func.output;export {params}
+export: Missing required argument.  Usage: 'export varname value of var'}
+{return}
+}
+
+{//;get var name and value}
+{set;!~var;{jget;{split;{params};{space}};0}}
+{set;!~value;{join;{slice;{split;{params};{space}};1;};{space}}}
+{//;add variable to variables JSON}
+{jset;@{guildid}.bash.variables;{get;~var};{get;~value};c}
+
+{//;add reaction to let user know something happened}
+{reactadd;{channelid};{messageid};👍}
+}
+
+{//;function to unset variables, only staff/sudoers}
+{function;unset;
+{//;only staff/sudoers}
+{if;{logic;||;{isstaff;{userid}};
+{userhasrole;457281742844330004;{userid};quiet}};==;false;
+{func.output;unset {params}
+unset: Permission denied.  User must be staff.}
+{return}
+}
+
+{//;error if no input}
+{if;{params};==;{null};
+{func.output;unset {params}
+unset: Missing required argument.  Usage: 'unset varname'}
+{return}
+}
+
+{//;get var name}
+{set;!~var;{jget;{split;{params};{space}};0}}
+{//;remove variable from variables JSON}
+{jset;@{guildid}.bash.variables;{get;~var}}
+
+{//;add reaction to let user know something happened}
+{reactadd;{channelid};{messageid};👍}
+}
+
+{//;function to set aliases, use json to store aliases, only staff/sudoers, handle bash aliases and bbtag aliases}
+{function;alias;
+{//;only staff/sudoers}
+{if;{logic;||;{isstaff;{userid}};
+{userhasrole;457281742844330004;{userid};quiet}};==;false;
+{func.output;alias {params}
+alias: Permission denied.  User must be staff.}
+{return}
+}
+
+{//;error if no input}
+{if;{length;{split;{params};{space}}};<;2;
+{func.output;alias {params}
+alias: Missing required argument.  Usage: 'alias name code here'}
+{return}
+}
+
+{//;get alias name and value}
+{set;!~alias;{jget;{split;{params};{space}};0}}
+{set;!~value;{join;{slice;{split;{params};{space}};1;};{space}}}
+{//;add alias to aliases JSON}
+{jset;@{guildid}.bash.aliases;{get;~alias};{get;~value};c}
+
+{//;add reaction to let user know something happened}
+{reactadd;{channelid};{messageid};👍}
+}
+
+{//;function to unset aliases, only staff/sudoers}
+{function;unalias;
+{//;only staff/sudoers}
+{if;{logic;||;{isstaff;{userid}};
+{userhasrole;457281742844330004;{userid};quiet}};==;false;
+{func.output;unalias {params}
+unalias: Permission denied.  User must be staff.}
+{return}
+}
+
+{//;error if no input}
+{if;{params};==;{null};
+{func.output;unalias {params}
+unalias: Missing required argument.  Usage: 'unalias name'}
+{return}
+}
+
+{//;get alias name}
+{set;!~alias;{jget;{split;{params};{space}};0}}
+{//;remove alias from aliases JSON}
+{jset;@{guildid}.bash.aliases;{get;~alias}}
+
+{//;add reaction to let user know something happened}
+{reactadd;{channelid};{messageid};👍}
+}
+
+{//;function to export variables, set aliases, etc like a bashrc file}
+{function;bashrc;
+#!/bin/bash
+
+# aliases
+{foreach;~alias;{jkeys;@{guildid}.bash.aliases};{if;{jget;@{guildid}.bash.aliases;{get;~alias}};startswith;{lb};{//;do nothing};{get;~alias}(){lb}{space}{jget;@{guildid}.bash.aliases;{get;~alias}}{space}"$@"{semi}{space}{rb}{newline}}}
+
+
+# export variables
+export USER="{regexreplace;{lower;{usernick}};/\s+/g;_}"
+export HOSTNAME="{regexreplace;{lower;{guildname}};/\s+/g;_}"
+export SHELL
+{foreach;~var;{jkeys;@{guildid}.bash.variables};export {get;~var}="{inject;{jget;@{guildid}.bash.variables;{get;~var}}}"{newline}}
+
+# functions
+
+# do math with awk
+calc() {lb}
+  awk "BEGIN {lb}print $@{rb}"
+{rb}
+
+# cowsay
+cowsay() {lb}
+  curl -sL "http://cowsay.morecode.org/say?message="$(uriencode "$@")"&format=json" | jq -r '.cow'
+{rb}
+
+# inxi
+inxi() {lb}
+  curl -sL 'https://raw.githubusercontent.com/smxi/inxi/master/inxi' -o ./inxi
+  chmod +x ./inxi
+  ./inxi -Fx -c 0
+{rb}
+
+# neofetch
+neofetch() {lb}
+  # USER="{regexreplace;{lower;{usernick}};/\s+/g;_}"
+  # HOSTNAME="{regexreplace;{lower;{guildname}};/\s+/g;_}"
+  # curl -sL 'https://raw.githubusercontent.com/dylanaraps/neofetch/87827df455558bd99ca40f443d49a9f7026040f8/neofetch' | \
+  # bash -s - --stdout --no_config | \
+  # sed 's%Terminal: time%Terminal: discord%' | \
+  # perl -pe 'chomp if eof'
+  source /etc/os-release
+  echo "OS: "${lb}PRETTY_NAME:-${lb}DISTRIB_DESCRIPTION{rb}{rb} ${lb}UBUNTU_CODENAME{rb}""
+  echo "Host: "$(cat /sys/devices/virtual/dmi/id/product_name)""
+  echo "Kernel: "$(uname -r)""
+  echo "Uptime: "$(uptime --pretty | cut -f2- -d' ')""
+  echo "Packages: "$(dpkg -l | wc -l)""
+  echo "Shell: ${lb}SHELL##*/{rb} "$(${lb}SHELL{rb} --version 2> /dev/null | head -n 1 | cut -f1 -d'(' | tr -dc '[0-9].')""
+  echo "Terminal: discord"
+  echo "CPU: "$(cat /proc/cpuinfo | grep 'model name' | uniq | cut -f3- -d' ' | sed "s%CPU%($(cat /proc/cpuinfo | grep 'model name' | wc -l))%")""
+  while IFS=":" read -r a b{semi} do
+    case "$a" in
+        "MemTotal") ((mem_used+=${lb}b/kB{rb})){semi} mem_total="${lb}b/kB{rb}" {semi}{semi}
+        "Shmem") ((mem_used+=${lb}b/kB{rb}))  {semi}{semi}
+        "MemFree" | "Buffers" | "Cached" | "SReclaimable")
+            mem_used="$((mem_used-=${lb}b/kB{rb}))"
+        {semi}{semi}
+    esac
+  done < /proc/meminfo
+  mem_used="$((mem_used / 1024))"
+  mem_total="$((mem_total / 1024))"
+  echo "RAM: ${lb}mem_used{rb}MiB / ${lb}mem_total{rb}MiB"
+{rb}
+}
+
+{//;function to run bash script through paiza API, returns JSON result}
+{function;paiza;
+{//;set default json}
+{set;!~input.json;{j;{"source_code":"help","input":"","language":"bash","api_key":"guest","network":true,"longpoll":true,"longpoll_timeout":30}}}
+
+{//;set input to base64 encoded bashrc}
+{jset;~input.json;input;{base64encode;{regexreplace;{func.bashrc};/\r/g;}}}
+
+{//;set source_code if any arguments passed}
+{if;{length;{paramsarray}};!=;0;
+{jset;~input.json;source_code;base64 -d - > ./bashrc{semi}source ./bashrc{semi}{params}}
+}
+
+{//;set up header}
+{jset;~piaza.head;method;POST;c}
+{jset;~piaza.head;headers.Content-Type;application/json;c}
+
+{//;POST code to api.paiza.io}
+{set;!~paiza.post.json;{request;http://api.paiza.io/runners/create;{get;~piaza.head};{get;~input.json}}}
+
+{//;set variables from response}
+{set;!~paiza.id;{jget;~paiza.post.json;body.id}}
+{set;!~paiza.status;{jget;~paiza.post.json;body.status}}
+
+{//;throw error if status is not completed}
+{if;{get;~paiza.status};!=;completed;
+{throw;{repeat;`;2}{newline}{regexreplace;{lower;{usernick}}@{lower;{guildname}};/\s/g;-}:~>{space}{regexreplace;{regexreplace;{params};/(<@!?|@everyone|@here)/g;};/`/g;‘}{newline}Error posting code to api.paiza.io:{newline}{regexreplace;{get;~paiza.post.json};/`/g;{zws}`}{repeat;`;2}}
+{return;false}
+}
+
+{//;get results}
+{set;!~paiza.json;{request;http://api.paiza.io/runners/get_details?id={get;~paiza.id}&api_key=guest}}
+
+{//;error if fail to get resuts}
+{if;{jget;~paiza.json;status};!=;200;
+{throw;{repeat;`;2}{newline}{regexreplace;{lower;{usernick}}@{lower;{guildname}};/\s/g;-}:~>{space}{regexreplace;{regexreplace;{params};/(<@!?|@everyone|@here)/g;};/`/g;‘}{newline}Error posting code to api.paiza.io:{newline}{regexreplace;{get;~paiza.post.json};/`/g;{zws}`}{repeat;`;2}}
+{return;false}
+}
+
+{//;if paiza json has stdout value, remove any mentions}
+{if;{jget;~paiza.json;body.stdout};!=;{null};
+{set;!~unclean.stdout;{jget;~paiza.json;body.stdout}}
+{jset;~paiza.json;body.stdout;{regexreplace;{regexreplace;{get;~unclean.stdout};/(<@!?|@everyone|@here)/g;};/`/g;‘}}
+}
+
+
+{//;output results}
+{jstringify;{jget;~paiza.json;body}}
+}
+
+{//;function to load bashrc and execute code or inject bbtag aliases}
+{function;exec;
+{//;if alias contains bbtag, inject it and return}
+{if;{jget;@{guildid}.bash.aliases;{jget;{split;{params};{space}};0}};startswith;{lb};
+{inject;{jget;@{guildid}.bash.aliases;{jget;{split;{params};{space}};0}}}
+{return;false}
+}
+
+{//;execute code using paiza function}
+{set;!~paiza.results;{func.paiza;{params}}}
+
+{//;output results}
+{func.output;{regexreplace;{regexreplace;{params};/(<@!?|@everyone|@here)/g;};/`/g;‘}
+{if;{jget;~paiza.results;stderr};!=;{null};{jget;~paiza.results;stderr}{if;{jget;~paiza.results;stderr};endswith;{newline};{null};{newline}}}{if;{jget;~paiza.results;stdout};!=;{null};{jget;~paiza.results;stdout}{if;{jget;~paiza.results;stdout};endswith;{newline};{null};{newline}}}}
+}
+
+{//;function to output terminal-style}
+{function;output;
+{//;setup output}
+{set;!~output.txt;{regexreplace;{lower;{usernick}@{guildname}};/\s/g;_}:~> {params}
+Exit code: {fallback;1}{jget;~paiza.results;exit_code} | Memory used: {numformat;{math;/;{jget;~paiza.results;memory};1024};;;,} KiB | Time: {fallback;0}{jget;~paiza.results;time}s | Result: {fallback;failure}{jget;~paiza.json;body.result}{fallback}}
+
+{//;check output length}
+{if;{length;{get;~output.txt}};<=;1990;
+{//;if length less than 1990, output text}
+{repeat;`;3}
+{get;~output.txt}
+{repeat;`;3};
+{//;if length 1990 or more, either send as attachment or use embed}
+{if;{iscc};
+{//;send as attachment if cc}
+{void;{send;{channelid};Bash outout:{newline}<{dump;{get;~output.txt}}.txt>;;buffer:{base64encode;{get;~output.txt}};bash.txt}};
+{//;send as embed if not cc}
+{//;dump output text}
+{set;!~output.url;{dump;{get;~output.txt}}}
+{//;embed preview of output with link to full output}
+{embed;{embedbuild;
+title:Link to Output;
+url:{get;~output.url};
+color:{func.usrclr;{userid}};
+author.name:{usernick};
+author.icon_url:{useravatar};
+timestamp:{time};
+description:*First 800 characters of paste contents*:
+{substring;{get;~output.txt};0;800}
+[...]
+*{get;~output.url}*;}}
+}
+}
+}
+
+{//;if being ran in autoresponse, run exec function on messagetext minus prefix}
+{switch;{jget;{split;{commandname};_};1};
+["autoresponse"];
+{output;{func.exec;{inject;{lb}regexreplace{semi}{lb}messagetext{rb}{semi}/({prefix}\s?|su\s|\.\/)/i{semi}{rb}}}}
+}
+
+{//;return if commandname is not bash so functions can be used}
+{if;{commandname};!=;bash;
+{return;false}
+}
+
+{//;detect arguments}
+{fallback;}
+{set;!~arg;{lower;{args;0}}}
+{set;!~args;{args;1;n}}
+{fallback}
+{switch;{get;~arg};
+["help",""];
+{func.bashhelp};
+["export"];
+{func.export;{get;~args}};
+["unset"];
+{func.unset;{get;~args}};
+["alias"];
+{func.alias;{get;~args}};
+["unalias"];
+{func.unalias;{get;~args}};
+{//;run exec on message text to keep double quotes}
+{func.exec;{inject;{lb}regexreplace{semi}{lb}messagetext{rb}{semi}/({prefix}\s?|su\s|\.\/)(t\s|tag\s)?{commandname}\s/i{semi}{rb}}}
+}
