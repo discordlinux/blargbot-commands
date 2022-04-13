@@ -208,6 +208,16 @@ neofetch() {lb}
   mem_total="$((mem_total / 1024))"
   echo "RAM: ${lb}mem_used{rb}MiB / ${lb}mem_total{rb}MiB"
 {rb}
+
+# uriencode using perl
+uriencode() {lb}
+  perl -MURI::Escape -e 'print uri_escape($ARGV[0]){semi}' "$*"
+{rb}
+
+# uridecode using perl
+uridecode() {lb}
+  perl -MURI::Escape -e 'print uri_unescape($ARGV[0]){semi}' "$*"
+{rb}
 }
 
 {//;function to run bash script through paiza API, returns JSON result}
