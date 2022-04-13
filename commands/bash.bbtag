@@ -283,7 +283,7 @@ uridecode() {lb}
 
 {//;output results}
 {func.output;{regexreplace;{regexreplace;{params};/(<@!?|@everyone|@here)/g;};/`/g;‘}
-{if;{jget;~paiza.results;stderr};!=;{null};{jget;~paiza.results;stderr}{if;{jget;~paiza.results;stderr};endswith;{newline};{null};{newline}}}{if;{jget;~paiza.results;stdout};!=;{null};{jget;~paiza.results;stdout}{if;{jget;~paiza.results;stdout};endswith;{newline};{null};{newline}}}}
+{if;{jget;~paiza.results;stderr};!=;{null};{replace;{jget;~paiza.results;stderr};Main.sh: line 1:{space};}{if;{jget;~paiza.results;stderr};endswith;{newline};{null};{newline}}}{if;{jget;~paiza.results;stdout};!=;{null};{jget;~paiza.results;stdout}{if;{jget;~paiza.results;stdout};endswith;{newline};{null};{newline}}}}
 }
 
 {//;function to output terminal-style}
