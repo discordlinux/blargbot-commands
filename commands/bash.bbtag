@@ -328,7 +328,9 @@ description:*First 800 characters of paste contents*:
 }
 
 {//;return if commandname is not bash so functions can be used}
-{if;{commandname};!=;bash;
+{switch;{commandname};
+["bash","help"];
+{//;do nothing};
 {return;false}
 }
 
