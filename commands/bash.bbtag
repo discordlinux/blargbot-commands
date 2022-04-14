@@ -351,5 +351,5 @@ description:*First 800 characters of paste contents*:
 ["unalias"];
 {func.unalias;{get;~args}};
 {//;run exec on message text to keep double quotes}
-{func.exec;{inject;{lb}regexreplace{semi}{lb}messagetext{rb}{semi}/({prefix}\s?|su\s|\.\/)(t\s|tag\s)?{commandname}\s/i{semi}{rb}}}
+{func.exec;{join;{slice;{split;{messagetext};{commandname}{space}};1;};{commandname}{space}}}
 }
