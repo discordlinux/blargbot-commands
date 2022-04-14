@@ -81,7 +81,7 @@ description:Searches [ManKier.com](https://www.mankier.com) for man pages and re
 
 {edit;{channelid};{get;~searchmsg};_delete;{embedbuild;
 author.name:ManKier;
-author.url:https://www.makier.com;
+author.url:https://www.mankier.com;
 author.icon_url:https://www.mankier.com/img/kier-sq.png;
 color:465870;
 footer.text:{get;~manurl};
