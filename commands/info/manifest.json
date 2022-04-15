@@ -111,11 +111,19 @@
         "value": "/distros/arch.json"
       },
       {
-        "name": "Arch Variants",
+        "name": "Arch Based",
+        "value": "/distros/arch_variants.json"
+      },
+      {
+        "name": "Archbased",
         "value": "/distros/arch_variants.json"
       },
       {
         "name": "Arch Variant",
+        "value": "/distros/arch_variants.json"
+      },
+      {
+        "name": "Arch Variants",
         "value": "/distros/arch_variants.json"
       },
       {
@@ -124,14 +132,6 @@
       },
       {
         "name": "Archvariants",
-        "value": "/distros/arch_variants.json"
-      },
-      {
-        "name": "Arch Based",
-        "value": "/distros/arch_variants.json"
-      },
-      {
-        "name": "Archbased",
         "value": "/distros/arch_variants.json"
       },
       {
@@ -383,11 +383,11 @@
         "value": "/linux/shell.json"
       },
       {
-        "name": "Snaps",
+        "name": "Snap",
         "value": "/linux/snaps.json"
       },
       {
-        "name": "Snap",
+        "name": "Snaps",
         "value": "/linux/snaps.json"
       },
       {
