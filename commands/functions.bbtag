@@ -128,6 +128,35 @@ description:{get;~semsg}...;}}}}
 {//;function to make requests to syretia.cf endpoints}
 {function;syretia;{jset;~head;method;POST;c}{jset;~head;headers.user-agent;blargbot | guild: {guildid};c}{jget;{request;http://syretia.cf/{params;0};{get;~head};{get;~syretia.body}};body}}
 
+{//;function to convert time input to seconds}
+{function;timeconv;{clean;{//;Convert time input to seconds}
+{set;~time;{time;X}}
+{//;Set an array to loop through}
+{set;~array;{split;{params};{space}}}
+{//;Loop through each item from the array}
+{foreach;~input;~array;
+{//;Multiply input with 604800 to get amount of seconds}
+{if;{get;~input};endswith;w;
+{set;~weeks;{math;*;604800;{replace;{get;~input};w;}}}
+{set;~time;{math;+;{get;~time};{get;~weeks}}}}
+{//;Multiply input with 86400 to get amount of seconds}
+{if;{get;~input};endswith;d;
+{set;~days;{math;*;86400;{replace;{get;~input};d;}}}
+{set;~time;{math;+;{get;~time};{get;~days}}}}
+{//;Multiply input with 3600 to get amount of seconds}
+{if;{get;~input};endswith;h;
+{set;~hours;{math;*;3600;{replace;{get;~input};h;}}}
+{set;~time;{math;+;{get;~time};{get;~hours}}}}
+{//;Multiply input with 60 to get amount of seconds}
+{if;{get;~input};endswith;m;
+{set;~mins;{math;*;60;{replace;{get;~input};m;}}}
+{set;~time;{math;+;{get;~time};{get;~mins}}}}
+{//;Add input directly to time variable}
+{if;{get;~input};endswith;s;
+{set;~time;{math;+;{get;~time};{replace;{get;~input};s;}}}}}
+{set;~time;{time;DD-MMM-YYYY HH:mm:ss;{get;~time};X}}
+{get;~time}}}
+
 {//;function to remove duplicates from an array}
 {function;uniq;
 {set;!~filter.ar;[]}{void;{filter;~ue;{if;{isarray;{params}};{params};{paramsarray}};{if;{indexof;{get;~filter.ar};{get;~ue}};==;-1;{push;~filter.ar;{get;~ue}}true;false}}}{jvalues;~filter.ar}}
