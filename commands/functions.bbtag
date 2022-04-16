@@ -62,6 +62,9 @@
 {//;function to turn HTML into markdown using pandoc}
 {function;htmltomd;{set;!~syretia.body;{params;0}}{func.syretia;pandoc?t=markdown_strict&f=html}}
 
+{//;function to output linux tux hacker gif}
+{function;linuxhacker;https://cdn.discordapp.com/emojis/478073442311077889.gif?size=20}
+
 {//;function to get metadata using motyar}
 {function;metadata;
 {set;!~mraw;{func.motyar;{params;0};/meta}}
