@@ -37,6 +37,10 @@
             "file_path": "pastebin.bbtag"
         },
         {
+            "name": "rootuser",
+            "file_path": "rootuser.bbtag"
+        },
+        {
             "name": "rules",
             "file_path": "rules.bbtag"
         },

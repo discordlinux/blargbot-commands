@@ -1,0 +1,11 @@
+{//;load functions}
+{inject;{get;_gitcmd.functions}}
+
+{embed;{embedbuild;
+title:Seriously, don't use root as your main user!;
+color:{func.dlcolors;red};
+description:**• Using root as your main or only user is a bad idea for any Linux distribution.**
+**• Many programs are not designed to run as root or will cause permission errors if done so.**
+**• If you're currently using a system only as root, *STOP!*.**
+**• You should probably make a full backup and migrate to a non-root user. It'll save you trouble in the long run.**;
+}}
