@@ -41,6 +41,10 @@
             "file_path": "search.bbtag"
         },
         {
+            "name": "shard",
+            "file_path": "shard.bbtag"
+        },
+        {
             "name": "topic",
             "file_path": "topic.bbtag"
         },
