@@ -1,7 +1,6 @@
 {
     "footer": {
         "text": "See 'sudo info ubuntu' for more information about Ubuntu.",
-        "proxy_icon_url": "https://images-ext-2.discordapp.net/external/ckEj-CkpY4bDVO84L7-IOaN_bZVZn5-08ucESFsKGq0/%3Fv%3D1/https/cdn.discordapp.com/emojis/230469242183483392.png",
         "icon_url": "https://cdn.discordapp.com/emojis/230469242183483392.png?v=1"
     },
     "fields": [
@@ -11,12 +10,12 @@
             "inline": false
         },
         {
-            "value": "• Cannot upgrade from 18.04 to 20.04.\r\n• Least beginner friendly Ubuntu flavor.\r\n• LXQt's customization options are extremely lacking out of the box; `qt5ct` is required to actually be able to customize Qt applications.\r\n• LXQt tends to feel more like a collection of tools rather than an actual Desktop Environment.\r\n• The team that packages Lubuntu sometimes creates buggy builds.",
+            "value": "• Cannot upgrade from 18.04 to 22.04.\r\n• Least beginner friendly Ubuntu flavor.\r\n• LXQt's customization options are extremely lacking out of the box; `qt5ct` is required to actually be able to customize Qt applications.\r\n• LXQt tends to feel more like a collection of tools rather than an actual Desktop Environment.\r\n• The team that packages Lubuntu sometimes creates buggy builds.",
             "name": "<:glare:504911469943717909> Disadvantages of Lubuntu",
             "inline": false
         },
         {
-            "value": "Lubuntu is the least beginner friendly Ubuntu flavor, so those who are not computer savvy may have troubles adjusting the bland default settings.  Due to the disadvantages listed above, we do not recommend Lubuntu.  Instead, we recommend Kubuntu (see `sudo info kubuntu`) as it has very similar resource use to Lubuntu and is much more friendly to use.\r\n**[Download Lubuntu](http://cdimage.ubuntu.com/lubuntu/releases/20.04/release/)**",
+            "value": "Lubuntu is the least beginner friendly Ubuntu flavor, so those who are not computer savvy may have troubles adjusting the bland default settings.  Due to the disadvantages listed above, we do not recommend Lubuntu.  Instead, we recommend Kubuntu (see `sudo info kubuntu`) as it has very similar resource use to Lubuntu and is much more friendly to use.\r\n**[Download Lubuntu](http://cdimage.ubuntu.com/lubuntu/releases/22.04/release/)**",
             "name": "<:think:585665071938666508> Should You Use Lubuntu?",
             "inline": false
         }
@@ -25,7 +24,6 @@
     "color": 92616,
     "author": {
         "url": "https://lubuntu.me/",
-        "proxy_icon_url": "https://images-ext-1.discordapp.net/external/2cW-quzo_cLoB-VSRz7BWb7Uz47wFrhqXOr6THpBLw8/%3Fv%3D1/https/cdn.discordapp.com/emojis/230468300784533524.png",
         "name": "Lubuntu",
         "icon_url": "https://cdn.discordapp.com/emojis/230468300784533524.png?v=1"
     }

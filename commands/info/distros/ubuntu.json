@@ -12,7 +12,7 @@
         },
         {
             "name": "<:think:585665071938666508> Should You Use Ubuntu?",
-            "value": "If you are looking for a Linux distribution that is easy to use, well supported, very stable, and has tons of software available, Ubuntu and its flavors are the best choice.  Most people will be happier with an [Ubuntu flavor](https://ubuntu.com/download/flavours) than stock Ubuntu as they are easier on system resources and much more customizable.\n**[Download Ubuntu](https://ubuntu.com/download/desktop/thank-you?version=20.04.4&architecture=amd64)**"
+            "value": "If you are looking for a Linux distribution that is easy to use, well supported, very stable, and has tons of software available, Ubuntu and its flavors are the best choice.  Most people will be happier with an [Ubuntu flavor](https://ubuntu.com/download/flavours) than stock Ubuntu as they are easier on system resources and much more customizable.\n**[Download Ubuntu](https://releases.ubuntu.com/22.04/)**"
         }
     ],
     "author": {

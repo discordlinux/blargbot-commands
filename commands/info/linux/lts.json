@@ -6,7 +6,7 @@
             "inline": false
         },
         {
-            "value": "If you need a newer kernel than what is provided by default in the LTS release, you can install the HWE Edge kernel package using the following commands:\r\n```\r\nsudo apt update && sudo apt install linux-generic-hwe-20.04-edge\r\n```\r\nIf you need a newer Mesa version than what is provided by default, you can add a PPA to get the latest stable version using the following commands:\r\n```\r\nsudo sudo add-apt-repository ppa:kisak/turtle && sudo apt update && sudo apt upgrade\r\n```",
+            "value": "If you need a newer kernel than what is provided by default in the LTS release, you can install the HWE Edge kernel package using the following commands:\r\n**20.04**:```\r\nsudo apt update && sudo apt install linux-generic-hwe-20.04-edge\r\n```\r\n**22.04**:```\r\nsudo apt update && sudo apt install linux-generic-hwe-22.04-edge\r\n```\r\nIf you need a newer Mesa version than what is provided by default, you can add a PPA to get the latest stable version using the following commands:\r\n```\r\nsudo sudo add-apt-repository ppa:kisak/turtle && sudo apt update && sudo apt upgrade\r\n```",
             "name": "<:SeemsGood:478441196755091461> **Get more up to date packages on an LTS release**:",
             "inline": false
         }
@@ -14,7 +14,6 @@
     "description": "**Please only use non LTS Ubuntu releases for testing purposes.**  \r\n**LTS releases will always be `EvenNumber.04` (16.04, 18.04, 20.04, 22.04, etc)!**",
     "color": 16737792,
     "author": {
-        "proxy_icon_url": "https://images-ext-1.discordapp.net/external/XFMJEtuQEbPAmJT3xZJbLYTVDVL2_Rbr0IJKM8OsID0/https/i.imgur.com/IBLYLji.png",
         "name": "Non LTS Ubuntu Releases",
         "icon_url": "https://i.imgur.com/IBLYLji.png"
     }
