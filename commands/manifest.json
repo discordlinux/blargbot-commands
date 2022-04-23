@@ -57,6 +57,10 @@
             "file_path": "shard.bbtag"
         },
         {
+            "name": "ss",
+            "file_path": "screenshots.bbtag"
+        },
+        {
             "name": "topic",
             "file_path": "topic.bbtag"
         },

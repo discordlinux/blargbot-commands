@@ -1,0 +1,244 @@
+{//;load functions}
+{inject;{get;_gitcmd.functions}}
+
+{//;Function that sends help output to #bot-spam if used in #customization by non-staff members.}
+{function;sshelp;
+{if;{channelid};==;173927645334077441;
+{if;{isstaff;{userid}};
+{embed;{func.sshelpembed}};
+{delete}
+{void;{send;174317464337776640;{usermention};{func.sshelpembed}}}};
+{embed;{func.sshelpembed}}}}
+
+{//;Help function}
+{function;sshelpembed;
+{embedbuild;
+title:Help for ss;
+color:{func.dlcolors;yellow};
+description:{if;{iscc};{//;do nothing};**__Must be imported and used as a custom command!__**{newline}{newline}}**__Usage__**: `ss <add|remove|list [user]{if;{isstaff;{userid}};|channel <#channel>}>`
+Allows screenshots to be posted to <#{get;@{guildid}.ssman.chan}>. Screenshots are posted using `ss add`. Screenshots may be removed after posting using `ss remove`.  Get links to your or another user's posted screenshots using `ss list [user]`.
+
+**Available Arguments**
+{repeat;`;3}
+add - Add a new screenshot post to #{channelname;{get;@{guildid}.ssman.chan}}. You will be asked to provide a URL to the screenshot and a short description of the screenshot after running this argument.
+Ex: 'ss add'
+
+remove - Remove a screenshot you have posted.
+Ex: 'ss remove'
+
+list - Shows a list of screenshots posted by the user provided.  If no user is provided, shows a list of your screenshots.
+Ex: 'ss list {usernick;{randuser}}'{if;{isstaff;{userid}};{newline}
+channel - Set the channel that screenshots will be posted to.  User must be staff to run this argument.
+Ex: 'ss channel #{channelname;{channelid}}'}
+{repeat;`;3}}}
+
+{//;New screenshot function}
+{function;ssnew;
+{fallback;}
+{if;{channelid};==;173927645334077441;
+{delete}}
+{//;check if channel to post screenshot to is valid}
+{if;{channels};includes;{get;@{guildid}.ssman.chan};
+{//;do nothing};
+{embed;{embedbuild;
+title:Screenshot Channel Not Set or Doesn't Exist.;
+color:{func.dlcolors;red};
+description:Please ask an admin to set the channel using the `channel` argument.;}}
+{return}}
+{//;send message to get ss url}
+{set;!~ssman.url.msg;{send;{channelid};;{embedbuild;
+title:Gathering Screenshot Info...;
+thumbnail.url:{func.linuxhacker};
+color:{func.dlcolors;green};
+description:Please either attach or enter the link to the screenshot you wish to post.  If posting a link, it must be the direct link to the image and not an album link.
+Ex: https://images2.imgbox.com/f5/ce/VDXaioN5_o.png;
+footer.text:Enter 'c' to cancel.;}}}
+{fallback;}
+{//;wait for input}
+{set;!~ssman.url.waitmsg;{jget;{waitmessage;{channelid};{userid};true;300};1}}
+{void;{delete;{channelid};{get;~ssman.url.msg}}}
+{//;check for image}
+{if;{length;{messageattachments;{channelid};{get;~ssman.url.waitmsg}}};==;0;
+{//;no attachment, check input}
+{if;{get;~ssman.url.waitmsg};==;;
+{func.error;No screenshot url was entered.}
+{return}}
+{switch;{messagetext;{channelid};{get;~ssman.url.waitmsg}};
+["c","C"];
+{void;{delete;{channelid};{get;~ssman.url.waitmsg}}}
+{func.error;Screenshot posting canceled.}
+{return}}
+{//;make sure input is a link to an image that embeds properly}
+{if;{messagetext;{channelid};{get;~ssman.url.waitmsg}};startswith;http;
+{//;do nothing};
+{void;{delete;{channelid};{get;~ssman.url.waitmsg}}}
+{func.error;Invalid screenshot URL posted.}
+{return}}
+{set;!~ssman.url;{func.imagekit;{messagetext;{channelid};{get;~ssman.url.waitmsg}}}};
+{//;upload attachment}
+{set;!~ssman.url;{func.imagekit;{jget;{messageattachments;{channelid};{get;~ssman.url.waitmsg}};0}}}
+}
+
+{void;{delete;{channelid};{get;~ssman.url.waitmsg}}}
+{if;{get;~ssman.url};startswith;http;
+{//;do nothing};
+{func.error;Failed to upload image.  URL must be a direct link to an image.  Please try again if you are sure you are providing a direct link to an image.{newline}{get;~ssman.url}}
+{return}}
+{//;send message to get ss description}
+{set;!~ssman.desc.msg;{send;{channelid};;{embedbuild;
+title:Gathering Screenshot Info...;
+thumbnail.url:{func.linuxhacker};
+color:{func.dlcolors;green};
+description:Please enter a short description of your screenshot.
+Ex: - Distro: openSUSE Tumbleweed
+- DE/WM: Lumina/marco
+- Terminal: Alacritty
+- Music player: Cantata
+- Browser: Falkon;
+footer.text:Enter 'c' to cancel.;}}}
+{//;wait for input}
+{set;!~ssman.desc.waitmsg;{jget;{waitmessage;{channelid};{userid};true;300};1}}
+{void;{delete;{channelid};{get;~ssman.desc.msg}}}
+{//;check input}
+{if;{get;~ssman.desc.waitmsg};==;;
+{func.error;No screenshot description was entered.}
+{return}}
+{switch;{messagetext;{channelid};{get;~ssman.desc.waitmsg}};
+["c","C"];
+{void;{delete;{channelid};{get;~ssman.desc.waitmsg}}}
+{func.error;Screenshot posting canceled.}
+{return}}
+{set;!~ssman.desc;{messagetext;{channelid};{get;~ssman.desc.waitmsg}}}
+{void;{delete;{channelid};{get;~ssman.desc.waitmsg}}}
+{//;post screenshot}
+{set;!~ssman.post.msg;{send;{get;@{guildid}.ssman.chan};{usermention};
+{embedbuild;
+author.name:Screenshot Posted by {usernick} ({userid});
+author.icon_url:{useravatar};
+color:{func.usrclr;{userid}};
+description:{get;~ssman.desc};
+image.url:{get;~ssman.url};
+timestamp:{time};}}}
+{if;{get;~ssman.post.msg};==;;
+{func.error;Error posting screenshot to <#{get;@{guildid}.ssman.chan}>!}
+{return}}
+{//;add upvote and downvote reactions to post}
+{reactadd;{get;@{guildid}.ssman.chan};{get;~ssman.post.msg};<:upvote:466042779273920514>;<:downvote:466042848454770730>}
+{//;add post message id to array of user's screenshots}
+{if;{get;@{guildid}.ssman.{userid}};==;;
+{set;!@{guildid}.ssman.{userid};[]}}
+{push;@{guildid}.ssman.{userid};{get;~ssman.post.msg}}
+{commit}
+{//;output a list of screenshots user has posted}
+{if;{get;@{guildid}.ssman.chan};!=;{channelid};
+{set;!~ssman.status;new}
+{func.sslist;{userid}}}}
+
+{//;Remove screenshot function}
+{function;ssremove;
+{fallback;}
+{if;{channelid};==;173927645334077441;
+{delete}}
+{if;{channels};includes;{get;@{guildid}.ssman.chan};
+{//;do nothing};
+{embed;{embedbuild;
+title:Screenshot Channel Not Set or Doesn't Exist.;
+color:{func.dlcolors;red};
+description:Please ask an admin to set the channel using the `channel` argument.;}}
+{return}}
+{//;allow staff to remove other user's screenshots}
+{if;{isstaff;{userid}};
+{set;!~ssman.user;{userid;{params;0};quiet}};
+{set;!~ssman.user;{userid}}}
+{//;check if user has posted any screenshots}
+{if;{length;{get;@{guildid}.ssman.{get;~ssman.user}}};==;0;
+{func.error;{usernick;{get;~ssman.user}} has not posted any screenshots.}
+{return}}
+{set;!~ssman.status;remove}
+{func.sslist;{get;~ssman.user}}
+{set;!~ssman.remove.waitmsg;{jget;{waitmessage;{channelid};{userid};true;300};1}}
+{void;{delete;{channelid};{get;~ssman.listmsg}}}
+{//;check if input is valid}
+{if;{get;~ssman.remove.waitmsg};==;;
+{void;{delete;{channelid};{get;~ssman.remove.waitmsg}}}
+{func.error;No screenshot selected for removal.}
+{return}}
+{if;{logic;||;
+{bool;{numformat;{messagetext;{channelid};{get;~ssman.remove.waitmsg}};};==;NaN};
+{bool;{messagetext;{channelid};{get;~ssman.remove.waitmsg}};>;{length;{get;@{guildid}.ssman.{get;~ssman.user}}}};
+{bool;{messagetext;{channelid};{get;~ssman.remove.waitmsg}};<;1}};
+{void;{delete;{channelid};{get;~ssman.remove.waitmsg}}}
+{func.error;Invalid screenshot number provided.}
+{return}}
+{set;!~ssman.remove.id;{jget;@{guildid}.ssman.{get;~ssman.user};{math;-;{messagetext;{channelid};{get;~ssman.remove.waitmsg}};1}}}
+{if;{get;~ssman.remove.id};==;;
+{void;{delete;{channelid};{get;~ssman.remove.waitmsg}}}
+{func.error;Error finding message id for selected screenshot.}
+{return}}
+{void;{delete;{channelid};{get;~ssman.remove.waitmsg}}}
+{void;{delete;{get;@{guildid}.ssman.chan};{get;~ssman.remove.id}}}
+{set;!@{guildid}.ssman.{get;~ssman.user};{filter;~ssmanid;{get;@{guildid}.ssman.{get;~ssman.user}};{bool;{get;~ssmanid};!=;{get;~ssman.remove.id}}}}
+{set;!~ssman.status;removed}
+{func.sslist;{get;~ssman.user}}}
+
+{//;Screenshot list function}
+{function;sslist;
+{if;{get;~ssman.status};==;;
+{if;{channelid};==;173927645334077441;
+{delete}}}
+{if;{channels};includes;{get;@{guildid}.ssman.chan};
+{//;do nothing};
+{embed;{embedbuild;
+title:Screenshot Channel Not Set or Doesn't Exist.;
+color:{func.dlcolors;red};
+description:Please ask an admin to set the channel using the `channel` argument.;}}
+{return}}
+{set;!~ssman.user;{userid;{params;0}}}
+{set;!~ssman.listmsg;{send;{channelid};;{embedbuild;
+author.name:Screenshots Posted by {usernick;{get;~ssman.user}};
+author.icon_url:{useravatar;{get;~ssman.user}};
+title:{switch;{get;~ssman.status};
+["new"];{usernick;{get;~ssman.user}} has posted a new screenshot!{newline}Screenshot list:;
+["remove"];Select a screenshot to remove;
+["removed"];Screenshot deleted by {usernick;{userid}}.{newline}Remaining screenshots:};
+color:{func.usrclr;{get;~ssman.user}};
+footer.icon_url:{useravatar};
+footer.text:Viewed by {usernick};
+timestamp:{time};
+description:{if;{length;{get;@{guildid}.ssman.{get;~ssman.user}}};==;0;
+{usernick;{get;~ssman.user}} has not posted any screenshots.;{set;!~ssman.listnum;1}{foreach;~ssmanid;{get;@{guildid}.ssman.{get;~ssman.user}};**[Screenshot {get;~ssman.listnum}](https://discordapp.com/channels/{guildid}/{get;@{guildid}.ssman.chan}/{get;~ssmanid}) - Rating: {math;-;{math;-;{length;{reactlist;{get;@{guildid}.ssman.chan};{get;~ssmanid};<:upvote:466042779273920514>}};1};{math;-;{length;{reactlist;{get;@{guildid}.ssman.chan};{get;~ssmanid};<:downvote:466042848454770730>}};1}}**{set;!~ssman.listnum;{math;+;{get;~ssman.listnum};1}}{newline}}};}}}}
+{//;Set screenshot channel function}
+{function;sschan;
+{if;{channelid};==;173927645334077441;
+{delete}}
+{if;{isstaff;{userid}};
+{//;do nothing};
+{func.error;You must be staff to use `ss channel`!}
+{return}}
+{set;!~ssman.chan;{channelid;{params;0}}}
+{switch;{get;~ssman.chan};
+{channels};
+{set;!@{guildid}.ssman.chan;{get;~ssman.chan}}
+{embed;{embedbuild;
+title:Screenshot Channel Set;
+color:{func.dlcolors;green};
+description:Screenshot channel has been set to <#{get;@{guildid}.ssman.chan}>.;}};
+{embed;{embedbuild;
+title:Invalid Input;
+color:{func.dlcolors;red};
+description:`{params;0}` is not a valid channel in {guildname}!;}}}}
+
+{//;Detect arguments}
+{fallback;{userid}}
+{switch;{lower;{args;0}};
+["","{userid}","help","-h","--help"];
+{func.sshelp};
+["new","add"];
+{func.ssnew};
+["remove","rm","delete","del"];
+{func.ssremove;{args;1}};
+["list","ls","view"];
+{func.sslist;{args;1}};
+["channel","chan"];
+{func.sschan;{args;1}};
+{func.sslist;{args;0}}}
