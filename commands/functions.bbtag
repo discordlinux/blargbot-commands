@@ -61,7 +61,7 @@
 {function;error;
 {output;{embed;{embedbuild;
 title:Error;
-description:{args};
+description:{params};
 color:{exec;dlcolors;red};
 footer.text:{usernick} ({userid});
 footer.icon_url:{useravatar};
@@ -81,7 +81,7 @@ timestamp:{time}}}}
 {function;imagekit;
 {regexreplace;
 {jset;~data;key;{get;@imagekit};c}{jset;~data;url;{params};c}
-{jset;~data;name;{reverse;{jget;{split;{reverse;{jget;{split;{flag;_};?};0}};/};0}};c}
+{jset;~data;name;{reverse;{jget;{split;{reverse;{jget;{split;{params};?};0}};/};0}};c}
 {jget;{func.syretia;imagekit;-d {get;~data}};url}
 ;/(\r|\n)/g;}
 }
