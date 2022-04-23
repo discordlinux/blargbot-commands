@@ -62,7 +62,7 @@
 {output;{embed;{embedbuild;
 title:Error;
 description:{params};
-color:{exec;dlcolors;red};
+color:{func.dlcolors;red};
 footer.text:{usernick} ({userid});
 footer.icon_url:{useravatar};
 timestamp:{time}}}}
