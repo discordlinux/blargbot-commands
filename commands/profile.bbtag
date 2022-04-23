@@ -1,3 +1,6 @@
+{//;load functions}
+{inject;{get;_gitcmd.functions}}
+
 {func.prefixtest}
 {//;Help function}
 {function;help;{embed;{embedbuild;
