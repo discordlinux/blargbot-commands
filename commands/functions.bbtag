@@ -1,3 +1,7 @@
+{//;return if _killswitch variable is set to 'engage' in case bot goes nuts}
+{if;{get;_killswitch};==;engage;
+{return}}
+
 {//;function to get info for a channel from discord's API}
 {function;chaninfo;{fallback;{channelid}}{jget;{request;https://discord.com/api/channels/{if;{params;0};==;{null};{channelid};{channelid;{params;0}}};{get;@bot.sh.get}};body}{fallback}}
 
@@ -53,6 +57,17 @@
 }
 }
 
+{//;function to output error messages in an embed}
+{function;error;
+{output;{embed;{embedbuild;
+title:Error;
+description:{args};
+color:{exec;dlcolors;red};
+footer.text:{usernick} ({userid});
+footer.icon_url:{useravatar};
+timestamp:{time}}}}
+}
+
 {//;function to output a fake image}
 {function;fakeimg;https://fakeimg.pl/{if;{params;1};!=;{null};{params;1};250}x{if;{params;2};!=;{null};{params;2};100}/2A2D30/?retina=1&text={params;0}&font=noto}
 
@@ -61,6 +76,15 @@
 
 {//;function to turn HTML into markdown using pandoc}
 {function;htmltomd;{set;!~syretia.body;{params;0}}{func.syretia;pandoc?t=markdown_strict&f=html}}
+
+{//;function to upload images to imagekit}
+{function;imagekit;
+{regexreplace;
+{jset;~data;key;{get;@imagekit};c}{jset;~data;url;{params};c}
+{jset;~data;name;{reverse;{jget;{split;{reverse;{jget;{split;{flag;_};?};0}};/};0}};c}
+{jget;{func.syretia;imagekit;-d {get;~data}};url}
+;/(\r|\n)/g;}
+}
 
 {//;function to output linux tux hacker gif}
 {function;linuxhacker;https://cdn.discordapp.com/emojis/478073442311077889.gif?size=20}
