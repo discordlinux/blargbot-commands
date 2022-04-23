@@ -41,6 +41,10 @@
             "file_path": "poll.bbtag"
         },
         {
+            "name": "profile",
+            "file_path": "profile.bbtag"
+        },
+        {
             "name": "rootuser",
             "file_path": "rootuser.bbtag"
         },
