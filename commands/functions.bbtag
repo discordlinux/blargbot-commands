@@ -119,7 +119,7 @@ timestamp:{time}}}}
 }
 
 {//;function to output a progress bar}
-{function;progress;{set;!~pl;{replace;{parseint;{params;1}};NaN;30}}{realpad;{repeat;█;{roundup;{math;*;{math;/;{get;~pl};100};{parseint;{params;0}}}}};{get;~pl};░}}}
+{function;progress;{set;!~pl;{replace;{parseint;{params;1}};NaN;30}}{realpad;{repeat;█;{roundup;{math;*;{math;/;{get;~pl};100};{parseint;{params;0}}}}};{get;~pl};░}}
 
 {//;function to get raw response from website using motyar's try page}
 {function;rawhtml;{jget;{request;http://motyar.info/webscrapemaster/try/?url={uriencode;{params;0}}};body}}
