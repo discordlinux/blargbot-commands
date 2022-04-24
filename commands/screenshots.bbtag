@@ -228,6 +228,9 @@ title:Invalid Input;
 color:{func.dlcolors;red};
 description:`{params;0}` is not a valid channel in {guildname}!;}}}}
 
+{//;check prefix}
+{func.prefixtest}
+
 {//;Detect arguments}
 {fallback;{userid}}
 {switch;{lower;{args;0}};
