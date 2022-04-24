@@ -65,6 +65,10 @@
             "file_path": "screenshots.bbtag"
         },
         {
+            "name": "todo",
+            "file_path": "todo.bbtag"
+        },
+        {
             "name": "topic",
             "file_path": "topic.bbtag"
         },
