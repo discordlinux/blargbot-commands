@@ -1,0 +1,51 @@
+{//;load functions}
+{inject;{get;_gitcmd.functions}}
+
+{//;help function}
+{function;help;
+{embed;{embedbuild;
+title:Help for raffle;
+color:{func.dlcolors;brightred};
+description:__**Usage**__: `raffle <thing to raffle> [flags]`
+Sends an embed that allows users to enter a raffle by reacting to the message.  The item to raffle must be specified as the first argument.
+
+**Available flags:**
+```
+-e    Emoji to add to embed.  Defaults to 🎁.
+
+-t    Time to wait before drawing a winner.  Defaults to 5 minutes.
+
+-r    Role name to restrict raffle to.  Defaults to no restriction.
+
+```;}}
+}
+
+{//;set last winner if unset}
+{if;{get;_last.winner};==;;{set;_last.winner;101464175481458688}}
+
+{//;detect arguments}
+{switch;{lower;{flag;_}};
+["","help"];
+{func.help};
+{//;run raffle}
+{suppresslookup}
+{if;{flagset;r};{set;~role;{roleid;{flag;r}}}}
+{if;{flagset;e};{set;~emoji;{flag;e}};{set;~emoji;🎁}}
+{if;{flagset;t};{set;~Time;{flag;t}};{set;~Time;300s}}
+{set;~raffle;{flag;_}}
+{set;~id;{send;{channelid};;{embedbuild;
+title:Enter to Win {get;~raffle}!;
+color:{func.dlcolors;green};
+footer.text:Raffle ends;
+timestamp:{func.timeconv;{get;~Time}};
+description:React with {get;~emoji} to enter!  Please do not enter if you aready have {get;~raffle}!  Winner will be chosen in about {if;{flagset;t};{flag;t};5 minutes}.{if;{flagset;r};{space}You must have the <@&{get;~role}> role to enter.}}}}
+{reactadd;{get;~id};{get;~emoji}}
+{commit}
+{timer;
+{if;{get;~role};!=;;
+{set;~winner;{randchoose;{filter;~user;{reactlist;{get;~id};{get;~emoji}};{if;{get;~user};==;134133271750639616;false;{if;{get;~user};==;{get;_last.winner};false;{if;{userhasrole;{get;~role};{get;~user};quiet};true;false}}}}}}
+{if;{get;~winner};==;;{throw;No winner found!};{set;_last.winner;{get;~winner}}
+Congratulations {usermention;{get;~winner}}, you have won {get;~raffle}! {usermention} will give you {get;~raffle} shortly.};
+{set;~winner;{randchoose;{filter;~user;{reactlist;{get;~id};{get;~emoji}};{if;{get;~user};==;134133271750639616;false;{if;{get;~user};==;{get;_last.winner};false;true}}}}}
+{if;{get;~winner};==;;{throw;No winner found!};{set;_last.winner;{get;~winner}}
+Congratulations {usermention;{get;~winner}}, you have won {get;~raffle}! {usermention} will give you {get;~raffle} shortly.}};{get;~Time}}}

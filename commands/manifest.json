@@ -45,6 +45,10 @@
             "file_path": "profile.bbtag"
         },
         {
+            "name": "raffle",
+            "file_path": "raffle.bbtag"
+        },
+        {
             "name": "rootuser",
             "file_path": "rootuser.bbtag"
         },
