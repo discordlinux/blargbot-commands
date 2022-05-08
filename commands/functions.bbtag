@@ -1,3 +1,9 @@
+{//;make sure variables are working properly before we do anything}
+{set;!~varcheck;testdata}
+{if;{get;~varcheck};!=;testdata;
+{throw;Variable test failed. Something is wrong with blargbot.}
+{return}}
+
 {//;return if _killswitch variable is set to 'engage' in case bot goes nuts}
 {if;{get;_killswitch};==;engage;
 {return}}
@@ -184,6 +190,20 @@ description:{get;~semsg}...;}}}}
 {set;~time;{math;+;{get;~time};{replace;{get;~input};s;}}}}}
 {set;~time;{time;DD-MMM-YYYY HH:mm:ss;{get;~time};X}}
 {get;~time}}}
+
+{//;function to convert time input to seconds with more word handling}
+{function;timeinsecs;
+{foreach;~i;{split;{regexreplace;{regexreplace;{regexreplace;{regexreplace;{regexreplace;{regexreplace;{regexreplace;{params};/\s?(seconds|second|s)\s?/gi;s{space}};/\s?(days|day|d)\s?/gi;d{space}};/\s?(Months|months|Month|month|M)\s?/g;M{space}};/\s?(weeks|week|w)\s?/gi;w{space}};/\s?(years|year|y)\s?/gi;y{space}};/\s?(hours|hour|h)\s?/gi;h{space}};/\s?(Minutes|minutes|Minute|minute|m)\s?/g;m{space}};{space}};
+{switch;{regexreplace;{get;~i};/[0-9]+/g;};
+["y"];{set;!~tot;{math;+;0{get;~tot};{math;*;31536000;0{regexreplace;{get;~i};/[a-z]/gi;}}}};
+["M"];{set;!~tot;{math;+;0{get;~tot};{math;*;2628000;0{regexreplace;{get;~i};/[a-z]/gi;}}}};
+["w"];{set;!~tot;{math;+;0{get;~tot};{math;*;604800;0{regexreplace;{get;~i};/[a-z]/gi;}}}};
+["d"];{set;!~tot;{math;+;0{get;~tot};{math;*;86400;0{regexreplace;{get;~i};/[a-z]/gi;}}}};
+["h"];{set;!~tot;{math;+;0{get;~tot};{math;*;3600;0{regexreplace;{get;~i};/[a-z]/gi;}}}};
+["m"];{set;!~tot;{math;+;0{get;~tot};{math;*;60;0{regexreplace;{get;~i};/[a-z]/gi;}}}};
+["s"];{set;!~tot;{math;+;0{get;~tot};0{regexreplace;{get;~i};/[a-z]/gi;}}};
+{set;!~tot;{math;+;0{get;~tot};0}}}}{get;~tot}
+}
 
 {//;function to remove duplicates from an array}
 {function;uniq;
