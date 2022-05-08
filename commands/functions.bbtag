@@ -149,6 +149,14 @@ timestamp:{time}}}}
 {jget;{request;https://syretia.cf/req?url={uriencode;{get;~url}}&x={get;~method}&raw={get;~req.raw}&f={get;~req.flags};{get;~headers};{get;~body}};body}
 }
 
+{//;function to interact with firebase}
+{function;rtdb;
+{clean;{switch;{lower;{params;0}};
+["get"];{set;!~fout;{request;https://discord-fde27-default-rtdb.firebaseio.com/{params;1}.json}}{if;{jget;~fout;status};==;200;{jget;~fout;body};{get;~fout}};
+["set"];{jset;~head;method;PUT;c}{set;!~fout;{request;https://discord-fde27-default-rtdb.firebaseio.com/{params;1}.json?auth={get;@rtdb};{get;~head};{get;~rtdb.data}}}{if;{jget;~fout;status};==;200;{jget;~fout;body};{get;~fout}};
+["delete","del","remove","rm"];{jset;~head;method;DELETE;c}{set;!~fout;{request;https://discord-fde27-default-rtdb.firebaseio.com/{params;1}.json?auth={get;@rtdb};{get;~head}}}{jget;~fout;status}}}
+}
+
 {//;function to output a search message while we wait for results}
 {function;searchmsg;
 {set;!~secolor;{jget;{params};color}}
