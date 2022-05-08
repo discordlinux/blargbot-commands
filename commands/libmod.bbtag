@@ -1,0 +1,179 @@
+{//;contains functions that act as the backend for moderation commands}
+
+{//;function to warn users}
+{//;input order is user, count, reason}
+{function;warn;
+{suppresslookup}
+{//;check if user is in guild}
+{jset;~libmod;action;warn;c}
+{jset;~libmod;modid;{userid};c}
+{if;{params;0};==;{null};
+{jset;~libmod;userid;no input given;c};
+{jset;~libmod;userid;{userid;{params;0}};c}}
+{commit}
+{//;check if user exists}
+{switch;{jget;~libmod;userid};
+["no input given",""];
+{//;no user exists}
+{jset;~libmod;output;{null};c}
+{jset;~libmod;reason;{params;2};c}
+{jset;~libmod;status;'{params;0}' is not a valid Discord user;c}
+{jset;~libmod;success;false;c}
+{commit};
+{//;user exists}
+{//;warn user}
+{set;!~libmod.warns.{jget;~libmod;userid};{warn;{jget;~libmod;userid};{replace;{parseint;{params;1}};NaN;};{params;2}}}
+{//;check if warn succeeded}
+{if;{parseint;{get;~libmod.warns.{jget;~libmod;userid}}};!=;NaN;
+{//;set output}
+{jset;~libmod;output;{get;~libmod.warns.{jget;~libmod;userid}};c};
+{jset;~libmod;output;{null};c}}
+{jset;~libmod;reason;{params;2};c}
+{if;{parseint;{get;~libmod.warns.{jget;~libmod;userid}}};!=;NaN;
+{jset;~libmod;status;{usernick;{jget;~libmod;userid}} now has {get;~libmod.warns.{jget;~libmod;userid}} warning{if;{get;~libmod.warns.{jget;~libmod;userid}};!=;1;s};c}
+{jset;~libmod;success;true;c};
+{jset;~libmod;status;{get;~libmod.warns.{jget;~libmod;userid}};c}
+{jset;~libmod;success;false;c}}
+{commit}}}
+
+{//;function to pardon users}
+{//;input order is user, count, reason}
+{function;pardon;
+{suppresslookup}
+{jset;~libmod;action;pardon;c}
+{jset;~libmod;modid;{userid};c}
+{if;{params;0};==;{null};
+{jset;~libmod;userid;no input given;c};
+{jset;~libmod;userid;{userid;{params;0}};c}}
+{commit}
+{//;check if user exists}
+{switch;{jget;~libmod;userid};
+["no input given",""];
+{//;no user exists}
+{jset;~libmod;output;{null};c}
+{jset;~libmod;reason;{params;2};c}
+{jset;~libmod;status;'{params;0}' is not a valid Discord user;c}
+{jset;~libmod;success;false;c}
+{commit};
+{//;user exists}
+{//;pardon user}
+{set;!~libmod.warns.{jget;~libmod;userid};{pardon;{jget;~libmod;userid};{replace;{parseint;{params;1}};NaN;};{params;2}}}
+{jset;~libmod;output;{get;~libmod.warns.{jget;~libmod;userid}};c}
+{jset;~libmod;reason;{params;2};c}
+{//;check if pardon succeeded}
+{if;{parseint;{get;~libmod.warns.{jget;~libmod;userid}}};!=;NaN;
+{//;set output}
+{jset;~libmod;output;{get;~libmod.warns.{jget;~libmod;userid}};c};
+{jset;~libmod;output;{null};c}}
+{jset;~libmod;reason;{params;2};c}
+{if;{parseint;{get;~libmod.warns.{jget;~libmod;userid}}};!=;NaN;
+{jset;~libmod;status;{usernick;{jget;~libmod;userid}} has been pardoned and now has {get;~libmod.warns.{jget;~libmod;userid}} warning{if;{get;~libmod.warns.{jget;~libmod;userid}};!=;1;s};c}
+{jset;~libmod;success;true;c};
+{jset;~libmod;status;{get;~libmod.warns.{jget;~libmod;userid}};c}
+{jset;~libmod;success;false;c}}
+{commit}}}
+
+{//;function to mute users}
+{//;input order is user, time, reason}
+{function;mute;
+{suppresslookup}
+{jset;~libmod;action;mute;c}
+{jset;~libmod;modid;{userid};c}
+{if;{params;0};==;{null};
+{jset;~libmod;userid;no input given;c};
+{jset;~libmod;userid;{userid;{params;0}};c}}
+{commit}
+{//;check if user exists}
+{switch;{jget;~libmod;userid};
+["no input given",""];
+{//;no user exists}
+{jset;~libmod;output;{null};c}
+{jset;~libmod;reason;{params;2};c}
+{jset;~libmod;status;'{params;0}' is not a valid Discord user;c}
+{jset;~libmod;success;false;c}
+{commit};
+{//;user exists}
+{//;set reason}
+{reason;{if;{params;2};==;{null};No reason given.;{params;2}}{if;{parseint;{params;1}};!=;NaN;{newline}Muted for {params;1}.}}
+{//;add user to muted array}
+{if;{get;_muted.array};==;{null};
+{set;!_muted.array;[]}}
+{push;_muted.array;{jget;~libmod;userid}}
+{commit}
+{//;remove all current roles and add muted role}
+{if;{userhasrole;{get;@{guildid}.muted.roleid};{jget;~libmod;userid};quiet};==;false;
+{set;!_mute.roles.{jget;~libmod;userid};{userroles;{jget;~libmod;userid}}}
+{void;{roleremove;{get;_mute.roles.{jget;~libmod;userid}};{jget;~libmod;userid}}};
+{void;{roleremove;{get;@{guildid}.muted.roleid};{jget;~libmod;userid}}}}
+{set;!~libmod.mute.{jget;~libmod;userid};{roleadd;{get;@{guildid}.muted.roleid};{jget;~libmod;userid}}}
+{//;set output}
+{jset;~libmod;output;{get;~libmod.mute.{jget;~libmod;userid}};c}
+{jset;~libmod;reason;{params;2};c}
+{jset;~libmod;status;{usernick;{jget;~libmod;userid}} has been muted{if;{parseint;{params;1}};!=;NaN;{space}for {params;1}};c}
+{jset;~libmod;success;true;c}
+{commit}
+{//;set time of current mute}
+{set;!_mute.time.{jget;~libmod;userid};{time;X}}
+{set;!~mute.time.{jget;~libmod;userid};{get;_mute.time.{jget;~libmod;userid}}}
+{set;!_unmute.time.{jget;~libmod;userid};}
+{//;set a timer if time was passed}
+{if;{parseint;{params;1}};!=;NaN;
+{set;!~libmod.mute.time;{params;1}}
+{set;!_unmute.time.{jget;~libmod;userid};{math;+;{time;X};0{func.timeinsecs;{params;1}}}}
+{if;{commandname};includes;autoresponse;
+{if;{get;_interval.unmute.array};==;{null};
+{set;!_interval.unmute.array;[]}}
+{push;_interval.unmute.array;{jget;~libmod;userid}}
+{commit};
+{timer;
+{if;{get;!_mute.time.{jget;~libmod;userid}};==;{get;~mute.time.{jget;~libmod;userid}};
+{reason;Automatic unmute after {get;~libmod.mute.time}}
+{void;{roleadd;{get;_mute.roles.{jget;~libmod;userid}};{jget;~libmod;userid}}}
+{void;{roleremove;{get;@{guildid}.muted.roleid};{jget;~libmod;userid}}}
+{set;!_mute.roles.{jget;~libmod;userid};}
+{if;{get;_muted.array};==;{null};
+{set;!_muted.array;[]}}
+{set;!_muted.array;{filter;~musr;{get;_muted.array};{bool;{get;~musr};!=;{jget;~libmod;userid}}}}
+{set;!_muted.array;{filter;~musr2;{get;_muted.array};{bool;{get;~musr2};!=;{null}}}}};
+{get;~libmod.mute.time}}}}}}
+
+{//;unmute users}
+{//;input order is user, reason}
+{function;unmute;
+{suppresslookup}
+{jset;~libmod;action;unmute;c}
+{jset;~libmod;modid;{userid};c}
+{if;{params;0};==;{null};
+{jset;~libmod;userid;no input given;c};
+{jset;~libmod;userid;{userid;{params;0}};c}}
+{commit}
+{//;check if user exists}
+{switch;{jget;~libmod;userid};
+["no input given",""];
+{//;no user exists}
+{jset;~libmod;output;{null};c}
+{jset;~libmod;reason;{params;2};c}
+{jset;~libmod;status;'{params;0}' is not a valid Discord user;c}
+{jset;~libmod;success;false;c}
+{commit};
+{//;user exists}
+{//;set reason}
+{reason;{if;{params;1};==;{null};No reason given.;{params;1}}}
+{//;add previous roles}
+{if;{get;_mute.roles.{jget;~libmod;userid}};!=;{null};
+{void;{roleadd;{get;_mute.roles.{jget;~libmod;userid}};{jget;~libmod;userid}}}
+{set;!_mute.roles.{jget;~libmod;userid};}}
+{//;remove muted role}
+{set;!_libmod.unmute.{jget;~libmod;userid};{roleremove;{get;@{guildid}.muted.roleid};{jget;~libmod;userid}}}
+{set;!_mute.time.{jget;~libmod;userid};}
+{//;remove user id from muted array}
+{if;{get;_muted.array};==;{null};
+{set;!_muted.array;[]}}
+{set;!_muted.array;{filter;~musr;{get;_muted.array};{bool;{get;~musr};!=;{jget;~libmod;userid}}}}
+{set;!_muted.array;{filter;~musr2;{get;_muted.array};{bool;{get;~musr2};!=;{null}}}}
+{//;set output}
+{jset;~libmod;output;{get;~libmod.unmute.{jget;~libmod;userid}};c}
+{jset;~libmod;reason;{params;1};c}
+{jset;~libmod;status;{usernick;{jget;~libmod;userid}} has been unmuted;c}
+{jset;~libmod;success;true;c}
+{commit}}}

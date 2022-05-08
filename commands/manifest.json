@@ -29,6 +29,10 @@
             "file_path": "info/info.bbtag"
         },
         {
+            "name": "libmod",
+            "file_path": "libmod.bbtag"
+        },
+        {
             "name": "man",
             "file_path": "man.bbtag"
         },
