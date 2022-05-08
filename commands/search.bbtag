@@ -4,7 +4,7 @@
 {//;help function}
 {function;help;{embed;{embedbuild;
 title:Help for se;
-color:yellow;
+color:{func.dlcolors;yellow};
 description:**__Usage:__** `se [arg] <search term>`
 Search the web using Qwant or use one of the arguments listed below to perform a specific search.
 If none of the arguments below are used, a normal search will be ran.
@@ -184,7 +184,7 @@ footer.text:Powered by Datamuse.com;}}
 {set;!~id;{jget;{split;{jget;~gamewiki;body.query.pages.0.extlinks.0.url};/};4}}}
 {if;{get;~id};==;{null};
 {edit;{channelid};{get;~searchmsg};_delete;{embedbuild;
-color:red;
+color:{func.dlcolors;red};
 description:'{params}' not found.}};
 {set;!~steam;{jget;{request;https://steamspy.com/api.php?request=appdetails&appid={get;~id}};body}}
 {set;!~pjson;{request;https://www.protondb.com/api/v1/reports/summaries/{get;~id}.json}}

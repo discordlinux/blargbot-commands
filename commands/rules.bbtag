@@ -5,7 +5,7 @@
 {function;help;
 {embed;{embedbuild;
 title:Help for rules;
-color:yellow;
+color:{func.dlcolors;yellow};
 description:__**Usage**__: `rules [all|rule to show]`
 Displays a message telling someone to read <#172522057291005953>.  Can also show the entire list of rules using the `all` argument or a specific rule from the list that matches the text input.
 

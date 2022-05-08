@@ -5,7 +5,7 @@
 {//;Help function}
 {function;help;{embed;{embedbuild;
 title:Help for profile;
-color:yellow;
+color:{func.dlcolors;yellow};
 description:**__Usage__**: `profile [user{if;{guildid};==;96230004047740928;{space}| arg}]`
 Show information about user.  {if;{guildid};==;96230004047740928;**The <@&428637054922915850> role is required to use this command.**
 
@@ -22,7 +22,7 @@ edit  - Edit a single section of your profile.
 {set;!~qmsgid;{send;{channelid};;{embedbuild;
 author.name:Creating Profile for {usernick};
 author.icon_url:{func.linuxhacker};
-color:green;
+color:{func.dlcolors;green};
 description:{params;0};
 footer.text:{params;1}}}}}
 {//;Function to set fav distro}

@@ -1,10 +1,13 @@
+{//;load functions}
+{inject;{get;_gitcmd.functions}}
+
 {//;function to output main info list}
 {function;infolist;
 {set;!~manifest;{jget;{request;https://github.com/discordlinux/blargbot-commands/raw/main/commands/info/manifest.json};body}}
 {//;setup static parts of embed}
 {set;!~embed;[]}
 {push;~embed;title:Info List}
-{push;~embed;color:yellow}
+{push;~embed;color:{func.dlcolors;yellow}}
 {push;~embed;footer.text:Any arguments not listed will return Wikipedia search results.}
 {//;get rest of embed from manifest}
 {foreach;~cat;{jget;~manifest;info.categories};
@@ -116,7 +119,7 @@ description:{get;~desc}{if;{length;{get;~desc}};>=;1900;{space}[...]}
 
 {//;supported distros help function}
 {function;supported.help;{embed;{embedbuild;
-color:yellow;
+color:{func.dlcolors;yellow};
 title:Help for supported;
 description:__**Usage**__: `info supported <distro>`
 Searches the [Discord Linux Supported Distros sheet](https://docs.google.com/spreadsheets/d/124ayAVJ1QPqEYZvtk_0uT3n-8QByf8LR7A43ah8QvDA/edit#gid=0) (maintained by <@!481350122136010755>) and outputs a list of results.;}}
@@ -137,12 +140,12 @@ Searches the [Discord Linux Supported Distros sheet](https://docs.google.com/spr
 {set;!~res;{filter;~d;{func.supported.json;{params}};{bool;{lower;{get;~d}};includes;{lower;{params}}}}}
 {//;start setting up embed}
 {set;!~embed;[]}
-{push;~embed;title:Is {capitalize;{params}} Supported in Discord Linux?;url:https://docs.google.com/spreadsheets/d/124ayAVJ1QPqEYZvtk_0uT3n-8QByf8LR7A43ah8QvDA/edit?usp=drivesdk;color:5865F2}
+{push;~embed;title:Is {capitalize;{params}} Supported in Discord Linux?;url:https://docs.google.com/spreadsheets/d/124ayAVJ1QPqEYZvtk_0uT3n-8QByf8LR7A43ah8QvDA/edit?usp=drivesdk;color:{func.dlcolors;blurple}}
 {//;check for results}
 {if;{length;{get;~res}};==;0;
 {//;no results}
 {push;~embed;description:No results found for `{params}`}
-{push;~embed;color:ED4245};
+{push;~embed;color:{func.dlcolors;red}};
 {//;finish embed}
 {fallback;}
 {foreach;~r;{get;~res};{push;~embed;fields.name:__{jget;~r;c.0.v}__;fields.inline:true;fields.value:**Supported**: {jget;~r;c.1.v}{newline}**Experience Level**: {jget;~r;c.2.v}{newline}**Recommended**: {jget;~r;c.3.v}{if;{jget;~r;c.4.v};!=;{null};{newline}**Notes**: {jget;~r;c.4.v}}}}
@@ -161,7 +164,7 @@ Searches the [Discord Linux Supported Distros sheet](https://docs.google.com/spr
 ["174317464337776640"];
 {//;do nothing};
 {set;!~ifchkmsg;{send;{channelid};{null};{embedbuild;
-color:yellow;
+color:{func.dlcolors;yellow};
 description:Are you sure you want to use the `info` command in this channel?  If you are using it to get information for yourself, you should run it in <#174317464337776640>.
 Enter `y` to run the info command in this channel or `n` to cancel.;}}}
 {set;!~ifwaitmsg;{waitmessage;{channelid};{userid};true;60}}

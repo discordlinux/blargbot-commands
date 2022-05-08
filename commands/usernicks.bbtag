@@ -3,7 +3,7 @@
 
 {function;nickshelp;{embed;{embedbuild;
 author.name:Help for usernicks;
-color:yellow;
+color:{func.dlcolors;yellow};
 description:__**Usage**__: `usernicks [user]`
 Tracks and shows all nicknames that have been used by a given user.
 

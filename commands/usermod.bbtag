@@ -265,7 +265,7 @@ timestamp:{time};}}}
 {//;output help}
 {embed;{embedbuild;
 title:Help for usermod;
-color:yellow;
+color:{func.dlcolors;yellow};
 description:__**Usage**__: `usermod <flag> <role|role1,role2>`
 Add or remove roles from the user.
 
