@@ -204,7 +204,7 @@ description:'{params}' not found.}};
 {if;{get;~platforms};==;{null};
 {set;!~platforms;Windows}}
 {fallback;0}
-{set;!~cplayers;{jget;{func.motyar;https://steamcharts.com/app/{get;~id};//*[@id="app-heading"]/div[1]/span};body.0.text}}
+{set;!~cplayers;{jget;{request;https://api.steampowered.com/ISteamUserStats/GetNumberOfCurrentPlayers/v0001/?appid={get;~id}};body.response.player_count}}
 {fallback;}
 {//;output results}
 {edit;{channelid};{get;~searchmsg};_delete;{embedbuild;
