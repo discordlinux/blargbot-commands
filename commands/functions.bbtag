@@ -98,13 +98,10 @@ timestamp:{time}}}}
 
 {//;function to get metadata using motyar}
 {function;metadata;
-{set;!~mraw;{func.motyar;{params;0};/meta}}
-{set;!~melements;[]}
-{set;!~mvalues;[]}
-{for;~mi;0;<;{length;{jget;{get;~mraw};body}};{if;{jget;{get;~mraw};body.{get;~mi}.http-equiv};!=;;{push;~melements;{jget;{get;~mraw};body.{get;~mi}.http-equiv}}{push;~mvalues;{jget;{get;~mraw};body.{get;~mi}.content}}}{if;{jget;{get;~mraw};body.{get;~mi}.name};!=;;{push;~melements;{jget;{get;~mraw};body.{get;~mi}.name}}{push;~mvalues;{jget;{get;~mraw};body.{get;~mi}.content}}}{if;{jget;{get;~mraw};body.{get;~mi}.property};!=;;{push;~melements;{jget;{get;~mraw};body.{get;~mi}.property}}{push;~mvalues;{jget;{get;~mraw};body.{get;~mi}.content}}}{if;{jget;{get;~mraw};body.{get;~mi}.itemprop};!=;;{push;~melements;{jget;{get;~mraw};body.{get;~mi}.itemprop}}{push;~mvalues;{jget;{get;~mraw};body.{get;~mi}.content}}}}
-{set;~mjson;{jset;;meta;;create}}
-{for;~mI;0;<;{length;{get;~melements}};{jset;~mjson;meta.{get;~melements;{get;~mI}};{get;~mvalues;{get;~mI}};create}}
-{jsonstringify;{get;~mjson}}
+{foreach;~mde;{func.syretia;metadata?u={uriencode;{params;0}}};
+{if;{jget;~mde;name};!=;{null};
+{jset;~mdout;meta.{jget;~mde;name};{jget;~mde;content};c}}}
+{jstringify;~mdout}
 }
 
 {//;function to get metadata using syretia.cf}
@@ -128,7 +125,7 @@ timestamp:{time}}}}
 {function;progress;{set;!~pl;{replace;{parseint;{params;1}};NaN;30}}{realpad;{repeat;█;{roundup;{math;*;{math;/;{get;~pl};100};{parseint;{params;0}}}}};{get;~pl};░}}
 
 {//;function to get raw response from website using motyar's try page}
-{function;rawhtml;{jget;{request;http://motyar.info/webscrapemaster/try/?url={uriencode;{params;0}}};body}}
+{function;rawhtml;{set;!~raw.req;true}{func.req;{params;0}}}
 
 {//;function that replicates built-in request, but through syretia.cf}
 {function;req;
