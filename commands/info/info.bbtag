@@ -26,12 +26,6 @@ thumbnail.url:https://cdn.discordapp.com/emojis/478073442311077889.gif?size=20;
 description:Getting info for `{params}`...;}}}}
 }
 
-{//;function to get json from website using motyar}
-{function;getjson;{jget;{split;{jget;{request;http://motyar.info/webscrapemaster/try/?url={uriencode;{params}}};body};<input{space}type};0}}
-
-{//;function to get matching query from wikipedia}
-{function;wikiquery;{fallback;{flag;_}}{lower;{jget;{func.getjson;https://api.datamuse.com/sug?v=enwiki&s={uriencode;{params}}&max=1};0.word}}{fallback}}
-
 {//;function to check manifest for input}
 {function;getinfo;
 {//;output search message}
