@@ -165,7 +165,7 @@ description:{get;~semsg}...;}}}}
 }
 
 {//;function to make requests to syretia.cf endpoints}
-{function;syretia;{jset;~head;method;POST;c}{jset;~head;headers.user-agent;blargbot | guild: {guildid};c}{jget;{request;http://syretia.cf/{params;0};{get;~head};{get;~syretia.body}};body}}
+{function;syretia;{jset;~head;headers.content-type;application/json;c}{jset;~head;method;POST;c}{jset;~head;headers.user-agent;blargbot | guild: {guildid};c}{jget;{request;http://syretia.cf/{params;0};{get;~head};{get;~syretia.body}};body}}
 
 {//;function to convert time input to seconds}
 {function;timeconv;{clean;{//;Convert time input to seconds}
