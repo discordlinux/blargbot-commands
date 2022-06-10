@@ -13,7 +13,7 @@ description:Fetching info about shards...;}}}}
 {//;function to parse user input}
 {function;parseinput;
 {//;get list of shards}
-{set;!~shards.json;{jget;{request;https://blargbot.xyz/shards/json};body}}
+{set;!~shards.json;{jget;{request;https://blargbot.xyz/api/clusters};body}}
 {//;get number of clusters by matching regex}
 {set;!~clusters;{length;{jsonkeys;~shards.json}}}
 {//;get number of shards per cluster by checking shardCount in 1st cluster}
