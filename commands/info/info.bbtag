@@ -116,7 +116,7 @@ description:{get;~desc}{if;{length;{get;~desc}};>=;1900;{space}[...]}
 color:{func.dlcolors;yellow};
 title:Help for supported;
 description:__**Usage**__: `info supported <distro>`
-Searches the [Discord Linux Supported Distros sheet](https://docs.google.com/spreadsheets/d/124ayAVJ1QPqEYZvtk_0uT3n-8QByf8LR7A43ah8QvDA/edit#gid=0) (maintained by <@!481350122136010755>) and outputs a list of results.;}}
+Searches the [Discord Linux Supported Distros](https://github.com/discordlinux/blargbot-commands/blob/main/commands/info/supported.md) and outputs a list of results.;}}
 }
 
 {//;function to get supported distros spreadsheet}
@@ -130,11 +130,11 @@ Searches the [Discord Linux Supported Distros sheet](https://docs.google.com/spr
 {function;supported;
 {//;output search message}
 {func.searchmsg;supported {params}}
-{//;search list of distros from google sheet maintained by Faith}
-{set;!~res;{filter;~d;{func.supported.json;{params}};{bool;{lower;{get;~d}};includes;{lower;{params}}}}}
+{//;search list of distros from github repo}
+{set;!~res;{filter;~d;{jget;{request;https://github.com/discordlinux/blargbot-commands/raw/main/commands/info/supported.json};body};{bool;{lower;{jget;~d;name}};includes;{lower;{params}}}}}
 {//;start setting up embed}
 {set;!~embed;[]}
-{push;~embed;title:Is {capitalize;{params}} Supported in Discord Linux?;url:https://docs.google.com/spreadsheets/d/124ayAVJ1QPqEYZvtk_0uT3n-8QByf8LR7A43ah8QvDA/edit?usp=drivesdk;color:{func.dlcolors;blurple}}
+{push;~embed;title:Is {capitalize;{params}} Supported in Discord Linux?;url:https://github.com/discordlinux/blargbot-commands/blob/main/commands/info/supported.md;color:{func.dlcolors;blurple}}
 {//;check for results}
 {if;{length;{get;~res}};==;0;
 {//;no results}
@@ -142,7 +142,7 @@ Searches the [Discord Linux Supported Distros sheet](https://docs.google.com/spr
 {push;~embed;color:{func.dlcolors;red}};
 {//;finish embed}
 {fallback;}
-{foreach;~r;{get;~res};{push;~embed;fields.name:__{jget;~r;c.0.v}__;fields.inline:true;fields.value:**Supported**: {jget;~r;c.1.v}{newline}**Experience Level**: {jget;~r;c.2.v}{newline}**Recommended**: {jget;~r;c.3.v}{if;{jget;~r;c.4.v};!=;{null};{newline}**Notes**: {jget;~r;c.4.v}}}}
+{foreach;~r;{get;~res};{push;~embed;fields.name:__{jget;~r;name}__;fields.inline:true;fields.value:**Supported**: {jget;~r;supported}{newline}**Experience Level**: {jget;~r;experience_level}{newline}**Recommended**: {jget;~r;recommended}{if;{jget;~r;notes};!=;{null};{newline}**Notes**: {jget;~r;notes}}}}
 {commit}
 {fallback}
 }

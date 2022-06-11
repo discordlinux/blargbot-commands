@@ -1,0 +1,527 @@
+[
+  {
+    "name": "Alpine Linux",
+    "supported": "Partial",
+    "experience_level": "Advanced",
+    "recommended": "No",
+    "notes": "Alpine Linux is intended for non-desktop usage, we only support it for non-desktop usage."
+  },
+  {
+    "name": "Android",
+    "supported": "Yes",
+    "experience_level": "Beginner",
+    "recommended": "No",
+    "notes": "Discord Linux does not consider Android as Linux, as such, this listing is just for clarity."
+  },
+  {
+    "name": "antiX",
+    "supported": "No",
+    "experience_level": "Intermediate",
+    "recommended": "No",
+    "notes": null
+  },
+  {
+    "name": "Arch Linux",
+    "supported": "Partial",
+    "experience_level": "Advanced",
+    "recommended": "Yes",
+    "notes": "Arch Linux users are expected to solve basic problems on their own."
+  },
+  {
+    "name": "Arch Linux Derivatives",
+    "supported": "No",
+    "experience_level": "Advanced",
+    "recommended": "No",
+    "notes": null
+  },
+  {
+    "name": "ArcoLinux",
+    "supported": "No",
+    "experience_level": "Advanced",
+    "recommended": "No",
+    "notes": null
+  },
+  {
+    "name": "Artix",
+    "supported": "No",
+    "experience_level": "Advanced",
+    "recommended": "No",
+    "notes": null
+  },
+  {
+    "name": "Bedrock Linux",
+    "supported": "No",
+    "experience_level": "Advanced",
+    "recommended": "No",
+    "notes": null
+  },
+  {
+    "name": "BlackArch Linux",
+    "supported": "No",
+    "experience_level": "Advanced",
+    "recommended": "No",
+    "notes": null
+  },
+  {
+    "name": "Bodhi Linux",
+    "supported": "No",
+    "experience_level": "N/A",
+    "recommended": "No",
+    "notes": null
+  },
+  {
+    "name": "BOSS Linux",
+    "supported": "No",
+    "experience_level": "N/A",
+    "recommended": "No",
+    "notes": "BOSS Linux is a Linux distro created by CDAC, part of the Indian Government"
+  },
+  {
+    "name": "CentOS",
+    "supported": "Yes",
+    "experience_level": "Advanced",
+    "recommended": "No",
+    "notes": null
+  },
+  {
+    "name": "CentOS Stream",
+    "supported": "No",
+    "experience_level": "Advanced",
+    "recommended": "No",
+    "notes": null
+  },
+  {
+    "name": "Chrome OS",
+    "supported": "Yes",
+    "experience_level": "Beginner",
+    "recommended": "No",
+    "notes": null
+  },
+  {
+    "name": "Clear Linux",
+    "supported": "No",
+    "experience_level": "Advanced",
+    "recommended": "No",
+    "notes": null
+  },
+  {
+    "name": "CutefishOS",
+    "supported": "No",
+    "experience_level": "N/A",
+    "recommended": "No",
+    "notes": null
+  },
+  {
+    "name": "Damn Small Linux",
+    "supported": "No",
+    "experience_level": "N/A",
+    "recommended": "No",
+    "notes": null
+  },
+  {
+    "name": "Debian",
+    "supported": "Yes",
+    "experience_level": "Intermediate",
+    "recommended": "No",
+    "notes": null
+  },
+  {
+    "name": "deepin",
+    "supported": "No",
+    "experience_level": "Intermediate",
+    "recommended": "No",
+    "notes": null
+  },
+  {
+    "name": "Devuan",
+    "supported": "No",
+    "experience_level": "Intermediate",
+    "recommended": "No",
+    "notes": null
+  },
+  {
+    "name": "Drauger OS",
+    "supported": "No",
+    "experience_level": "N/A",
+    "recommended": "No",
+    "notes": null
+  },
+  {
+    "name": "elementaryOS",
+    "supported": "No",
+    "experience_level": "Advanced",
+    "recommended": "No",
+    "notes": null
+  },
+  {
+    "name": "EndeavourOS",
+    "supported": "No",
+    "experience_level": "Advanced",
+    "recommended": "No",
+    "notes": null
+  },
+  {
+    "name": "Fedora",
+    "supported": "Yes",
+    "experience_level": "Intermediate",
+    "recommended": "No",
+    "notes": null
+  },
+  {
+    "name": "Fedora Spins",
+    "supported": "Yes",
+    "experience_level": "Intermediate",
+    "recommended": "No",
+    "notes": "Fedora Spins are supported, but are low quality compared to Fedora itself"
+  },
+  {
+    "name": "Feren OS",
+    "supported": "No",
+    "experience_level": "N/A",
+    "recommended": "No",
+    "notes": null
+  },
+  {
+    "name": "GalliumOS",
+    "supported": "Yes",
+    "experience_level": "Intermediate",
+    "recommended": "No",
+    "notes": "GalliumOS is unmaintained, and is only meant for chromebooks."
+  },
+  {
+    "name": "Garuda Linux",
+    "supported": "No",
+    "experience_level": "Advanced",
+    "recommended": "No",
+    "notes": null
+  },
+  {
+    "name": "Gecko Linux",
+    "supported": "No",
+    "experience_level": "N/A",
+    "recommended": "No",
+    "notes": null
+  },
+  {
+    "name": "Gentoo",
+    "supported": "Partial",
+    "experience_level": "Advanced",
+    "recommended": "No",
+    "notes": "Gentoo users are expected to solve basic problems on their own."
+  },
+  {
+    "name": "Hash Linux",
+    "supported": "No",
+    "experience_level": "Advanced",
+    "recommended": "No",
+    "notes": null
+  },
+  {
+    "name": "instantOS",
+    "supported": "No",
+    "experience_level": "Advanced",
+    "recommended": "No",
+    "notes": null
+  },
+  {
+    "name": "Kali Linux",
+    "supported": "No",
+    "experience_level": "Advanced",
+    "recommended": "No",
+    "notes": null
+  },
+  {
+    "name": "KDE Argon",
+    "supported": "Yes",
+    "experience_level": "Intermediate",
+    "recommended": "No",
+    "notes": null
+  },
+  {
+    "name": "KDE Krypton",
+    "supported": "Partial",
+    "experience_level": "Advanced",
+    "recommended": "No",
+    "notes": null
+  },
+  {
+    "name": "KDE neon",
+    "supported": "Yes",
+    "experience_level": "Intermediate",
+    "recommended": "Yes",
+    "notes": null
+  },
+  {
+    "name": "KISS",
+    "supported": "No",
+    "experience_level": "Advanced",
+    "recommended": "No",
+    "notes": null
+  },
+  {
+    "name": "Kubuntu LTS",
+    "supported": "Yes",
+    "experience_level": "Beginner",
+    "recommended": "Yes",
+    "notes": null
+  },
+  {
+    "name": "Linux Lite",
+    "supported": "No",
+    "experience_level": "N/A",
+    "recommended": "No",
+    "notes": null
+  },
+  {
+    "name": "Lubuntu LTS",
+    "supported": "Yes",
+    "experience_level": "Beginner",
+    "recommended": "No",
+    "notes": null
+  },
+  {
+    "name": "Mageia",
+    "supported": "Yes",
+    "experience_level": "Intermediate",
+    "recommended": "Yes",
+    "notes": null
+  },
+  {
+    "name": "Manjaro",
+    "supported": "No",
+    "experience_level": "Advanced",
+    "recommended": "No",
+    "notes": null
+  },
+  {
+    "name": "Mint",
+    "supported": "No",
+    "experience_level": "N/A",
+    "recommended": "No",
+    "notes": null
+  },
+  {
+    "name": "MX Linux",
+    "supported": "No",
+    "experience_level": "Intermediate",
+    "recommended": "No",
+    "notes": null
+  },
+  {
+    "name": "Neptune OS",
+    "supported": "No",
+    "experience_level": "Intermediate",
+    "recommended": "No",
+    "notes": null
+  },
+  {
+    "name": "NixOS",
+    "supported": "Yes",
+    "experience_level": "Advanced",
+    "recommended": "No",
+    "notes": null
+  },
+  {
+    "name": "openSUSE Leap",
+    "supported": "Yes",
+    "experience_level": "Intermediate",
+    "recommended": "Yes",
+    "notes": null
+  },
+  {
+    "name": "openSUSE Tumbleweed",
+    "supported": "Partial",
+    "experience_level": "Advanced",
+    "recommended": "Yes",
+    "notes": "openSUSE Tumbleweed users are expected to solve basic problems on their own."
+  },
+  {
+    "name": "Oracle Linux",
+    "supported": "Yes",
+    "experience_level": "Advanced",
+    "recommended": "No",
+    "notes": null
+  },
+  {
+    "name": "ParrotOS",
+    "supported": "No",
+    "experience_level": "Advanced",
+    "recommended": "No",
+    "notes": null
+  },
+  {
+    "name": "PCLinuxOS",
+    "supported": "No",
+    "experience_level": "N/A",
+    "recommended": "No",
+    "notes": null
+  },
+  {
+    "name": "PearOS",
+    "supported": "No",
+    "experience_level": "N/A",
+    "recommended": "No",
+    "notes": null
+  },
+  {
+    "name": "PhoenixOS Darkmatter",
+    "supported": "No",
+    "experience_level": "N/A",
+    "recommended": "No",
+    "notes": null
+  },
+  {
+    "name": "Pop_OS!",
+    "supported": "No",
+    "experience_level": "Beginner",
+    "recommended": "No",
+    "notes": null
+  },
+  {
+    "name": "Porteus",
+    "supported": "No",
+    "experience_level": "N/A",
+    "recommended": "No",
+    "notes": null
+  },
+  {
+    "name": "Puppy Linux",
+    "supported": "No",
+    "experience_level": "Intermediate",
+    "recommended": "No",
+    "notes": null
+  },
+  {
+    "name": "PureOS",
+    "supported": "No",
+    "experience_level": "Advanced",
+    "recommended": "No",
+    "notes": null
+  },
+  {
+    "name": "Raspberry Pi OS",
+    "supported": "Yes",
+    "experience_level": "Intermediate",
+    "recommended": "No",
+    "notes": null
+  },
+  {
+    "name": "RebornOS",
+    "supported": "No",
+    "experience_level": "Advanced",
+    "recommended": "No",
+    "notes": null
+  },
+  {
+    "name": "RHEL",
+    "supported": "Yes",
+    "experience_level": "Advanced",
+    "recommended": "No",
+    "notes": null
+  },
+  {
+    "name": "Slackware",
+    "supported": "No",
+    "experience_level": "Advanced",
+    "recommended": "No",
+    "notes": null
+  },
+  {
+    "name": "Slax",
+    "supported": "No",
+    "experience_level": "N/A",
+    "recommended": "No",
+    "notes": null
+  },
+  {
+    "name": "Solus",
+    "supported": "No",
+    "experience_level": "N/A",
+    "recommended": "No",
+    "notes": null
+  },
+  {
+    "name": "Tails OS",
+    "supported": "No",
+    "experience_level": "Advanced",
+    "recommended": "No",
+    "notes": null
+  },
+  {
+    "name": "Ubuntu Budgie LTS",
+    "supported": "Yes",
+    "experience_level": "Beginner",
+    "recommended": "No",
+    "notes": null
+  },
+  {
+    "name": "Ubuntu Cinnamon",
+    "supported": "No",
+    "experience_level": "N/A",
+    "recommended": "No",
+    "notes": null
+  },
+  {
+    "name": "Ubuntu Gamepack",
+    "supported": "No",
+    "experience_level": "N/A",
+    "recommended": "No",
+    "notes": null
+  },
+  {
+    "name": "Ubuntu LTS",
+    "supported": "Yes",
+    "experience_level": "Beginner",
+    "recommended": "No",
+    "notes": null
+  },
+  {
+    "name": "Ubuntu MATE LTS",
+    "supported": "Yes",
+    "experience_level": "Beginner",
+    "recommended": "Yes",
+    "notes": null
+  },
+  {
+    "name": "Ubuntu non-LTS",
+    "supported": "No",
+    "experience_level": "Intermediate",
+    "recommended": "No",
+    "notes": null
+  },
+  {
+    "name": "Ubuntu Studio LTS",
+    "supported": "Yes",
+    "experience_level": "Beginner",
+    "recommended": "No",
+    "notes": null
+  },
+  {
+    "name": "UbuntuDDE",
+    "supported": "No",
+    "experience_level": "N/A",
+    "recommended": "No",
+    "notes": null
+  },
+  {
+    "name": "Void",
+    "supported": "Partial",
+    "experience_level": "Advanced",
+    "recommended": "No",
+    "notes": "Void users are expected to solve basic problems on their own."
+  },
+  {
+    "name": "Xubuntu LTS",
+    "supported": "Yes",
+    "experience_level": "Beginner",
+    "recommended": "Yes",
+    "notes": null
+  },
+  {
+    "name": "Zorin OS",
+    "supported": "No",
+    "experience_level": "N/A",
+    "recommended": "No",
+    "notes": null
+  }
+]
