@@ -40,7 +40,7 @@ author.name:{username}#{userdiscrim} ({userid});
 author.icon_url:{useravatar};
 title:Results For {get;~question};
 color:{get;~ecolor};
-description:{get;~desc}{newline}
+description:{get;~desc}
 {get;~results};
 footer.text:Expired;
 timestamp:{time};}}};{get;~timer}}
