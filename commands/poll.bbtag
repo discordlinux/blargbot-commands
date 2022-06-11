@@ -2,56 +2,63 @@
 {inject;{get;_gitcmd.functions}}
 
 {//;help function}
-{function;pollhelp;
-{embed;{embedbuild;
+{function;pollhelp;{embed;{embedbuild;
 author.name:Help for poll;
-color:{func.dlcolors;yellow};
-description:__**Usage**__: `poll <question> [-t <time>] [-d <description>] [-c <hex color>]`
-Creates a poll for the given question and duration. If no duration is given, defaults to 12 hours. 
+color:yellow;
+description:Creates a poll for the given question and duration. If no duration is given, defaults to 12 hours. 
 
 **Available flags**
 {repeat;`;3}
 -t    How long before the poll expires, formatted as '1d2h3m4s'.  Defaults to 12 hours.
 
--d    Detailed description of the poll question.
+-d    Description for the poll.
 
 -c    Color to set the poll.  Defaults to user's color.
-{repeat;`;3}}}
 
+-e    Emojis to use for the poll.  Defaults to <:upvote:466042779273920514> <:downvote:466042848454770730>.
+
+-C    Channel to send the poll to.  Defaults to current channel.
+{repeat;`;3}}}
 }
 
-{//;function to output the poll}
+{//;function to run poll}
 {function;pollrun;
-{//;output message with upvote and downvote reactions for people to vote on}
-{set;!~pollermsg;{send;{channelid};;{embedbuild;
-author.name:{get;~question};
+{set;!~pollmsg;{send;{get;~pollchan};;{embedbuild;
+author.name:{username}#{userdiscrim} ({userid});
+author.icon_url:{useravatar};
+title:{get;~question};
 color:{get;~ecolor};
 description:{get;~desc};
-footer.icon_url:{useravatar};
-footer.text:Started by {username} • Expires;
+footer.text:Expires;
 timestamp:{func.timeconv;{get;~timer}};}}}
-{reactadd;{channelid};{get;~pollermsg};<:upvote:466042779273920514>;<:downvote:466042848454770730>}
-
-{//;timer to output results of poll}
-{timer;{void;{send;{channelid};;{embedbuild;
-author.name:{get;~question};
+{apply;reactadd;{get;~pollchan};{get;~pollmsg};{get;~reactions}}
+{timer;
+{set;!~results;{foreach;~react;{get;~reactions};{newline}{get;~react} - __**{math;-;{length;{reactlist;{get;~pollchan};{get;~pollmsg};{get;~react}}};1} votes**__
+{foreach;~user;{reactlist;{get;~pollchan};{get;~pollmsg};{get;~react}};{if;{get;~user};!=;134133271750639616;- {usernick;{get;~user}}{newline}}}}}
+{void;{send;{get;~pollchan};;{embedbuild;
+author.name:{username}#{userdiscrim} ({userid});
+author.icon_url:{useravatar};
+title:Results For {get;~question};
 color:{get;~ecolor};
-description:{get;~desc};
-footer.icon_url:{useravatar};
-footer.text:Results for poll started by {username} • Expired;
-fields.name:<:upvote:466042779273920514>;
-fields.value:{zws}{set;!~ups;[]}{foreach;~up;{reactlist;{channelid};{get;~pollermsg};<:upvote:466042779273920514>};{push;~ups;{username;{get;~up}}}}{join;{filter;~uv;{get;~ups};{if;{get;~uv};==;blargbot;false;true}};,{space}};
-fields.name:<:downvote:466042848454770730>;
-fields.value:{zws}{set;!~downs;[]}{foreach;~down;{reactlist;{channelid};{get;~pollermsg};<:downvote:466042848454770730>};{push;~downs;{username;{get;~down}}}}{join;{filter;~dv;{get;~downs};{if;{get;~dv};==;blargbot;false;true}};,{space}};
+description:{get;~desc}{newline}
+{get;~results};
+footer.text:Expired;
 timestamp:{time};}}};{get;~timer}}
-
 }
 
 {//;detect arguments}
-{switch;{lower;{flag;_}};
-["help","--help","-h",""];
-{func.pollhelp};
 {fallback;}
+{if;{flag;C};!=;;
+{switch;{channelid{flag;C}};
+{channels};{set;!~pollchan;{channelid{flag;C}}};
+{set;!~pollchan;{channelid}}};
+{set;!~pollchan;{channelid}}}
+{if;{flag;e};!=;;
+{set;!~reactions;[]}
+{foreach;~emote;{split;{flag;e};{space}};
+{push;~reactions;{get;~emote}}};
+{set;!~reactions;[]}
+{push;~reactions;<:upvote:466042779273920514>;<:downvote:466042848454770730>}}
 {if;{flag;c};!=;;
 {set;!~ecolor;{flag;c}};
 {set;!~ecolor;{func.usrclr;{userid}}}}
@@ -60,7 +67,9 @@ timestamp:{time};}}};{get;~timer}}
 {set;!~timer;12h}}
 {if;{flag;d};!=;;
 {set;!~desc;{flag;d}}}
+{switch;{lower;{flag;_}};
+["help","--help","-h",""];
+{func.pollhelp};
 {set;!~question;{flag;_}}
-{fallback}
 {func.pollrun}
 }
