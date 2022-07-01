@@ -16,7 +16,7 @@
             "inline": false
         },
         {
-            "value": "If you are looking for a Linux distribution that is light on resources, very easy to use, extremely stable, and highly customizable, it doesn't get much better than Xubuntu.  The only problems some people may have with Xubuntu are the default looks and the slow release cycle of Xfce, but the looks are easily changed, and the release cycle of Xfce is the main reason that Xubuntu is more stable than other Ubuntu flavors.\r\n**[Download Xubuntu](https://xubuntu.org/download/)**\r\n\r\nIf you'd like something a bit more modern feeling than Xubuntu, we recommend checking out Ubuntu MATE (see `sudo info ubuntu mate`) or Kubuntu (see `sudo info kubuntu`).",
+            "value": "If you are looking for a Linux distribution that is light on resources, very easy to use, extremely stable, and highly customizable, it doesn't get much better than Xubuntu.  The only problems some people may have with Xubuntu are the default looks and the slow release cycle of Xfce, but the looks are easily changed, and the release cycle of Xfce is the main reason that Xubuntu is more stable than other Ubuntu flavors.\r\n**[Download Xubuntu](https://xubuntu.org/download/)**\r\n\r\nIf you'd like something a bit more modern feeling than Xubuntu, we recommend checking out Ubuntu MATE (see `sudo info ubuntu mate`) or Kubuntu (see `sudo info kubuntu`).\r\n**Package manager**: `apt`, `snap`",
             "name": "<:think:585665071938666508> Should You Use Xubuntu?",
             "inline": false
         }
