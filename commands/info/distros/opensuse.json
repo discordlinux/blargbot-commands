@@ -16,7 +16,7 @@
             "inline": false
         },
         {
-            "value": "If you are looking for a very well tested, stable distribution that allows you to easily install a custom set of packages out of the box, openSUSE Leap may be the distro for you.  If you're a power user, you will most likely appreciate how easy it is to interact with additional repos with zypper compared to something like apt.  The OBS can be used to find additonal or more up to date packages which includes getting newer kernel and MESA versions if desired.\r\n**[Download openSUSE Leap](https://software.opensuse.org/distributions/leap)**",
+            "value": "If you are looking for a very well tested, stable distribution that allows you to easily install a custom set of packages out of the box, openSUSE Leap may be the distro for you.  If you're a power user, you will most likely appreciate how easy it is to interact with additional repos with zypper compared to something like apt.  The OBS can be used to find additonal or more up to date packages which includes getting newer kernel and MESA versions if desired.\r\n**Package manager**: `zypper`\r\n**[Download openSUSE Leap](https://software.opensuse.org/distributions/leap)**",
             "name": "<:think:585665071938666508> Should You Use openSUSE Leap?",
             "inline": false
         }
