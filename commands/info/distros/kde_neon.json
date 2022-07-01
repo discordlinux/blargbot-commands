@@ -16,7 +16,7 @@
             "inline": false
         },
         {
-            "value": "If you are looking for the latest KDE Plasma packages on a stable base, KDE neon is the distribution for you.  KDE neon is extremely customizable, stable, and fairly easy to use.  Please only use the `User Edition` of KDE neon as the other two versions are not intended for normal use.\r\n**[Download KDE neon](https://files.kde.org/neon/images/user/current/neon-user-current.iso.mirrorlist)**",
+            "value": "If you are looking for the latest KDE Plasma packages on a stable base, KDE neon is the distribution for you.  KDE neon is extremely customizable, stable, and fairly easy to use.  Please only use the `User Edition` of KDE neon as the other two versions are not intended for normal use.\r\n**Package manager**: `apt`, `snap`\r\n**[Download KDE neon](https://files.kde.org/neon/images/user/current/neon-user-current.iso.mirrorlist)**",
             "name": "<:think:585665071938666508> Should You Use KDE neon?",
             "inline": false
         },
