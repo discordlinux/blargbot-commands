@@ -15,7 +15,7 @@
             "inline": false
         },
         {
-            "value": "If you are looking for one of the most customizable Linux distributions out there, Kubuntu may be the distribution for you.  Kubuntu is also is light on resources and easy to use.  In the past, Kubuntu was known for having buggy Plasma software, but their 22.04 release is very solid and much better than past releases.\r\n**[Download Kubuntu](http://cdimage.ubuntu.com/kubuntu/releases/22.04/release/)**\r\n\r\nIf you would like an Ubuntu based distribution that has the latest Plasma software, we recommend KDE neon (see `sudo info KDE neon`).",
+            "value": "If you are looking for one of the most customizable Linux distributions out there, Kubuntu may be the distribution for you.  Kubuntu is also is light on resources and easy to use.  In the past, Kubuntu was known for having buggy Plasma software, but their 22.04 release is very solid and much better than past releases.\r\n**[Download Kubuntu](http://cdimage.ubuntu.com/kubuntu/releases/22.04/release/)**\r\n\r\nIf you would like an Ubuntu based distribution that has the latest Plasma software, we recommend KDE neon (see `sudo info KDE neon`).\r\n**Package manager**: `apt`, `snap`",
             "name": "<:think:585665071938666508> Should You Use Kubuntu?",
             "inline": false
         }
