@@ -226,7 +226,7 @@ description:'{params}' not found.}};
 {switch;{jget;~item;display_type};
 ["4"];
 {set;!~itemtype;🟩};
-["3"];
+["3","1"];
 {set;!~itemtype;🟧};
 ["2"];
 {set;!~itemtype;🟥};
