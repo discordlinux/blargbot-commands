@@ -249,7 +249,7 @@ description:__**[Summary of ProtonDB ratings](https://www.protondb.com/app/{get;
 **Total Ratings**: {jget;~pjson;body.total}
 **Trending Tier**: {jget;~pjson;body.trendingTier}
 **Best Reported Tier**: {jget;~pjson;body.bestReportedTier}}
-__**[Steam Deck Status](https://steamdeck.com/en/verified)**__: {get;~deckstatus}{if;{length;{jget;~deckitems}};!=;0;{newline}{repeat;`;3}{newline}{join;~deckitems;{newline}}{newline}{repeat;`;3}}
+__**[Steam Deck Status](https://steamdeck.com/en/verified)**__: {get;~deckstatus}{if;{length;{jget;~deckitems}};!=;0;{newline}{join;~deckitems;{newline}}}
 __**[Steam Store Page](https://store.steampowered.com/app/{get;~id})**__
 **Description**: {get;~desc}{if;{length;{get;~desc}};>=;300;{space}[...]}
 **Operating System**: {get;~platforms}
