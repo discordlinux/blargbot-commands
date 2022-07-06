@@ -231,8 +231,8 @@ description:'{params}' not found.}};
 ["2"];
 {set;!~itemtype;❌};
 {set;!~itemtype;❓}}
-{set;!~itemtoken;{capitalize;{lower;{join;{map;~l;{split;{jget;{split;{jget;~item;loc_token};_};2};};{if;{regextest;{get;~l};/[A-Z]/};{space}{get;~l};{get;~l}}};}}}}
-{push;~deckitems;{get;~itemtype}{get;~itemtoken}}
+{set;!~itemtoken;{capitalize;{trim;{lower;{join;{map;~l;{split;{jget;{split;{jget;~item;loc_token};_};2};};{if;{regextest;{get;~l};/[A-Z]/};{space}{get;~l};{get;~l}}};}}}}}
+{push;~deckitems;{get;~itemtype}{space}{get;~itemtoken}}
 }
 {fallback;}
 {//;output results}
