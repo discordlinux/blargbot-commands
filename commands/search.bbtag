@@ -213,11 +213,11 @@ description:'{params}' not found.}};
 {set;!~deckjson;{jget;{request;https://www.protondb.com/proxy/steam/deck-verified?nAppID={get;~id}};body}}
 {switch;{jget;~deckjson;results.resolved_category};
 ["3"];
-{set;!~deckstatus;Verified 🟩};
+{set;!~deckstatus;Verified ✅};
 ["2"];
-{set;!~deckstatus;Playable 🟧};
+{set;!~deckstatus;Playable ⚠️};
 ["1"];
-{set;!~deckstatus;Unsupported 🟥};
+{set;!~deckstatus;Unsupported ❌};
 {set;!~deckstatus;Unknown ❓}}
 {set;!~deckitems;[]}
 {foreach;~item;{jget;~deckjson;results.resolved_items};
@@ -225,11 +225,11 @@ description:'{params}' not found.}};
 {set;!~itemtoken}
 {switch;{jget;~item;display_type};
 ["4"];
-{set;!~itemtype;🟩};
+{set;!~itemtype;✅};
 ["3","1"];
-{set;!~itemtype;🟧};
+{set;!~itemtype;⚠️};
 ["2"];
-{set;!~itemtype;🟥};
+{set;!~itemtype;❌};
 {set;!~itemtype;❓}}
 {set;!~itemtoken;{join;{map;~l;{split;{jget;{split;{jget;~item;loc_token};_};2};};{if;{regextest;{get;~l};/[A-Z]/};{space}{get;~l};{get;~l}}};}}
 {push;~deckitems;{get;~itemtype}{get;~itemtoken}}
