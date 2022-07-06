@@ -186,8 +186,11 @@ footer.text:Powered by Datamuse.com;}}
 {edit;{channelid};{get;~searchmsg};_delete;{embedbuild;
 color:{func.dlcolors;red};
 description:'{params}' not found.}};
+{//;steamspy}
 {set;!~steam;{jget;{request;https://steamspy.com/api.php?request=appdetails&appid={get;~id}};body}}
+{//;protondb}
 {set;!~pjson;{request;https://www.protondb.com/api/v1/reports/summaries/{get;~id}.json}}
+{//;steam API}
 {set;!~steamjson;{request;http://store.steampowered.com/api/appdetails?appids={get;~id}}}
 {set;!~desc;{jget;~steamjson;body.{get;~id}.data.short_description}}
 {set;!~platforms;[]}
@@ -204,7 +207,33 @@ description:'{params}' not found.}};
 {if;{get;~platforms};==;{null};
 {set;!~platforms;Windows}}
 {fallback;0}
+{//;current players}
 {set;!~cplayers;{jget;{request;https://api.steampowered.com/ISteamUserStats/GetNumberOfCurrentPlayers/v0001/?appid={get;~id}};body.response.player_count}}
+{//;steam deck}
+{set;!~deckjson;{jget;{request;https://www.protondb.com/proxy/steam/deck-verified?nAppID={get;~id}};body}}
+{switch;{jget;~deckjson;results.resolved_category};
+["3"];
+{set;!~deckstatus;Verified 🟩};
+["2"];
+{set;!~deckstatus;Playable 🟧};
+["1"];
+{set;!~deckstatus;Unsupported 🟥};
+{set;!~deckstatus;Unknown ❓}}
+{set;!~deckitems;[]}
+{foreach;~item;{jget;~deckjson;results.resolved_items};
+{set;!~itemtype}
+{set;!~itemtoken}
+{switch;{jget;~item;display_type};
+["4"];
+{set;!~itemtype;🟩};
+["3"];
+{set;!~itemtype;🟧};
+["2"];
+{set;!~itemtype;🟥};
+{set;!~itemtype;❓}}
+{set;!~itemtoken;{join;{map;~l;{split;{jget;{split;{jget;~item;loc_token};_};2};};{if;{regextest;{get;~l};/[A-Z]/};{space}{get;~l};{get;~l}}};}}
+{push;~deckitems;{get;~itemtype}{get;~itemtoken}}
+}
 {fallback;}
 {//;output results}
 {edit;{channelid};{get;~searchmsg};_delete;{embedbuild;
@@ -220,6 +249,7 @@ description:__**[Summary of ProtonDB ratings](https://www.protondb.com/app/{get;
 **Total Ratings**: {jget;~pjson;body.total}
 **Trending Tier**: {jget;~pjson;body.trendingTier}
 **Best Reported Tier**: {jget;~pjson;body.bestReportedTier}}
+__**[Steam Deck Status](https://steamdeck.com/en/verified)**__: {get;~deckstatus}{if;{length;{jget;~deckitems}};!=;0;{newline}{repeat;`;3}{newline}{join;~deckitems;{newline}}{newline}{repeat;`;3}}
 __**[Steam Store Page](https://store.steampowered.com/app/{get;~id})**__
 **Description**: {get;~desc}{if;{length;{get;~desc}};>=;300;{space}[...]}
 **Operating System**: {get;~platforms}
