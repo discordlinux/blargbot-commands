@@ -192,7 +192,7 @@ description:'{params}' not found.}};
 {set;!~pjson;{request;https://www.protondb.com/api/v1/reports/summaries/{get;~id}.json}}
 {//;steam API}
 {set;!~steamjson;{request;http://store.steampowered.com/api/appdetails?appids={get;~id}&l=English}}
-{set;!~desc;{jget;~steamjson;body.{get;~id}.data.short_description}}
+{set;!~desc;{substring;{jget;~steamjson;body.{get;~id}.data.short_description};0;300}}
 {set;!~platforms;[]}
 {if;{jget;~steamjson;body.{get;~id}.data.platforms.windows};==;true;
 {push;~platforms;Windows}
@@ -241,8 +241,9 @@ author.name:ProtonDB.com · {jget;~steam;name} · AppID: {get;~id};
 author.icon_url:https://cdn.discordapp.com/icons/481706387278397440/f55e7ab1b69de54145c09803d49dbe51.webp;
 author.url:https://www.protondb.com/app/{get;~id};
 color:1B2838;
-thumbnail.url:https://steamcdn-a.akamaihd.net/steam/apps/{get;~id}/header.jpg;
-description:__**[Summary of ProtonDB ratings](https://www.protondb.com/app/{get;~id})**__
+image.url:https://steamcdn-a.akamaihd.net/steam/apps/{get;~id}/header.jpg;
+description:{get;~desc}{if;{length;{get;~desc}};>=;300;{space}[...]}
+__**[Summary of ProtonDB ratings](https://www.protondb.com/app/{get;~id})**__
 {if;{jget;~pjson;body.confidence};==;;No ratings found.;**Confidence**: {jget;~pjson;body.confidence}
 **Score**: {jget;~pjson;body.score}
 **Tier**: {jget;~pjson;body.tier}
@@ -251,12 +252,10 @@ description:__**[Summary of ProtonDB ratings](https://www.protondb.com/app/{get;
 **Best Reported Tier**: {jget;~pjson;body.bestReportedTier}}
 __**[Steam Deck Status](https://steamdeck.com/en/verified)**__: {get;~deckstatus}{if;{length;{jget;~deckitems}};!=;0;{newline}{join;~deckitems;{newline}}}
 __**[Steam Store Page](https://store.steampowered.com/app/{get;~id})**__
-**Description**: {get;~desc}{if;{length;{get;~desc}};>=;300;{space}[...]}
-**Operating System**: {get;~platforms}
+**OSes**: {get;~platforms}
 **Developer**: {jget;~steam;developer}
 **Publisher**: {jget;~steam;publisher}
 **Genre**: {regexreplace;{jget;~steam;genre};/,/g;,{space}}
-**Tags**: {regexreplace;{regexreplace;{regexreplace;{replace;{replace;{jget;~steam;tags};{rb};};{lb};};/"/g;};/:[0-9][0-9]?[0-9]?[0-9]?[0-9]?,/g;,{space}};/:[0-9][0-9]?[0-9]?[0-9]?$/;}
 **Price**: {math;/;{jget;~steam;price};100} USD {if;{jget;~steam;discount};!=;0;({jget;~steam;discount}% discount)}
 **Steam Ratings**: {jget;~steam;positive} positive, {jget;~steam;negative} negative
 **Current Players**: {get;~cplayers}
