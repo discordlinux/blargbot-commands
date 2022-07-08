@@ -37,6 +37,10 @@
             "file_path": "man.bbtag"
         },
         {
+            "name": "mn",
+            "file_path": "mn.bbtag"
+        },
+        {
             "name": "pastebin",
             "file_path": "pastebin.bbtag"
         },

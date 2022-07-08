@@ -1,0 +1,364 @@
+{//;inject functions}
+{inject;{get;_gitcmd.functions}}
+
+{//;help function}
+{function;help;
+{embed;{embedbuild;
+author.name:{username}#{usernick} ({userid});
+author.icon_url:{useravatar};
+title:Help for mn;
+color:{func.dlcolors;yellow};
+description:__**Usage**__: `gt <add <-c movie> <-n name>|plan <-t time> [-r role] [-c channel]|reschedule <-i id> <-t time> [-r role] [-c channel]|cancel <-i id>>`
+Plan movie nights nights.  Will output a message 24 hours before the event, 1 hour before the event, and when the event starts.  The movie will be chosen randomly from entries provied through the `add` argument.
+
+**Arguments**
+{repeat;`;3}
+add: Add a movie to the list.
+Flags:
+ -n: Name of movie. Required.
+Example:
+  'add -n Movie Name'
+
+plan: Plan a movie night.
+Flags:
+  -t: Time that the movie night starts in Unix format. Required.
+  -r: Role to mention in reminder messages. Optional.
+  -c: Channel to output reminder messages in. Defaults to current channel. Optional.
+Example:
+  'plan -t {math;+;{time;X};86400} -r sudoers -c #moderator-chat'
+
+reschedule: Reschedule a planned movie night.
+Flags:
+  -i: ID of the movie night to reschedule. Required.
+  -t: Time that the movie night starts in Unix format. Required.
+  -r: Role to mention in reminder messages. Optional.
+  -c: Channel to output reminder messages in. Defaults to current channel. Optional.
+Example:
+  'reschedule -i {time;X} -t {math;+;{time;X};86400} -r sudoers -c #moderator-chat'
+
+cancel: Cancel a planned movie night.
+Flags:
+  -i: ID of the movie night to cancel. Required.
+Example:
+  'cancel -i {time;X}'
+{repeat;`;3}
+}}
+}
+
+{//;function to add movies to the list}
+{function;addmovie;
+{//;check input}
+{if;{flag;n};==;{null};
+{func.error;No movie provided.}
+{return}}
+{//;get info about movie}
+{set;!~omdb;{func.getjson;https://www.omdbapi.com/?t={uriencode;{flag;n}}&apikey=2a94c44e}}
+{if;{jget;~omdb;Title};==;{null};
+{func.error;No results found for '{flag;n}'}
+{return}}
+{//;add movie to list}
+{if;{get;_mn.movies};==;{null};
+{set;!_mn.movies;[]}}
+{push;_mn.movies;{get;~omdb}}
+{set;!_mn.movies;{jclean;_mn.movies}}
+{//;output info about movie}
+{embed;{embedbuild;
+author.name:{username}#{usernick} ({userid});
+author.icon_url:{useravatar};
+title:'{jget;~omdb;Title}' Added to Movie List;
+color:{func.dlcolors;green};
+image.url:{jget;~omdb;Poster};
+description:**Title**: {jget;~omdb;Title}
+**Released**: {jget;~omdb;Released}
+**Runtime**: {jget;~omdb;Runtime}
+**Genre**: {jget;~omdb;Genre}
+**Director**: {jget;~omdb;Director}
+**Writer**: {jget;~omdb;Writer}
+**Actors**: {jget;~omdb;Actors}
+**Plot Summary**: {jget;~omdb;Plot}
+}}
+}
+
+{//;function to plan movie night}
+{function;plan;
+{//;check movie list}
+{if;{logic;||;
+{bool;{get;_mn.movies};==;{null}};
+{bool;{length;{jget;_mn.movies}};==;0}};
+{func.error;No movies in list to choose from.  Use `add` to add a movie first.}
+{return}}
+{//;check time input}
+{if;{numformat;{flag;t};};==;NaN;
+{func.error;Unix time to start movie night not provided.}
+{return}}
+{set;!~plan.timer.{flag;t};{math;-;{flag;t};{time;X}}}
+{if;{get;~plan.timer.{flag;t}};<=;0;
+{func.error;Invalid Unix time provided '{flag;t}'.}
+{return}}
+{//;shuffle list}
+{shuffle;{get;_mn.movies}}
+{//;pop movie from list to choose movie}
+{set;!_mn.movie.{flag;t};{pop;_mn.movies}}
+{//;output info}
+{embed;{embedbuild;
+author.name:{username}#{usernick} ({userid});
+author.icon_url:{useravatar};
+title:Movie Night Planned;
+color:{func.dlcolors;green};
+image.url:{jget;_mn.movie.{flag;t};Poster};
+description:**Time**: <t:{flag;t}> (<t:{flag;t}:R>)
+**Title**: {jget;_mn.movie.{flag;t};Title}
+**Released**: {jget;_mn.movie.{flag;t};Released}
+**Runtime**: {jget;_mn.movie.{flag;t};Runtime}
+**Genre**: {jget;_mn.movie.{flag;t};Genre}
+**Director**: {jget;_mn.movie.{flag;t};Director}
+**Writer**: {jget;_mn.movie.{flag;t};Writer}
+**Actors**: {jget;_mn.movie.{flag;t};Actors}
+**Plot Summary**: {jget;_mn.movie.{flag;t};Plot}
+}}
+{//;start timers}
+{//;1 day before}
+{if;{math;-;{get;~plan.timer.{flag;t}};86400};>;0;
+{timer;
+{//;check if variable is still set and send reminder}
+{if;{get;_mn.movie.{flag;t}};!=;{null};
+{void;{send;{channelid;{flag;c};quiet};{rolemention;{flag;r};quiet};
+{embedbuild;
+title:Movie Night Reminder;
+color:{func.dlcolors;fuchsia};
+image.url:{jget;_mn.movie.{flag;t};Poster};
+description:**Time**: <t:{flag;t}> (<t:{flag;t}:R>)
+**Title**: {jget;_mn.movie.{flag;t};Title}
+**Released**: {jget;_mn.movie.{flag;t};Released}
+**Runtime**: {jget;_mn.movie.{flag;t};Runtime}
+**Genre**: {jget;_mn.movie.{flag;t};Genre}
+**Director**: {jget;_mn.movie.{flag;t};Director}
+**Writer**: {jget;_mn.movie.{flag;t};Writer}
+**Actors**: {jget;_mn.movie.{flag;t};Actors}
+**Plot Summary**: {jget;_mn.movie.{flag;t};Plot}
+}}}
+};{math;-;{get;~plan.timer.{flag;t}};86400}s}
+}
+{//;1 hour before}
+{if;{math;-;{get;~plan.timer.{flag;t}};3600};<;0;
+{//;if less than 1 hour before start time, send reminder now}
+{if;{get;_mn.movie.{flag;t}};!=;{null};
+{void;{send;{channelid;{flag;c};quiet};{rolemention;{flag;r};quiet};
+{embedbuild;
+title:Movie Night Reminder;
+color:{func.dlcolors;fuchsia};
+image.url:{jget;_mn.movie.{flag;t};Poster};
+description:**Time**: <t:{flag;t}> (<t:{flag;t}:R>)
+**Title**: {jget;_mn.movie.{flag;t};Title}
+**Released**: {jget;_mn.movie.{flag;t};Released}
+**Runtime**: {jget;_mn.movie.{flag;t};Runtime}
+**Genre**: {jget;_mn.movie.{flag;t};Genre}
+**Director**: {jget;_mn.movie.{flag;t};Director}
+**Writer**: {jget;_mn.movie.{flag;t};Writer}
+**Actors**: {jget;_mn.movie.{flag;t};Actors}
+**Plot Summary**: {jget;_mn.movie.{flag;t};Plot}
+}}}
+};
+{//;else start timer}
+{timer;
+{//;check if variable is still set and send reminder}
+{if;{get;_mn.movie.{flag;t}};!=;{null};
+{void;{send;{channelid;{flag;c};quiet};{rolemention;{flag;r};quiet};
+{embedbuild;
+title:Movie Night Reminder;
+color:{func.dlcolors;fuchsia};
+image.url:{jget;_mn.movie.{flag;t};Poster};
+description:**Time**: <t:{flag;t}> (<t:{flag;t}:R>)
+**Title**: {jget;_mn.movie.{flag;t};Title}
+**Released**: {jget;_mn.movie.{flag;t};Released}
+**Runtime**: {jget;_mn.movie.{flag;t};Runtime}
+**Genre**: {jget;_mn.movie.{flag;t};Genre}
+**Director**: {jget;_mn.movie.{flag;t};Director}
+**Writer**: {jget;_mn.movie.{flag;t};Writer}
+**Actors**: {jget;_mn.movie.{flag;t};Actors}
+**Plot Summary**: {jget;_mn.movie.{flag;t};Plot}
+}}}
+};{math;-;{get;~plan.timer.{flag;t}};3600}s}
+}
+{//;actual start time}
+{timer;
+{//;check if variable is still set and notification that movie night is starting}
+{if;{get;_mn.movie.{flag;t}};!=;{null};
+{void;{send;{channelid;{flag;c};quiet};{rolemention;{flag;r};quiet};
+{embedbuild;
+title:Movie Night Starting!;
+color:{func.dlcolors;cyan};
+image.url:{jget;_mn.movie.{flag;t};Poster};
+description:**Title**: {jget;_mn.movie.{flag;t};Title}
+**Released**: {jget;_mn.movie.{flag;t};Released}
+**Runtime**: {jget;_mn.movie.{flag;t};Runtime}
+**Genre**: {jget;_mn.movie.{flag;t};Genre}
+**Director**: {jget;_mn.movie.{flag;t};Director}
+**Writer**: {jget;_mn.movie.{flag;t};Writer}
+**Actors**: {jget;_mn.movie.{flag;t};Actors}
+**Plot Summary**: {jget;_mn.movie.{flag;t};Plot}
+}}}
+{set;_mn.movie.{flag;t}}
+};{get;~plan.timer.{flag;t}}s}
+}
+
+{//;function to reschedule movie night}
+{function;reschedule;
+{//;check ID input}
+{if;{get;_mn.movie.{flag;i}};==;{null};
+{func.error;Invalid ID provided.}
+{return}}
+{//;check time input}
+{if;{numformat;{flag;t};};==;NaN;
+{func.error;Unix time to start movie night not provided.}
+{return}}
+{set;!~plan.timer.{flag;t};{math;-;{flag;t};{time;X}}}
+{if;{get;~plan.timer.{flag;t}};<;0;
+{func.error;Invalid Unix time provided.}
+{return}}
+{//;set variable for new time to contents of old variable}
+{set;!_mn.movie.{flag;t};{get;_mn.movie.{flag;i}}}
+{//;delete old variable}
+{set;!_mn.movie.{flag;i}}
+{//;output info}
+{embed;{embedbuild;
+author.name:{username}#{usernick} ({userid});
+author.icon_url:{useravatar};
+title:Movie Night Rescheduled;
+color:{func.dlcolors;green};
+image.url:{jget;_mn.movie.{flag;t};Poster};
+description:**Time**: <t:{flag;t}> (<t:{flag;t}:R>)
+**Title**: {jget;_mn.movie.{flag;t};Title}
+**Released**: {jget;_mn.movie.{flag;t};Released}
+**Runtime**: {jget;_mn.movie.{flag;t};Runtime}
+**Genre**: {jget;_mn.movie.{flag;t};Genre}
+**Director**: {jget;_mn.movie.{flag;t};Director}
+**Writer**: {jget;_mn.movie.{flag;t};Writer}
+**Actors**: {jget;_mn.movie.{flag;t};Actors}
+**Plot Summary**: {jget;_mn.movie.{flag;t};Plot}
+}}
+{//;start timers}
+{//;1 day before}
+{if;{math;-;{get;~plan.timer.{flag;t}};86400};>;0;
+{timer;
+{//;check if variable is still set and send reminder}
+{if;{get;_mn.movie.{flag;t}};!=;{null};
+{void;{send;{channelid;{flag;c};quiet};{rolemention;{flag;r};quiet};
+{embedbuild;
+title:Movie Night Reminder;
+color:{func.dlcolors;fuchsia};
+image.url:{jget;_mn.movie.{flag;t};Poster};
+description:**Time**: <t:{flag;t}> (<t:{flag;t}:R>)
+**Title**: {jget;_mn.movie.{flag;t};Title}
+**Released**: {jget;_mn.movie.{flag;t};Released}
+**Runtime**: {jget;_mn.movie.{flag;t};Runtime}
+**Genre**: {jget;_mn.movie.{flag;t};Genre}
+**Director**: {jget;_mn.movie.{flag;t};Director}
+**Writer**: {jget;_mn.movie.{flag;t};Writer}
+**Actors**: {jget;_mn.movie.{flag;t};Actors}
+**Plot Summary**: {jget;_mn.movie.{flag;t};Plot}
+}}}
+};{math;-;{get;~plan.timer.{flag;t}};86400}s}
+}
+{//;1 hour before}
+{if;{math;-;{get;~plan.timer.{flag;t}};3600};<;0;
+{//;if less than 1 hour before start time, send reminder now}
+{if;{get;_mn.movie.{flag;t}};!=;{null};
+{void;{send;{channelid;{flag;c};quiet};{rolemention;{flag;r};quiet};
+{embedbuild;
+title:Movie Night Reminder;
+color:{func.dlcolors;fuchsia};
+image.url:{jget;_mn.movie.{flag;t};Poster};
+description:**Time**: <t:{flag;t}> (<t:{flag;t}:R>)
+**Title**: {jget;_mn.movie.{flag;t};Title}
+**Released**: {jget;_mn.movie.{flag;t};Released}
+**Runtime**: {jget;_mn.movie.{flag;t};Runtime}
+**Genre**: {jget;_mn.movie.{flag;t};Genre}
+**Director**: {jget;_mn.movie.{flag;t};Director}
+**Writer**: {jget;_mn.movie.{flag;t};Writer}
+**Actors**: {jget;_mn.movie.{flag;t};Actors}
+**Plot Summary**: {jget;_mn.movie.{flag;t};Plot}
+}}}
+};
+{//;else start timer}
+{timer;
+{//;check if variable is still set and send reminder}
+{if;{get;_mn.movie.{flag;t}};!=;{null};
+{void;{send;{channelid;{flag;c};quiet};{rolemention;{flag;r};quiet};
+{embedbuild;
+title:Movie Night Reminder;
+color:{func.dlcolors;fuchsia};
+image.url:{jget;_mn.movie.{flag;t};Poster};
+description:**Time**: <t:{flag;t}> (<t:{flag;t}:R>)
+**Title**: {jget;_mn.movie.{flag;t};Title}
+**Released**: {jget;_mn.movie.{flag;t};Released}
+**Runtime**: {jget;_mn.movie.{flag;t};Runtime}
+**Genre**: {jget;_mn.movie.{flag;t};Genre}
+**Director**: {jget;_mn.movie.{flag;t};Director}
+**Writer**: {jget;_mn.movie.{flag;t};Writer}
+**Actors**: {jget;_mn.movie.{flag;t};Actors}
+**Plot Summary**: {jget;_mn.movie.{flag;t};Plot}
+}}}
+};{math;-;{get;~plan.timer.{flag;t}};3600}s}
+}
+{//;actual start time}
+{timer;
+{//;check if variable is still set and notification that movie night is starting}
+{if;{get;_mn.movie.{flag;t}};!=;{null};
+{void;{send;{channelid;{flag;c};quiet};{rolemention;{flag;r};quiet};
+{embedbuild;
+title:Movie Night Starting!;
+color:{func.dlcolors;cyan};
+image.url:{jget;_mn.movie.{flag;t};Poster};
+description:**Title**: {jget;_mn.movie.{flag;t};Title}
+**Released**: {jget;_mn.movie.{flag;t};Released}
+**Runtime**: {jget;_mn.movie.{flag;t};Runtime}
+**Genre**: {jget;_mn.movie.{flag;t};Genre}
+**Director**: {jget;_mn.movie.{flag;t};Director}
+**Writer**: {jget;_mn.movie.{flag;t};Writer}
+**Actors**: {jget;_mn.movie.{flag;t};Actors}
+**Plot Summary**: {jget;_mn.movie.{flag;t};Plot}
+}}}
+{set;_mn.movie.{flag;t}}
+};{get;~plan.timer.{flag;t}}s}
+}
+
+{//;function to cancel movie night}
+{function;cancel;
+{//;check ID input}
+{if;{get;_mn.movie.{flag;i}};==;{null};
+{func.error;Invalid ID provided.}
+{return}}
+{//;output info}
+{embed;{embedbuild;
+author.name:{username}#{usernick} ({userid});
+author.icon_url:{useravatar};
+title:Movie Night Canceled;
+color:{func.dlcolors;red};
+image.url:{jget;_mn.movie.{flag;i};Poster};
+description:**Time**: <t:{flag;i}> (<t:{flag;i}:R>)
+**Title**: {jget;_mn.movie.{flag;i};Title}
+**Released**: {jget;_mn.movie.{flag;i};Released}
+**Runtime**: {jget;_mn.movie.{flag;i};Runtime}
+**Genre**: {jget;_mn.movie.{flag;i};Genre}
+**Director**: {jget;_mn.movie.{flag;i};Director}
+**Writer**: {jget;_mn.movie.{flag;i};Writer}
+**Actors**: {jget;_mn.movie.{flag;i};Actors}
+**Plot Summary**: {jget;_mn.movie.{flag;i};Plot}
+}}
+{//;delete old variable}
+{set;!_mn.movie.{flag;i}}
+}
+
+{//;detect arguments}
+{switch;{lower;{flag;_}};
+["add"];
+{func.addmovie};
+["plan"];
+{func.plan};
+["reschedule"];
+{func.reschedule};
+["cancel"];
+{func.cancel};
+{func.help}
+}
