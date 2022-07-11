@@ -16,7 +16,7 @@
             "inline": false
         },
         {
-            "value": "If you like Xubuntu, but want something a bit more modern feeling, Ubuntu MATE may be the distribution for you.  Ubuntu MATE is very easy to use, highly customizable, stable, and easy on resources.\r\n**[Download Ubuntu MATE](https://ubuntu-mate.org/download/)**\r\n\r\nIf you'd like something even more customizable than Ubuntu MATE, check out Kubuntu (see `sudo info kubuntu`).",
+            "value": "If you like Xubuntu, but want something a bit more modern feeling, Ubuntu MATE may be the distribution for you.  Ubuntu MATE is very easy to use, highly customizable, stable, and easy on resources.\r\n**[Download Ubuntu MATE](https://ubuntu-mate.org/download/)**\r\n\r\nIf you'd like something even more customizable than Ubuntu MATE, check out Kubuntu (see `sudo info kubuntu`).\r\n**Package manager**: `apt`, `snap`",
             "name": "<:think:585665071938666508> Should You Use Ubuntu MATE?",
             "inline": false
         }

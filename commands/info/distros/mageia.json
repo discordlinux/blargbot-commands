@@ -11,7 +11,7 @@
             "inline": false
         },
         {
-            "value": "If you don't mind treading in uncharted waters and are looking for a distribution that has one of the best GUI frontends for managing packages and system settings, Mageia might be the distribution for you.  Is Mageia beginner friendly?  It's hard to say at this point.  Mageia does aim to be beginner friendly, and it shows in quite a few places, but as a relatively new and independent distribution, it is hard to judge what their future will hold.\r\n**[Download Mageia](https://www.mageia.org/en/downloads/)**\r\n\r\nIf you are looking for a more vetted beginner friendly distribution, see `sudo info recommended`.",
+            "value": "If you don't mind treading in uncharted waters and are looking for a distribution that has one of the best GUI frontends for managing packages and system settings, Mageia might be the distribution for you.  Is Mageia beginner friendly?  It's hard to say at this point.  Mageia does aim to be beginner friendly, and it shows in quite a few places, but as a relatively new and independent distribution, it is hard to judge what their future will hold.\r\n**Package manager**: `urpmi`, `dnf`\r\n**[Download Mageia](https://www.mageia.org/en/downloads/)**\r\n\r\nIf you are looking for a more vetted beginner friendly distribution, see `sudo info recommended`.",
             "name": "<:think:585665071938666508> Should You Use Mageia?",
             "inline": false
         }
