@@ -19,6 +19,12 @@ Flags:
 Example:
   'add -n Movie Name'
 
+remove: Remove a movie from the list.
+Flags:
+ -n: Name of movie. Required.
+Example:
+  'remove -n Movie Name'
+
 plan: Plan a movie night.
 Flags:
   -t: Time that the movie night starts in Unix format. Required.
@@ -67,6 +73,41 @@ author.name:{username}#{userdiscrim} ({userid});
 author.icon_url:{useravatar};
 title:'{jget;~omdb;Title}' Added to Movie List;
 color:{func.dlcolors;green};
+image.url:{jget;~omdb;Poster};
+description:**Title**: {jget;~omdb;Title}
+**Released**: {jget;~omdb;Released}
+**Runtime**: {jget;~omdb;Runtime}
+**Genre**: {jget;~omdb;Genre}
+**Director**: {jget;~omdb;Director}
+**Writer**: {jget;~omdb;Writer}
+**Actors**: {jget;~omdb;Actors}
+**Plot Summary**: {jget;~omdb;Plot}
+}}
+}
+
+{//;function to remove movies from the list}
+{function;removemovie;
+{//;check input}
+{if;{flag;n};==;{null};
+{func.error;No movie provided.}
+{return}}
+{if;{get;_mn.movies};==;{null};
+{func.error;No movies in list.}
+{return}}
+{//;check if movie is in list}
+{set;!~omdb;{filter;~movie;{jvalues;_mn.movies};{bool;{lower;{jget;~movie;Title}};==;{lower;{flag;n}}}}}
+{if;{jget;~omdb;Title};==;{null};
+{func.error;No results found for '{flag;n}'}
+{return}}
+{//;remove movie from list}
+{set;!_mn.movies;{filter;~movie;{jvalues;_mn.movies};{bool;{lower;{jget;~movie;Title}};!=;{lower;{flag;n}}}}}
+{set;!_mn.movies;{jclean;_mn.movies}}
+{//;output info about movie}
+{embed;{embedbuild;
+author.name:{username}#{userdiscrim} ({userid});
+author.icon_url:{useravatar};
+title:'{jget;~omdb;Title}' Removed From Movie List;
+color:{func.dlcolors;red};
 image.url:{jget;~omdb;Poster};
 description:**Title**: {jget;~omdb;Title}
 **Released**: {jget;~omdb;Released}
@@ -354,6 +395,8 @@ description:**Time**: <t:{flag;i}> (<t:{flag;i}:R>)
 {switch;{lower;{flag;_}};
 ["add"];
 {func.addmovie};
+["remove","rm"];
+{func.removemovie};
 ["plan"];
 {func.plan};
 ["reschedule"];
