@@ -95,7 +95,7 @@ description:**Title**: {jget;~omdb;Title}
 {func.error;No movies in list.}
 {return}}
 {//;check if movie is in list}
-{set;!~omdb;{filter;~movie;{jvalues;_mn.movies};{bool;{lower;{jget;~movie;Title}};==;{lower;{flag;n}}}}}
+{set;!~omdb;{jget;{filter;~movie;{jvalues;_mn.movies};{bool;{lower;{jget;~movie;Title}};==;{lower;{flag;n}}}};0}}
 {if;{jget;~omdb;Title};==;{null};
 {func.error;No results found for '{flag;n}'}
 {return}}
