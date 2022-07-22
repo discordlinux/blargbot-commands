@@ -4,7 +4,7 @@
 {//;help function}
 {function;help;
 {embed;{embedbuild;
-author.name:{username}#{usernick} ({userid});
+author.name:{username}#{userdiscrim} ({userid});
 author.icon_url:{useravatar};
 title:Help for mn;
 color:{func.dlcolors;yellow};
@@ -63,7 +63,7 @@ Example:
 {set;!_mn.movies;{jclean;_mn.movies}}
 {//;output info about movie}
 {embed;{embedbuild;
-author.name:{username}#{usernick} ({userid});
+author.name:{username}#{userdiscrim} ({userid});
 author.icon_url:{useravatar};
 title:'{jget;~omdb;Title}' Added to Movie List;
 color:{func.dlcolors;green};
@@ -101,7 +101,7 @@ description:**Title**: {jget;~omdb;Title}
 {set;!_mn.movie.{flag;t};{pop;_mn.movies}}
 {//;output info}
 {embed;{embedbuild;
-author.name:{username}#{usernick} ({userid});
+author.name:{username}#{userdiscrim} ({userid});
 author.icon_url:{useravatar};
 title:Movie Night Planned;
 color:{func.dlcolors;green};
@@ -222,7 +222,7 @@ description:**Title**: {jget;_mn.movie.{flag;t};Title}
 {set;!_mn.movie.{flag;i}}
 {//;output info}
 {embed;{embedbuild;
-author.name:{username}#{usernick} ({userid});
+author.name:{username}#{userdiscrim} ({userid});
 author.icon_url:{useravatar};
 title:Movie Night Rescheduled;
 color:{func.dlcolors;green};
@@ -331,7 +331,7 @@ description:**Title**: {jget;_mn.movie.{flag;t};Title}
 {return}}
 {//;output info}
 {embed;{embedbuild;
-author.name:{username}#{usernick} ({userid});
+author.name:{username}#{userdiscrim} ({userid});
 author.icon_url:{useravatar};
 title:Movie Night Canceled;
 color:{func.dlcolors;red};
