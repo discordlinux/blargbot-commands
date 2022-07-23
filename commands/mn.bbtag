@@ -62,6 +62,30 @@ Example:
 {if;{jget;~omdb;Title};==;{null};
 {func.error;No results found for '{flag;n}'}
 {return}}
+{//;check if movie is already in list}
+{set;!~mn.check;{filter;~movie;{jvalues;_mn.movies};
+{logic;&&;
+{bool;{jget;~movie;Title};==;{jget;~omdb;Title};
+{bool;{jget;~movie;Released};==;{jget;~omdb;Released}}}}
+}}
+{if;{length;{get;~mn.check}};>;0;
+{embed;{embedbuild;
+author.name:{username}#{userdiscrim} ({userid});
+author.icon_url:{useravatar};
+title:'{jget;~omdb;Title}' Already in Movie List;
+color:{func.dlcolors;orange};
+image.url:{jget;~omdb;Poster};
+description:**Title**: {jget;~omdb;Title}
+**Released**: {jget;~omdb;Released}
+**Runtime**: {jget;~omdb;Runtime}
+**Genre**: {jget;~omdb;Genre}
+**Director**: {jget;~omdb;Director}
+**Writer**: {jget;~omdb;Writer}
+**Actors**: {jget;~omdb;Actors}
+**Plot Summary**: {jget;~omdb;Plot}
+}}
+{return}
+}
 {//;add movie to list}
 {if;{get;_mn.movies};==;{null};
 {set;!_mn.movies;[]}}
