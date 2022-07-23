@@ -65,8 +65,8 @@ Example:
 {//;check if movie is already in list}
 {set;!~mn.check;{filter;~movie;{jvalues;_mn.movies};
 {logic;&&;
-{bool;{jget;~movie;0.Title};==;{jget;~omdb;Title};
-{bool;{jget;~movie;0.Released};==;{jget;~omdb;Released}}}}
+{bool;{jget;~movie;0.Title};==;{jget;~omdb;Title}};
+{bool;{jget;~movie;0.Released};==;{jget;~omdb;Released}}}
 }}
 {if;{length;{get;~mn.check}};>;0;
 {embed;{embedbuild;
