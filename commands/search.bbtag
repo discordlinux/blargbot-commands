@@ -88,6 +88,11 @@ If none of the arguments below are used, a normal search will be ran.
 {set;!~qthumb;{func.fakeimg;null;1;1}}}
 {fallback}
 }
+{//;check if qthumb is valid url}
+{if;{get;~qthumb};startswith;/;
+{set;!~qdomain;{join;{slice;{split;{get;~qurl};/};0;3};/}}
+{set;!~qthumb;{get;~qdomain}{get;~qthumb}}
+}
 {//;output results}
 {edit;{channelid};{get;~searchmsg};_delete;{embedbuild;
 author.name:Result via Qwant;
