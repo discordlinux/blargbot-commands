@@ -181,13 +181,22 @@ description:**Time**: <t:{flag;t}> (<t:{flag;t}:R>)
 **Actors**: {jget;_mn.movie.{flag;t};Actors}
 **Plot Summary**: {jget;_mn.movie.{flag;t};Plot}
 }}
+{//;set variables}
+{if;{flag;r};!=;{null};
+{set;!~mn.role;{roleid;{flag;r}}};
+{set;!~mn.role;{get;_mn.role}}
+}
+{if;{flag;c};!=;{null};
+{set;!~mn.channel;{flag;c}};
+{set;!~mn.channel;{get;_mn.channel}}
+}
 {//;start timers}
 {//;1 day before}
 {if;{math;-;{get;~plan.timer.{flag;t}};86400};>;0;
 {timer;
 {//;check if variable is still set and send reminder}
 {if;{get;_mn.movie.{flag;t}};!=;{null};
-{void;{send;{channelid;{flag;c};quiet};{rolemention;{flag;r};quiet};
+{void;{send;{channelid;{get;~mn.channel};quiet};{rolemention;{get;~mn.role};quiet};
 {embedbuild;
 title:Movie Night Reminder;
 color:{func.dlcolors;fuchsia};
@@ -208,7 +217,7 @@ description:**Time**: <t:{flag;t}> (<t:{flag;t}:R>)
 {if;{math;-;{get;~plan.timer.{flag;t}};3600};<;0;
 {//;if less than 1 hour before start time, send reminder now}
 {if;{get;_mn.movie.{flag;t}};!=;{null};
-{void;{send;{channelid;{flag;c};quiet};{rolemention;{flag;r};quiet};
+{void;{send;{channelid;{get;~mn.channel};quiet};{rolemention;{get;~mn.role};quiet};
 {embedbuild;
 title:Movie Night Reminder;
 color:{func.dlcolors;fuchsia};
@@ -228,7 +237,7 @@ description:**Time**: <t:{flag;t}> (<t:{flag;t}:R>)
 {timer;
 {//;check if variable is still set and send reminder}
 {if;{get;_mn.movie.{flag;t}};!=;{null};
-{void;{send;{channelid;{flag;c};quiet};{rolemention;{flag;r};quiet};
+{void;{send;{channelid;{get;~mn.channel};quiet};{rolemention;{get;~mn.role};quiet};
 {embedbuild;
 title:Movie Night Reminder;
 color:{func.dlcolors;fuchsia};
@@ -249,7 +258,7 @@ description:**Time**: <t:{flag;t}> (<t:{flag;t}:R>)
 {timer;
 {//;check if variable is still set and notification that movie night is starting}
 {if;{get;_mn.movie.{flag;t}};!=;{null};
-{void;{send;{channelid;{flag;c};quiet};{rolemention;{flag;r};quiet};
+{void;{send;{channelid;{get;~mn.channel};quiet};{rolemention;{get;~mn.role};quiet};
 {embedbuild;
 title:Movie Night Starting!;
 color:{func.dlcolors;cyan};
@@ -302,13 +311,22 @@ description:**Time**: <t:{flag;t}> (<t:{flag;t}:R>)
 **Actors**: {jget;_mn.movie.{flag;t};Actors}
 **Plot Summary**: {jget;_mn.movie.{flag;t};Plot}
 }}
+{//;set variables}
+{if;{flag;r};!=;{null};
+{set;!~mn.role;{roleid;{flag;r}}};
+{set;!~mn.role;{get;_mn.role}}
+}
+{if;{flag;c};!=;{null};
+{set;!~mn.channel;{flag;c}};
+{set;!~mn.channel;{get;_mn.channel}}
+}
 {//;start timers}
 {//;1 day before}
 {if;{math;-;{get;~plan.timer.{flag;t}};86400};>;0;
 {timer;
 {//;check if variable is still set and send reminder}
 {if;{get;_mn.movie.{flag;t}};!=;{null};
-{void;{send;{channelid;{flag;c};quiet};{rolemention;{flag;r};quiet};
+{void;{send;{channelid;{get;~mn.channel};quiet};{rolemention;{get;~mn.role};quiet};
 {embedbuild;
 title:Movie Night Reminder;
 color:{func.dlcolors;fuchsia};
@@ -329,7 +347,7 @@ description:**Time**: <t:{flag;t}> (<t:{flag;t}:R>)
 {if;{math;-;{get;~plan.timer.{flag;t}};3600};<;0;
 {//;if less than 1 hour before start time, send reminder now}
 {if;{get;_mn.movie.{flag;t}};!=;{null};
-{void;{send;{channelid;{flag;c};quiet};{rolemention;{flag;r};quiet};
+{void;{send;{channelid;{get;~mn.channel};quiet};{rolemention;{get;~mn.role};quiet};
 {embedbuild;
 title:Movie Night Reminder;
 color:{func.dlcolors;fuchsia};
@@ -349,7 +367,7 @@ description:**Time**: <t:{flag;t}> (<t:{flag;t}:R>)
 {timer;
 {//;check if variable is still set and send reminder}
 {if;{get;_mn.movie.{flag;t}};!=;{null};
-{void;{send;{channelid;{flag;c};quiet};{rolemention;{flag;r};quiet};
+{void;{send;{channelid;{get;~mn.channel};quiet};{rolemention;{get;~mn.role};quiet};
 {embedbuild;
 title:Movie Night Reminder;
 color:{func.dlcolors;fuchsia};
@@ -370,7 +388,7 @@ description:**Time**: <t:{flag;t}> (<t:{flag;t}:R>)
 {timer;
 {//;check if variable is still set and notification that movie night is starting}
 {if;{get;_mn.movie.{flag;t}};!=;{null};
-{void;{send;{channelid;{flag;c};quiet};{rolemention;{flag;r};quiet};
+{void;{send;{channelid;{get;~mn.channel};quiet};{rolemention;{get;~mn.role};quiet};
 {embedbuild;
 title:Movie Night Starting!;
 color:{func.dlcolors;cyan};
