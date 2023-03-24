@@ -187,6 +187,11 @@ footer.text:Powered by Datamuse.com;}}
 {set;!~gamewiki;{request;https://www.pcgamingwiki.com/w/api.php?action=query&format=json&prop=categories%7Cextlinks%7Cinfo&list=&meta=&generator=search&redirects=1&converttitles=1&utf8=1&formatversion=2&clcategories=Category%3ALinux%7CCategory%3AWindows%7CCategory%3AOS%20X&elprotocol=https&elquery=steamdb.info&elexpandurl=1&inprop=url%7Cdisplaytitle&gsrsearch={uriencode;{params}}&gsrwhat=nearmatch}}
 {fallback;}
 {set;!~id;{jget;{split;{jget;~gamewiki;body.query.pages.0.extlinks.0.url};/};4}}}
+{//;use steam store API if pcgamingwiki fails}
+{if;{get;~id};==;{null};
+{fallback;}
+{set;!~id;{jget;{request;https://store.steampowered.com/api/storesearch/?term={uriencode;{params}}&l=english&cc=US};body.items.0.id}}
+}
 {if;{get;~id};==;{null};
 {edit;{channelid};{get;~searchmsg};_delete;{embedbuild;
 color:{func.dlcolors;red};
