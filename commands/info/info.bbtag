@@ -57,7 +57,7 @@ description:Getting info for `{params}`...;}}}}
 {function;metadata;
 {jset;~head;method;POST;c}
 {jset;~head;headers.user-agent;blargbot - {guildname} - {commandname} - {userid};c}
-{jget;{request;http://syretia.cf/metadata?u={uriencode;{params}};{get;~head}};body}
+{jget;{request;http://syretia.xyz/metadata?u={uriencode;{params}};{get;~head}};body}
 }
 
 {//;function to get info via wikipedia}
@@ -123,7 +123,7 @@ Searches the [Discord Linux Supported Distros](https://github.com/discordlinux/b
 {function;supported.json;
 {jset;~head;method;POST;c}
 {jset;~head;headers.user-agent;blargbot guild: {guildid} | in: {flag;_};c}
-{slice;{jget;{request;http://syretia.cf/sheets?key=124ayAVJ1QPqEYZvtk_0uT3n-8QByf8LR7A43ah8QvDA;{get;~head}};body.table.rows};2;}
+{slice;{jget;{request;http://syretia.xyz/sheets?key=124ayAVJ1QPqEYZvtk_0uT3n-8QByf8LR7A43ah8QvDA;{get;~head}};body.table.rows};2;}
 }
 
 {//;function to search list of supported distros}

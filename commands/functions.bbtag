@@ -104,7 +104,7 @@ timestamp:{time}}}}
 {jstringify;~mdout}
 }
 
-{//;function to get metadata using syretia.cf}
+{//;function to get metadata using syretia.xyz}
 {function;metadata_sy;
 {func.syretia;metadata?u={uriencode;{params;0}}}
 }
@@ -127,7 +127,7 @@ timestamp:{time}}}}
 {//;function to get raw response from website using motyar's try page}
 {function;rawhtml;{set;!~raw.req;true}{func.req;{params;0}}}
 
-{//;function that replicates built-in request, but through syretia.cf}
+{//;function that replicates built-in request, but through syretia.xyz}
 {function;req;
 {if;{get;~req.raw};!=;true;
 {set;!~req.raw;false}}
@@ -143,7 +143,7 @@ timestamp:{time}}}}
 {set;!~body;{params;2;n}}
 {if;{get;~body};startswith;`;
 {set;!~body;}}
-{jget;{request;https://syretia.cf/req?url={uriencode;{get;~url}}&x={get;~method}&raw={get;~req.raw}&f={get;~req.flags};{get;~headers};{get;~body}};body}
+{jget;{request;https://syretia.xyz/req?url={uriencode;{get;~url}}&x={get;~method}&raw={get;~req.raw}&f={get;~req.flags};{get;~headers};{get;~body}};body}
 }
 
 {//;function to interact with firebase}
@@ -164,8 +164,8 @@ thumbnail.url:https://cdn.discordapp.com/emojis/478073442311077889.gif?size=20;
 description:{get;~semsg}...;}}}}
 }
 
-{//;function to make requests to syretia.cf endpoints}
-{function;syretia;{jset;~head;headers.content-type;application/json;c}{jset;~head;method;POST;c}{jset;~head;headers.user-agent;blargbot | guild: {guildid};c}{jget;{request;http://syretia.cf/{params;0};{get;~head};{get;~syretia.body}};body}}
+{//;function to make requests to syretia.xyz endpoints}
+{function;syretia;{jset;~head;headers.content-type;application/json;c}{jset;~head;method;POST;c}{jset;~head;headers.user-agent;blargbot | guild: {guildid};c}{jget;{request;http://syretia.xyz/{params;0};{get;~head};{get;~syretia.body}};body}}
 
 {//;function to convert time input to seconds}
 {function;timeconv;{clean;{//;Convert time input to seconds}
