@@ -17,13 +17,13 @@
             "inline": false
         },
         {
-            "value": "Unetbootin is ***not recommended***.  Unetbootin modifies the bootloader of the ISO as it is written, replacing it with a CD bootloader which usually doesn't work correctly with modern ISOs.",
-            "name": "Unetbootin",
+            "value": "[Get WoeUSB-ng](https://github.com/WoeUSB/WoeUSB-ng)\r\nA Linux program to create a Windows USB stick installer from a real Windows DVD or image.",
+            "name": "WoeUSB-ng",
             "inline": false
         },
         {
-            "value": "[Get WoeUSB-ng](https://github.com/WoeUSB/WoeUSB-ng)\r\nA Linux program to create a Windows USB stick installer from a real Windows DVD or image.",
-            "name": "WoeUSB-ng",
+            "value": "Unetbootin is ***not recommended***.  Unetbootin modifies the bootloader of the ISO as it is written, replacing it with a CD bootloader which usually doesn't work correctly with modern ISOs.",
+            "name": "Unetbootin",
             "inline": false
         }
     ],
