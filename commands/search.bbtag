@@ -54,7 +54,9 @@ If none of the arguments below are used, a normal search will be ran.
 {//;output message to let users know we're doing something}
 {func.searchmsg;{get;~qjson}}
 {//;get qwant results}
-{set;!~qresults;{func.syretia;qse?q={uriencode;{params}}}}
+{//;{set;!~qresults;{func.syretia;qse?q={uriencode;{params}}}}}
+{set;!~rawresults;{jget;{func.getjson;https://api.qwant.com/v3/search/web?count=10&q={uriencode;{params}}&t=web&locale=en_US&device=desktop&offset=0&safesearch=1}};data.result.items.mainline}
+{set;!~qresults;{filter;~res;{jget;~rawresults};{bool;{jget;~res;type};==;web}}}
 {//;check results}
 {if;{length;{get;~qresults}};==;0;
 {//;no results}
