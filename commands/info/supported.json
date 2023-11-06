@@ -175,6 +175,13 @@
     "notes": "Fedora Spins are supported, but are low quality compared to Fedora itself"
   },
   {
+    "name": "Nobara Linux",
+    "supported": "No",
+    "experience_level": "Intermediate",
+    "recommended": "No",
+    "notes": null
+  },
+  {
     "name": "Feren OS",
     "supported": "No",
     "experience_level": "N/A",
