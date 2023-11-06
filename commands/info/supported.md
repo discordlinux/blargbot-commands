@@ -25,7 +25,6 @@
 | EndeavourOS | No | Advanced | No |  |
 | Fedora | Yes | Intermediate | No |  |
 | Fedora Spins | Yes | Intermediate | No | Fedora Spins are supported, but are low quality compared to Fedora itself |
-| Nobara Linux | No | Intermediate | No |  |
 | Feren OS | No | N/A | No |  |
 | GalliumOS | Yes | Intermediate | No | GalliumOS is unmaintained, and is only meant for chromebooks. |
 | Garuda Linux | No | Advanced | No |  |
@@ -47,6 +46,7 @@
 | MX Linux | No | Intermediate | No |  |
 | Neptune OS | No | Intermediate | No |  |
 | NixOS | Yes | Advanced | No |  |
+| Nobara Linux | No | Intermediate | No |  |
 | openSUSE Leap | Yes | Intermediate | Yes |  |
 | openSUSE Tumbleweed | Partial | Advanced | Yes | openSUSE Tumbleweed users are expected to solve basic problems on their own. |
 | Oracle Linux | Yes | Advanced | No |  |
