@@ -41,7 +41,7 @@
 {func.error;Failed to warn {get;~user}:{newline}{jget;~libmod;output}}
 {return}}
 
-{exec;whmodlog;warn;{get;~user};{userid};{get;~reason};{if;{flag;c};!=;{null};{flag;c};1};{if;{get;~wmsg};!=;{null};{messagetext;{channelid};{get;~wmsg}}}}
+{func.whmodlog;warn;{get;~user};{userid};{get;~reason};{if;{flag;c};!=;{null};{flag;c};1};{if;{get;~wmsg};!=;{null};{messagetext;{channelid};{get;~wmsg}}}}
 
 {//;reset users role time if users is waiting for users role}
 {if;{indexof;{get;_users.role.array};{get;~user}};!=;-1;
