@@ -1,0 +1,20 @@
+{inject;{get;_gitcmd.functions}}
+{inject;{get;_gitcmd.libmod}}
+{if;{flag;_};==;{null};
+{func.error;You have to tell me who to mute!}
+{return}}
+{//;Set the user.}
+{suppresslookup}
+{set;~user;{userid;{flag;_}}}
+{if;{get;~user};==;{null};
+{func.error;'{flag;_}' is not a valid Discord user.}
+{return}}
+{//;Muting the user.}
+{if;{flagset;r};
+{set;~reason;{flag;r}{zws} {zws}};
+{set;~reason;No reason given.}}
+{func.mute;{get;~user};{flag;t};{get;~reason}}
+{if;{jget;~libmod;success};!=;true;
+{func.error;Failed to mute '{flag;_}':{newline}{jget;~libmod;output}}
+{return}}
+{func.whmodlog;mute;{get;~user};{userid};{get;~reason};{flag;t}}

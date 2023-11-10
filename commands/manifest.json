@@ -41,6 +41,14 @@
             "file_path": "mn.bbtag"
         },
         {
+            "name": "mute",
+            "file_path": "mute.bbtag"
+        },
+        {
+            "name": "pardon",
+            "file_path": "pardon.bbtag"
+        },
+        {
             "name": "pastebin",
             "file_path": "pastebin.bbtag"
         },
