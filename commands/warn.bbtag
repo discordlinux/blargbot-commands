@@ -1,0 +1,74 @@
+{inject;{get;_gitcmd.libmod}}
+
+{//;Set the user.}
+{suppresslookup}
+{if;{commandname};==;warn;
+{set;!~wmsg;{messagereply}}
+}
+{if;{get;~wmsg};!=;{null};
+{set;!~user;{messagesender;{get;~wmsg}}};
+
+{if;{flag;_};==;{null};
+{func.error;You have to tell me who to warn!}
+{return}}
+{set;!~user;{userid;{flag;_}}}
+}
+
+{//;Check user}
+{if;{commandname};==;warn;
+{if;{get;~user};==;{userid};
+{func.error;You have to tell me who to warn!}
+{return}}
+}
+
+{if;{func.usercheck;{userid;{get;~user}}};==;false;
+{func.error;User not found in {guildname}!}
+{return}}
+
+{//;Set message id}
+{if;{logic;&&;
+{bool;{get;~wmsg};==;{null}};
+{bool;{flag;m};!=;{null}}};
+{set;!~wmsg;{flag;m}}
+}
+
+{//;Warning the user.}
+{if;{flagset;r};
+{set;!~reason;{flag;r}{zws} {zws}};
+{set;!~reason;No reason given.}}
+{func.warn;{get;~user};{flag;c};{get;~reason}}
+{if;{jget;~libmod;success};!=;true;
+{func.error;Failed to warn {get;~user}:{newline}{jget;~libmod;output}}
+{return}}
+
+{exec;whmodlog;warn;{get;~user};{userid};{get;~reason};{if;{flag;c};!=;{null};{flag;c};1};{if;{get;~wmsg};!=;{null};{messagetext;{channelid};{get;~wmsg}}}}
+
+{//;reset users role time if users is waiting for users role}
+{if;{indexof;{get;_users.role.array};{get;~user}};!=;-1;
+{set;!_users.role.time.{get;~user};{time;X}}
+{set;!_{get;~user}.join.warns;{warnings;{get;~user}}}}
+
+{//;Mute user for 15 minutes if more than 3 warnings}
+{if;{logic;&&;
+{bool;{warnings;{get;~user}};>;2};
+{bool;{warnings;{get;~user}};<;8}};
+{func.mute;{get;~user};15m;{get;~reason}}}
+
+{//;Mute user for 1 hour and remove users role if more than 7 warnings.}
+{if;{warnings;{get;~user}};>;7;
+{commit}
+{//;remove any colored roles}
+{foreach;~crole;{slice;{roles};{math;+;{indexof;{roles};475451558218432512};1};{indexof;{roles};176607163580547073}};
+{if;{userhasrole;{get;~crole};{get;~user}};==;true;
+{void;{roleremove;{get;~crole};{get;~user}}}
+}
+}
+{//;remove users role}
+{void;{roleremove;428637054922915850;{get;~user}}}
+{push;_users.role.array;{get;~user}}
+{commit}
+{set;!_users.role.time.{get;~user};{time;X}}
+{set;!_{get;~user}.join.warns;{warnings;{get;~user}}}
+{func.mute;{get;~user};1h;{get;~reason}}}
+
+{if;{get;~wmsg};!=;{null};{void;{delete;{get;~wmsg}}}}

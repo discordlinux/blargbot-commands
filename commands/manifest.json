@@ -93,6 +93,10 @@
             "file_path": "usernicks.bbtag"
         },
         {
+            "name": "warn",
+            "file_path": "warn.bbtag"
+        },
+        {
             "name": "whmodlog",
             "file_path": "whmodlog.bbtag"
         }
