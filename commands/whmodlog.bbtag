@@ -1,0 +1,562 @@
+{//;function to output errors}
+{function;modlog_error;
+
+{embed;{embedbuild;
+title:Modlog Error;
+color:{func.dlcolors;brightorange};
+footer.text:{usernick} ({userid});
+footer.icon_url:{useravatar};
+description:{params;0};}}
+
+}
+
+{//;functin to send webhooks}
+{function;webhook_send;
+
+{set;!~whid;{params;0}}
+{set;!~whtoken;{get;@{params;0}}}
+{jset;~whjson;embeds;[];c}
+{jset;~whjson;embeds.0;{params;1};c}
+{set;!~whjson;{jclean;~whjson}}
+{jset;~whjson;content;{null};c}
+{jset;~whjson;username;{usernick;{exec;botid}};c}
+{jset;~whjson;avatar_url;{guildicon};c}
+{jset;~head;method;POST;c}
+{jset;~head;headers.Content-Type;application/json;c}
+{set;!~mlmsg;{jget;{request;https://discord.com/api/webhooks/{get;~whid}/{get;~whtoken}?wait=true;{get;~head};{get;~whjson}};body.id}}
+
+}
+
+{//;function to edit webhooks}
+{function;webhook_edit;
+
+{set;!~whid;{params;0}}
+{set;!~whtoken;{get;@{params;0}}}
+{set;!~whmsgid;{params;1}}
+{jset;~whjson;embeds;[];c}
+{jset;~whjson;embeds.0;{params;2};c}
+{set;!~whjson;{jclean;~whjson}}
+{jset;~whjson;content;{null};c}
+{jset;~head;method;PATCH;c}
+{jset;~head;headers.Content-Type;application/json;c}
+{set;!~mledit;{jget;{request;https://discord.com/api/webhooks/{get;~whid}/{get;~whtoken}/messages/{get;~whmsgid};{get;~head};{get;~whjson}};body}}
+
+}
+
+{//;function to log warns}
+{function;modlog_warn;
+{fallback}
+
+
+{switch;{get;~mlwhtype};
+["send"];
+
+{//;check user input}
+{if;{logic;||;
+{logic;&&;
+{if;{commandname};startswith;_autoresponse;false;true};
+{bool;{userid;{params;0};quiet};==;{userid}}};
+{bool;{userid;{params;0};quiet};==;{null}}};
+{func.modlog_error;Invalid user given}
+{return}}
+
+{//;check mod input}
+{if;{func.usercheck;{params;1}};==;false;
+{func.modlog_error;Invalid mod given}
+{return}}
+
+{//;setup json for log}
+{jset;~mlj;case;{get;~mlcase};c}
+{jset;~mlj;link;https://discord.com/channels/{guildid}/{channelid}/{messageid};c}
+{jset;~mlj;type;warn;c}
+{jset;~mlj;user;{params;0};c}
+{jset;~mlj;mod;{params;1};c}
+{jset;~mlj;reason;{uriencode;{params;2}};c}
+{jset;~mlj;count;{params;3};c}
+{fallback;}
+{if;{params;4};!=;{null};
+{jset;~mlj;message;{uriencode;{params;4}};c}}
+{fallback}
+
+{//;store log using firebase}
+{set;!~rtdb.data;{jget;~mlj}}
+{void;{func.rtdb;set;discord/modlog/{lower;{regexreplace;{guildname};/\s/g;}}/c{get;~mlcase}}}
+{commit}
+
+{//;send webhook with modlog embed}
+{func.webhook_send;{get;_modlog.id};{embedbuild;
+author.name:{username;{params;0}}#{userdiscrim;{params;0}} ({userid;{params;0}});
+author.icon_url:{useravatar;{params;0}};
+footer.text:{usernick;{params;1}} ({userid;{params;1}});
+footer.icon_url:{useravatar;{params;1}};
+timestamp:{time};
+title:Case {get;~mlcase};
+color:{if;{warnings;{params;0}};<;3;{func.dlcolors;yellow};{func.dlcolors;orange}};
+description:**Type**: Warn
+**Reason**: {regexreplace;{regexreplace;{params;2};/'/g;‘};/"/g;”}
+**Warnings**: Given: {params;3} • Total: {warnings;{params;0}}{fallback;}{if;{params;4};!=;{null};{newline}**Message**: {regexreplace;{regexreplace;{params;4};/'/g;‘};/"/g;”}}{fallback}{if;{warnings;{params;0}};>;2;
+{newline}**Warning Limit Reached**: {if;{warnings;{params;0}};>;7;Muted for 1 hour and `users` role removed.;Muted for 15 minutes.}}
+**[Link for context]({jget;~mlj;link})**;}}
+
+{jset;~mlj;logid;{get;~mlmsg};c}
+
+{if;{numformat;{get;~mlmsg};};==;NaN;
+{func.modlog_error;Failed to send webhook}
+{return}}
+
+{//;output modlog to current channel}
+{output;{embed;{embedbuild;
+author.name:{username;{params;0}}#{userdiscrim;{params;0}} ({userid;{params;0}});
+author.icon_url:{useravatar;{params;0}};
+color:{if;{warnings;{params;0}};<;3;{func.dlcolors;yellow};{func.dlcolors;orange}};
+description:**Type**: Warn
+**Reason**: {params;2}
+**Warnings**: Given: {params;3} • Total: {warnings;{params;0}}{if;{warnings;{params;0}};>;2;
+{newline}**Warning Limit Reached**: {if;{warnings;{params;0}};>;7;Muted for 1 hour and `users` role removed.;Muted for 15 minutes.}}
+<#227643567273672706>;}}};
+
+["edit"];
+
+{//;set new reason in json}
+{jset;~mlj;reason;{uriencode;{params;0}}}
+
+{//;setup embed}
+{set;!~mlembed;{embedbuild;
+author.name:{username;{jget;~mlj;user}}#{userdiscrim;{jget;~mlj;user}} ({userid;{jget;~mlj;user}});
+author.icon_url:{useravatar;{jget;~mlj;user}};
+footer.text:{usernick;{jget;~mlj;mod}} ({userid;{jget;~mlj;mod}});
+footer.icon_url:{useravatar;{jget;~mlj;mod}};
+timestamp:{time};
+title:Case {get;~mlcase};
+color:{if;{warnings;{jget;~mlj;user}};<;3;{func.dlcolors;yellow};{func.dlcolors;orange}};
+description:**Type**: Warn
+**Reason**: {uridecode;{regexreplace;{regexreplace;{jget;~mlj;reason};/’/g;`};/\//g;}}
+**Warnings**: Given: {jget;~mlj;count} • Total: {warnings;{jget;~mlj;user}}{fallback;}{if;{jget;~mlj;message};!=;{null};{newline}**Message**: {uridecode;{regexreplace;{regexreplace;{jget;~mlj;message};/’/g;`};/\//g;}}}{fallback}{if;{warnings;{jget;~mlj;user}};>;2;
+{newline}**Warning Limit Reached**: {if;{warnings;{jget;~mlj;user}};>;7;Muted for 1 hour and `users` role removed.;Muted for 15 minutes.}}
+**[Link for context]({jget;~mlj;link})**;}}
+
+{//;edit webhook with modlog embed}
+{func.webhook_edit;{get;_modlog.id};{jget;~mlj;logid};{get;~mlembed}}
+
+{//;check if edit worked}
+{if;{get;~mledit};==;{null};
+{func.modlog_error;Failed to edit webhook message}
+{return}}
+
+{//;output updated modlog to current channel}
+{embed;{get;~mlembed}}
+
+}
+
+{//;store log using firebase}
+{set;!~rtdb.data;{jget;~mlj}}
+{void;{func.rtdb;set;discord/modlog/{lower;{regexreplace;{guildname};/\s/g;}}/c{get;~mlcase}}}
+
+}
+
+{//;function to log pardons}
+{function;modlog_pardon;
+
+{switch;{get;~mlwhtype};
+["send"];
+
+{//;check user input}
+{if;{logic;||;
+{logic;&&;
+{if;{commandname};startswith;_autoresponse;false;true};
+{bool;{userid;{params;0};quiet};==;{userid}}};
+{bool;{userid;{params;0};quiet};==;{null}}};
+{func.modlog_error;Invalid user given}
+{return}}
+
+{//;check mod input}
+{if;{func.usercheck;{params;1}};==;false;
+{func.modlog_error;Invalid mod given}
+{return}}
+
+{//;setup json for log}
+{jset;~mlj;case;{get;~mlcase};c}
+{jset;~mlj;link;https://discord.com/channels/{guildid}/{channelid}/{messageid};c}
+{jset;~mlj;type;pardon;c}
+{jset;~mlj;user;{params;0};c}
+{jset;~mlj;mod;{params;1};c}
+{jset;~mlj;reason;{uriencode;{params;2}};c}
+{jset;~mlj;count;{params;3};c}
+
+{//;store log using firebase}
+{set;!~rtdb.data;{jget;~mlj}}
+{void;{func.rtdb;set;discord/modlog/{lower;{regexreplace;{guildname};/\s/g;}}/c{get;~mlcase}}}
+{commit}
+
+{//;send webhook with modlog embed}
+{func.webhook_send;{get;_modlog.id};{embedbuild;
+author.name:{username;{params;0}}#{userdiscrim;{params;0}} ({userid;{params;0}});
+author.icon_url:{useravatar;{params;0}};
+footer.text:{usernick;{params;1}} ({userid;{params;1}});
+footer.icon_url:{useravatar;{params;1}};
+timestamp:{time};
+title:Case {get;~mlcase};
+color:{func.dlcolors;brightgreen};
+description:**Type**: Pardon
+**Reason**: {params;2}
+**Warnings**: Taken: {params;3} • Total: {warnings;{params;0}}
+**[Link for context]({jget;~mlj;link})**;}}
+
+{jset;~mlj;logid;{get;~mlmsg};c}
+
+{if;{numformat;{get;~mlmsg};};==;NaN;
+{func.modlog_error;Failed to send webhook}
+{return}}
+
+{//;output modlog to current channel}
+{output;{embed;{embedbuild;
+author.name:{username;{params;0}}#{userdiscrim;{params;0}} ({userid;{params;0}});
+author.icon_url:{useravatar;{params;0}};
+color:{func.dlcolors;brightgreen};
+description:**Type**: Pardon
+**Reason**: {params;2}
+**Warnings**: Taken: {params;3} • Total: {warnings;{params;0}}
+<#227643567273672706>;}}};
+
+["edit"];
+
+{//;set new reason in json}
+{jset;~mlj;reason;{uriencode;{params;0}}}
+
+{//;setup embed}
+{set;!~mlembed;{embedbuild;
+author.name:{username;{jget;~mlj;user}}#{userdiscrim;{jget;~mlj;user}} ({userid;{jget;~mlj;user}});
+author.icon_url:{useravatar;{jget;~mlj;user}};
+footer.text:{usernick;{jget;~mlj;mod}} ({userid;{jget;~mlj;mod}});
+footer.icon_url:{useravatar;{jget;~mlj;mod}};
+timestamp:{time};
+title:Case {get;~mlcase};
+color:{func.dlcolors;brightgreen};
+description:**Type**: Pardon
+**Reason**: {uridecode;{regexreplace;{regexreplace;{jget;~mlj;reason};/’/g;`};/\//g;}}
+**Warnings**: Taken: {jget;~mlj;count} • Total: {warnings;{jget;~mlj;user}}
+**[Link for context]({jget;~mlj;link})**;}}
+
+{//;edit webhook with modlog embed}
+{func.webhook_edit;{get;_modlog.id};{jget;~mlj;logid};{get;~mlembed}}
+
+{//;check if edit worked}
+{if;{get;~mledit};==;{null};
+{func.modlog_error;Failed to edit webhook message}
+{return}}
+
+{//;output updated modlog to current channel}
+{embed;{get;~mlembed}}
+
+}
+
+{//;store log using firebase}
+{set;!~rtdb.data;{jget;~mlj}}
+{void;{func.rtdb;set;discord/modlog/{lower;{regexreplace;{guildname};/\s/g;}}/c{get;~mlcase}}}
+
+}
+
+{//;function to log mutes and bans}
+{function;modlog_mb;
+
+{switch;{get;~mlwhtype};
+["send"];
+
+{//;check user input}
+{if;{logic;||;
+{logic;&&;
+{if;{commandname};startswith;_autoresponse;false;true};
+{bool;{userid;{params;1};quiet};==;{userid}}};
+{bool;{userid;{params;1};quiet};==;{null}}};
+{func.modlog_error;Invalid user given}
+{return}}
+
+{//;check mod input}
+{if;{func.usercheck;{params;2}};==;false;
+{func.modlog_error;Invalid mod given}
+{return}}
+
+{//;setup json for log}
+{jset;~mlj;case;{get;~mlcase};c}
+{jset;~mlj;link;https://discord.com/channels/{guildid}/{channelid}/{messageid};c}
+{jset;~mlj;type;{params;0};c}
+{jset;~mlj;user;{params;1};c}
+{jset;~mlj;mod;{params;2};c}
+{jset;~mlj;reason;{uriencode;{params;3}};c}
+{fallback;permanent}
+{jset;~mlj;duration;{if;{params;4};==;{null};permanent;{params;4}};c}
+{fallback}
+
+{//;store log using firebase}
+{set;!~rtdb.data;{jget;~mlj}}
+{void;{func.rtdb;set;discord/modlog/{lower;{regexreplace;{guildname};/\s/g;}}/c{get;~mlcase}}}
+{commit}
+
+{//;send webhook with modlog embed}
+{func.webhook_send;{get;_modlog.id};{embedbuild;
+author.name:{username;{params;1}}#{userdiscrim;{params;1}} ({userid;{params;1}});
+author.icon_url:{useravatar;{params;1}};
+footer.text:{usernick;{params;2}} ({userid;{params;2}});
+footer.icon_url:{useravatar;{params;2}};
+timestamp:{time};
+title:Case {get;~mlcase};
+color:{switch;{params;0};["ban"];{func.dlcolors;red};{func.dlcolors;orange}};
+description:**Type**: {capitalize;{params;0}}
+**Reason**: {params;3}
+**Duration**: {jget;~mlj;duration}
+**[Link for context]({jget;~mlj;link})**;}}
+
+{jset;~mlj;logid;{get;~mlmsg};c}
+
+{if;{numformat;{get;~mlmsg};};==;NaN;
+{func.modlog_error;Failed to send webhook}
+{return}}
+
+{//;output modlog to current channel if not ran in autoresponse}
+{if;{commandname};startswith;_autoresponse;
+{//;do nothing};
+
+{output;{embed;{embedbuild;
+author.name:{username;{params;1}}#{userdiscrim;{params;1}} ({userid;{params;1}});
+author.icon_url:{useravatar;{params;1}};
+color:{switch;{params;0};["ban"];{func.dlcolors;red};{func.dlcolors;orange}};
+description:**Type**: {capitalize;{params;0}}
+**Reason**: {params;3}
+**Duration**: {jget;~mlj;duration}
+<#227643567273672706>;}}}};
+
+["edit"];
+
+{//;set new reason in json}
+{jset;~mlj;reason;{uriencode;{params;1}}}
+
+{//;setup embed}
+{set;!~mlembed;{embedbuild;
+author.name:{username;{jget;~mlj;user}}#{userdiscrim;{jget;~mlj;user}} ({userid;{jget;~mlj;user}});
+author.icon_url:{useravatar;{jget;~mlj;user}};
+footer.text:{usernick;{jget;~mlj;mod}} ({userid;{jget;~mlj;mod}});
+footer.icon_url:{useravatar;{jget;~mlj;mod}};
+timestamp:{time};
+title:Case {get;~mlcase};
+color:{switch;{jget;~mlj;type};["ban"];{func.dlcolors;red};{func.dlcolors;orange}};
+description:**Type**: {capitalize;{jget;~mlj;type}}
+**Reason**: {uridecode;{regexreplace;{regexreplace;{jget;~mlj;reason};/’/g;`};/\//g;}}
+**Duration**: {jget;~mlj;duration}
+**[Link for context]({jget;~mlj;link})**;}}
+
+{//;edit webhook with modlog embed}
+{func.webhook_edit;{get;_modlog.id};{jget;~mlj;logid};{get;~mlembed}}
+
+{//;check if edit worked}
+{if;{get;~mledit};==;{null};
+{func.modlog_error;Failed to edit webhook message}
+{return}}
+
+{//;output updated modlog to current channel}
+{embed;{get;~mlembed}}
+
+}
+
+{//;store log using firebase}
+{set;!~rtdb.data;{jget;~mlj}}
+{void;{func.rtdb;set;discord/modlog/{lower;{regexreplace;{guildname};/\s/g;}}/c{get;~mlcase}}}
+
+}
+
+{//;function to log kicks unmutes and unbans}
+{function;modlog_kumub;
+
+{switch;{get;~mlwhtype};
+["send"];
+
+{//;check user input}
+{if;{logic;||;
+{logic;&&;
+{if;{commandname};startswith;_autoresponse;false;true};
+{bool;{userid;{params;1};quiet};==;{userid}}};
+{bool;{userid;{params;1};quiet};==;{null}}};
+{func.modlog_error;Invalid user given}
+{return}}
+
+{//;check mod input}
+{if;{func.usercheck;{params;2}};==;false;
+{func.modlog_error;Invalid mod given}
+{return}}
+
+{//;setup json for log}
+{jset;~mlj;case;{get;~mlcase};c}
+{jset;~mlj;link;https://discord.com/channels/{guildid}/{channelid}/{messageid};c}
+{jset;~mlj;type;{params;0};c}
+{jset;~mlj;user;{params;1};c}
+{jset;~mlj;mod;{params;2};c}
+{jset;~mlj;reason;{uriencode;{params;3}};c}
+
+{//;store log using firebase}
+{set;!~rtdb.data;{jget;~mlj}}
+{void;{func.rtdb;set;discord/modlog/{lower;{regexreplace;{guildname};/\s/g;}}/c{get;~mlcase}}}
+{commit}
+
+{//;send webhook with modlog embed}
+{func.webhook_send;{get;_modlog.id};{embedbuild;
+author.name:{username;{params;1}}#{userdiscrim;{params;1}} ({userid;{params;1}});
+author.icon_url:{useravatar;{params;1}};
+footer.text:{usernick;{params;2}} ({userid;{params;2}});
+footer.icon_url:{useravatar;{params;2}};
+timestamp:{time};
+title:Case {get;~mlcase};
+color:{switch;{params;0};["kick"];{func.dlcolors;brightred};["unban"];{func.dlcolors;brightblue};["unmute"];{func.dlcolors;green}};
+description:**Type**: {capitalize;{params;0}}
+**Reason**: {params;3}
+**[Link for context]({jget;~mlj;link})**;}}
+
+{jset;~mlj;logid;{get;~mlmsg};c}
+
+{if;{numformat;{get;~mlmsg};};==;NaN;
+{func.modlog_error;Failed to send webhook}
+{return}}
+
+{//;output modlog to current channel}
+{output;{embed;{embedbuild;
+author.name:{username;{params;1}}#{userdiscrim;{params;1}} ({userid;{params;1}});
+author.icon_url:{useravatar;{params;1}};
+color:{switch;{params;0};["kick"];{func.dlcolors;brightred};["unban"];{func.dlcolors;brightblue};["unmute"];{func.dlcolors;green}};
+description:**Type**: {capitalize;{params;0}}
+**Reason**: {params;3}
+<#227643567273672706>;}}};
+
+["edit"];
+
+{//;set new reason in json}
+{jset;~mlj;reason;{uriencode;{params;1}}}
+
+{//;setup embed}
+{set;!~mlembed;{embedbuild;
+author.name:{username;{jget;~mlj;user}}#{userdiscrim;{jget;~mlj;user}} ({userid;{jget;~mlj;user}});
+author.icon_url:{useravatar;{jget;~mlj;user}};
+footer.text:{usernick;{jget;~mlj;mod}} ({userid;{jget;~mlj;mod}});
+footer.icon_url:{useravatar;{jget;~mlj;mod}};
+timestamp:{time};
+title:Case {get;~mlcase};
+color:{switch;{jget;~mlj;type};["kick"];{func.dlcolors;brightred};["unban"];{func.dlcolors;brightblue};["unmute"];{func.dlcolors;green}};
+description:**Type**: {capitalize;{jget;~mlj;type}}
+**Reason**: {uridecode;{regexreplace;{regexreplace;{jget;~mlj;reason};/’/g;`};/\//g;}}
+**[Link for context]({jget;~mlj;link})**;}}
+
+{//;edit webhook with modlog embed}
+{func.webhook_edit;{get;_modlog.id};{jget;~mlj;logid};{get;~mlembed}}
+
+{//;check if edit worked}
+{if;{get;~mledit};==;{null};
+{func.modlog_error;Failed to edit webhook message}
+{return}}
+
+{//;output updated modlog to current channel}
+{embed;{get;~mlembed}}
+
+}
+
+{//;store log using firebase}
+{set;!~rtdb.data;{jget;~mlj}}
+{void;{func.rtdb;set;discord/modlog/{lower;{regexreplace;{guildname};/\s/g;}}/c{get;~mlcase}}}
+
+}
+
+{//;function to output help for modlog and reason}
+{function;modlog_help;
+{switch;{params;0};
+
+["modlog"];
+{//;modlog help}
+{embed;{embedbuild;
+title:Help for modlog;
+color:{func.dlcolors;red};
+description:This command is the backend for modlogs in <#{get;_modlog.channel}>.
+This command is not meant to be interacted with directly.  To edit a reason for a previous modlog, use the `reason` command.;}};
+
+["reason"];
+{//;reason help}
+{embed;{embedbuild;
+title:Help for reason;
+color:{func.dlcolors;red};
+description:__**Usage**__: `reason <latest|case number> <new reason>`
+Update the reason for an existing modlog.  Use either `latest` for the most recent modlog or specify a case number for a different modlog.;}}
+}
+
+}
+
+{suppresslookup}
+
+{//;output help and return if being ran through modlog command}
+{switch;{commandname};
+["modlog","whmodlog"];
+{func.modlog_help;modlog}
+{return;false}}
+
+{//;check if being ran through 'reason' command}
+{if;{args;0};==;reason;
+
+{//;set webhook type to edit}
+{set;!~mlwhtype;edit}
+
+{fallback;}
+{switch;{args;1};
+
+["help",""];
+{//;output help}
+{func.modlog_help;reason}
+{return};
+
+["latest"];
+{//;get log json from firebase}
+{set;!~mlj;{func.rtdb;get;discord/modlog/{lower;{regexreplace;{guildname};/\s/g;}}}}
+{//;get current modlog case number}
+{set;!~mlcase;{replace;{pop;{sort;{jkeys;~mlj}}};c;}}
+{set;!~mlj;{jget;~mlj;c{get;~mlcase}}};
+
+{set;!~mlcase;{args;1}}
+{set;!~mlj;{func.rtdb;get;discord/modlog/{lower;{regexreplace;{guildname};/\s/g;}}/c{get;~mlcase}}}
+}
+
+{if;{jget;~mlj;case};==;{null};
+{func.modlog_error;Error getting json for case {get;~mlcase}}
+{return}}
+
+{//;get type from firebase}
+{switch;{jget;~mlj;type};
+
+["warn"];
+{func.modlog_warn;{args;2}};
+
+["pardon"];
+{func.modlog_pardon;{args;2}};
+
+["mute","ban"];
+{func.modlog_mb;{jget;~mlj;type};{args;2}};
+
+["kick","unmute","unban"];
+{func.modlog_kumub;{jget;~mlj;type};{args;2}};
+
+{func.modlog_help;reason}}
+;
+
+{//;get current case}
+{set;!~mlcase;{time;x}}
+{set;!~mlwhtype;send}
+
+{switch;{args;0};
+{//;check arguments}
+["warn"];
+{func.modlog_warn;{args;1};{args;2};{args;3};{args;4};{args;5}};
+
+["pardon"];
+{func.modlog_pardon;{args;1};{args;2};{args;3};{args;4}};
+
+["mute","ban"];
+{func.modlog_mb;{args;0};{args;1};{args;2};{args;3};{args;4}};
+
+["kick","unmute","unban"];
+{func.modlog_kumub;{args;0};{args;1};{args;2};{args;3}};
+
+{func.modlog_help;modlog}
+
+}}
