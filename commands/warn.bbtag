@@ -1,3 +1,4 @@
+{inject;{get;_gitcmd.functions}}
 {inject;{get;_gitcmd.libmod}}
 
 {//;Set the user.}

@@ -1,3 +1,5 @@
+{inject;{get;_gitcmd.functions}}
+
 {//;function to output errors}
 {function;modlog_error;
 
