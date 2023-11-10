@@ -93,6 +93,10 @@
             "file_path": "topic.bbtag"
         },
         {
+            "name": "unmute",
+            "file_path": "unmute.bbtag"
+        },
+        {
             "name": "usermod",
             "file_path": "usermod.bbtag"
         },
