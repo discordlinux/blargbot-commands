@@ -72,7 +72,10 @@ description:{params;0};}}
 {jset;~mlj;link;https://discord.com/channels/{guildid}/{channelid}/{messageid};c}
 {jset;~mlj;type;warn;c}
 {jset;~mlj;user;{params;0};c}
+{if;{params;0};==;{params;1};
+{jset;~mlj;mod;{exec;botid};c};
 {jset;~mlj;mod;{params;1};c}
+}
 {jset;~mlj;reason;{uriencode;{params;2}};c}
 {jset;~mlj;count;{params;3};c}
 {fallback;}
@@ -181,7 +184,10 @@ description:**Type**: Warn
 {jset;~mlj;link;https://discord.com/channels/{guildid}/{channelid}/{messageid};c}
 {jset;~mlj;type;pardon;c}
 {jset;~mlj;user;{params;0};c}
+{if;{params;0};==;{params;1};
+{jset;~mlj;mod;{exec;botid};c};
 {jset;~mlj;mod;{params;1};c}
+}
 {jset;~mlj;reason;{uriencode;{params;2}};c}
 {jset;~mlj;count;{params;3};c}
 
@@ -283,7 +289,10 @@ description:**Type**: Pardon
 {jset;~mlj;link;https://discord.com/channels/{guildid}/{channelid}/{messageid};c}
 {jset;~mlj;type;{params;0};c}
 {jset;~mlj;user;{params;1};c}
+{if;{params;1};==;{params;2};
+{jset;~mlj;mod;{exec;botid};c};
 {jset;~mlj;mod;{params;2};c}
+}
 {jset;~mlj;reason;{uriencode;{params;3}};c}
 {fallback;permanent}
 {jset;~mlj;duration;{if;{params;4};==;{null};permanent;{params;4}};c}
@@ -390,7 +399,10 @@ description:**Type**: {capitalize;{jget;~mlj;type}}
 {jset;~mlj;link;https://discord.com/channels/{guildid}/{channelid}/{messageid};c}
 {jset;~mlj;type;{params;0};c}
 {jset;~mlj;user;{params;1};c}
+{if;{params;1};==;{params;2};
+{jset;~mlj;mod;{exec;botid};c};
 {jset;~mlj;mod;{params;2};c}
+}
 {jset;~mlj;reason;{uriencode;{params;3}};c}
 
 {//;store log using firebase}
