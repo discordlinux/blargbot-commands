@@ -305,7 +305,7 @@ description:**Title**: {jget;_mn.movie.{flag;t};Title}
 {//;delete old variable}
 {set;!_mn.movie.{flag;i}}
 {//;output info}
-{embed;{embedbuild;
+{set;!_mn.msg;{send;{channelid;{flag;c}};;{embedbuild;
 author.name:{username}#{userdiscrim} ({userid});
 author.icon_url:{useravatar};
 title:Movie Night Rescheduled;
@@ -320,7 +320,7 @@ description:**Time**: <t:{flag;t}> (<t:{flag;t}:R>)
 **Writer**: {jget;_mn.movie.{flag;t};Writer}
 **Actors**: {jget;_mn.movie.{flag;t};Actors}
 **Plot Summary**: {jget;_mn.movie.{flag;t};Plot}
-}}
+}}}
 {//;set variables}
 {if;{flag;r};!=;{null};
 {set;!~mn.role;{roleid;{flag;r}}};
@@ -334,9 +334,11 @@ description:**Time**: <t:{flag;t}> (<t:{flag;t}:R>)
 {//;1 day before}
 {if;{math;-;{get;~plan.timer.{flag;t}};86400};>;0;
 {timer;
+{//;get users to ping}
+{set;!~pings;{filter;~u;{reactlist;{channelid;{flag;c}};{get;_mn.msg};🎥};{bool;{get;~u};!=;{exec;botid}}}}
 {//;check if variable is still set and send reminder}
 {if;{get;_mn.movie.{flag;t}};!=;{null};
-{void;{send;{channelid;{get;~mn.channel};quiet};{rolemention;{get;~mn.role};quiet};
+{void;{send;{channelid;{get;~mn.channel};quiet};{foreach;~p;{jget;~pings};{usermention;{get;~p}}{space}};
 {embedbuild;
 title:Movie Night Reminder;
 color:{func.dlcolors;fuchsia};
@@ -375,9 +377,11 @@ description:**Time**: <t:{flag;t}> (<t:{flag;t}:R>)
 };
 {//;else start timer}
 {timer;
+{//;get users to ping}
+{set;!~pings;{filter;~u;{reactlist;{channelid;{flag;c}};{get;_mn.msg};🎥};{bool;{get;~u};!=;{exec;botid}}}}
 {//;check if variable is still set and send reminder}
 {if;{get;_mn.movie.{flag;t}};!=;{null};
-{void;{send;{channelid;{get;~mn.channel};quiet};{rolemention;{get;~mn.role};quiet};
+{void;{send;{channelid;{get;~mn.channel};quiet};{foreach;~p;{jget;~pings};{usermention;{get;~p}}{space}};
 {embedbuild;
 title:Movie Night Reminder;
 color:{func.dlcolors;fuchsia};
@@ -396,9 +400,11 @@ description:**Time**: <t:{flag;t}> (<t:{flag;t}:R>)
 }
 {//;actual start time}
 {timer;
-{//;check if variable is still set and notification that movie night is starting}
+{//;get users to ping}
+{set;!~pings;{filter;~u;{reactlist;{channelid;{flag;c}};{get;_mn.msg};🎥};{bool;{get;~u};!=;{exec;botid}}}}
+{//;check if variable is still set and send reminder}
 {if;{get;_mn.movie.{flag;t}};!=;{null};
-{void;{send;{channelid;{get;~mn.channel};quiet};{rolemention;{get;~mn.role};quiet};
+{void;{send;{channelid;{get;~mn.channel};quiet};{foreach;~p;{jget;~pings};{usermention;{get;~p}}{space}};
 {embedbuild;
 title:Movie Night Starting!;
 color:{func.dlcolors;cyan};
