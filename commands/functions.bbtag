@@ -127,6 +127,9 @@ timestamp:{time}}}}
 {//;function to get raw response from website using motyar's try page}
 {function;rawhtml;{set;!~raw.req;true}{func.req;{params;0}}}
 
+{//;function to get userid of reply sender}
+{function;replysender;{if;{messagesender;{messagereply}};!=;{userid};{messagesender;{messagereply}}}}
+
 {//;function that replicates built-in request, but through syretia.xyz}
 {function;req;
 {if;{get;~req.raw};!=;true;
