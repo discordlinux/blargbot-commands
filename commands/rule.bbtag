@@ -1,0 +1,23 @@
+{//;inject functions}
+{inject;{get;_gitcmd.functions}}
+
+{fallback;}
+
+{//;check if message is reply}
+{if;{func.replysender};!=;{null};
+{set;!~ruser;{func.replysender}}
+{set;!~rmsg;{messagereply}};
+{set;!~ruser;{args;1}}
+{set;!~rmsg;{flag;m}}
+}
+
+{//;check for required arguments}
+{if;{logic;||;
+{bool;{get;~ruser};==;{null}};
+{bool;{args;0};==;{null}}};
+{func.error;Missing required arguments.}
+{return}
+}
+
+{//;warn user}
+{execcc;warn;{get;~ruser};-c 1;-r Rule #{args;0};{if;{get;~rmsg};!=;{null};-m {get;~rmsg}}}
