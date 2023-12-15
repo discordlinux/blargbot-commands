@@ -37,7 +37,7 @@
 {set;!~str;{foreach;~c;{jget;~captcha};{if;{jget;~emojis;{get;~c}};!=;{null};{randchoose;{jget;~emojis;{get;~c}}};{if;{jget;~nemojis;{get;~c}};!=;{null};{jget;~nemojis;{get;~c}};{get;~c}}}}}
 
 {//;create captcha image}
-{set;!~fakeimg;{jget;{request;{exec;fakeimg;{get;~str};-w 300;-h 180}};body}}
+{set;!~fakeimg;{jget;{request;{func.fakeimg;{get;~str};300;180}};body}}
 
 {//;create TTS audio}
 {set;!~strtts;[]}
