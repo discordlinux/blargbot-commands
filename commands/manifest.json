@@ -25,6 +25,10 @@
             "file_path": "functions.bbtag"
         },
         {
+            "name": "givetty",
+            "file_path": "givetty.bbtag"
+        },
+        {
             "name": "info",
             "file_path": "info/info.bbtag"
         },
