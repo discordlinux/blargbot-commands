@@ -1,3 +1,6 @@
+{//;inject functions}
+{inject;{get;_gitcmd.functions}}
+
 {//;function to generate and send captcha message}
 {function;generate;
 
