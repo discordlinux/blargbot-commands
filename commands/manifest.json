@@ -9,6 +9,10 @@
             "file_path": "bash.bbtag"
         },
         {
+            "name": "captcha",
+            "file_path": "captcha.bbtag"
+        },
+        {
             "name": "cht.sh",
             "file_path": "chtsh.bbtag"
         },

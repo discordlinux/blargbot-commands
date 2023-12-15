@@ -1,0 +1,132 @@
+{//;function to generate and send captcha message}
+{function;generate;
+
+{//;setup letters}
+{set;!~letters;abcdefghijklmnpqrstuvwxyz}
+{set;!~emoji.ar;["<:lettera:1176104876539904030>","<:letterA:1176104681655771166>","<:letterb:1176104177726930975>","<:letterB:1176104103991062659>","<:letterc:1176103838428708904>","<:letterC:1176103766823542805>","<:letterd:1176103483619954688>","<:letterD:1176095990877524001>","<:lettere:1176095807884247100>","<:letterE:1176095804713336902>","<:letterf:1176095360419106846>","<:letterF:1176095358296784958>","<:letterg:1176095149932150824>","<:letterG:1176094972307570728>","<:letterh:1176094727226003476>","<:letterH:1176094725040771114>","<:letteri:1176094561991413801>","<:letterI:1176094560066228274>","<:letterj:1176093890030338089>","<:letterJ:1176093800049946644>","<:letterk:1176093701836116028>","<:letterK:1176151243652087808>","<:letterl:1176093515202183208>","<:letterL:1176093388269957222>","<:letterm:1176093206660796476>","<:letterM:1176093116940423168>","<:lettern:1176092921313890354>","<:letterN:1176092821699174430>","<:letterp:1176091788528857210>","<:letterP:1176091666743037963>","<:letterq:1176091520844169236>","<:letterQ:1176091277717143552>","<:letterr:1176091072502431745>","<:letterR:1176090963672846427>","<:letters:1176090815685202001>","<:letterS:1176090734558982154>","<:lettert:1176090588202930176>","<:letterT:1176090498876850206>","<:letteru:1176090355716849704>","<:letterU:1176090261365981204>","<:letterv:1176090076669816832>","<:letterV:1176089956058419200>","<:letterw:1176089740295032842>","<:letterW:1176089611240484904>","<:letterx:1176147516111200276>","<:letterX:1176147129618661507>","<:lettery:1176147127395696732>","<:letterY:1176088734744199259>","<:letterz:1176088465021079562>","<:letterZ:1176151816854065193>"]}
+{set;!~enum;0}
+{foreach;~l;{split;{get;~letters};};
+{jset;~emojis;{upper;{get;~l}};[];c}
+{jset;~emojis;{upper;{get;~l}}.0;{jget;~emoji.ar;{get;~enum}};c}
+{set;!~enum;{math;+;1;{get;~enum}}}
+{jset;~emojis;{upper;{get;~l}}.1;{jget;~emoji.ar;{get;~enum}};c}
+{set;!~enum;{math;+;1;{get;~enum}}}
+}
+
+{//;setup numbers}
+{set;!~numbers;123456789}
+{set;!~emoji.ar;["<:number1:1176107450336813106>","<:number2:1176107315447996547>","<:number3:1176107177182756896>","<:number4:1176107090331316325>","<:number5:1176106876560232479>","<:number6:1176111850400792586>","<:number7:1176106255073423402>","<:number8:1176106169224400916>","<:number9:1176105882359169044>"]}
+{set;!~enum;1}
+{foreach;~n;{jget;~emoji.ar};
+{jset;~nemojis;{get;~enum};{get;~n};c}
+{set;!~enum;{math;+;1;{get;~enum}}}
+}
+
+{//;generate captcha}
+{set;!~rand;[]}
+{push;~rand;{randchoose;{split;{upper;{get;~letters}};}}}
+{push;~rand;{randchoose;{filter;~rul;{split;{upper;{get;~letters}};};{bool;{indexof;{jget;~rand};{get;~rul}};==;-1}}}}
+{push;~rand;{randchoose;{split;{get;~letters};}}}
+{push;~rand;{randchoose;{filter;~rl;{split;{get;~letters};};{bool;{indexof;{jget;~rand};{get;~rl}};==;-1}}}}
+{push;~rand;{randchoose;{split;{get;~numbers};}}}
+{push;~rand;{randchoose;{filter;~rn;{split;{get;~numbers};};{bool;{indexof;{jget;~rand};{get;~rn}};==;-1}}}}
+{set;!~captcha;{shuffle;{jget;~rand}}}
+{set;!_captcha.{userid};{join;{jget;~captcha};}}
+
+{//;swap out uppercase letters and numbers for emojis}
+{set;!~str;{foreach;~c;{jget;~captcha};{if;{jget;~emojis;{get;~c}};!=;{null};{randchoose;{jget;~emojis;{get;~c}}};{if;{jget;~nemojis;{get;~c}};!=;{null};{jget;~nemojis;{get;~c}};{get;~c}}}}}
+
+{//;create captcha image}
+{set;!~fakeimg;{jget;{request;{exec;fakeimg;{get;~str};-w 300;-h 180}};body}}
+
+{//;create TTS audio}
+{set;!~strtts;[]}
+{foreach;~c;{jget;~captcha};
+{if;{jget;~emojis;{get;~c}};!=;{null};
+{push;~strtts;upper case {get;~c}};
+{push;~strtts;{get;~c}}
+}}
+{set;!~tts;{exec;lazypy;Please enter the following characters.{space}{join;{get;~strtts};,{space}}}}
+
+{//;send captcha message}
+{void;{delete;{get;_captcha.thread.{userid}};{get;_captcha.msg.{userid}}}}
+{set;!_captcha.msg.{userid};{send;{get;_captcha.thread.{userid}};## Verification Captcha For {usermention}
+{params}To join {guildname}, enter the text from the image below to complete the verification process.  If you are seeing impaired, [click here for an audio version]({get;~tts}).;;buffer:{get;~fakeimg};captcha.png}}
+
+}
+
+{//;function to create thread and send captcha message}
+{function;create;
+{//;create thread, currently requires @bot.token variable to be set to valid bot token with proper permissions for API request because no other way to create threads}
+{jset;~head;method;POST;c}
+{jset;~head;headers.Authorization;Bot {replace;{get;@bot.token};Bot{space};};c}
+{set;!~data;{j;{"auto_archive_duration":4320,"type":12,"invitable":0,"rate_limit_per_user":30}}}
+{jset;~data;name;{userid};c}
+{set;!~threadreq;{request;https://discord.com/api/channels/{params;0}/threads;{get;~head};{get;~data}}}
+
+{//;make sure thread created successfully}
+{if;{jget;~threadreq;status};!=;201;
+{debug;{get;~threadreq}}
+{return}
+}
+
+{set;!_captcha.thread.{userid};{jget;~threadreq;body}}
+
+{//;generate and send captcha}
+{func.generate}
+
+}
+
+{//;function to check captcha}
+{function;check;
+{//;return if thread doesn't exist or not in private thread}
+{if;{logic;||;
+{bool;{get;_captcha.thread.{userid}};==;{null}};
+{bool;{channeltype;{get;_captcha.thread.{userid}}};!=;private-thread}};
+{return}
+}
+
+{//;check if input matches captcha}
+{if;{messagetext};==;{get;_captcha.{userid}};
+
+{//;input matches}
+{output;Congratulations, you have entered the correct captcha.}
+{sleep;10s}
+{//;inject bbtag from variable to be ran on success}
+{void;{inject;{get;_captcha.inject}}}
+{//;reset variables and delete thread}
+{set;!_captcha.attempts.{userid};}
+{set;!_captcha.msg.{userid};}
+{channeldelete;{get;_captcha.thread.{userid}}}
+{set;!_captcha.thread.{userid};};
+
+{//;input does not match}
+{set;!_captcha.attempts.{userid};{math;+;1;0{get;_captcha.attempts.{userid}}}}
+
+{//;if more than 5 attempts, kick user}
+{if;{get;_captcha.attempts.{userid}};>=;5;
+{void;{send;{get;_captcha.thread.{userid}};Sorry, but you have entered the incorrect captcha too many times.  You will now be kicked.  You may rejoin if you would like to try again.}}
+{sleep;10s}
+{void;{kick;{userid};Failed captcha input 5 times;noperms}}
+{set;!_captcha.attempts.{userid};}
+{set;!_captcha.msg.{userid};}
+{channeldelete;{get;_captcha.thread.{userid}}}
+{set;!_captcha.thread.{userid};};
+
+
+
+{//;if less than 5 attempts, regen captcha}
+{void;{delete;{channelid};{messageid}}}
+{func.generate;**Incorrect captcha input.  Please try again.  You have {math;-;5;{get;_captcha.attempts.{userid}}} attempt{if;{math;-;5;{get;_captcha.attempts.{userid}}};!=;1;s} remaining.**{newline}{zws}{newline}}
+}
+}
+
+}
+
+{//;detect arguments}
+{switch;{lower;{args;0}};
+["create"];
+{func.create;{args;1}};
+["check"];
+{func.check}
+}
