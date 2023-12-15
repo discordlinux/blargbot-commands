@@ -93,6 +93,14 @@ timestamp:{time}}}}
 ;/(\r|\n)/g;}
 }
 
+{//;function to get TTS audio from lazypy.ro}
+{function;lazypy;
+{jset;~head;method;POST;c}
+{jset;~head;headers.content-type;application/x-www-form-urlencoded;c}
+{set;!~bod;text={uriencode;{params}}&service=StreamElements&voice=Brian}
+{jget;{request;https://lazypy.ro/tts/request_tts.php;{jget;~head};{get;~bod}};body.audio_url}
+}
+
 {//;function to output linux tux hacker gif}
 {function;linuxhacker;https://cdn.discordapp.com/emojis/478073442311077889.gif?size=20}
 
