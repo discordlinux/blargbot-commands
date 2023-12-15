@@ -46,7 +46,7 @@
 {push;~strtts;upper case {get;~c}};
 {push;~strtts;{get;~c}}
 }}
-{set;!~tts;{exec;lazypy;Please enter the following characters.{space}{join;{get;~strtts};,{space}}}}
+{set;!~tts;{func.lazypy;Please enter the following characters.{space}{join;{get;~strtts};,{space}}}}
 
 {//;send captcha message}
 {void;{delete;{get;_captcha.thread.{userid}};{get;_captcha.msg.{userid}}}}
