@@ -220,26 +220,8 @@ description:**Time**: <t:{flag;t}> (<t:{flag;t}:R>)
 };{math;-;{get;~plan.timer.{flag;t}};86400}s}
 }
 {//;1 hour before}
-{if;{math;-;{get;~plan.timer.{flag;t}};3600};<;0;
-{//;if less than 1 hour before start time, send reminder now}
-{if;{get;_mn.movie.{flag;t}};!=;{null};
-{void;{send;{channelid;{get;~mn.channel};quiet};{rolemention;{get;~mn.role};quiet};
-{embedbuild;
-title:Movie Night Reminder;
-color:{func.dlcolors;fuchsia};
-image.url:{jget;_mn.movie.{flag;t};Poster};
-description:**Time**: <t:{flag;t}> (<t:{flag;t}:R>)
-**Title**: {jget;_mn.movie.{flag;t};Title}
-**Released**: {jget;_mn.movie.{flag;t};Released}
-**Runtime**: {jget;_mn.movie.{flag;t};Runtime}
-**Genre**: {jget;_mn.movie.{flag;t};Genre}
-**Director**: {jget;_mn.movie.{flag;t};Director}
-**Writer**: {jget;_mn.movie.{flag;t};Writer}
-**Actors**: {jget;_mn.movie.{flag;t};Actors}
-**Plot Summary**: {jget;_mn.movie.{flag;t};Plot}
-}}}
-};
-{//;else start timer}
+{if;{math;-;{get;~plan.timer.{flag;t}};3600};>;0;
+{//;if more than 1 hour before start time, set timer for 1 hour before}
 {timer;
 {//;get users to ping}
 {set;!~pings;{filter;~u;{reactlist;{channelid;{flag;c}};{get;_mn.msg};🎥};{bool;{get;~u};!=;{exec;botid}}}}
