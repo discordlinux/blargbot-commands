@@ -93,6 +93,7 @@
 {if;{messagetext};==;{get;_captcha.{userid}};
 
 {//;input matches}
+{void;{delete;{channelid};{messageid}}}
 {output;Congratulations, you have entered the correct captcha.}
 {sleep;10s}
 {//;inject bbtag from variable to be ran on success}
