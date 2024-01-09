@@ -2,38 +2,38 @@
 {inject;{get;_gitcmd.functions}}
 
 {//;check if user is ryemelon}
-{set;!~ryejson;{func.req;https://red-panda.verysmol.com/api/tracked-user/{get;~usr};{jset;;headers.Authorization;Bearer{space}{get;@ryeapi};c}}}
+{set;!~ryejson;{func.req;https://red-panda.verysmol.com/api/tracked-user/{userid};{jset;;headers.Authorization;Bearer{space}{get;@ryeapi};c}}}
 {if;{logic;&&;
 {bool;{jget;~ryejson;status};==;200};
-{bool;{jget;~ryejson;body.discord_user_id};==;{get;~usr}};
+{bool;{jget;~ryejson;body.discord_user_id};==;{userid}};
 {bool;{jget;~ryejson;body.banned};==;true}};
-{void;{ban;{get;~usr};0;Spammer;;noperms}}
+{void;{ban;{userid};0;Spammer;;noperms}}
 {output;{embed;{embedbuild;
-author.name:{username;{get;~usr}}#{userdiscrim;{get;~usr}} ({userid;{get;~usr}});
-author.icon_url:{useravatar;{get;~usr}};
+author.name:{username;{userid}}#{userdiscrim;{userid}} ({userid;{userid}});
+author.icon_url:{useravatar;{userid}};
 title:<:botnet:501196280392056832> Ryemelon Banned;
 color:{exec;dlcolors;red};
 timestamp:{time};
 fields.name:User;
-fields.value:{usermention;{get;~usr}};}}}
+fields.value:{usermention;{userid}};}}}
 {return}
 }
 
 {//;check if raid mode is enabled}
-{exec;anti.raid;{get;~usr}}
+{exec;anti.raid;{userid}}
 
 {//;give tty role}
 {reason;Passed join test}
-{void;{roleadd;486321901342425089;{get;~usr}}}
-{set;!_{get;~usr}.pending;false}
-{set;!_{get;~usr}failedusers;false}
-{set;!_{get;~usr}.join.warns;{warnings;{get;~usr}}}
+{void;{roleadd;486321901342425089;{userid}}}
+{set;!_{userid}.pending;false}
+{set;!_{userid}failedusers;false}
+{set;!_{userid}.join.warns;{warnings;{userid}}}
 {if;{get;_users.role.array};==;;
 {set;!_users.role.array;[]}}
-{set;!_users.role.time.{get;~usr};{time;X}}
+{set;!_users.role.time.{userid};{time;X}}
 {//;Only push to _users.role.array if not already in}
-{if;{get;_users.role.array};includes;{get;~usr};
+{if;{get;_users.role.array};includes;{userid};
 {//;do nothing if already in array};
 {//;push if not in array}
-{push;_users.role.array;{get;~usr}}
+{push;_users.role.array;{userid}}
 {commit}}
