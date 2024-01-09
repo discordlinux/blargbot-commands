@@ -2,7 +2,7 @@
 {inject;{get;_gitcmd.functions}}
 
 {//;check if user is ryemelon}
-{set;!~ryejson;{func.req;https://red-panda.verysmol.com/api/tracked-user/{get;~usr};{jset;;headers.Authorization;Bearer dmqks9zf4u3aruau5114m904sa7wtd3w;c}}}
+{set;!~ryejson;{func.req;https://red-panda.verysmol.com/api/tracked-user/{get;~usr};{jset;;headers.Authorization;Bearer{space}{get;@ryeapi};c}}}
 {if;{logic;&&;
 {bool;{jget;~ryejson;status};==;200};
 {bool;{jget;~ryejson;body.discord_user_id};==;{get;~usr}};
