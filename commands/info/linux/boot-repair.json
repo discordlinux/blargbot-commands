@@ -1,6 +1,12 @@
 {
-    "url": "https://help.ubuntu.com/community/Boot-Repair",
     "title": "Install Boot-Repair in Ubuntu",
-    "description": "Ubuntu boot-repair can be used to fix a broken grub install for any distro if you have access to an Ubuntu live ISO.\r\nSteps to install boot-repair:\r\n\r\n- boot the Ubuntu live ISO or an Ubuntu install\r\n- connect to the Internet\r\n- open a new Terminal, then type the following commands (press Enter after each line):\r\n```bash\r\nsudo add-apt-repository ppa:yannubuntu/boot-repair\r\nsudo apt-get update\r\nsudo apt-get install -y boot-repair && boot-repair\r\n```",
-    "color": 16737792
+    "description": "Ubuntu boot-repair can be used to fix a broken grub install if you have access to an Ubuntu live ISO.",
+    "url": "https://help.ubuntu.com/community/Boot-Repair",
+    "color": 16737792,
+    "fields": [
+        {
+            "name": "Steps to Install Boot-Repair",
+            "value": "- boot the Ubuntu live ISO or an Ubuntu install\n- connect to the Internet\n- open a terminal and type the following commands (press `Enter` after each line):\n```\nsudo add-apt-repository ppa:yannubuntu/boot-repair\nsudo apt update\nsudo apt install -y boot-repair\nboot-repair\n```"
+        }
+    ]
 }
