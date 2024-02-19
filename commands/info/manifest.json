@@ -46,6 +46,7 @@
           "Mageia",
           "Manjaro",
           "Mint",
+          "NixOS",
           "openSUSE",
           "Parrot OS",
           "Recommended",
@@ -281,6 +282,10 @@
       {
         "name": "news",
         "value": "/discord_linux/news.json"
+      },
+      {
+        "name": "NixOS",
+        "value": "/distros/nixos.json"
       },
       {
         "name": "nomodeset",
