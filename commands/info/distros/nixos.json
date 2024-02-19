@@ -4,11 +4,11 @@
     "fields": [
         {
             "name": "<:SeemsGood:478441196755091461> Advantages of NixOS",
-            "value": "â€¢ Declarative Configuration: Configurations stored in a single file for easy reproducibility.\nâ€¢ Atomic Upgrades and Rollbacks Nix enables consistent system states through atomic upgrades and rollbacks.\nâ€¢ Isolation of Dependencies Packages and dependencies are isolated, reducing conflicts.\nâ€¢ Immutable System Configurations are immutable, ensuring stability and preventing unintended changes.\nâ€¢ [Nix Package Manager](<https://nixos.org/manual/nix/stable/#sec-what-is-nix>) Simplifies package management, supports multiple versions, and allows easy package creation."
+            "value": "• Declarative Configuration: Configurations stored in a single file for easy reproducibility.\n• Atomic Upgrades and Rollbacks Nix enables consistent system states through atomic upgrades and rollbacks.\n• Isolation of Dependencies Packages and dependencies are isolated, reducing conflicts.\n• Immutable System Configurations are immutable, ensuring stability and preventing unintended changes.\n• [Nix Package Manager](<https://nixos.org/manual/nix/stable/#sec-what-is-nix>) Simplifies package management, supports multiple versions, and allows easy package creation."
         },
         {
             "name": "<:glare:504911469943717909> Disadvantages of NixOS",
-            "value": "â€¢ Steeper learning curve due to unique configuration and package management.\nâ€¢ Limited Third-Party Support Some popular software may lack official Nix packages.\nâ€¢ Resource Intensive Nix package manager can be resource-intensive, leading to slower builds and upgrades.\nâ€¢ Smaller Community Smaller community size compared to mainstream distributions, potentially limiting support.\nâ€¢ Specialized Use Case Not ideal for users who prefer simplicity or have requirements better met by other distributions."
+            "value": "• Steeper learning curve due to unique configuration and package management.\n• Limited Third-Party Support Some popular software may lack official Nix packages.\n• Resource Intensive Nix package manager can be resource-intensive, leading to slower builds and upgrades.\n• Smaller Community Smaller community size compared to mainstream distributions, potentially limiting support.\n• Specialized Use Case Not ideal for users who prefer simplicity or have requirements better met by other distributions."
         },
         {
             "name": "<:think:585665071938666508> Should You Use NixOS?",
