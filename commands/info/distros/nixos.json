@@ -1,1 +1,23 @@
-placeholder
+{
+    "description": "NixOS is a Linux distribution known for its declarative configuration model and the Nix package manager. It emphasizes reproducibility, atomic upgrades, and isolation of dependencies, making it unique in the Linux ecosystem.",
+    "color": 5539032,
+    "fields": [
+        {
+            "name": "<:SeemsGood:478441196755091461> Advantages of NixOS",
+            "value": "â€¢ Declarative Configuration: Configurations stored in a single file for easy reproducibility.\nâ€¢ Atomic Upgrades and Rollbacks Nix enables consistent system states through atomic upgrades and rollbacks.\nâ€¢ Isolation of Dependencies Packages and dependencies are isolated, reducing conflicts.\nâ€¢ Immutable System Configurations are immutable, ensuring stability and preventing unintended changes.\nâ€¢ [Nix Package Manager](<https://nixos.org/manual/nix/stable/#sec-what-is-nix>) Simplifies package management, supports multiple versions, and allows easy package creation."
+        },
+        {
+            "name": "<:glare:504911469943717909> Disadvantages of NixOS",
+            "value": "â€¢ Steeper learning curve due to unique configuration and package management.\nâ€¢ Limited Third-Party Support Some popular software may lack official Nix packages.\nâ€¢ Resource Intensive Nix package manager can be resource-intensive, leading to slower builds and upgrades.\nâ€¢ Smaller Community Smaller community size compared to mainstream distributions, potentially limiting support.\nâ€¢ Specialized Use Case Not ideal for users who prefer simplicity or have requirements better met by other distributions."
+        },
+        {
+            "name": "<:think:585665071938666508> Should You Use NixOS?",
+            "value": "NixOS could be a good fit if you value reproducibility, customization through isolation, and system stability. However, be mindful of the learning curve, limited third-party support, and a smaller community. Consider NixOS based on your specific needs and preferences.\n[Download NixOS](https://nixos.org/download)"
+        }
+    ],
+    "author": {
+        "name": "NixOS",
+        "url": "https://nixos.org/",
+        "icon_url": "https://discourse.nixos.org/uploads/default/original/2X/c/cb4fe584627b37e7c1d5424e9cec0bb30fdb6c4d.png"
+    }
+}
