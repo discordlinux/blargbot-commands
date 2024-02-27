@@ -20,7 +20,7 @@
             "inline": false
         }
     ],
-    "description": "Kubuntu is an [official Ubuntu flavor](https://ubuntu.com/download/flavours) that uses the [Plasma Desktop Environment](https://en.wikipedia.org/wiki/KDE_Plasma_5).  Because it uses Plasma, it is the most customizable Ubuntu flavor.  As is the case with all [official Ubuntu flavors](https://ubuntu.com/download/flavours), Kubuntu has access to all of the packages in Ubuntu's repositories and can use PPAs created for Ubuntu.\r\n**[Screenshots of Kubuntu](https://kubuntu.org/feature-tour/)**",
+    "description": "Kubuntu is an [official Ubuntu flavor](https://ubuntu.com/download/flavours) that uses the [Plasma Desktop Environment](https://en.wikipedia.org/wiki/KDE_Plasma_5).  Because it uses Plasma, it is the most customizable Ubuntu flavor.  As is the case with all [official Ubuntu flavors](https://ubuntu.com/download/flavours), Kubuntu has access to all of the packages in Ubuntu's repositories and can use PPAs created for Ubuntu.\r\n**[Screenshots of Kubuntu](https://commons.wikimedia.org/wiki/Category:Kubuntu_22.04)**",
     "color": 30660,
     "author": {
         "url": "https://kubuntu.org/",

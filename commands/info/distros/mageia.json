@@ -1,5 +1,5 @@
 {
-    "description": "Mageia is an independent Linux Distribution that was forked from [Mandriva Linux](https://en.wikipedia.org/wiki/Mandriva_Linux).  It uses the [RPM package format](https://en.wikipedia.org/wiki/RPM_Package_Manager) with [urpmi](https://en.wikipedia.org/wiki/Urpmi) as its package manager.  Mageia allows you to pick which Desktop Environment or Window Manager you would like to use during the install process.\r\n**[Screenshot of Mageia](https://i.imgur.com/FhNpQkQ.jpg)**",
+    "description": "Mageia is an independent Linux Distribution that was forked from [Mandriva Linux](https://en.wikipedia.org/wiki/Mandriva_Linux).  It uses the [RPM package format](https://en.wikipedia.org/wiki/RPM_Package_Manager) with [urpmi](https://en.wikipedia.org/wiki/Urpmi) as its package manager.  Mageia allows you to pick which Desktop Environment or Window Manager you would like to use during the install process.\r\n**[Screenshots of Mageia](https://commons.wikimedia.org/wiki/Category:Mageia_8)**",
     "color": 2502469,
     "fields": [
         {

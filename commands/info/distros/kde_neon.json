@@ -31,7 +31,7 @@
             "inline": false
         }
     ],
-    "description": "KDE neon is a distribution based on the latest LTS release of [Ubuntu](https://ubuntu.com) that uses the latest stable releases of the [Plasma Desktop Environment](https://en.wikipedia.org/wiki/KDE_Plasma_5).  KDE neon was created by the former project lead of Kubuntu, Jonathan Riddell.  Even though KDE neon is not an [official Ubuntu flavor](https://ubuntu.com/download/flavours), it still has access to all of the packages in Ubuntu's repositories and can use PPAs created for Ubuntu.\r\n**[Screenshot of KDE neon](https://www.omgubuntu.co.uk/wp-content/uploads/2019/06/plasma-5.16-desktop-screenshot.jpg)**",
+    "description": "KDE neon is a distribution based on the latest LTS release of [Ubuntu](https://ubuntu.com) that uses the latest stable releases of the [Plasma Desktop Environment](https://en.wikipedia.org/wiki/KDE_Plasma_5).  KDE neon was created by the former project lead of Kubuntu, Jonathan Riddell.  Even though KDE neon is not an [official Ubuntu flavor](https://ubuntu.com/download/flavours), it still has access to all of the packages in Ubuntu's repositories and can use PPAs created for Ubuntu.\r\n**[Screenshots of KDE neon](https://commons.wikimedia.org/wiki/Category:KDE_neon_releases)**",
     "color": 4046989,
     "author": {
         "url": "https://neon.kde.org/",
