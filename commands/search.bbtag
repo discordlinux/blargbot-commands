@@ -201,7 +201,7 @@ description:'{params}' not found.}};
 {//;protondb}
 {set;!~pjson;{request;https://www.protondb.com/api/v1/reports/summaries/{get;~id}.json}}
 {//;steam API}
-{set;!~steamjson;{request;http://store.steampowered.com/api/appdetails?appids={get;~id}&l=English}}
+{set;!~steamjson;{request;http://store.steampowered.com/api/appdetails?appids={get;~id}&l=English&cc=us}}
 {set;!~desc;{substring;{jget;~steamjson;body.{get;~id}.data.short_description};0;300}}
 {set;!~platforms;[]}
 {if;{jget;~steamjson;body.{get;~id}.data.platforms.windows};==;true;
