@@ -64,6 +64,7 @@
 | Slackware | No | Advanced | No |  |
 | Slax | No | N/A | No |  |
 | Solus | No | N/A | No |  |
+| SteamOS | Yes | Intermediate | No | SteamOS will only be supported on the steamdeck hardware. |
 | Tails OS | No | Advanced | No |  |
 | Ubuntu Budgie LTS | Yes | Beginner | No |  |
 | Ubuntu Cinnamon | No | N/A | No |  |
