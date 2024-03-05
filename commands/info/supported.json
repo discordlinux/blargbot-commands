@@ -448,6 +448,13 @@
     "notes": null
   },
   {
+    "name": "SteamOS",
+    "supported": "Yes",
+    "experience_level": "Intermediate",
+    "recommended": "No",
+    "notes": "SteamOS will only be supported on the steamdeck hardware."
+  },
+  {
     "name": "Tails OS",
     "supported": "No",
     "experience_level": "Advanced",
