@@ -198,8 +198,6 @@ footer.text:Powered by Datamuse.com;}}
 {edit;{channelid};{get;~searchmsg};_delete;{embedbuild;
 color:{func.dlcolors;red};
 description:'{params}' not found.}};
-{//;steamspy}
-{set;!~steam;{jget;{request;https://steamspy.com/api.php?request=appdetails&appid={get;~id}};body}}
 {//;protondb}
 {set;!~pjson;{request;https://www.protondb.com/api/v1/reports/summaries/{get;~id}.json}}
 {//;steam API}
@@ -246,10 +244,13 @@ description:'{params}' not found.}};
 {set;!~itemtoken;{trim;{join;{map;~l;{split;{jget;{split;{jget;~item;loc_token};_};2};};{if;{regextest;{get;~l};/[A-Z]/};{space}{get;~l};{get;~l}}};}}}
 {push;~deckitems;{get;~itemtype}{space}{capitalize;{get;~itemtoken};true}}
 }
+{//;genres}
+{set;!~genres;[]}
+{foreach;~genre;{jget;~steamjson;body.{get;~id}.data.genres};{push;~genres;{jget;~genre;description}}}
 {fallback;}
 {//;output results}
 {edit;{channelid};{get;~searchmsg};_delete;{embedbuild;
-author.name:ProtonDB.com · {jget;~steam;name} · AppID: {get;~id};
+author.name:ProtonDB.com · {jget;~steamjson;body.{get;~id}.data.name} · AppID: {get;~id};
 author.icon_url:https://cdn.discordapp.com/icons/481706387278397440/f55e7ab1b69de54145c09803d49dbe51.webp;
 author.url:https://www.protondb.com/app/{get;~id};
 color:1B2838;
@@ -265,11 +266,11 @@ __**[Summary of ProtonDB ratings](https://www.protondb.com/app/{get;~id})**__
 __**[Steam Deck Status](https://steamdeck.com/en/verified)**__: {get;~deckstatus}{if;{length;{jget;~deckitems}};!=;0;{newline}{join;~deckitems;{newline}}}
 __**[Steam Store Page](https://store.steampowered.com/app/{get;~id})**__
 **OSes**: {get;~platforms}
-**Developer**: {jget;~steam;developer}
-**Publisher**: {jget;~steam;publisher}
-**Genre**: {regexreplace;{jget;~steam;genre};/,/g;,{space}}
-**Price**: {math;/;{jget;~steam;price};100} USD {if;{jget;~steam;discount};!=;0;({jget;~steam;discount}% discount)}
-**Steam Rating**: {numformat;{math;*;{math;/;{jget;~steam;positive};{math;+;{jget;~steam;positive};{jget;~steam;negative}}};100};2}% positive
+**Developer**: {join;{jget;~steamjson;body.{get;~id}.data.developers};,{space}}
+**Publisher**: {join;{jget;~steamjson;body.{get;~id}.data.publishers};,{space}}
+**Genre**: {join;{jget;~genres};,{space}}
+**Price**: {jget;~steamjson;body.{get;~id}.data.price_overview.final_formatted} ({jget;~steamjson;body.{get;~id}.data.price_overview.discount_percent}% discount)
+**Steam Rating**: {jget;~steamjson;body.{get;~id}.data.recommendations.total}
 **Current Players**: {get;~cplayers}
 *https://www.protondb.com/app/{get;~id}*}}}
 }
