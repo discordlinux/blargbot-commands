@@ -223,12 +223,12 @@ description:'{params}' not found.}};
 {set;!~deckjson;{jget;{request;https://www.protondb.com/proxy/steam/deck-verified?nAppID={get;~id}};body}}
 {switch;{jget;~deckjson;results.resolved_category};
 ["3"];
-{set;!~deckstatus;Verified ✅};
+{set;!~deckstatus;✅ Verified};
 ["2"];
-{set;!~deckstatus;Playable ⚠️};
+{set;!~deckstatus;⚠️ Playable};
 ["1"];
-{set;!~deckstatus;Unsupported ❌};
-{set;!~deckstatus;Unknown ❓}}
+{set;!~deckstatus;❌ Unsupported};
+{set;!~deckstatus;❓ Unknown}}
 {set;!~deckitems;[]}
 {foreach;~item;{jget;~deckjson;results.resolved_items};
 {set;!~itemtype}
@@ -250,12 +250,24 @@ description:'{params}' not found.}};
 {fallback;}
 {//;output results}
 {edit;{channelid};{get;~searchmsg};_delete;{embedbuild;
-author.name:ProtonDB.com · {jget;~steamjson;body.{get;~id}.data.name} · AppID: {get;~id};
-author.icon_url:https://cdn.discordapp.com/icons/481706387278397440/f55e7ab1b69de54145c09803d49dbe51.webp;
-author.url:https://www.protondb.com/app/{get;~id};
+author.name:Steam · {jget;~steamjson;body.{get;~id}.data.name} · AppID: {get;~id};
+author.icon_url:https://sy.imgix.net/steam.png;
+author.url:https://store.steampowered.com/app/{get;~id};
 color:1B2838;
 image.url:https://steamcdn-a.akamaihd.net/steam/apps/{get;~id}/header.jpg;
 description:{get;~desc}{if;{length;{get;~desc}};>=;300;{space}[...]}
+{zws}
+__**[Steam Store Page](https://store.steampowered.com/app/{get;~id})**__
+**OSes**: {get;~platforms}
+**Developer**: {join;{jget;~steamjson;body.{get;~id}.data.developers};,{space}}
+**Publisher**: {join;{jget;~steamjson;body.{get;~id}.data.publishers};,{space}}
+**Genre**: {join;{jget;~genres};,{space}}
+**Price**: {jget;~steamjson;body.{get;~id}.data.price_overview.final_formatted} ({jget;~steamjson;body.{get;~id}.data.price_overview.discount_percent}% discount)
+**Recommendations**: {jget;~steamjson;body.{get;~id}.data.recommendations.total}
+**Current Players**: {get;~cplayers}
+{zws}
+__**[Steam Deck Status](https://steamdeck.com/en/verified)**__: {get;~deckstatus}{if;{length;{jget;~deckitems}};!=;0;{newline}{join;~deckitems;{newline}}}
+{zws}
 __**[Summary of ProtonDB ratings](https://www.protondb.com/app/{get;~id})**__
 {if;{jget;~pjson;body.confidence};==;;No ratings found.;**Confidence**: {jget;~pjson;body.confidence}
 **Score**: {jget;~pjson;body.score}
@@ -263,15 +275,7 @@ __**[Summary of ProtonDB ratings](https://www.protondb.com/app/{get;~id})**__
 **Total Ratings**: {jget;~pjson;body.total}
 **Trending Tier**: {jget;~pjson;body.trendingTier}
 **Best Reported Tier**: {jget;~pjson;body.bestReportedTier}}
-__**[Steam Deck Status](https://steamdeck.com/en/verified)**__: {get;~deckstatus}{if;{length;{jget;~deckitems}};!=;0;{newline}{join;~deckitems;{newline}}}
-__**[Steam Store Page](https://store.steampowered.com/app/{get;~id})**__
-**OSes**: {get;~platforms}
-**Developer**: {join;{jget;~steamjson;body.{get;~id}.data.developers};,{space}}
-**Publisher**: {join;{jget;~steamjson;body.{get;~id}.data.publishers};,{space}}
-**Genre**: {join;{jget;~genres};,{space}}
-**Price**: {jget;~steamjson;body.{get;~id}.data.price_overview.final_formatted} ({jget;~steamjson;body.{get;~id}.data.price_overview.discount_percent}% discount)
-**Steam Rating**: {jget;~steamjson;body.{get;~id}.data.recommendations.total}
-**Current Players**: {get;~cplayers}
+*https://store.steampowered.com/app/{get;~id}*
 *https://www.protondb.com/app/{get;~id}*}}}
 }
 
