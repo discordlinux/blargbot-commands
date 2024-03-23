@@ -13,6 +13,10 @@
             "file_path": "captcha.bbtag"
         },
         {
+            "name": "chat",
+            "file_path": "chat.bbtag"
+        },
+        {
             "name": "cht.sh",
             "file_path": "chtsh.bbtag"
         },
