@@ -1,0 +1,292 @@
+{//;inject functions}
+{inject;{get;_gitcmd.functions}}
+
+{function;help;
+{embed;{embedBuild;
+title:Pokémon Info;
+color:yellow;
+footer.text:Current default generation: {if;{get;@{guildid}.default.gen};==;{null};9;{get;@{guildid}.default.gen}};
+description:__**Usage**__: `{commandname} <query [-g <gen>] | setgen <gen>>`
+
+Gets info about Pokémon/abilities/items/moves/natures/types.
+
+**Examples**:
+{repeat;`;3}
+Search for Pokémon, etc:
+
+{commandname} squirtle
+{commandname} squirtle -g 4
+
+Set the default generation:
+
+{commandname} setgen 4
+{zws}
+{repeat;`;3};
+}}
+}
+
+{function;pokes;
+{func.searchmsg;{jset;{jset;;message;Searching for `{params;0}`...;c};color;{func.dlcolors;green};c}}
+
+{if;{flag;g};!=;{null};
+{set;!~gen;{flag;g}};
+{set;!~gen;{get;@{guildid}.default.gen}}
+}
+
+{switch;{lower;{get;~gen}};
+["1","i","rb"];
+{set;!~url;https://raw.githubusercontent.com/simoniz0r/smogon-dump/main/rb.json};
+["2","ii","gs"];
+{set;!~url;https://raw.githubusercontent.com/simoniz0r/smogon-dump/main/gs.json};
+["3","iii","rs"];
+{set;!~url;https://raw.githubusercontent.com/simoniz0r/smogon-dump/main/rs.json};
+["4","iv","dp"];
+{set;!~url;https://raw.githubusercontent.com/simoniz0r/smogon-dump/main/dp.json};
+["5","v","bw"];
+{set;!~url;https://raw.githubusercontent.com/simoniz0r/smogon-dump/main/bw.json};
+["6","vi","xy"];
+{set;!~url;https://raw.githubusercontent.com/simoniz0r/smogon-dump/main/xy.json};
+["7","vii","sm"];
+{set;!~url;https://raw.githubusercontent.com/simoniz0r/smogon-dump/main/sm.json};
+["8","viii","ss"];
+{set;!~url;https://raw.githubusercontent.com/simoniz0r/smogon-dump/main/ss.json};
+{set;!~url;https://raw.githubusercontent.com/simoniz0r/smogon-dump/main/sv.json}
+}
+
+{set;!~raw;{jget;{request;{get;~url}};body.pokemon}}
+{set;!~result;{filter;~p;{jget;~raw};{bool;{lower;{replace;{jget;~p;name};.;}};==;{lower;{replace;{params;0};.;}}}}}
+{set;!~rtype;pokemon}
+
+{if;{length;{jget;~result}};==;0;
+{set;!~raw;{jget;{request;{get;~url}};body.abilities}}
+{set;!~result;{filter;~p;{jget;~raw};{bool;{lower;{replace;{jget;~p;name};.;}};==;{lower;{replace;{params;0};.;}}}}}
+{set;!~rtype;abilities}
+}
+
+{if;{length;{jget;~result}};==;0;
+{set;!~raw;{jget;{request;{get;~url}};body.items}}
+{set;!~result;{filter;~p;{jget;~raw};{bool;{lower;{replace;{jget;~p;name};.;}};==;{lower;{replace;{params;0};.;}}}}}
+{set;!~rtype;items}
+}
+
+{if;{length;{jget;~result}};==;0;
+{set;!~raw;{jget;{request;{get;~url}};body.moves}}
+{set;!~result;{filter;~p;{jget;~raw};{bool;{lower;{replace;{jget;~p;name};.;}};==;{lower;{replace;{params;0};.;}}}}}
+{set;!~rtype;moves}
+}
+
+{if;{length;{jget;~result}};==;0;
+{set;!~raw;{jget;{request;{get;~url}};body.natures}}
+{set;!~result;{filter;~p;{jget;~raw};{bool;{lower;{replace;{jget;~p;name};.;}};==;{lower;{replace;{params;0};.;}}}}}
+{set;!~rtype;natures}
+}
+
+{if;{length;{jget;~result}};==;0;
+{set;!~raw;{jget;{request;{get;~url}};body.types}}
+{set;!~result;{filter;~p;{jget;~raw};{bool;{lower;{replace;{jget;~p;name};.;}};==;{lower;{replace;{params;0};.;}}}}}
+{set;!~rtype;types}
+}
+
+{if;{length;{jget;~result}};==;0;
+{edit;{channelid};{get;~searchmsg};_delete;{embedBuild;
+title:Could Not Find Info For '{params;0}';
+color:red;
+description:No info found for `{params;0}`.;
+footer.text:Info From Generation {get;~gen};}}
+{return}
+}
+
+{switch;{get;~rtype};
+["pokemon"];
+{func.pokemon};
+["abilities"];
+{func.abilities};
+["items"];
+{func.items};
+["moves"];
+{func.moves};
+["natures"];
+{func.natures};
+["types"];
+{func.types}
+}
+}
+
+{function;pokemon;
+{set;!~pokeapi;{request;https://pokeapi.co/api/v2/pokemon-species/{jget;~result;0.oob.dex_number}}}
+
+{set;!~bulbjson;{func.getjson;https://bulbapedia.bulbagarden.net/w/api.php?action=query&format=json&prop=extracts%7Cinfo%7Cpageimages&iwurl=1&generator=search&redirects=1&formatversion=2&exintro=1&explaintext=1&exsectionformat=plain&inprop=url&piprop=original&pilimit=1&pilicense=any&gsrsearch={uriencode;{jget;~result;0.name}}&gsrlimit=1&gsrwhat=nearmatch}}
+{set;!~desc;{regexreplace;{jget;~bulbjson;query.pages.0.extract};/(\s\(Japanese.*[a-z].?\)\s|\n)/g;{space}}}
+{if;{length;{split;{get;~desc};.}};>;8;
+{set;!~desc;{join;{slice;{split;{get;~desc};.};0;7};.}. [[...]](https://bulbapedia.bulbagarden.net/wiki/{regexreplace;{jget;~result;0.name};/\s/g;_}_(Pok%C3%A9mon))}
+}
+
+{set;!~flavoren;{filter;~e;{jget;~pokeapi;body.flavor_text_entries};{bool;{jget;~e;language.name};==;en}}}
+
+{set;!~flavor;{regexreplace;{jget;~flavoren;0.flavor_text};/(\n|\f)/g;{space}}}
+{set;!~color;{jget;~pokeapi;body.color.name}}
+
+{set;!~evochain;{request;{jget;~pokeapi;body.evolution_chain.url}}}
+{set;!~evoarray;[]}
+{push;~evoarray;{capitalize;{regexreplace;{jget;~evochain;body.chain.species.name};/-/g;{space}}}}
+{if;{length;{jget;~evochain;body.chain.evolves_to}};>;0;
+{set;!~firstevo;[]}
+{foreach;~e;{jget;~evochain;body.chain.evolves_to};
+{push;~firstevo;{capitalize;{regexreplace;{jget;~e;species.name};/-/g;{space}}}}
+}
+{push;~evoarray;{join;~firstevo;/}}
+{if;{length;{jget;~evochain;body.chain.evolves_to.0.evolves_to}};==;1;
+{push;~evoarray;{capitalize;{regexreplace;{jget;~evochain;body.chain.evolves_to.0.evolves_to.0.species.name};/-/g;{space}}}}
+}
+{if;{length;{jget;~evochain;body.chain.evolves_to.0.evolves_to.0.evolves_to}};==;1;
+{push;~evoarray;{capitalize;{regexreplace;{jget;~evochain;body.chain.evolves_to.0.evolves_to.0.evolves_to.0.species.name};/-/g;{space}}}}
+}
+}
+{if;{length;{jget;~evoarray}};==;1;
+{set;!~evos;No Evolutions};
+{set;!~evos;{join;~evoarray;{space}->{space}}}
+}
+
+{edit;{channelid};{get;~searchmsg};_delete;{embedBuild;
+title:Pokémon - {jget;~result;0.name} #{jget;~result;0.oob.dex_number};
+url:https://bulbapedia.bulbagarden.net/wiki/{regexreplace;{jget;~result;0.name};/\s/g;_}_(Pok%C3%A9mon);
+thumbnail.url:https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/{jget;~result;0.oob.dex_number}.png;
+color:{get;~color};
+description:{get;~desc};
+fields.name:{zws};
+fields.value:**HP**: {jget;~result;0.hp}
+**ATK**: {jget;~result;0.atk}
+**DEF**: {jget;~result;0.def}
+**SPA**: {jget;~result;0.spa}
+**SPD**: {jget;~result;0.spd}
+**SPE**: {jget;~result;0.spe}
+**BST**: {math;+;{jget;~result;0.hp};{jget;~result;0.atk};{jget;~result;0.def};{jget;~result;0.spa};{jget;~result;0.spd};{jget;~result;0.spe}}
+**Weight**: {jget;~result;0.weight}
+**Height**: {jget;~result;0.height};
+fields.inline:true;
+fields.name:{zws};
+fields.value:**Types**:{newline}{join;{jget;~result;0.types};,{space}}
+**Abilities**:{newline}{join;{jget;~result;0.abilities};,{space}}
+**Evolutions**:{newline}{get;~evos}
+**Generations**:{newline}{join;{jget;~result;0.oob.genfamily};,{space}};
+fields.inline:true;
+fields.name:{zws};
+fields.value:*{get;~flavor}*;
+fields.inline:false;
+footer.text:Info From Generation {get;~gen};
+}}
+}
+
+{function;abilities;
+{edit;{channelid};{get;~searchmsg};_delete;{embedBuild;
+title:Ability - {jget;~result;0.name};
+url:https://bulbapedia.bulbagarden.net/wiki/{regexreplace;{jget;~result;0.name};/\s/g;_}_(Ability);
+color:lightgreen;
+description:{jget;~result;0.description};
+footer.text:Generations: {join;{jget;~result;0.genfamily};,{space}};
+}}
+}
+
+{function;items;
+{edit;{channelid};{get;~searchmsg};_delete;{embedBuild;
+title:Item - {jget;~result;0.name};
+url:https://bulbapedia.bulbagarden.net/wiki/{regexreplace;{jget;~result;0.name};/\s/g;_};
+thumbnail.url:https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/{regexreplace;{lower;{jget;~result;0.name}};/\s/g;-}.png;
+color:lightblue;
+description:{jget;~result;0.description}
+{zws}
+*Generations: {join;{jget;~result;0.genfamily};,{space}}*;
+footer.text:Info From Generation {get;~gen};
+}}
+}
+
+{function;moves;
+{edit;{channelid};{get;~searchmsg};_delete;{embedBuild;
+title:Move - {jget;~result;0.name};
+url:https://bulbapedia.bulbagarden.net/wiki/{regexreplace;{jget;~result;0.name};/\s/g;_}_(move);
+color:lightred;
+description:{jget;~result;0.description}
+
+**Category**: {jget;~result;0.category}
+**Power**: {jget;~result;0.power}
+**Accuracy**: {jget;~result;0.accuracy}
+**Priority**: {jget;~result;0.priority}
+**PP**: {jget;~result;0.pp}
+**Type**: {jget;~result;0.type}
+**Generations**: {join;{jget;~result;0.genfamily};,{space}};
+footer.text:Info From Generation {get;~gen};
+}}
+}
+
+{function;natures;
+{edit;{channelid};{get;~searchmsg};_delete;{embedBuild;
+title:Nature - {jget;~result;0.name};
+url:https://bulbapedia.bulbagarden.net/wiki/Nature;
+color:lightyellow;
+description:{jget;~result;0.summary}
+
+**HP**: {jget;~result;0.hp}
+**ATK**: {jget;~result;0.atk}
+**DEF**: {jget;~result;0.def}
+**SPA**: {jget;~result;0.spa}
+**SPD**: {jget;~result;0.spd}
+**SPE**: {jget;~result;0.spe}
+**Generations**: {join;{jget;~result;0.genfamily};,{space}};
+footer.text:Info From Generation {get;~gen};
+}}
+}
+
+{function;types;
+{edit;{channelid};{get;~searchmsg};_delete;{embedBuild;
+title:Type - {jget;~result;0.name};
+url:https://bulbapedia.bulbagarden.net/wiki/{jget;~result;0.name}_(type);
+color:lightpink;
+description:{if;{jget;~result;0.description};!=;{null};{jget;~result;0.description}{newline}}
+{foreach;~atk;{jget;~result;0.atk_effectives};**{jget;~atk;0}**: {jget;~atk;1}x{newline}}**Generations**: {join;{jget;~result;0.genfamily};,{space}};
+footer.text:Info From Generation {get;~gen};
+}}
+}
+
+{function;setgen;
+{set;!~gen;{lower;{params;0}}}
+
+{switch;{lower;{params;0}};
+["1","i","rb"];
+{set;!~starter;150};
+["2","ii","gs"];
+{set;!~starter;250};
+["3","iii","rs"];
+{set;!~starter;384};
+["4","iv","dp"];
+{set;!~starter;487};
+["5","v","bw"];
+{set;!~starter;643};
+["6","vi","xy"];
+{set;!~starter;717};
+["7","vii","sm"];
+{set;!~starter;792};
+["8","viii","ss"];
+{set;!~starter;889};
+{set;!~starter;1008}
+{set;!~gen;9}
+}
+
+{set;!@{guildid}.default.gen;{get;~gen}}
+{embed;{embedBuild;
+title:Set Default Generation;
+color:green;
+thumbnail.url:https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/{get;~starter}.png;
+description:{zws}
+Set default generation to `{get;~gen}`.;
+}}
+}
+
+{fallback;}
+{switch;{args;0};
+["help",""];
+{func.help};
+["setgen"];
+{func.setgen;{args;1}};
+{fallback}
+{func.pokes;{flag;_}}
+}

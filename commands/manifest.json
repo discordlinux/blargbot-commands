@@ -65,6 +65,10 @@
             "file_path": "pastebin.bbtag"
         },
         {
+            "name": "pokemon",
+            "file_path": "pokemon.bbtag"
+        },
+        {
             "name": "poll",
             "file_path": "poll.bbtag"
         },
