@@ -1,0 +1,389 @@
+{//;inject functions}
+{inject;{get;_gitcmd.functions}}
+
+{if;{logic;&&;
+{bool;{commandname};!=;antiraid};
+{bool;{commandname};!=;help}};
+{set;!~anrdusr;{flag;_}}
+{//;check anti-raid level}
+{switch;{get;@{guildid}.anti.raid.level};
+["3"];
+{//;anti-raid level 3}
+{//;kick accounts less than 60 days old}
+{set;!~created.days;{jget;{split;{math;/;{math;-;{time;X};{usercreatedat;X;{get;~anrdusr}}};86400};.};0}}
+{if;{get;~created.days};<;60;
+{void;{send;488558732893093929;;{embedbuild;
+author.name:{username;{get;~anrdusr}}#{userdiscrim;{get;~anrdusr}} ({get;~anrdusr});
+author.icon_url:{useravatar;{get;~anrdusr}};
+title:ℹ️ User Kicked.;
+fields.name:User;
+fields.value:<@!{get;~anrdusr}>;
+fields.inline:true;
+fields.name:Created;
+fields.value:<t:{usercreatedat;X;{get;~anrdusr}}:R>;
+fields.inline:true;
+fields.name:Reason;
+fields.value:Anti-Raid level 3 enabled. Account less than 60 days old.;
+fields.inline:false;
+color:{func.dlcolors;red};
+timestamp:{time};}}}
+
+{void;{dm;{get;~anrdusr};;{embedbuild;
+footer.text:Kicked;
+timestamp:{time};
+color:{func.dlcolors;red};
+title:You have been kicked from {guildname}, {username;{get;~anrdusr}}!;
+thumbnail.url:{guildicon};
+description:Sorry, but {guildname} is currently in anti-raid mode level 3 and is not accepting accounts that are less than 60 days old.  You may rejoin when your account is more than 60 days old or anti-raid mode has been reduced below level 2.;}}}
+{void;{kick;{get;~anrdusr};Anti-Raid: Account is less than 60 days old;noperms}}
+{return}}
+
+{fallback;}
+{//;10 minute join delay}
+{void;{send;488558732893093929;;{embedbuild;
+author.name:{username;{get;~anrdusr}}#{userdiscrim;{get;~anrdusr}} ({get;~anrdusr});
+author.icon_url:{useravatar;{get;~anrdusr}};
+title:ℹ️ User {if;{usertimeout;X;{get;~anrdusr};quiet};==;{null};timed out for 10 minutes;already timed out}.;
+fields.name:User;
+fields.value:<@!{get;~anrdusr}>;
+fields.inline:true;
+fields.name:Created;
+fields.value:<t:{usercreatedat;X;{get;~anrdusr}}:R>;
+fields.inline:true;
+fields.name:Reason;
+fields.value:Anti-Raid level 3 enabled.;
+fields.inline:false;
+color:{func.dlcolors;red};
+timestamp:{time};}}}
+
+{dm;{get;~anrdusr};;{embedbuild;
+timestamp:{time};
+title:Welcome to {guildname}, {username;{get;~anrdusr}}!;
+thumbnail.url:{guildicon};
+color:{func.dlcolors;blurple};
+description:__**{guildname} is currently at anti-raid mode level 3! Your access to the server will be delayed by 10 minutes!**__
+Thank you for joining {guildname}.  In 10 minutes, your timeout will be removed and unlock access to the rest of the server! You will receive the `{rolename;428637054922915850}` role in 48 hours if you have not gotten any warnings in that time.}}
+{if;{usertimeout;X;{get;~anrdusr};quiet};==;{null};
+{void;{timeout;{get;~anrdusr};10m;Anti-Raid Level 3;noperms}}
+}
+{fallback};
+["2"];
+{//;anti-raid level 2}
+{//;kick accounts less than 30 days old}
+{set;!~created.days;{jget;{split;{math;/;{math;-;{time;X};{usercreatedat;X;{get;~anrdusr}}};86400};.};0}}
+{if;{get;~created.days};<;30;
+{void;{send;488558732893093929;;{embedbuild;
+author.name:{username;{get;~anrdusr}}#{userdiscrim;{get;~anrdusr}} ({get;~anrdusr});
+author.icon_url:{useravatar;{get;~anrdusr}};
+title:ℹ️ User Kicked.;
+fields.name:User;
+fields.value:<@!{get;~anrdusr}>;
+fields.inline:true;
+fields.name:Created;
+fields.value:<t:{usercreatedat;X;{get;~anrdusr}}:R>;
+fields.inline:true;
+fields.name:Reason;
+fields.value:Anti-Raid level 2 enabled. Account less than 30 days old.;
+fields.inline:false;
+color:{func.dlcolors;orange};
+timestamp:{time};}}}
+
+{void;{dm;{get;~anrdusr};;{embedbuild;
+footer.text:Kicked;
+timestamp:{time};
+color:{func.dlcolors;orange};
+title:You have been kicked from {guildname}, {username;{get;~anrdusr}}!;
+thumbnail.url:{guildicon};
+description:Sorry, but {guildname} is currently in anti-raid mode level 2 and is not accepting accounts that are less than 30 days old.  You may rejoin when your account is more than 30 days old or anti-raid mode has been reduced below level 2.;}}}
+
+{void;{kick;{get;~anrdusr};Anti-Raid: Account is less than 30 days old;noperms}}
+{return}}
+
+{fallback;}
+{//;5 minute join delay}
+{void;{send;488558732893093929;;{embedbuild;
+author.name:{username;{get;~anrdusr}}#{userdiscrim;{get;~anrdusr}} ({get;~anrdusr});
+author.icon_url:{useravatar;{get;~anrdusr}};
+title:ℹ️ User {if;{usertimeout;X;{get;~anrdusr};quiet};==;{null};timed out for 5 minutes;already timed out}.;
+fields.name:User;
+fields.value:<@!{get;~anrdusr}>;
+fields.inline:true;
+fields.name:Created;
+fields.value:<t:{usercreatedat;X;{get;~anrdusr}}:R>;
+fields.inline:true;
+fields.name:Reason;
+fields.value:Anti-Raid level 2 enabled.;
+fields.inline:false;
+color:{func.dlcolors;orange};
+timestamp:{time};}}}
+
+{void;{dm;{get;~anrdusr};;{embedbuild;
+timestamp:{time};
+title:Welcome to {guildname}, {username;{get;~anrdusr}}!;
+thumbnail.url:{guildicon};
+color:{func.dlcolors;blurple};
+description:__**{guildname} is currently at anti-raid mode level 2! Your access to the server will be delayed by 5 minutes!**__
+Thank you for joining {guildname}.  In 5 minutes, your timeout will be removed and unlock access to the rest of the server! You will receive the `{rolename;428637054922915850}` role in 48 hours if you have not gotten any warnings in that time.}}}
+{if;{usertimeout;X;{get;~anrdusr};quiet};==;{null};
+{void;{timeout;{get;~anrdusr};5m;Anti-Raid Level 2;noperms}}
+}
+{fallback};
+["1"];
+{//;anti-raid level 1}
+{set;!~created.days;{jget;{split;{math;/;{math;-;{time;X};{usercreatedat;X;{get;~anrdusr}}};86400};.};0}}
+{//;kick 0-day accounts}
+{if;{get;~created.days};<;1;
+{void;{send;488558732893093929;;{embedbuild;
+author.name:{username;{get;~anrdusr}}#{userdiscrim;{get;~anrdusr}} ({get;~anrdusr});
+author.icon_url:{useravatar;{get;~anrdusr}};
+title:ℹ️ User Kicked.;
+fields.name:User;
+fields.value:<@!{get;~anrdusr}>;
+fields.inline:true;
+fields.name:Created;
+fields.value:<t:{usercreatedat;X;{get;~anrdusr}}:R>;
+fields.inline:true;
+fields.name:Reason;
+fields.value:Anti-Raid level 1 enabled. Account is 0 days old.;
+fields.inline:false;
+color:{func.dlcolors;red};
+timestamp:{time};}}}
+
+{void;{dm;{get;~anrdusr};;{embedbuild;
+footer.text:Kicked;
+timestamp:{time};
+color:{func.dlcolors;yellow};
+title:You have been kicked from {guildname}, {username;{get;~anrdusr}}!;
+thumbnail.url:{guildicon};
+description:Sorry, but {guildname} is currently in anti-raid mode level 1 and is not accepting accounts that are less than 24 hours old.  You may rejoin when your account is more than 24 hours old or anti-raid mode has been reduced below level 1.;}}}
+
+{void;{kick;{get;~anrdusr};Anti-Raid: Account is less than 24 hours old;noperms}}
+
+{return}}
+{fallback;}
+{//;5 minute join delay}
+{void;{send;488558732893093929;;{embedbuild;
+author.name:{username;{get;~anrdusr}}#{userdiscrim;{get;~anrdusr}} ({get;~anrdusr});
+author.icon_url:{useravatar;{get;~anrdusr}};
+title:ℹ️ User {if;{usertimeout;X;{get;~anrdusr};quiet};==;{null};timed out for 5 minutes;already timed out}.;
+fields.name:User;
+fields.value:<@!{get;~anrdusr}>;
+fields.inline:true;
+fields.name:Created;
+fields.value:<t:{usercreatedat;X;{get;~anrdusr}}:R>;
+fields.inline:true;
+fields.name:Reason;
+fields.value:Anti-Raid level 1 enabled.;
+fields.inline:false;
+color:{func.dlcolors;orange};
+timestamp:{time};}}}
+
+{void;{dm;{get;~anrdusr};;{embedbuild;
+timestamp:{time};
+title:Welcome to {guildname}, {username;{get;~anrdusr}}!;
+thumbnail.url:{guildicon};
+color:{func.dlcolors;blurple};
+description:__**{guildname} is currently at anti-raid mode level 1! Your access to the server will be delayed by 5 minutes!**__
+Thank you for joining {guildname}.  In 5 minutes, your timeout will be removed and unlock access to the rest of the server! You will receive the `{rolename;428637054922915850}` role in 48 hours if you have not gotten any warnings in that time.}}}
+{if;{usertimeout;X;{get;~anrdusr};quiet};==;{null};
+{void;{timeout;{get;~anrdusr};5m;Anti-Raid Level 1;noperms}}
+}
+{fallback};
+
+{//;anti-raid disabled}
+{void;{dm;{get;~anrdusr};;{embedbuild;
+timestamp:{time};
+title:Welcome to {guildname}, {username;{get;~anrdusr}}!;
+thumbnail.url:{guildicon};
+color:{func.dlcolors;blurple};
+description:Thank you for joining {guildname}.  You have been given the `{rolename;486321901342425089}` role and unlocked access to the rest of the server! You will receive the `{rolename;428637054922915850}` role in 48 hours if you have not gotten any warnings in that time.}}}
+}
+}
+
+{switch;{commandname};
+["antiraid","help"];
+{switch;{guildid};["96230004047740928","204061452707954688"];{//;do nothing};{return;false}}
+{if;{guildid};==;96230004047740928;{set;!_welcome.chanid;607332202153377829}}
+{//;check input}
+{switch;{flag;l};
+["3"];
+{//;anti-raid mode level 3}
+{set;!@{guildid}.anti.raid.level;3}
+
+{//;enable slowmode}
+{set;!~channels;{filter;~c;{channels};{bool;{channelcategory;{get;~c}};==;360599308954894346}}}
+{reason;antiraid}
+{foreach;~chan;{jget;~channels};{slowmode;{get;~chan};5}}
+
+{//;set verification_level to 4}
+{jset;~head;method;PATCH;c}
+{jset;~head;headers.Authorization;{get;@bot.token};c}
+{jset;~body;verification_level;4;c}
+{set;!~raw;{request;https://discord.com/api/guilds/{guildid};{get;~head};{get;~body}}}
+{set;!~verlvl;{jget;~raw;body.verification_level}}
+
+{//;check if able to set verification level}
+{if;{get;~verlvl};!=;4;
+{embed;{embedbuild;
+title:Error running antiraid;
+color:{func.dlcolors;red};
+description:Unable to set verification level!
+{get;~raw};}}
+{return}}
+
+{//;output embed}
+{embed;{embedbuild;
+title:Anti-Raid Level 3 Enabled;
+color:{func.dlcolors;red};
+description:Accounts less than 60 days old will be kicked, {guildname} verification level has been set to {get;~verlvl}, slowmode has been enabled at 5 seconds, and a 10 minute timeout has been enabled.;}}
+
+{//;change welcome message to warn of 10 minute delay}
+{void;{delete;{get;_welcome.chanid};{get;_welcome.msgid}}}
+
+{set;!_welcome.msgid;{send;{get;_welcome.chanid};> *You must have the `Link Preview` option enabled in Discord's settings under `Text & Images` to view the embed below.*;{embedbuild;
+title:{guildname} Is Currently In Anti-Raid Mode Level 3!;
+color:{func.dlcolors;red};
+description:Please note that {guildname} currently has anti-raid enabled at level 3 and is not accepting accounts that are less than 60 days old.  Your access to the server will be **delayed by 10 minutes** after completeing the join process described below.;},{embedbuild;
+title:Welcome to {guildname}!;
+color:{func.dlcolors;blurple};
+thumbnail.url:https://cdn.discordapp.com/emojis/842708658310742027.png;
+description:Please complete the membership screening process below, read our rules, and [click this link](https://forms.gle/7Z3MVAyvThXBi7R38) to fill out the Google form to gain access to Discord Linux.;}}};
+["2"];
+{//;anti-raid mode level 2}
+{set;!@{guildid}.anti.raid.level;2}
+
+{//;enable slowmode}
+{set;!~channels;{filter;~c;{channels};{bool;{channelcategory;{get;~c}};==;360599308954894346}}}
+{reason;antiraid}
+{foreach;~chan;{jget;~channels};{slowmode;{get;~chan};5}}
+
+{//;set verification_level to 3}
+{jset;~head;method;PATCH;c}
+{jset;~head;headers.Authorization;{get;@bot.token};c}
+{jset;~body;verification_level;3;c}
+{set;!~raw;{request;https://discord.com/api/guilds/{guildid};{get;~head};{get;~body}}}
+{set;!~verlvl;{jget;~raw;body.verification_level}}
+
+{//;check if able to set verification level}
+{if;{get;~verlvl};!=;3;
+{embed;{embedbuild;
+title:Error running antiraid;
+color:{func.dlcolors;red};
+description:Unable to set verification level!
+{get;~raw};}}
+{return}}
+
+{//;output embed}
+{embed;{embedbuild;
+title:Anti-Raid Level 2 Enabled;
+color:{func.dlcolors;orange};
+description:Accounts less than 30 days old will be kicked, {guildname} verification level has been set to {get;~verlvl}, slowmode has been enabled at 5 seconds, and a 5 minute timeout has been enabled.;}}
+
+{//;change welcome message}
+{void;{delete;{get;_welcome.chanid};{get;_welcome.msgid}}}
+
+{set;!_welcome.msgid;{send;{get;_welcome.chanid};> *You must have the `Link Preview` option enabled in Discord's settings under `Text & Images` to view the embed below.*;{embedbuild;
+title:{guildname} Is Currently In Anti-Raid Mode Level 2!;
+color:{func.dlcolors;orange};
+description:Please note that {guildname} currently has anti-raid enabled at level 2 and is not accepting accounts that are less than 30 days old.  Your access to the server will be **delayed by 5 minutes** after completeing the join process described below.;},{embedbuild;
+title:Welcome to {guildname}!;
+color:{func.dlcolors;blurple};
+thumbnail.url:https://cdn.discordapp.com/emojis/842708658310742027.png;
+description:Please complete the membership screening process below, read our rules, and [click this link](https://forms.gle/7Z3MVAyvThXBi7R38) to fill out the Google form to gain access to Discord Linux.;}}};
+["1"];
+{//;anti-raid mode level 1}
+{set;!@{guildid}.anti.raid.level;1}
+
+{//;disable slowmode}
+{set;!~channels;{filter;~c;{channels};{bool;{channelcategory;{get;~c}};==;360599308954894346}}}
+{reason;antiraid}
+{foreach;~chan;{jget;~channels};{slowmode;{get;~chan}}}
+
+{//;set verification_level to 3}
+{jset;~head;method;PATCH;c}
+{jset;~head;headers.Authorization;{get;@bot.token};c}
+{jset;~body;verification_level;3;c}
+{set;!~raw;{request;https://discord.com/api/guilds/{guildid};{get;~head};{get;~body}}}
+{set;!~verlvl;{jget;~raw;body.verification_level}}
+
+{//;check if able to set verification level}
+{if;{get;~verlvl};!=;3;
+{embed;{embedbuild;
+title:Error running antiraid;
+color:{func.dlcolors;red};
+description:Unable to set verification level!
+{get;~raw};}}
+{return}}
+
+{//;output embed}
+{embed;{embedbuild;
+title:Anti-Raid Level 1 Enabled;
+color:{func.dlcolors;yellow};
+description:Accounts less than 24 hours old will be kicked, {guildname} verification level has been set to {get;~verlvl}, and a 5 minute timeout has been enabled.;}}
+
+{//;change welcome message}
+{void;{delete;{get;_welcome.chanid};{get;_welcome.msgid}}}
+
+{set;!_welcome.msgid;{send;{get;_welcome.chanid};> *You must have the `Link Preview` option enabled in Discord's settings under `Text & Images` to view the embed below.*;{embedbuild;
+title:{guildname} Is Currently In Anti-Raid Mode Level 1!;
+color:{func.dlcolors;yellow};
+description:Please note that {guildname} currently has anti-raid enabled at level 1 and is not accepting accounts that are less than 24 hours old.  Your access to the server will be **delayed by 5 minutes** after completeing the join process described below.;},{embedbuild;
+title:Welcome to {guildname}!;
+color:{func.dlcolors;blurple};
+thumbnail.url:https://cdn.discordapp.com/emojis/842708658310742027.png;
+description:Please complete the membership screening process below, read our rules, and [click this link](https://forms.gle/7Z3MVAyvThXBi7R38) to fill out the Google form to gain access to Discord Linux.;}}};
+["0"];
+{//;anti-raid mode level 0}
+{set;!@{guildid}.anti.raid.level;0}
+
+{//;disable slowmode}
+{set;!~channels;{filter;~c;{channels};{bool;{channelcategory;{get;~c}};==;360599308954894346}}}
+{reason;antiraid}
+{foreach;~chan;{jget;~channels};{slowmode;{get;~chan}}}
+
+{//;set verification_level to 3}
+{jset;~head;method;PATCH;c}
+{jset;~head;headers.Authorization;{get;@bot.token};c}
+{jset;~body;verification_level;3;c}
+{set;!~raw;{request;https://discord.com/api/guilds/{guildid};{get;~head};{get;~body}}}
+{set;!~verlvl;{jget;~raw;body.verification_level}}
+
+{//;check if able to set verification level}
+{if;{get;~verlvl};!=;3;
+{embed;{embedbuild;
+title:Error running antiraid;
+color:{func.dlcolors;red};
+description:Unable to set verification level!
+{get;~raw};}}
+{return}}
+
+{//;output embed}
+{embed;{embedbuild;
+title:Anti-Raid Disabled;
+color:{func.dlcolors;green};
+description:{guildname} verification level has been set to {get;~verlvl}, and anti-raid has been disabled.;}}
+
+{//;change welcome message}
+{void;{delete;{get;_welcome.chanid};{get;_welcome.msgid}}}
+{set;!_welcome.msgid;{send;{get;_welcome.chanid};> *You must have the `Link Preview` option enabled in Discord's settings under `Text & Images` to view the embed below.*;{embedbuild;
+title:Welcome to {guildname}!;
+color:{func.dlcolors;blurple};
+thumbnail.url:https://cdn.discordapp.com/emojis/842708658310742027.png;
+description:Please complete the membership screening process below, read our rules, and [click this link](https://forms.gle/7Z3MVAyvThXBi7R38) to fill out the Google form to gain access to Discord Linux.;}}};
+{//;output embed}
+{embed;{embedbuild;
+title:Anti-Raid {switch;{get;@{guildid}.anti.raid.level};["0"];Disabled;Enabled at Level {get;@{guildid}.anti.raid.level}};
+color:{switch;{get;@{guildid}.anti.raid.level};["3"];{func.dlcolors;red};["2"];orange;["1"];{func.dlcolors;yellow};{func.dlcolors;green}};
+description:__**Usage**__: `antiraid [-l <0|1|2|3>]`
+Sets anti-raid mode level.  By default, level 1 anti-raid mode is enabled.  Use the `-l` flag to set the desired anti-raid level.
+
+**Levels**
+{repeat;`;3}
+0 - Disables Anti-Raid mode.
+1 - Accounts less than 24 hours old are kicked, the guild's verification level is set to level 3, and a 5 minute timeout is added.
+2 - Accounts less than 30 days old are kicked, the guild's verification level is set to level 3, slowmode is enabled at 5 seconds, and a 5 minute timeout is added.
+3 - Accounts less than 60 days old are kicked, the guild's verification level is set to level 4, slowmode is enabled at 5 seconds, and a 10 minute timeout is added.
+{repeat;`;3}
+The current anti-raid mode level is {get;@{guildid}.anti.raid.level},{space}{switch;{get;@{guildid}.anti.raid.level};["3"];guild verification level is set to 4, accounts less than 60 days old will be kicked, and a 10 minute timeout is enabled;["2"];guild verification level is set to 3, accounts less than 30 days old will be kicked, and a 5 minute timeout is enabled;["1"];guild verification level is set to 3, accounts less than 24 hours old will be kicked, and a 5 minute timeout is enabled;anti-raid is disabled}.;}}
+}
+}
