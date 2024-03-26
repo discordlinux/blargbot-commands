@@ -495,12 +495,12 @@ Update the reason for an existing modlog.  Use either `latest` for the most rece
 {//;get log json from modlog embed}
 {set;!~mlj;{base64decode;{replace;{jget;{messageembeds;{get;_modlog.chan};{lastmessageid;{get;_modlog.chan}}};0.image.url};https://x.com/;}}};
 
-{set;!~mlid;{args;1}}
-{set;!~mlj;{base64decode;{replace;{jget;{messageembeds;{get;_modlog.chan};{args;1}};0.image.url};https://x.com/;}}}
+{set;!~mlid;{args;2}}
+{set;!~mlj;{base64decode;{replace;{jget;{messageembeds;{get;_modlog.chan};{get;~mlid}};0.image.url};https://x.com/;}}}
 }
 
 {if;{jget;~mlj;case};==;{null};
-{func.modlog_error;Error getting json from message ID '{args;1}'}
+{func.modlog_error;Error getting json from message ID '{args;2}'}
 {return}}
 
 {//;get type from json}
