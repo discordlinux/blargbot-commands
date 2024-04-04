@@ -8,6 +8,24 @@
 {if;{get;_killswitch};==;engage;
 {return}}
 
+{//;function to make requests using scrapingant}
+{function;ant;
+{if;{length;{paramsarray}};>=;2;
+{set;!~usrhead;{params;1}}
+}
+{foreach;~header;{jkeys;~usrhead;headers};
+{jset;~anthead;headers.Ant-{get;~header};{jget;~usrhead;headers.{get;~header}};c}
+}
+{if;{jget;~usrhead;method};==;{null};
+{jset;~anthead;method;GET;c};
+{jset;~anthead;method;{jget;~usrhead;method};c}
+}
+{if;{length;{paramsarray}};>=;3;
+{set;!~antbody;{params;2;n}}
+}
+{request;https://api.scrapingant.com/v2/general?x-api-key={randchoose;{jget;@ant}}&browser={flagset;b}&url={uriencode;{params;0}};{get;~anthead};{get;~antbody}}
+}
+
 {//;function to get info for a channel from discord's API}
 {function;chaninfo;{fallback;{channelid}}{jget;{request;https://discord.com/api/channels/{if;{params;0};==;{null};{channelid};{channelid;{params;0}}};{get;@bot.sh.get}};body}{fallback}}
 
