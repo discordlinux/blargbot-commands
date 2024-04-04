@@ -84,14 +84,7 @@ timestamp:{time}}}}
 {function;htmltomd;{set;!~syretia.body;{params;0}}{func.syretia;pandoc?t=markdown_strict&f=html}}
 
 {//;function to upload images to imagekit}
-{function;imagekit;
-{regexreplace;
-{jset;~syretia.body;key;{get;@imagekit};c}
-{jset;~syretia.body;url;{params};c}
-{jset;~syretia.body;name;{reverse;{jget;{split;{reverse;{jget;{split;{params};?};0}};/};0}};c}
-{jget;{func.syretia;imagekit};url}
-;/(\r|\n)/g;}
-}
+{function;imagekit;{jget;{func.getjson;https://api.imgbb.com/1/upload?key={if;{guildid};==;96230004047740928;{get;@dl.imgbb.key};{get;@imgbb.key}}&name={uriencode;{userid}-{time;X}}&image={uriencode;{params}}};body.data.url}}
 
 {//;function to get TTS audio from lazypy.ro}
 {function;lazypy;
@@ -104,7 +97,7 @@ timestamp:{time}}}}
 {//;function to output linux tux hacker gif}
 {function;linuxhacker;https://cdn.discordapp.com/emojis/478073442311077889.gif?size=20}
 
-{//;function to get metadata using motyar}
+{//;function to reformat metadata using from syretia.xyz}
 {function;metadata;
 {foreach;~mde;{func.syretia;metadata?u={uriencode;{params;0}}};
 {if;{jget;~mde;name};!=;{null};
@@ -116,9 +109,6 @@ timestamp:{time}}}}
 {function;metadata_sy;
 {func.syretia;metadata?u={uriencode;{params;0}}}
 }
-
-{//;function to scrape sites using motyar}
-{function;motyar;{set;!~motyarjson;{request;http://motyar.info/webscrapemaster/api?key={get;*motyarkey}&url={uriencode;{params;0}}&xpath={params;1}}}{if;{jget;~motyarjson;body.error.0};==;pass an valid API key;{set;*motyarkey;{jget;{split;{jget;{split;{func.rawhtml;https://ipinfo.io/{randchoose;["1.1.1.1","8.8.8.8"]}/geo};value="};1};"};0}}{set;!~motyarjson;{request;http://motyar.info/webscrapemaster/api?key={get;*motyarkey}&url={uriencode;{params;0}}&xpath={params;1}}}}{get;~motyarjson}}
 
 {//;function to detect if correct prefix was used}
 {function;prefixtest;
