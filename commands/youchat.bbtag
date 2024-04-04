@@ -1,0 +1,42 @@
+{//;import functions}
+{inject;{get;_gitcmd.functions}}
+{//;output message while getting results}
+{set;!~ysmsg;{output;{embed;{embedbuild;
+description:Fetching response...;
+thumbnail.url:https://cdn.discordapp.com/emojis/478073442311077889.gif?size=20;
+}}}}
+{//;setup JSON with previous chat history}
+{set;!~chist;[]}
+{set;!~clen;0}
+{if;{get;_yse.hist.{userid}};!=;{null};
+{set;!~chist;{jget;_yse.hist.{userid}}}
+{set;!~clen;{length;{jget;_yse.hist.{userid}}}}
+}
+{//;make request using scrapingant}
+{set;!~result;{func.ant;https://you.com/api/streamingSearch?q={uriencode;{args}}&page=1&count=10&safeSearch=Moderate&mkt=en-US&responseFilter=WebPages,TimeZone,Computation,RelatedSearches&domain=youchat&pastChatLength={get;~clen}&selectedChatMode=default&chat={uriencode;{jget;~chist}}}}
+{//;output error if status not 200}
+{if;{jget;~result;status};!=;200;
+{edit;{channelid};{get;~ysmsg};{usernick}: {get;~result};_delete}
+{return}
+}
+{//;get response from body}
+{set;!~desc;{foreach;~c;{filter;~d;{split;{jget;{get;~result};body};{newline}};{bool;{get;~d};startswith;data:{space}{lb}"youChatToken}};{regexreplace;{jget;{replace;{get;~c};data:{space};};youChatToken};/^####/;###}}}
+{//;save chat history}
+{if;{get;_yse.hist.{userid}};==;{null};
+{set;!_yse.hist.{userid};[]}
+}
+{set;!~pos;{length;{jget;_yse.hist.{userid}}}}
+{jset;_yse.hist.{userid};{get;~pos}.question;{args};c}
+{jset;_yse.hist.{userid};{get;~pos}.answer;{get;~desc};c}
+{if;{length;{jget;_yse.hist.{userid}}};>;3;
+{void;{shift;_yse.hist.{userid}}}
+}
+{//;edit message with response}
+{edit;{channelid};{get;~ysmsg};{embedbuild;
+author.name:You.com;
+author.url:https://you.com;
+author.icon_url:https://sy.imgix.net/youcom.png;
+title:Response for '{args}';
+url:https://app.yoursearch.ai/?q={uriencode;{args}};
+description:{get;~desc};
+}}

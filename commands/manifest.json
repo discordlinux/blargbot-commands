@@ -135,6 +135,10 @@
         {
             "name": "whmodlog",
             "file_path": "whmodlog.bbtag"
+        },
+        {
+            "name": "uchat",
+            "file_path": "youchat.bbtag"
         }
     ]
 }
