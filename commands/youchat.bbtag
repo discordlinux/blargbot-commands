@@ -38,5 +38,5 @@ author.url:https://you.com;
 author.icon_url:https://sy.imgix.net/youcom.png;
 title:Response for '{args}';
 url:https://app.yoursearch.ai/?q={uriencode;{args}};
-description:{get;~desc};
+description:{substring;{get;~desc};0;4000};
 }}
