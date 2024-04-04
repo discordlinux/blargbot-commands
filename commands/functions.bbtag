@@ -102,7 +102,7 @@ timestamp:{time}}}}
 {function;htmltomd;{set;!~syretia.body;{params;0}}{func.syretia;pandoc?t=markdown_strict&f=html}}
 
 {//;function to upload images to imagekit}
-{function;imagekit;{jget;{func.getjson;https://api.imgbb.com/1/upload?key={if;{guildid};==;96230004047740928;{get;@dl.imgbb.key};{get;@imgbb.key}}&name={uriencode;{userid}-{time;X}}&image={uriencode;{params}}};body.data.url}}
+{function;imagekit;{jget;{func.getjson;https://api.imgbb.com/1/upload?key={if;{guildid};==;96230004047740928;{get;@dl.imgbb.key};{get;@imgbb.key}}&name={uriencode;{userid}-{time;X}}&image={uriencode;{params}}};data.url}}
 
 {//;function to get TTS audio from lazypy.ro}
 {function;lazypy;
