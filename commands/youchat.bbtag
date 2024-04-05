@@ -36,7 +36,7 @@ thumbnail.url:https://cdn.discordapp.com/emojis/478073442311077889.gif?size=20;
 author.name:You.com;
 author.url:https://you.com;
 author.icon_url:https://sy.imgix.net/youcom.png;
-title:Response for '{args}';
+title:Response for '{substring;{args};0;240}';
 url:https://you.com/?q={uriencode;{args}}&tbm=youchat&fromSearchBar=true;
 description:{substring;{get;~desc};0;4000};
 }}
