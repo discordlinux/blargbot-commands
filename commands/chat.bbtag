@@ -93,7 +93,8 @@ Or in an autoresponse:
 {bool;{jget;~fetch;body.text};!=;{null}}};
 {set;!@cohere{get;~token.num}.uses.{time;YYYYMM};{math;+;1;0{get;@cohere{get;~token.num}.uses.{time;YYYYMM}}}}
 {//;reset conversation_id if more than 100k tokens used}
-{if;{jget;~fetch;body.token_count.total_tokens};>;100000;
+{set;!~total.tokens;{math;+;{jget;~fetch;body.meta.tokens.input_tokens};{jget;~fetch;body.meta.tokens.output_tokens}}}
+{if;{get;~total.tokens};>;100000;
 {set;!_cohere.id.{userid};{guildid}_{userid}_{time;X}}
 }
 {//;setup array of sources}
@@ -102,7 +103,7 @@ Or in an autoresponse:
 {set;_cohere.last.msg.{userid};{args}}
 {set;_cohere.last.response.{userid};{regexreplace;{jget;~fetch;body.text};/(@everyone|@here|<@)/g;<\@}}
 {//;if length is more than 2k characters, output in embed, otherwise output directly}
-{set;!~resp.out;{reverse;{replace;{reverse;{usernick}};_;}}: {jget;~fetch;body.text}{newline}{zws}{newline}Sources: {join;~cosources;,{space}}{newline}Tokens used: {jget;~fetch;body.token_count.total_tokens}}
+{set;!~resp.out;{reverse;{replace;{reverse;{usernick}};_;}}: {jget;~fetch;body.text}{newline}{zws}{newline}Sources: {join;~cosources;,{space}}{newline}Tokens used: {get;~total.tokens}}
 {if;{length;{get;~resp.out}};>;2000;
 {edit;{channelid};{get;~comsg};_delete;{embedbuild;
 description:{if;{length;{get;~resp.out}};<;4000;{get;~resp.out};[View Full Response Here]({dump;{get;~resp.out}}){newline}{zws}{newline}{substring;{get;~resp.out};0;3900}{space}[...]};
