@@ -32,10 +32,10 @@
 {//;check if warn succeeded}
 {if;{numformat;{get;~libmod.warns.{jget;~libmod;userid}};};!=;NaN;
 {//;set output}
-{jset;~libmod;output;{get;~libmod.warns.{jget;~libmod;userid}};c};
-{jset;~libmod;output;{null};c}
+{jset;~libmod;output;{get;~libmod.warns.{jget;~libmod;userid}};c}
 {jset;~libmod;status;{usernick;{jget;~libmod;userid}} now has {get;~libmod.warns.{jget;~libmod;userid}} warning{if;{get;~libmod.warns.{jget;~libmod;userid}};!=;1;s};c}
 {jset;~libmod;success;true;c};
+{jset;~libmod;output;{null};c}
 {jset;~libmod;status;{get;~libmod.warns.{jget;~libmod;userid}};c}
 {jset;~libmod;success;false;c}
 }
@@ -80,6 +80,45 @@
 {jset;~libmod;success;false;c}
 }
 {jset;~libmod;reason;{params;2};c}
+{commit}
+}
+}
+
+{//;function to get user warnings}
+{//;input order is user}
+{function;warnings;
+{suppresslookup}
+{//;check if user is in guild}
+{jset;~libmod;action;warnings;c}
+{jset;~libmod;modid;{userid};c}
+{if;{params;0};==;{null};
+{jset;~libmod;userid;no input given;c};
+{jset;~libmod;userid;{userid;{params;0}};c}
+}
+{commit}
+{//;check if user exists}
+{switch;{jget;~libmod;userid};
+["no input given",""];
+{//;no user exists}
+{jset;~libmod;output;{null};c}
+{jset;~libmod;reason;{params;2};c}
+{jset;~libmod;status;'{params;0}' is not a valid Discord user;c}
+{jset;~libmod;success;false;c}
+{commit};
+{//;user exists}
+{//;get user warnings}
+{set;!~libmod.warnings.{jget;~libmod;userid};{func.rtdb;get;gid{guildid}/warns/uid{jget;~libmod;userid}}}
+{//;check if user has warnings}
+{if;{numformat;{get;~libmod.warnings.{jget;~libmod;userid}};};!=;NaN;
+{//;set output}
+{jset;~libmod;output;{get;~libmod.warnings.{jget;~libmod;userid}};c}
+{jset;~libmod;status;{usernick;{jget;~libmod;userid}} has {get;~libmod.warnings.{jget;~libmod;userid}} warning{if;{get;~libmod.warnings.{jget;~libmod;userid}};!=;1;s};c}
+{jset;~libmod;success;true;c};
+{jset;~libmod;output;0;c}
+{jset;~libmod;status;{usernick;{jget;~libmod;userid}} has no warnings;c}
+{jset;~libmod;success;true;c}
+}
+{jset;~libmod;reason;Warning lookup;c}
 {commit}
 }
 }
