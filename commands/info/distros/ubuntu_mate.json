@@ -21,7 +21,7 @@
             "inline": false
         }
     ],
-    "description": "Ubuntu MATE is an [official Ubuntu flavor](https://ubuntu.com/download/flavours) that uses the [MATE Desktop Environment](https://en.wikipedia.org/wiki/MATE_(software\\)).  The MATE Desktop Environment was originally forked from GNOME 2, so Ubuntu MATE feels similar to GNOME, but is much more customizable and easier on resources.  As is the case with all [official Ubuntu flavors](https://ubuntu.com/download/flavours), Ubuntu MATE has access to all of the packages in Ubuntu's repositories and can use PPAs created for Ubuntu.\r\n**[Screenshots of Ubuntu MATE](https://commons.wikimedia.org/wiki/Category:Ubuntu_MATE_22.04)**",
+    "description": "Ubuntu MATE is an [official Ubuntu flavor](https://ubuntu.com/download/flavours) that uses the [MATE Desktop Environment](https://en.wikipedia.org/wiki/MATE_\\(software\\)).  The MATE Desktop Environment was originally forked from GNOME 2, so Ubuntu MATE feels similar to GNOME, but is much more customizable and easier on resources.  As is the case with all [official Ubuntu flavors](https://ubuntu.com/download/flavours), Ubuntu MATE has access to all of the packages in Ubuntu's repositories and can use PPAs created for Ubuntu.\r\n**[Screenshots of Ubuntu MATE](https://commons.wikimedia.org/wiki/Category:Ubuntu_MATE_22.04)**",
     "color": 8889686,
     "author": {
         "url": "https://ubuntu-mate.org/",

@@ -6,7 +6,7 @@
             "inline": false
         },
         {
-            "value": "If you need a newer kernel than what is provided by default in the LTS release, you can install the HWE Edge kernel package using the following commands:\r\n**20.04**:```\r\nsudo apt update && sudo apt install linux-generic-hwe-20.04-edge\r\n```\r\n**22.04**:```\r\nsudo apt update && sudo apt install linux-generic-hwe-22.04-edge\r\n```\r\nIf you need a newer Mesa version than what is provided by default, you can add a PPA to get the latest stable version using the following commands:\r\n```\r\nsudo add-apt-repository ppa:kisak/turtle && sudo apt update && sudo apt upgrade\r\n```",
+            "value": "If you need a newer kernel than what is provided by default in the LTS release, you can install the HWE Edge kernel package using the following commands:\r\n**20.04**:\r\n```\r\nsudo apt update && sudo apt install linux-generic-hwe-20.04-edge\r\n```\r\n**22.04**:\r\n```\r\nsudo apt update && sudo apt install linux-generic-hwe-22.04-edge\r\n```\r\nIf you need a newer Mesa version than what is provided by default, you can add a PPA to get the latest stable version using the following commands:\r\n```\r\nsudo add-apt-repository ppa:kisak/turtle && sudo apt update && sudo apt upgrade\r\n```",
             "name": "<:SeemsGood:478441196755091461> **Get more up to date packages on an LTS release**:",
             "inline": false
         }
