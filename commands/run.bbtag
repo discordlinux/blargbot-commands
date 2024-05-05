@@ -29,9 +29,9 @@ Exit code: {fallback;1}{jget;~paiza.json;body.exit_code}{fallback} | Memory used
 {set;!~run.lang;15};
 ["bash"];
 {set;!~run.lang;38};
-["c#"];
+["csharp"];
 {set;!~run.lang;1};
-["c++"];
+["cpp"];
 {set;!~run.lang;7};
 ["c"];
 {set;!~run.lang;6};
@@ -39,7 +39,7 @@ Exit code: {fallback;1}{jget;~paiza.json;body.exit_code}{fallback} | Memory used
 {set;!~run.lang;36};
 ["clojure"];
 {set;!~run.lang;47};
-["lisp"];
+["commonlisp"];
 {set;!~run.lang;18};
 ["d"];
 {set;!~run.lang;30};
@@ -47,7 +47,7 @@ Exit code: {fallback;1}{jget;~paiza.json;body.exit_code}{fallback} | Memory used
 {set;!~run.lang;41};
 ["erlang"];
 {set;!~run.lang;40};
-["f#"];
+["fsharp"];
 {set;!~run.lang;3};
 ["fortran"];
 {set;!~run.lang;45};
@@ -99,7 +99,7 @@ Exit code: {fallback;1}{jget;~paiza.json;body.exit_code}{fallback} | Memory used
 {set;!~run.lang;21};
 ["scheme"];
 {set;!~run.lang;22};
-["sql"];
+["sqlserver"];
 {set;!~run.lang;16};
 ["swift"];
 {set;!~run.lang;37};
@@ -146,7 +146,7 @@ fields.value:test
 Exit code: 0 | Memory used: 3,593.75 KiB | Time: 0.00 | Result: success;
 fields.name:**Rextester.com Supported Languages:**;
 fields.value:{repeat;`;3}
-assembly, bash, c#, c++, c, clientside, clojure, lisp, d, elixir, erlang, f#, fortran, go, haskell, java, javascript, kotlin, lua, mysql, node.js, ocaml, octave, objective-c, oracle, pascal, perl, php, postgresql, prolog, python, python3, r, rust, ruby, scala, scheme, sql, swift, tcl, vb
+assembly, bash, c, clientside, clojure, commonlisp, cpp, csharp, d, elixir, erlang, fsharp, fortran, go, haskell, java, javascript, kotlin, lua, mysql, node.js, ocaml, octave, objective-c, oracle, pascal, perl, php, postgresql, prolog, python, python3, r, rust, ruby, scala, scheme, sqlserver, swift, tcl, vb
 {repeat;`;3};
 fields.name:**Paiza.io Supported Languages:**;
 fields.value:{repeat;`;3}
