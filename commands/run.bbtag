@@ -158,13 +158,19 @@ fields.value:Data can be passed to stdin by replying to a message in chat.;
 {//;set default json}
 {set;!~input.json;{j;{"source_code":"help","input":"","language":"","api_key":"guest","network":true,"longpoll":true,"longpoll_timeout":30}}}
 {//;set language}
+{if;{jget;{split;{jget;{split;{messagetext};run{space}};1};{newline}};0};startswith;{repeat;`;3};
+{jset;~input.json;language;{replace;{jget;{split;{jget;{split;{messagetext};run{space}};1};{newline}};0};{repeat;`;3};}};
 {jset;~input.json;language;{jget;{split;{join;{slice;{split;{messagetext};run{space}};1;};run{space}};{space}};0}}
+}
 {//;set input if message is reply}
 {if;{messagereply};!=;{null};
 {jset;~input.json;input;{messagetext;{messagereply}}}
 }
 {//;set source_code}
+{if;{jget;{split;{jget;{split;{messagetext};run{space}};1};{newline}};0};startswith;{repeat;`;3};
+{jset;~input.json;source_code;{join;{slice;{split;{jget;{split;{messagetext};run{space}};1};{newline}};1;-1};{newline}}};
 {jset;~input.json;source_code;{join;{slice;{split;{join;{slice;{split;{messagetext};run{space}};1;};run{space}};{space}};1;};{space}}}
+}
 
 {//;run code}
 {func.paiza}
