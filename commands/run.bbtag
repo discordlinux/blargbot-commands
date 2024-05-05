@@ -8,17 +8,22 @@
 {//;set variables from response}
 {set;!~paiza.id;{jget;~paiza.post.json;body.id}}
 {set;!~paiza.status;{jget;~paiza.post.json;body.status}}
-{//;try using rextester if status is not completed}
+{//;throw error if status is not completed}
 {if;{get;~paiza.status};!=;completed;
-{func.rextester};
+{func.rextester}
+{return;false}
+}
 {//;get results}
 {set;!~paiza.json;{request;http://api.paiza.io/runners/get_details?id={get;~paiza.id}&api_key=guest}}
+{if;{jget;~paiza.json;body.result};==;timeout;
+{func.rextester}
+{return;false}
+}
 {set;!~paiza.result;{replace;{jget;~paiza.json;body.stdout};Main.sh: line 1:{space};}
 {replace;{jget;~paiza.json;body.stderr};Main.sh: line 1:{space};}
 Exit code: {fallback;1}{jget;~paiza.json;body.exit_code}{fallback} | Memory used: {numformat;{math;/;{jget;~paiza.json;body.memory};1024};;;,} KiB | Time: {jget;~paiza.json;body.time} | Result: {jget;~paiza.json;body.result}}
 [Link to Result]({dump;{get;~paiza.result}}.txt)
 {file;buffer:{base64encode;{get;~paiza.result}};result.txt}
-}
 }
 
 {//;function to run code through rextester}
@@ -115,17 +120,17 @@ Exit code: {fallback;1}{jget;~paiza.json;body.exit_code}{fallback} | Memory used
 {set;!~run.body;LanguageChoiceWrapper={get;~run.lang}&Program={regexreplace;{uriencode;{jget;~input.json;source_code}};/%20/g;+}&Input={regexreplace;{uriencode;{jget;~input.json;input}};/%20/g;+}}
 
 {//;run request}
-{set;!~rex.json;{jget;{func.ant;https://rextester.com/rundotnet/Run;{jget;~run.head};{get;~run.body}};body}}
+{set;!~rex.json;{func.ant;https://rextester.com/rundotnet/Run;{jget;~run.head};{get;~run.body}}}
 
 {//;output result}
-{if;{jget;~rex.json;Stats};==;{null};
+{if;{jget;~rex.json;body.Stats};startswith;`;
 {//;error, output raw result}
 [Link to Error Output]({dump;{get;~rex.json}}.txt)
 {file;buffer:{base64encode;{get;~rex.json}};error.txt};
 {//;no error, format and output}
-{set;!~rex.result;{jget;~rex.json;Result}{if;{jget;~rex.json;Warnings};!=;{null};{newline}{jget;~rex.json;Warnings}}{if;{jget;~rex.json;Errors};!=;{null};{newline}{jget;~rex.json;Errors}}
+{set;!~rex.result;{jget;~rex.json;body.Result}{if;{jget;~rex.json;body.Warnings};!=;{null};{newline}{jget;~rex.json;body.Warnings}}{if;{jget;~rex.json;body.Errors};!=;{null};{newline}{jget;~rex.json;body.Errors}}
 
-{jget;~rex.json;Stats}}
+{jget;~rex.json;body.Stats}}
 [Link to Result]({dump;{get;~rex.result}}.txt)
 {file;buffer:{base64encode;{get;~rex.result}};result.txt}
 }
