@@ -97,6 +97,10 @@
             "file_path": "rules.bbtag"
         },
         {
+            "name": "run",
+            "file_path": "run.bbtag"
+        },
+        {
             "name": "se",
             "file_path": "search.bbtag"
         },
