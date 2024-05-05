@@ -123,7 +123,7 @@ Exit code: {fallback;1}{jget;~paiza.json;body.exit_code}{fallback} | Memory used
 [Link to Error Output]({dump;{get;~rex.json}}.txt)
 {file;buffer:{base64encode;{get;~rex.json}};error.txt};
 {//;no error, format and output}
-{set;!~rex.result;{jget;~rex.json;Result}{if;{jget;~rex.json;Warnings};!=;{null};{newline}{jget;~rex.json;Warnings}}{if;{jget;~rex.json;Errors};!=;{null};{newline}{trim;{join;{slice;{split;{jget;~rex.json;Errors};:};2;};:}}}
+{set;!~rex.result;{jget;~rex.json;Result}{if;{jget;~rex.json;Warnings};!=;{null};{newline}{jget;~rex.json;Warnings}}{if;{jget;~rex.json;Errors};!=;{null};{newline}{jget;~rex.json;Errors}}
 
 {jget;~rex.json;Stats}}
 [Link to Result]({dump;{get;~rex.result}}.txt)
