@@ -8,10 +8,9 @@
 {//;set variables from response}
 {set;!~paiza.id;{jget;~paiza.post.json;body.id}}
 {set;!~paiza.status;{jget;~paiza.post.json;body.status}}
-{//;throw error if status is not completed}
+{//;try using rextester if status is not completed}
 {if;{get;~paiza.status};!=;completed;
-[Link to Error Output]({dump;{get;~paiza.post.json}}.txt)
-{file;buffer:{base64encode;{get;~paiza.post.json}};error.txt};
+{func.rextester};
 {//;get results}
 {set;!~paiza.json;{request;http://api.paiza.io/runners/get_details?id={get;~paiza.id}&api_key=guest}}
 {set;!~paiza.result;{replace;{jget;~paiza.json;body.stdout};Main.sh: line 1:{space};}
@@ -168,5 +167,5 @@ fields.value:Data can be passed to stdin by replying to a message in chat.;
 {jset;~input.json;source_code;{join;{slice;{split;{join;{slice;{split;{messagetext};run{space}};1;};run{space}};{space}};1;};{space}}}
 
 {//;run code}
-{func.rextester}
+{func.paiza}
 }
