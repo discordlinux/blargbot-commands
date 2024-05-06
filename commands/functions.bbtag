@@ -96,7 +96,7 @@ timestamp:{time}}}}
 {function;fakeimg;https://fakeimg.pl/{if;{params;1};!=;{null};{params;1};250}x{if;{params;2};!=;{null};{params;2};100}/2A2D30/?retina=1&text={params;0}&font=noto}
 
 {//;function to get json from website using motyar}
-{function;getjson;{jset;~head;headers.x-api-key;{get;@scrapingant};c}{jget;{request;https://api.scrapingant.com/v1/general?url={uriencode;{params;0}}&browser=false&return_text=false;{get;~head}};body.content}}
+{function;getjson;{jset;~head;headers.x-api-key;{randchoose;{jget;@ant}};c}{jget;{request;https://api.scrapingant.com/v1/general?url={uriencode;{params;0}}&browser=false&return_text=false;{get;~head}};body.content}}
 
 {//;function to turn HTML into markdown using pandoc}
 {function;htmltomd;{set;!~syretia.body;{params;0}}{func.syretia;pandoc?t=markdown_strict&f=html}}
