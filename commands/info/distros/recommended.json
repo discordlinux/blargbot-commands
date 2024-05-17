@@ -1,14 +1,12 @@
 {
-    "footer": {
-        "text": "Note: these distributions are suitable for advanced users also.",
-        "proxy_icon_url": "https://images-ext-1.discordapp.net/external/YcEK4OeY91aN9PfwTrrq3OfRs7iFOi2Q8vuy2DNCBMs/%3Fv%3D1/https/cdn.discordapp.com/emojis/478444244655407104.png",
-        "icon_url": "https://cdn.discordapp.com/emojis/478444244655407104.png?v=1"
-    },
-    "description": "<:kubuntu:847025564879814667> **Kubuntu**\r\nSee `sudo info kubuntu` in <#174317464337776640>.\r\n\r\n<:xubuntu:847025564920709120> **Xubuntu**\r\nSee `sudo info xubuntu` in <#174317464337776640>.\r\n\r\n<:ubuntumate:847025564955181068> **Ubuntu MATE**\r\nSee `sudo info ubuntu mate` in <#174317464337776640>.\r\n  \r\n<:neon:593596525024903239> **KDE neon**\r\nSee `sudo info kde neon` in <#174317464337776640>.\r\n\r\n<:opensuse:230547025152835584> **openSUSE Leap**\r\nSee `sudo info opensuse` in <#174317464337776640>.\r\n\r\n<:mageia:847025564569436171> **Mageia**\r\nSee `sudo info mageia` in <#174317464337776640>.",
+    "description": "<:kubuntu:847025564879814667> **Kubuntu**\nSee `sudo info kubuntu` in <#174317464337776640>.\n\n<:xubuntu:847025564920709120> **Xubuntu**\nSee `sudo info xubuntu` in <#174317464337776640>.\n\n<:ubuntumate:847025564955181068> **Ubuntu MATE**\nSee `sudo info ubuntu mate` in <#174317464337776640>.\n  \n<:ubuntu:230469242183483392> **Ubuntu**\nSee `sudo info ubuntu` in <#174317464337776640>.\n\n<:opensuse:230547025152835584> **openSUSE Leap**\nSee `sudo info opensuse` in <#174317464337776640>.\n  \n<:neon:593596525024903239> **KDE neon**\nSee `sudo info kde neon` in <#174317464337776640>.\n\n<:mageia:847025564569436171> **Mageia**\nSee `sudo info mageia` in <#174317464337776640>.",
     "color": 5793266,
     "author": {
-        "proxy_icon_url": "https://images-ext-1.discordapp.net/external/2kRI65XUcsoH9JVnknM__o66RmV1VpGG4m4Auj7G3xE/%3Fv%3D1/https/cdn.discordapp.com/emojis/478441196755091461.png",
         "name": "Recommended Beginner Friendly Distributions",
         "icon_url": "https://cdn.discordapp.com/emojis/478441196755091461.png?v=1"
+    },
+    "footer": {
+        "text": "Note: these distributions are suitable for advanced users also.",
+        "icon_url": "https://cdn.discordapp.com/emojis/478444244655407104.png?v=1"
     }
 }
