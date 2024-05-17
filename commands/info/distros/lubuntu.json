@@ -10,17 +10,17 @@
             "inline": false
         },
         {
-            "value": "• Cannot upgrade from 18.04 to 22.04.\r\n• Least beginner friendly Ubuntu flavor.\r\n• LXQt's customization options are extremely lacking out of the box; `qt5ct` is required to actually be able to customize Qt applications.\r\n• LXQt tends to feel more like a collection of tools rather than an actual Desktop Environment.\r\n• The team that packages Lubuntu sometimes creates buggy builds.",
+            "value": "• Least beginner friendly Ubuntu flavor.\r\n• LXQt's customization options are not very polished and feel relatively unintuitive.\r\n• LXQt tends to feel more like a collection of tools rather than an actual Desktop Environment.\r\n• The team that packages Lubuntu sometimes creates buggy builds.",
             "name": "<:glare:504911469943717909> Disadvantages of Lubuntu",
             "inline": false
         },
         {
-            "value": "Lubuntu is the least beginner friendly Ubuntu flavor, so those who are not computer savvy may have troubles adjusting the bland default settings.  Due to the disadvantages listed above, we do not recommend Lubuntu.  Instead, we recommend Kubuntu (see `sudo info kubuntu`) as it has very similar resource use to Lubuntu and is much more friendly to use.\r\n**[Download Lubuntu](http://cdimage.ubuntu.com/lubuntu/releases/22.04/release/)**",
+            "value": "Lubuntu is the least beginner friendly Ubuntu flavor, so those who are not computer savvy may have troubles adjusting the bland default settings.  Due to the disadvantages listed above, we do not recommend Lubuntu.  Instead, we recommend Kubuntu (see `sudo info kubuntu`) as it has very similar resource use to Lubuntu and is much more friendly to use.\r\n**[Download Lubuntu](http://cdimage.ubuntu.com/lubuntu/releases/24.04/release/)**",
             "name": "<:think:585665071938666508> Should You Use Lubuntu?",
             "inline": false
         }
     ],
-    "description": "Lubuntu is an [official Ubuntu flavor](https://ubuntu.com/download/flavours) that uses the [LXQt Desktop Environment](https://en.wikipedia.org/wiki/LXQt).  As is the case with all [official Ubuntu flavors](https://ubuntu.com/download/flavours), Lubuntu has access to all of the packages in Ubuntu's repositories and can use PPAs created for Ubuntu.\r\n**[Screenshots of Lubuntu](https://commons.wikimedia.org/wiki/Category:Lubuntu_22.04)**",
+    "description": "Lubuntu is an [official Ubuntu flavor](https://ubuntu.com/download/flavours) that uses the [LXQt Desktop Environment](https://en.wikipedia.org/wiki/LXQt).  As is the case with all [official Ubuntu flavors](https://ubuntu.com/download/flavours), Lubuntu has access to all of the packages in Ubuntu's repositories and can use PPAs created for Ubuntu.\r\n**[Screenshots of Lubuntu](https://commons.wikimedia.org/wiki/Category:Lubuntu_24.04)**",
     "color": 92616,
     "author": {
         "url": "https://lubuntu.me/",

@@ -1,5 +1,5 @@
 {
-    "description": "Ubuntu is a point release Linux distribution that has two release cycles.  The LTS releases (always EvenNumber.04) are released every two years with point releases in between.  The LTS versions are the stable releases of Ubuntu.  Non LTS releases (anything other than EvenNumber.04) are supported for 9 months and not recommended for normal use.  The non LTS releases are frequently used to test things that do not work out well in the long run.  Ubuntu uses the apt package manager which is relatively intuitive and works well under most situations.\n**[Screenshots of Ubuntu](https://commons.wikimedia.org/wiki/Category:Ubuntu_22.04)**",
+    "description": "Ubuntu is a point release Linux distribution that has two release cycles.  The LTS releases (always EvenNumber.04) are released every two years with point releases in between.  The LTS versions are the stable releases of Ubuntu.  Non LTS releases (anything other than EvenNumber.04) are supported for 9 months and not recommended for normal use.  The non LTS releases are frequently used to test things that do not work out well in the long run.  Ubuntu uses the apt package manager which is relatively intuitive and works well under most situations.\n**[Screenshots of Ubuntu](https://commons.wikimedia.org/wiki/Category:Ubuntu_24.04)**",
     "color": 15291424,
     "fields": [
         {
@@ -12,7 +12,7 @@
         },
         {
             "name": "<:think:585665071938666508> Should You Use Ubuntu?",
-            "value": "If you are looking for a Linux distribution that is easy to use, well supported, very stable, and has tons of software available, Ubuntu and its flavors are the best choice.  Most people will be happier with an [Ubuntu flavor](https://ubuntu.com/download/flavours) than stock Ubuntu as they are easier on system resources and much more customizable.\n**[Download Ubuntu](https://releases.ubuntu.com/22.04/)**"
+            "value": "If you are looking for a Linux distribution that is easy to use, well supported, very stable, and has tons of software available, Ubuntu and its flavors are the best choice.  Most people will be happier with an [Ubuntu flavor](https://ubuntu.com/download/flavours) than stock Ubuntu as they are easier on system resources and much more customizable.\n**[Download Ubuntu](https://releases.ubuntu.com/24.04/)**"
         }
     ],
     "author": {
