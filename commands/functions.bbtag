@@ -115,6 +115,9 @@ timestamp:{time}}}}
 {//;function to output linux tux hacker gif}
 {function;linuxhacker;https://cdn.discordapp.com/emojis/478073442311077889.gif?size=20}
 
+{//;function to evaluate expressions using mathjs}
+{function;mathjs;{jget;{request;http://api.mathjs.org/v4/?expr={uriencode;{params;0}}&precision={if;{get;~precision};==;{null};10;{get;~precision}}};body}}
+
 {//;function to reformat metadata using from syretia.xyz}
 {function;metadata;
 {foreach;~mde;{func.syretia;metadata?u={uriencode;{params;0}}};
