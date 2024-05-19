@@ -1,0 +1,122 @@
+{//;inject functions}
+{inject;{get;_gitcmd.functions}}
+
+{if;{commandname};==;cron;
+{jset;~zoho.error;error;This tag is not intended to be used directly!;c}
+{jset;~zoho.error;description;Use it in other tags/commands with '{escape;{exec;cron;-t <time in milliseconds to execute job>;-u <discord webhook url>;-e <bbtag to execute>}}';c}
+{jclean;~zoho.error}
+{return}
+}
+
+{//;check required variables}
+{if;{logic;||;
+{bool;{get;@zoho.grant_token};==;{null}};
+{bool;{get;@zoho.project};==;{null}};
+{bool;{get;@zoho.client_id};==;{null}};
+{bool;{get;@zoho.client_secret};==;{null}}};
+{jset;~zoho.error;error;Missing one or more required variables;c}
+{jset;~zoho.error;description;["@zoho.grant_token","@zoho.project","@zoho.client_id","@zoho.client_secret"];c}
+{jclean;~zoho.error}
+{return;false}}
+
+{//;check if refresh_token is set}
+{if;{get;@zoho.refresh_token};==;{null};
+{jset;~head;method;POST;c}
+{set;!~zoho.refresh_token;{request;https://accounts.zoho.com/oauth/v2/token?code={get;@zoho.grant_token}&client_id={get;@zoho.client_id}&client_secret={get;@zoho.client_secret}&grant_type=authorization_code;{get;~head}}}
+{if;{jget;~zoho.refresh_token;status};!=;200;
+{jset;~zoho.error;error;Failed to generate token;c}
+{jset;~zoho.error;description;{get;~zoho.refresh_token};c}
+{jclean;~zoho.error}
+{return;false}}
+{set;!@zoho.refresh_token;{jget;~zoho.refresh_token;body.refresh_token}}
+{set;!@zoho.access_token;{jget;~zoho.refresh_token;body.access_token}}
+{set;!@zoho.refresh_time;{time;X}}
+}
+
+{//;get new token if more than 1 hour has passed since last generated}
+{if;{math;-;{time;X};0{get;@zoho.refresh_time}};>=;3600;
+{jset;~head;method;POST;c}
+{set;!~zoho.refresh_token;{request;https://accounts.zoho.com/oauth/v2/token?refresh_token={get;@zoho.refresh_token}&client_id={get;@zoho.client_id}&client_secret={get;@zoho.client_secret}&grant_type=refresh_token;{get;~head}}}
+{if;{jget;~zoho.refresh_token;status};!=;200;
+{jset;~zoho.error;error;Failed to refresh token;c}
+{jset;~zoho.error;description;{get;~zoho.refresh_token};c}
+{jclean;~zoho.error}
+{return;false}}
+{set;!@zoho.access_token;{jget;~zoho.refresh_token;body.access_token}}
+{set;!@zoho.refresh_time;{time;X}}
+}
+
+{//;if executed in autoresponse and webhook ID is argument, inject, delete cron and return}
+{if;{logic;&&;
+{bool;{argslength};==;1};
+{bool;{jget;{messagetext};cronjob};!=;{null}};
+{bool;{jget;{split;{commandname};_};1};==;autoresponse};
+{bool;{userid};==;{flag;_}}};
+{void;{reactadd;{channelid};{messageid};⏱️}}
+{set;!~inject;{inject;{jget;{messagetext};cronjob}}}
+{if;{logic;||;
+{bool;{get;~inject};startswith;`};
+{bool;{get;~inject};==;false}};
+{void;{reactadd;{channelid};{messageid};❌}}
+{throw;'{jget;{messagetext};cronjob}' failed: {regexreplace;{get;~inject};/`/g;}};
+{void;{reactadd;{channelid};{messageid};🏃}}
+}
+
+{set;!~cron.name;{jget;{messagetext};name}}
+{set;!~zoho.project;{jget;{messagetext};project}}
+
+{jset;~dhead;method;DELETE;c}
+{jset;~dhead;headers.content-type;application/json;c}
+{jset;~dhead;headers.Authorization;Zoho-oauthtoken {get;@zoho.access_token};c}
+{set;!~zoho.cron_delete;{request;https://api.catalyst.zoho.com/baas/v1/project/{get;~zoho.project}/cron/{get;@zoho.cron_id.{get;~cron.name}};{get;~dhead}}}
+{//;if delete fails, try adding 1 because zoho gives wrong ID sometimes}
+{if;{jget;~zoho.cron_delete;status};!=;200;
+{set;!~zoho.cron_id.plus;{regexreplace;{func.mathjs;format(bignumber('{get;@zoho.cron_id.{get;~cron.name}}')+1,{lb}notation:'fixed'{rb})};/"/g;}}
+{set;!~zoho.cron_delete;{request;https://api.catalyst.zoho.com/baas/v1/project/{get;~zoho.project}/cron/{get;~zoho.cron_id.plus};{get;~dhead}}}
+}
+{//;if delete fails, try subtracting 1 because zoho gives wrong ID sometimes}
+{if;{jget;~zoho.cron_delete;status};!=;200;
+{set;!~zoho.cron_id.minus;{regexreplace;{func.mathjs;format(bignumber('{get;@zoho.cron_id.{get;~cron.name}}')-1,{lb}notation:'fixed'{rb})};/"/g;}}
+{set;!~zoho.cron_delete;{request;https://api.catalyst.zoho.com/baas/v1/project/{get;~zoho.project}/cron/{get;~zoho.cron_id.minus};{get;~dhead}}}
+}
+
+{if;{jget;~zoho.cron_delete;status};==;200;
+{void;{reactadd;{channelid};{messageid};🗑️}};
+{void;{reactadd;{channelid};{messageid};❌}}
+{throw;Failed to delete cron job: {regexreplace;{get;~zoho.cron_delete};/`/g;}}
+}
+
+{return;false}
+}
+
+{//;set project variable}
+{if;{flag;p};==;{null};
+{set;!~zoho.project;{get;@zoho.project}};
+{set;!~zoho.project;{flag;p}}
+}
+
+{//;setup json for request}
+{set;!~zoho.cron_json;{j;{"cron_name":null,"description":"","cron_type":"OneTime","status":"true","cron_url_details":{"url":null,"headers":{"content-type":"application/json"},"request_method":"POST","request_body":null,"params":{"wait":"true"}},"job_detail":{"time_of_execution":null,"timezone":"US/Central"},"cron_function_id":null}}}
+{jset;~zoho.cron_json;cron_name;{join;{shuffle;{split;{substring;{hash;sha256;{{flag;t}}};0;15};}};}}
+{jset;~zoho.cron_json;job_detail.time_of_execution;{flag;t}}
+{jset;~zoho.cron_json;cron_url_details.url;https://discord.com/api/webhooks/{args;0}/{args;1}}
+{jset;~zoho.cron_json.body_content;name;{jget;~zoho.cron_json;cron_name};c}
+{jset;~zoho.cron_json.body_content;project;{get;~zoho.project};c}
+{jset;~zoho.cron_json.body_content;cronjob;{flag;e};c}
+{jset;~zoho.cron_json.body;content;{jstringify;~zoho.cron_json.body_content};c}
+{jset;~zoho.cron_json.body;username;cronjob;c}
+{jset;~zoho.cron_json.body;avatar_url;https://cdn.discordapp.com/attachments/318602750940282880/987667747741761606/emoji.png;c}
+{jset;~zoho.cron_json;cron_url_details.request_body;{jget;~zoho.cron_json.body}}
+{jset;~head;method;POST;c}
+{jset;~head;headers.content-type;application/json;c}
+{jset;~head;headers.Authorization;Zoho-oauthtoken {get;@zoho.access_token};c}
+
+{//;make request}
+{set;!~zoho.cron;{request;https://api.catalyst.zoho.com/baas/v1/project/{get;~zoho.project}/cron;{get;~head};{jget;~zoho.cron_json}}}
+{if;{jget;~zoho.cron;status};!=;200;
+{jset;~zoho.error;error;Failed to create cron: {get;~zoho.cron};c}
+{jset;~zoho.error;description;{jget;~zoho.cron_json};c}
+{jclean;~zoho.error}
+{return;false}}
+{set;!@zoho.cron_id.{jget;~zoho.cron;body.data.cron_name};{jget;~zoho.cron;body.data.id}}
+{jget;~zoho.cron;body}

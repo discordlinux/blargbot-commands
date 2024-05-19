@@ -25,6 +25,10 @@
             "file_path": "chtsh.bbtag"
         },
         {
+            "name": "cron",
+            "file_path": "cron.bbtag"
+        },
+        {
             "name": "enter",
             "file_path": "enter.bbtag"
         },
