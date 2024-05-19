@@ -96,7 +96,7 @@
 }
 
 {//;setup json for request}
-{set;!~zoho.cron_json;{j;{"cron_name":null,"description":"","cron_type":"OneTime","status":"true","cron_url_details":{"url":null,"headers":{"content-type":"application/json"},"request_method":"POST","request_body":null,"params":{"wait":"true"}},"job_detail":{"time_of_execution":null,"timezone":"US/Central"},"cron_function_id":null}}}
+{set;!~zoho.cron_json;{j;{"cron_name":null,"description":"blargbot","cron_type":"OneTime","status":"true","cron_url_details":{"url":null,"headers":{"content-type":"application/json"},"request_method":"POST","request_body":null,"params":{"wait":"true"}},"job_detail":{"time_of_execution":null,"timezone":"America/Chicago"},"cron_function_id":null,"cron_circuit_id":null}}}
 {jset;~zoho.cron_json;cron_name;{join;{shuffle;{split;{substring;{hash;sha256;{{flag;t}}};0;15};}};}}
 {jset;~zoho.cron_json;job_detail.time_of_execution;{flag;t}}
 {jset;~zoho.cron_json;cron_url_details.url;https://discord.com/api/webhooks/{args;0}/{args;1}}
