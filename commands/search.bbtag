@@ -337,8 +337,8 @@ __**[Summary of ProtonDB ratings](https://www.protondb.com/app/{get;~id})**__
 ["def","define","dict","dictionary"];{func.datamuse-dictionary;{args;1;n}};
 ["youtube","yt"];{func.youtube;{args;1;n}};
 ["lsst"];{set;!~qsecolor;skyblue}{func.qse;site:bash.cyberciti.biz/guide/ {args;1;n}};
-["abs"];{set;!~qsecolor;skyblue}{func.qse;site:tldp.org/LDP/abs/html/ {args;1;n}};
-["bbg"];{set;!~qsecolor;skyblue}{func.qse;site:tldp.org/LDP/Bash-Beginners-Guide/html/ {args;1;n}};
+["abs"];{set;!~qsecolor;skyblue}{func.qse;site:tldp.org/LDP/abs {args;1;n}};
+["bbg"];{set;!~qsecolor;skyblue}{func.qse;site:tldp.org/LDP/Bash-Beginners-Guide {args;1;n}};
 ["au","askubuntu"];{set;!~qsecolor;{func.distrocolors;ubuntu}}{func.qse;site:askubuntu.com {args;1;n}};
 ["wiki","wikipedia"];{set;!~qsecolor;{func.dlcolors;blurple}}{func.qse;site:wikipedia.org {args;1;n}};
 ["-h","help","--help"];{func.help};
