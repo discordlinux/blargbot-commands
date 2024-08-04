@@ -59,26 +59,29 @@ If none of the arguments below are used, a normal search will be ran.
 {set;!~rawresults;{jget;{func.ant;https://api.qwant.com/v3/search/web?count=10&q={uriencode;{params}}&t=web&locale=en_US&device=desktop&offset=0&safesearch=1};body.data.result.items.mainline}}
 {set;!~qresults;{filter;~res;{jget;~rawresults};{logic;&&;{bool;{jget;~res;serpContextId};!=;{null}};{bool;{jget;~res;type};==;web}}}}
 {//;check results}
-{if;{length;{get;~qresults}};==;0;
+{if;{jget;~qresults;0};==;{null};
 {//;try again if no results -- most likely filtered out junk results}
 {set;!~rawresults;{jget;{func.ant;https://api.qwant.com/v3/search/web?count=10&q={uriencode;{params}}&t=web&locale=en_US&device=desktop&offset=0&safesearch=1};body.data.result.items.mainline}}
 {set;!~qresults;{filter;~res;{jget;~rawresults};{logic;&&;{bool;{jget;~res;serpContextId};!=;{null}};{bool;{jget;~res;type};==;web}}}}
 }
 {//;check results}
-{if;{length;{get;~qresults}};==;0;
+{if;{jget;~qresults;0};==;{null};
 {//;no results}
 {set;!~qurl;https://www.qwant.com/?q={uriencode;{params}}&t=web}
 {set;!~qtitle;No results for '{params}'.}
 {set;!~qcolor;{func.dlcolors;red}}
 {set;!~qthumb;{func.fakeimg;No results;250;100}}
 {set;!~qdesc;No results for `{params}`.
-> https://www.qwant.com/?q={uriencode;{params}}&t=web};
+> https://www.qwant.com/?q={uriencode;{params}}&t=web}
+}
+{//;setup embed if results found}
+{if;{length;{jget;~qresults}};>;0;
 {//;results found}
 {set;!~qurl;{jget;~qresults;0.items.0.url}}
 {set;!~qtitle;{jget;~qresults;0.items.0.title}}
 {if;{jget;~qresults;0.count};>;1;
 {set;!~qnext;{jget;~qresults;0.items.1.url}};
-{if;{length;{get;~qresults}};>;1;
+{if;{length;{jget;~qresults}};>;1;
 {set;!~qnext;{jget;~qresults;1.items.0.url}}
 }
 }
