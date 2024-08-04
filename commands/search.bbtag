@@ -49,7 +49,8 @@ If none of the arguments below are used, a normal search will be ran.
 {//;set searchmsg color and message}
 {if;{get;~qsecolor};==;{null};
 {jset;~qjson;color;{func.dlcolors;blurple};c};
-{jset;~qjson;color;{get;~qsecolor};c}}
+{jset;~qjson;color;{get;~qsecolor};c}
+}
 {jset;~qjson;message;Searching Qwant for `{params}`;c}
 {//;output message to let users know we're doing something}
 {func.searchmsg;{get;~qjson}}
@@ -78,7 +79,8 @@ If none of the arguments below are used, a normal search will be ran.
 {if;{jget;~qresults;0.count};>;1;
 {set;!~qnext;{jget;~qresults;0.items.1.url}};
 {if;{length;{get;~qresults}};>;1;
-{set;!~qnext;{jget;~qresults;1.items.0.url}}}
+{set;!~qnext;{jget;~qresults;1.items.0.url}}
+}
 }
 {set;!~qdesc;{jget;~qresults;0.items.0.desc}
 {get;~qurl}
@@ -88,12 +90,18 @@ If none of the arguments below are used, a normal search will be ran.
 {fallback;}
 {if;{get;~qsecolor};!=;{null};
 {set;!~qcolor;{get;~qsecolor}};
-{if;{regexreplace;{color;{jget;~qmeta;meta.theme-color};hex};/^`.*/;};!=;{null};
-{set;!~qcolor;{regexreplace;{color;{jget;~qmeta;meta.theme-color};hex};/^`.*/;}};
-{set;!~qcolor;{func.dlcolors;blurple}}}}
+{if;{jget;~qmeta;meta.theme-color};!=;{null};
+{set;!~qcolor;{jget;~qmeta;meta.theme-color}};
+{set;!~qcolor;{func.dlcolors;blurple}}
+}
+}
+{if;{get;~qcolor};contains;(;
+{set;!~qcolor;{func.dlcolors;blurple}}
+}
 {if;{jget;~qmeta;meta.og:image};!=;{null};
 {set;!~qthumb;{jget;~qmeta;meta.og:image}};
-{set;!~qthumb;{func.fakeimg;null;1;1}}}
+{set;!~qthumb;{func.fakeimg;null;1;1}}
+}
 {fallback}
 }
 {//;check if qthumb is valid url}
