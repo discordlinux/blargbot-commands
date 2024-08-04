@@ -55,8 +55,14 @@ If none of the arguments below are used, a normal search will be ran.
 {func.searchmsg;{get;~qjson}}
 {//;get qwant results}
 {//;{set;!~qresults;{func.syretia;qse?q={uriencode;{params}}}}}
-{set;!~rawresults;{jget;{func.getjson;https://api.qwant.com/v3/search/web?count=10&q={uriencode;{params}}&t=web&locale=en_US&device=desktop&offset=0&safesearch=1};data.result.items.mainline}}
-{set;!~qresults;{filter;~res;{jget;~rawresults};{bool;{jget;~res;type};==;web}}}
+{set;!~rawresults;{jget;{func.ant;https://api.qwant.com/v3/search/web?count=10&q={uriencode;{params}}&t=web&locale=en_US&device=desktop&offset=0&safesearch=1};body.data.result.items.mainline}}
+{set;!~qresults;{filter;~res;{jget;~rawresults};{logic;&&;{bool;{jget;~res;serpContextId};!=;{null}};{bool;{jget;~res;type};==;web}}}}
+{//;check results}
+{if;{length;{get;~qresults}};==;0;
+{//;try again if no results -- most likely filtered out junk results}
+{set;!~rawresults;{jget;{func.ant;https://api.qwant.com/v3/search/web?count=10&q={uriencode;{params}}&t=web&locale=en_US&device=desktop&offset=0&safesearch=1};body.data.result.items.mainline}}
+{set;!~qresults;{filter;~res;{jget;~rawresults};{logic;&&;{bool;{jget;~res;serpContextId};!=;{null}};{bool;{jget;~res;type};==;web}}}}
+}
 {//;check results}
 {if;{length;{get;~qresults}};==;0;
 {//;no results}
@@ -82,8 +88,8 @@ If none of the arguments below are used, a normal search will be ran.
 {fallback;}
 {if;{get;~qsecolor};!=;{null};
 {set;!~qcolor;{get;~qsecolor}};
-{if;{jget;~qmeta;meta.theme-color};!=;{null};
-{set;!~qcolor;{jget;~qmeta;meta.theme-color}};
+{if;{regexreplace;{color;{jget;~qmeta;meta.theme-color};hex};/^`.*/;};!=;{null};
+{set;!~qcolor;{regexreplace;{color;{jget;~qmeta;meta.theme-color};hex};/^`.*/;}};
 {set;!~qcolor;{func.dlcolors;blurple}}}}
 {if;{jget;~qmeta;meta.og:image};!=;{null};
 {set;!~qthumb;{jget;~qmeta;meta.og:image}};
