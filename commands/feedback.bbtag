@@ -1,6 +1,17 @@
 {//;load functions}
 {inject;{get;_gitcmd.functions}}
 
+{//;function to tell people to use forum channel}
+{function;new_help;
+{embed;{embedbuild;
+title:Feedback Help;
+color:{func.dlcolors;yellow};
+footer.text:{usernick} ({userid});
+footer.icon_url:{useravatar};
+timestamp:{time};
+description:Please see the <#1273182744893067346> channel to post feedback about Discord Linux.;}}
+}
+
 {//;function to output help}
 {function;issues_help;
 {embed;{embedbuild;
@@ -184,6 +195,10 @@ timestamp:{time};
 description:Comment posted successfully.
 {jget;~response;body.html_url};}}
 }
+
+{//;redirect everything to new_help function}
+{func.new_help}
+{return}
 
 {//;detect arguments}
 {switch;{lower;{args;0}};
