@@ -231,6 +231,16 @@ description:`{params;0}` is not a valid channel in {guildname}!;}}}}
 {//;check prefix}
 {func.prefixtest}
 
+
+{//;show message to post in forum channel and return}
+{embed;{embedbuild;
+title:Help for ss;
+color:{func.dlcolors;yellow};
+description:Please create a post in <#1279479239451869236> to share your desktop screenshot.;
+}}
+
+{return}
+
 {//;Detect arguments}
 {fallback;{userid}}
 {switch;{lower;{args;0}};
