@@ -7,6 +7,7 @@
 {//;setup static parts of embed}
 {set;!~embed;[]}
 {push;~embed;title:Info List}
+{push;~embed;url:https://discordlinux.github.io/wiki/}
 {push;~embed;color:{func.dlcolors;yellow}}
 {push;~embed;footer.text:Any arguments not listed will return Wikipedia search results.}
 {//;get rest of embed from manifest}
@@ -116,7 +117,7 @@ description:{get;~desc}{if;{length;{get;~desc}};>=;1900;{space}[...]}
 color:{func.dlcolors;yellow};
 title:Help for supported;
 description:__**Usage**__: `info supported <distro>`
-Searches the [Discord Linux Supported Distros](https://github.com/discordlinux/blargbot-commands/blob/main/commands/info/supported.md) and outputs a list of results.;}}
+Searches the [Discord Linux Supported Distros](https://discordlinux.github.io/wiki/#Supported%20Distributions) and outputs a list of results.;}}
 }
 
 {//;function to get supported distros spreadsheet}
@@ -134,7 +135,7 @@ Searches the [Discord Linux Supported Distros](https://github.com/discordlinux/b
 {set;!~res;{filter;~d;{jget;{request;https://github.com/discordlinux/blargbot-commands/raw/main/commands/info/supported.json};body};{bool;{lower;{jget;~d;name}};includes;{lower;{params}}}}}
 {//;start setting up embed}
 {set;!~embed;[]}
-{push;~embed;title:Is {capitalize;{params}} Supported in Discord Linux?;url:https://github.com/discordlinux/blargbot-commands/blob/main/commands/info/supported.md;color:{func.dlcolors;blurple}}
+{push;~embed;title:Is {capitalize;{params}} Supported in Discord Linux?;url:https://discordlinux.github.io/wiki/#Supported%20Distributions;color:{func.dlcolors;blurple}}
 {//;check for results}
 {if;{length;{get;~res}};==;0;
 {//;no results}
