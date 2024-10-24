@@ -3,14 +3,12 @@
 {//;check prefix}
 {func.prefixtest}
 {//; Set the array here }
-{set;!~request;{clean;{jget;{request;http://cheat.sh/{if;{flag;_};!=;;{uriencode;{flag;_}};:help}?qT&style=bw};body}}}
+{set;!~request;{jget;{request;http://cheat.sh/{if;{flag;_};!=;;{uriencode;{flag;_}};:help}?qT&style=bw};body}}
 {if;{get;~request};startswith;{lb};{set;!~request;{jget;{get;~request};answer}}}
 {if;{get;~request};includes;Unknown topic.;{set;*bash.cht.failed;true};{set;*bash.cht.failed;false}}
 {set;!~arr;{regexsplit;{get;~request};/(\n)/g}}
-{set;!~arr;{filter;~item;{get;~arr};{regextest;{get;~item};/([a-zA-Z0-9])/g}}}
 {//; Set max items per page }
-{if;{flagset;l};{set;~items;{flag;l}};{set;~items;25}}
-{if;{get;~items};>=;55;{set;~items;55}}
+{set;~items;55}
 {//; Make sure args is a valid number }
 {if;{flagset;p};{set;~p;{flag;p}};{set;~p;1}}
 {//; Calculate the max page }
@@ -25,15 +23,16 @@
 {set;~s;{math;*;{math;-;{get;~p};1};{get;~items}}}
 {set;~e;{math;+;{get;~s};{get;~items}}}
 {//; Output of the array }
-{get;~title}
-{repeat;`;3}
-{foreach;~chtsht;{slice;{get;~arr};{get;~s};{get;~e}};
-{get;~chtsht}{newline}
-}--------------------
+{embedbuild;
+title:{get;~title};
+description:{repeat;`;3}bash
+{foreach;~chtsht;{slice;{get;~arr};{get;~s};{get;~e}};{get;~chtsht}}
+--------------------
 Page {get;~p}/{get;~maxp}
 {repeat;`;3}
 }
-{set;~msgid;{output;{func.list}}}
+}
+{set;~msgid;{output;{embed;{func.list}}}}
 {set;~used;0}
 {if;{get;~maxp};>=;2;
 {reactadd;{get;~msgid};⬅➡}
@@ -55,6 +54,6 @@ Page {get;~p}/{get;~maxp}
 9
 }
 {set;~title;Page switch limit reached.  Use `{prefix} {commandname} {flag;_} -p {math;+;{get;~p};1}` to continue.{newline}{get;~title}}
-{edit;{get;~msgid};{func.list}}
+{edit;{get;~msgid};;{func.list}}
 {//; Remove all emojis when waitreaction limit is reached }
 {reactremove;{get;~msgid};{reactlist;{get;~msgid};{reactlist;{get;~msgid}}}}}
