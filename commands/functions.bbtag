@@ -135,7 +135,7 @@ timestamp:{time}}}}
 {function;prefixtest;
 {switch;{guildid};
 ["96230004047740928","204061452707954688"];
-{set;!~used.prefix;{jget;{regexmatch;{replace;{messagetext};./{space};};/^(\.\/|bak\s|sudo\s|su\s|<)/i};0}}
+{set;!~used.prefix;{jget;{regexmatch;{replace;{messagetext};./{space};};/^(\.\/|bk\s|sb\s|bak\s|sudo\s|su\s|<)/i};0}}
 {if;{get;~used.prefix};==;{null};
 {return}}}
 }
