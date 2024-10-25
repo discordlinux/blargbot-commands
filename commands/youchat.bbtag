@@ -1,42 +1,17 @@
-{//;import functions}
+{//;inject functions}
 {inject;{get;_gitcmd.functions}}
-{//;output message while getting results}
+{jset;~head;headers.content-type;application/json;c}
+{jset;~head;method;POST;c}
+{set;!~body;{j;{"searchTerm":"","promptTemplate":"Search term: \"{searchTerm}\"\n\nCreate a summary of the search results in three paragraphs with reference numbers, which you then list numbered at the bottom.\nBe sure to include the reference numbers in the summary.\nIn the text of the summary, the reference numbers should look like this: \"(**[ref 1](<URL of the reference>)**)\".\nFormulate simple sentences.\nInclude blank lines between the paragraphs.\nKeep the total response lenght below 4000 characters.\nDo not reply with an introduction, but start directly with the summary.\nI show you in which format this should be structured:\n\n```\n<Summary of search results with reference numbers>```","searchParameters":"{}","searchResultTemplate":"[{order}] \"{snippet}\"\nURL: {link}"}}}
+{jset;~body;searchTerm;{args}}
 {set;!~ysmsg;{output;{embed;{embedbuild;
-description:Fetching response...;
-thumbnail.url:https://cdn.discordapp.com/emojis/478073442311077889.gif?size=20;
-}}}}
-{//;setup JSON with previous chat history}
-{set;!~chist;[]}
-{set;!~clen;0}
-{if;{get;_yse.hist.{userid}};!=;{null};
-{set;!~chist;{jget;_yse.hist.{userid}}}
-{set;!~clen;{length;{jget;_yse.hist.{userid}}}}
-}
-{//;make request using scrapingant}
-{set;!~result;{func.ant;https://you.com/api/streamingSearch?q={uriencode;{args}}&page=1&count=10&safeSearch=Moderate&mkt=en-US&responseFilter=WebPages,TimeZone,Computation,RelatedSearches&domain=youchat&pastChatLength={get;~clen}&selectedChatMode=default&chat={uriencode;{jget;~chist}}}}
-{//;output error if status not 200}
-{if;{jget;~result;status};!=;200;
-{edit;{channelid};{get;~ysmsg};{usernick}: {get;~result};_delete}
-{return}
-}
-{//;get response from body}
-{set;!~desc;{foreach;~c;{filter;~d;{split;{jget;{get;~result};body};{newline}};{bool;{get;~d};startswith;data:{space}{lb}"youChatToken}};{regexreplace;{jget;{replace;{get;~c};data:{space};};youChatToken};/^####/;###}}}
-{//;save chat history}
-{if;{get;_yse.hist.{userid}};==;{null};
-{set;!_yse.hist.{userid};[]}
-}
-{set;!~pos;{length;{jget;_yse.hist.{userid}}}}
-{jset;_yse.hist.{userid};{get;~pos}.question;{args};c}
-{jset;_yse.hist.{userid};{get;~pos}.answer;{get;~desc};c}
-{if;{length;{jget;_yse.hist.{userid}}};>;3;
-{void;{shift;_yse.hist.{userid}}}
-}
-{//;edit message with response}
+thumbnail.url:{func.linuxhacker};
+description:Fetching response...;}}}}
+{set;!~result;{func.ant;https://app.yoursearch.ai/api;{jget;~head};{jget;~body}}}
+{fallback;No results found}
+{set;!~desc;{jget;~result;body.response}}
 {edit;{channelid};{get;~ysmsg};{embedbuild;
-author.name:You.com;
-author.url:https://you.com;
-author.icon_url:https://sy.imgix.net/youcom.png;
-title:Response for '{substring;{args};0;240}';
-url:https://you.com/?q={uriencode;{args}}&tbm=youchat&fromSearchBar=true;
-description:{substring;{get;~desc};0;4000};
+title:yoursearch.ai -- {args};
+url:https://app.yoursearch.ai/?q={uriencode;{args}};
+description:{get;~desc};
 }}
