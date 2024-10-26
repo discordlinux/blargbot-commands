@@ -86,7 +86,7 @@ description:{params;0};}}
 
 {//;send webhook with modlog embed}
 {func.webhook_send;{get;_modlog.id};{embedbuild;
-image.url:https://x.com/{base64encode;{jget;~mlj}};
+image.url:https://x.com/{uriencode;{jget;~mlj}};
 author.name:{username;{params;0}}#{userdiscrim;{params;0}} ({userid;{params;0}});
 author.icon_url:{useravatar;{params;0}};
 footer.text:{usernick;{params;1}} ({userid;{params;1}});
@@ -123,7 +123,7 @@ description:**Type**: Warn
 
 {//;setup embed}
 {set;!~mlembed;{embedbuild;
-image.url:https://x.com/{base64encode;{jget;~mlj}};
+image.url:https://x.com/{uriencode;{jget;~mlj}};
 author.name:{username;{jget;~mlj;user}}#{userdiscrim;{jget;~mlj;user}} ({userid;{jget;~mlj;user}});
 author.icon_url:{useravatar;{jget;~mlj;user}};
 footer.text:{usernick;{jget;~mlj;mod}} ({userid;{jget;~mlj;mod}});
@@ -186,7 +186,7 @@ description:**Type**: Warn
 
 {//;send webhook with modlog embed}
 {func.webhook_send;{get;_modlog.id};{embedbuild;
-image.url:https://x.com/{base64encode;{jget;~mlj}};
+image.url:https://x.com/{uriencode;{jget;~mlj}};
 author.name:{username;{params;0}}#{userdiscrim;{params;0}} ({userid;{params;0}});
 author.icon_url:{useravatar;{params;0}};
 footer.text:{usernick;{params;1}} ({userid;{params;1}});
@@ -221,7 +221,7 @@ description:**Type**: Pardon
 
 {//;setup embed}
 {set;!~mlembed;{embedbuild;
-image.url:https://x.com/{base64encode;{jget;~mlj}};
+image.url:https://x.com/{uriencode;{jget;~mlj}};
 author.name:{username;{jget;~mlj;user}}#{userdiscrim;{jget;~mlj;user}} ({userid;{jget;~mlj;user}});
 author.icon_url:{useravatar;{jget;~mlj;user}};
 footer.text:{usernick;{jget;~mlj;mod}} ({userid;{jget;~mlj;mod}});
@@ -285,7 +285,7 @@ description:**Type**: Pardon
 
 {//;send webhook with modlog embed}
 {func.webhook_send;{get;_modlog.id};{embedbuild;
-image.url:https://x.com/{base64encode;{jget;~mlj}};
+image.url:https://x.com/{uriencode;{jget;~mlj}};
 author.name:{username;{params;1}}#{userdiscrim;{params;1}} ({userid;{params;1}});
 author.icon_url:{useravatar;{params;1}};
 footer.text:{usernick;{params;2}} ({userid;{params;2}});
@@ -323,7 +323,7 @@ description:**Type**: {capitalize;{params;0}}
 
 {//;setup embed}
 {set;!~mlembed;{embedbuild;
-image.url:https://x.com/{base64encode;{jget;~mlj}};
+image.url:https://x.com/{uriencode;{jget;~mlj}};
 author.name:{username;{jget;~mlj;user}}#{userdiscrim;{jget;~mlj;user}} ({userid;{jget;~mlj;user}});
 author.icon_url:{useravatar;{jget;~mlj;user}};
 footer.text:{usernick;{jget;~mlj;mod}} ({userid;{jget;~mlj;mod}});
@@ -384,7 +384,7 @@ description:**Type**: {capitalize;{jget;~mlj;type}}
 
 {//;send webhook with modlog embed}
 {func.webhook_send;{get;_modlog.id};{embedbuild;
-image.url:https://x.com/{base64encode;{jget;~mlj}};
+image.url:https://x.com/{uriencode;{jget;~mlj}};
 author.name:{username;{params;1}}#{userdiscrim;{params;1}} ({userid;{params;1}});
 author.icon_url:{useravatar;{params;1}};
 footer.text:{usernick;{params;2}} ({userid;{params;2}});
@@ -417,7 +417,7 @@ description:**Type**: {capitalize;{params;0}}
 
 {//;setup embed}
 {set;!~mlembed;{embedbuild;
-image.url:https://x.com/{base64encode;{jget;~mlj}};
+image.url:https://x.com/{uriencode;{jget;~mlj}};
 author.name:{username;{jget;~mlj;user}}#{userdiscrim;{jget;~mlj;user}} ({userid;{jget;~mlj;user}});
 author.icon_url:{useravatar;{jget;~mlj;user}};
 footer.text:{usernick;{jget;~mlj;mod}} ({userid;{jget;~mlj;mod}});
@@ -493,10 +493,10 @@ Update the reason for an existing modlog.  Use either `latest` for the most rece
 {//;set message id}
 {set;!~mlid;{lastmessageid;{get;_modlog.chan}}}
 {//;get log json from modlog embed}
-{set;!~mlj;{base64decode;{replace;{jget;{messageembeds;{get;_modlog.chan};{lastmessageid;{get;_modlog.chan}}};0.image.url};https://x.com/;}}};
+{set;!~mlj;{uridecode;{replace;{jget;{messageembeds;{get;_modlog.chan};{lastmessageid;{get;_modlog.chan}}};0.image.url};https://x.com/;}}};
 
 {set;!~mlid;{args;2}}
-{set;!~mlj;{base64decode;{replace;{jget;{messageembeds;{get;_modlog.chan};{get;~mlid}};0.image.url};https://x.com/;}}}
+{set;!~mlj;{uridecode;{replace;{jget;{messageembeds;{get;_modlog.chan};{get;~mlid}};0.image.url};https://x.com/;}}}
 }
 
 {if;{jget;~mlj;case};==;{null};
