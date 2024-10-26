@@ -81,7 +81,7 @@ description:{params;0};}}
 {jset;~mlj;count;{params;3};c}
 {fallback;}
 {if;{params;4};!=;{null};
-{jset;~mlj;message;{uriencode;{params;4}};c}}
+{jset;~mlj;message;{uriencode;{substring;{params;4};0;200}};c}}
 {fallback}
 
 {//;send webhook with modlog embed}
@@ -95,8 +95,8 @@ timestamp:{time};
 color:{if;{warnings;{params;0}};<;3;{func.dlcolors;yellow};{func.dlcolors;orange}};
 description:**Type**: Warn
 **Reason**: {regexreplace;{regexreplace;{params;2};/'/g;‘};/"/g;”}
-**Warnings**: Given: {params;3} • Total: {warnings;{params;0}}{fallback;}{if;{params;4};!=;{null};{newline}**Message**: {regexreplace;{regexreplace;{params;4};/'/g;‘};/"/g;”}}{fallback}{if;{warnings;{params;0}};>;2;
-{newline}**Warning Limit Reached**: {if;{warnings;{params;0}};>;7;Muted for 1 hour and `users` role removed.;Muted for 15 minutes.}}
+**Warnings**: Given: {params;3} • Total: {warnings;{params;0}}{fallback;}{if;{params;4};!=;{null};{newline}**Message**: {substring;{regexreplace;{regexreplace;{params;4};/'/g;‘};/"/g;”};0;200}}{fallback}{if;{warnings;{params;0}};>;2;
+{newline}**Warning Limit Reached**: Timed out for {math;*;{warnings;{params;0}};10} minutes.}
 **[Link for context]({jget;~mlj;link})**;}}
 
 {//;output error if id not set}
@@ -112,7 +112,7 @@ color:{if;{warnings;{params;0}};<;3;{func.dlcolors;yellow};{func.dlcolors;orange
 description:**Type**: Warn
 **Reason**: {params;2}
 **Warnings**: Given: {params;3} • Total: {warnings;{params;0}}{if;{warnings;{params;0}};>;2;
-{newline}**Warning Limit Reached**: {if;{warnings;{params;0}};>;7;Muted for 1 hour and `users` role removed.;Muted for 15 minutes.}}
+{newline}**Warning Limit Reached**: Timed out for {math;*;{warnings;{params;0}};10} minutes.}
 <#{get;_modlog.chan}>;}}};
 
 ["edit"];
@@ -132,7 +132,7 @@ color:{if;{warnings;{jget;~mlj;user}};<;3;{func.dlcolors;yellow};{func.dlcolors;
 description:**Type**: Warn
 **Reason**: {uridecode;{regexreplace;{regexreplace;{jget;~mlj;reason};/’/g;`};/\//g;}}
 **Warnings**: Given: {jget;~mlj;count} • Total: {warnings;{jget;~mlj;user}}{fallback;}{if;{jget;~mlj;message};!=;{null};{newline}**Message**: {uridecode;{regexreplace;{regexreplace;{jget;~mlj;message};/’/g;`};/\//g;}}}{fallback}{if;{warnings;{jget;~mlj;user}};>;2;
-{newline}**Warning Limit Reached**: {if;{warnings;{jget;~mlj;user}};>;7;Muted for 1 hour and `users` role removed.;Muted for 15 minutes.}}
+{newline}**Warning Limit Reached**: Timed out for {math;*;{warnings;{jget;~mlj;user}};10} minutes.}
 **[Link for context]({jget;~mlj;link})**;}}
 
 {//;edit webhook with modlog embed}
