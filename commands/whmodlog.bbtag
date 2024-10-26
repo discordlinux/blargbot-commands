@@ -87,12 +87,11 @@ description:{params;0};}}
 {//;send webhook with modlog embed}
 {func.webhook_send;{get;_modlog.id};{embedbuild;
 image.url:https://x.com/{uriencode;{jget;~mlj}};
-author.name:{username;{params;0}}#{userdiscrim;{params;0}} ({userid;{params;0}});
+author.name:{username;{params;0}} ({userid;{params;0}});
 author.icon_url:{useravatar;{params;0}};
 footer.text:{usernick;{params;1}} ({userid;{params;1}});
 footer.icon_url:{useravatar;{params;1}};
 timestamp:{time};
-title:Case {jget;~mlj;case};
 color:{if;{warnings;{params;0}};<;3;{func.dlcolors;yellow};{func.dlcolors;orange}};
 description:**Type**: Warn
 **Reason**: {regexreplace;{regexreplace;{params;2};/'/g;‘};/"/g;”}
@@ -107,7 +106,7 @@ description:**Type**: Warn
 
 {//;output modlog to current channel}
 {output;{embed;{embedbuild;
-author.name:{username;{params;0}}#{userdiscrim;{params;0}} ({userid;{params;0}});
+author.name:{username;{params;0}} ({userid;{params;0}});
 author.icon_url:{useravatar;{params;0}};
 color:{if;{warnings;{params;0}};<;3;{func.dlcolors;yellow};{func.dlcolors;orange}};
 description:**Type**: Warn
@@ -124,12 +123,11 @@ description:**Type**: Warn
 {//;setup embed}
 {set;!~mlembed;{embedbuild;
 image.url:https://x.com/{uriencode;{jget;~mlj}};
-author.name:{username;{jget;~mlj;user}}#{userdiscrim;{jget;~mlj;user}} ({userid;{jget;~mlj;user}});
+author.name:{username;{jget;~mlj;user}} ({userid;{jget;~mlj;user}});
 author.icon_url:{useravatar;{jget;~mlj;user}};
 footer.text:{usernick;{jget;~mlj;mod}} ({userid;{jget;~mlj;mod}});
 footer.icon_url:{useravatar;{jget;~mlj;mod}};
 timestamp:{time};
-title:Case {jget;~mlj;case};
 color:{if;{warnings;{jget;~mlj;user}};<;3;{func.dlcolors;yellow};{func.dlcolors;orange}};
 description:**Type**: Warn
 **Reason**: {uridecode;{regexreplace;{regexreplace;{jget;~mlj;reason};/’/g;`};/\//g;}}
@@ -187,12 +185,11 @@ description:**Type**: Warn
 {//;send webhook with modlog embed}
 {func.webhook_send;{get;_modlog.id};{embedbuild;
 image.url:https://x.com/{uriencode;{jget;~mlj}};
-author.name:{username;{params;0}}#{userdiscrim;{params;0}} ({userid;{params;0}});
+author.name:{username;{params;0}} ({userid;{params;0}});
 author.icon_url:{useravatar;{params;0}};
 footer.text:{usernick;{params;1}} ({userid;{params;1}});
 footer.icon_url:{useravatar;{params;1}};
 timestamp:{time};
-title:Case {jget;~mlj;case};
 color:{func.dlcolors;brightgreen};
 description:**Type**: Pardon
 **Reason**: {params;2}
@@ -206,7 +203,7 @@ description:**Type**: Pardon
 
 {//;output modlog to current channel}
 {output;{embed;{embedbuild;
-author.name:{username;{params;0}}#{userdiscrim;{params;0}} ({userid;{params;0}});
+author.name:{username;{params;0}} ({userid;{params;0}});
 author.icon_url:{useravatar;{params;0}};
 color:{func.dlcolors;brightgreen};
 description:**Type**: Pardon
@@ -222,12 +219,11 @@ description:**Type**: Pardon
 {//;setup embed}
 {set;!~mlembed;{embedbuild;
 image.url:https://x.com/{uriencode;{jget;~mlj}};
-author.name:{username;{jget;~mlj;user}}#{userdiscrim;{jget;~mlj;user}} ({userid;{jget;~mlj;user}});
+author.name:{username;{jget;~mlj;user}} ({userid;{jget;~mlj;user}});
 author.icon_url:{useravatar;{jget;~mlj;user}};
 footer.text:{usernick;{jget;~mlj;mod}} ({userid;{jget;~mlj;mod}});
 footer.icon_url:{useravatar;{jget;~mlj;mod}};
 timestamp:{time};
-title:Case {jget;~mlj;case};
 color:{func.dlcolors;brightgreen};
 description:**Type**: Pardon
 **Reason**: {uridecode;{regexreplace;{regexreplace;{jget;~mlj;reason};/’/g;`};/\//g;}}
@@ -286,12 +282,11 @@ description:**Type**: Pardon
 {//;send webhook with modlog embed}
 {func.webhook_send;{get;_modlog.id};{embedbuild;
 image.url:https://x.com/{uriencode;{jget;~mlj}};
-author.name:{username;{params;1}}#{userdiscrim;{params;1}} ({userid;{params;1}});
+author.name:{username;{params;1}} ({userid;{params;1}});
 author.icon_url:{useravatar;{params;1}};
 footer.text:{usernick;{params;2}} ({userid;{params;2}});
 footer.icon_url:{useravatar;{params;2}};
 timestamp:{time};
-title:Case {jget;~mlj;case};
 color:{switch;{params;0};["ban"];{func.dlcolors;red};{func.dlcolors;orange}};
 description:**Type**: {capitalize;{params;0}}
 **Reason**: {params;3}
@@ -308,7 +303,7 @@ description:**Type**: {capitalize;{params;0}}
 {//;do nothing};
 
 {output;{embed;{embedbuild;
-author.name:{username;{params;1}}#{userdiscrim;{params;1}} ({userid;{params;1}});
+author.name:{username;{params;1}} ({userid;{params;1}});
 author.icon_url:{useravatar;{params;1}};
 color:{switch;{params;0};["ban"];{func.dlcolors;red};{func.dlcolors;orange}};
 description:**Type**: {capitalize;{params;0}}
@@ -324,12 +319,11 @@ description:**Type**: {capitalize;{params;0}}
 {//;setup embed}
 {set;!~mlembed;{embedbuild;
 image.url:https://x.com/{uriencode;{jget;~mlj}};
-author.name:{username;{jget;~mlj;user}}#{userdiscrim;{jget;~mlj;user}} ({userid;{jget;~mlj;user}});
+author.name:{username;{jget;~mlj;user}} ({userid;{jget;~mlj;user}});
 author.icon_url:{useravatar;{jget;~mlj;user}};
 footer.text:{usernick;{jget;~mlj;mod}} ({userid;{jget;~mlj;mod}});
 footer.icon_url:{useravatar;{jget;~mlj;mod}};
 timestamp:{time};
-title:Case {jget;~mlj;case};
 color:{switch;{jget;~mlj;type};["ban"];{func.dlcolors;red};{func.dlcolors;orange}};
 description:**Type**: {capitalize;{jget;~mlj;type}}
 **Reason**: {uridecode;{regexreplace;{regexreplace;{jget;~mlj;reason};/’/g;`};/\//g;}}
@@ -385,12 +379,11 @@ description:**Type**: {capitalize;{jget;~mlj;type}}
 {//;send webhook with modlog embed}
 {func.webhook_send;{get;_modlog.id};{embedbuild;
 image.url:https://x.com/{uriencode;{jget;~mlj}};
-author.name:{username;{params;1}}#{userdiscrim;{params;1}} ({userid;{params;1}});
+author.name:{username;{params;1}} ({userid;{params;1}});
 author.icon_url:{useravatar;{params;1}};
 footer.text:{usernick;{params;2}} ({userid;{params;2}});
 footer.icon_url:{useravatar;{params;2}};
 timestamp:{time};
-title:Case {jget;~mlj;case};
 color:{switch;{params;0};["kick"];{func.dlcolors;brightred};["unban"];{func.dlcolors;brightblue};["unmute"];{func.dlcolors;green}};
 description:**Type**: {capitalize;{params;0}}
 **Reason**: {params;3}
@@ -403,7 +396,7 @@ description:**Type**: {capitalize;{params;0}}
 
 {//;output modlog to current channel}
 {output;{embed;{embedbuild;
-author.name:{username;{params;1}}#{userdiscrim;{params;1}} ({userid;{params;1}});
+author.name:{username;{params;1}} ({userid;{params;1}});
 author.icon_url:{useravatar;{params;1}};
 color:{switch;{params;0};["kick"];{func.dlcolors;brightred};["unban"];{func.dlcolors;brightblue};["unmute"];{func.dlcolors;green}};
 description:**Type**: {capitalize;{params;0}}
@@ -418,12 +411,11 @@ description:**Type**: {capitalize;{params;0}}
 {//;setup embed}
 {set;!~mlembed;{embedbuild;
 image.url:https://x.com/{uriencode;{jget;~mlj}};
-author.name:{username;{jget;~mlj;user}}#{userdiscrim;{jget;~mlj;user}} ({userid;{jget;~mlj;user}});
+author.name:{username;{jget;~mlj;user}} ({userid;{jget;~mlj;user}});
 author.icon_url:{useravatar;{jget;~mlj;user}};
 footer.text:{usernick;{jget;~mlj;mod}} ({userid;{jget;~mlj;mod}});
 footer.icon_url:{useravatar;{jget;~mlj;mod}};
 timestamp:{time};
-title:Case {jget;~mlj;case};
 color:{switch;{jget;~mlj;type};["kick"];{func.dlcolors;brightred};["unban"];{func.dlcolors;brightblue};["unmute"];{func.dlcolors;green}};
 description:**Type**: {capitalize;{jget;~mlj;type}}
 **Reason**: {uridecode;{regexreplace;{regexreplace;{jget;~mlj;reason};/’/g;`};/\//g;}}
