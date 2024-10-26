@@ -473,16 +473,17 @@ Update the reason for an existing modlog.  Use either `latest` for the most rece
 {switch;{commandname};
 ["modlog","whmodlog"];
 {func.modlog_help;modlog}
-{return;false}}
+{return;false}
+}
 
 {//;check if being ran through 'reason' command}
-{if;{args;0};==;reason;
+{if;{commandname};==;reason;
 
 {//;set webhook type to edit}
 {set;!~mlwhtype;edit}
 
 {fallback;}
-{switch;{args;1};
+{switch;{args;0};
 
 ["help",""];
 {//;output help}
@@ -495,31 +496,34 @@ Update the reason for an existing modlog.  Use either `latest` for the most rece
 {//;get log json from modlog embed}
 {set;!~mlj;{uridecode;{replace;{jget;{messageembeds;{get;_modlog.chan};{lastmessageid;{get;_modlog.chan}}};0.image.url};https://x.com/;}}};
 
-{set;!~mlid;{args;2}}
+{set;!~mlid;{args;0}}
 {set;!~mlj;{uridecode;{replace;{jget;{messageembeds;{get;_modlog.chan};{get;~mlid}};0.image.url};https://x.com/;}}}
 }
 
 {if;{jget;~mlj;case};==;{null};
-{func.modlog_error;Error getting json from message ID '{args;2}'}
+{func.modlog_error;Error getting json from message ID '{args;0}'}
 {return}}
 
 {//;get type from json}
 {switch;{jget;~mlj;type};
 
 ["warn"];
-{func.modlog_warn;{args;2}};
+{func.modlog_warn;{args;1;n}};
 
 ["pardon"];
-{func.modlog_pardon;{args;2}};
+{func.modlog_pardon;{args;1;n}};
 
 ["mute","ban"];
-{func.modlog_mb;{jget;~mlj;type};{args;2}};
+{func.modlog_mb;{jget;~mlj;type};{args;1;n}};
 
 ["kick","unmute","unban"];
-{func.modlog_kumub;{jget;~mlj;type};{args;2}};
+{func.modlog_kumub;{jget;~mlj;type};{args;1;n}};
 
-{func.modlog_help;reason}}
-;
+{func.modlog_help;reason}
+}
+
+{return}
+}
 
 {//;get current case}
 {fallback;}
@@ -543,4 +547,4 @@ Update the reason for an existing modlog.  Use either `latest` for the most rece
 
 {func.modlog_help;modlog}
 
-}}
+}
