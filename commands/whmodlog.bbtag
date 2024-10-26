@@ -275,9 +275,7 @@ description:**Type**: Pardon
 {jset;~mlj;mod;{params;2};c}
 }
 {jset;~mlj;reason;{uriencode;{params;3}};c}
-{fallback;permanent}
-{jset;~mlj;duration;{if;{params;4};==;{null};permanent;{params;4}};c}
-{fallback}
+{jset;~mlj;duration;{if;{params;4};contains;`;permanent;{params;4}};c}
 
 {//;send webhook with modlog embed}
 {func.webhook_send;{get;_modlog.id};{embedbuild;
