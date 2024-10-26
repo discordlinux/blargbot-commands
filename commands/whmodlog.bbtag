@@ -452,7 +452,7 @@ This command is not meant to be interacted with directly.  To edit a reason for 
 title:Help for reason;
 color:{func.dlcolors;red};
 description:__**Usage**__: `reason <latest|case number> <new reason>`
-Update the reason for an existing modlog.  Use either `latest` for the most recent modlog or specify a case number for a different modlog.;}}
+Update the reason for an existing modlog.  Use either `latest` for the most recent modlog or specify a case number for a different modlog.  The case number is the message ID of the modlog.;}}
 }
 
 }
