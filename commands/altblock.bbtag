@@ -1,0 +1,439 @@
+{//;inject functions}
+{inject;{get;_gitcmd.functions}}
+
+{//;set variables to default values if not set}
+{if;{get;_altblock.length};==;{null};
+{set;!_altblock.length;300}
+}
+{if;{get;_altblock.time};==;{null};
+{set;!_altblock.time;7200}
+}
+{if;{get;_altblock.timeout};==;{null};
+{set;!_altblock.timeout;false}
+}
+{if;{get;_altblock.kick};==;{null};
+{set;!_altblock.kick;false}
+}
+{if;{get;_altblock.ban};==;{null};
+{set;!_altblock.ban;false}
+}
+
+{//;section that is ran in greet}
+{if;{commandname};!=;altblock;
+{//;setup and maintain array of users and creation dates}
+{if;{get;_altblock.array};==;{null};
+{set;!_altblock.array;[]}
+}
+{if;{length;{jget;_altblock.array}};>;{get;_altblock.length};
+{set;!_altblock.array;{reverse;{slice;{reverse;{jget;_altblock.array}};0;{get;_altblock.length}}}}
+}
+{//;reduce _altblock.time for newly created accounts for better accuracy}
+{set;!~altblock.time;{get;_altblock.time}}
+{//;divide _altblock.time by 4 if user created less than 24 hours ago}
+{if;{math;-;{time;X};{usercreatedat;X}};<;86400;
+{set;!~altblock.time;{jget;{split;{math;/;{get;_altblock.time};4};.};0}}
+}
+{//;divide _altblock.time by 24 for accounts newer than _altblock.time}
+{if;{math;-;{time;X};{usercreatedat;X}};<;{get;_altblock.time};
+{set;!~altblock.time;{jget;{split;{math;/;{get;_altblock.time};24};.};0}}
+}
+
+{//;compare current user's creation date against stored array}
+{set;!~altblock.found;false}
+{foreach;~altuser;{jget;_altblock.array};
+{if;{get;~altblock.found};==;false;
+{//;ignore current user}
+{if;{jget;~altuser;id};!=;{userid};
+{//;check if user's creation date minus stored user is less than or equal to ~altblock.time}
+{if;{jget;~altuser;created};>=;{usercreatedat;X};
+{set;!~altuser.time;{math;-;{jget;~altuser;created};{usercreatedat;X}}};
+{set;!~altuser.time;{math;-;{usercreatedat;X};{jget;~altuser;created}}}
+}
+{if;{get;~altuser.time};<=;{get;~altblock.time};
+{set;!~altblock.found;{jget;~altuser}}
+}
+}
+}
+}
+
+{//;add user and creation date to array if not already present}
+{jset;~altblock.user;id;{userid};c}
+{jset;~altblock.user;created;{usercreatedat;X};c}
+{if;{indexof;{jget;_altblock.array};{jget;~altblock.user}};==;-1;
+{push;_altblock.array;{jget;~altblock.user}}
+{commit}
+}
+
+{//;check if foreach loop found matching creation date}
+{if;{get;~altblock.found};!=;false;
+{//;send log message about potential alt}
+{if;{get;_altblock.channel};!=;{null};
+{void;{send;{get;_altblock.channel};;{embedbuild;
+author.name:{username}#{userdiscrim} ({userid});
+author.icon_url:{useravatar};
+title:<:botnet:501196280392056832> Potential Alt Account Joined;
+fields.name:User;
+fields.value:<@!{userid}>;
+fields.inline:false;
+fields.name:Created;
+fields.value:<t:{usercreatedat;X}> ({usercreatedat;X});
+fields.inline:false;
+fields.name:Alt User;
+fields.value:<@!{jget;~altblock.found;id}> {username;{jget;~altblock.found;id}}#{userdiscrim;{jget;~altblock.found;id}} ({jget;~altblock.found;id});
+fields.inline:false;
+fields.name:Alt Created;
+fields.value:<t:{jget;~altblock.found;created}> ({jget;~altblock.found;created});
+fields.inline:false;
+color:{func.dlcolors;yellow};
+timestamp:{time};}}}
+}
+{//;timeout user if timeout is set to true}
+{if;{get;_altblock.timeout};==;true;
+{void;{dm;{userid};You have been timed out in {guildName} due to being identified as a potential alt account.  If you believe this is an error, please message {usermention;{guildownerid}} or an available moderator.}}
+{reason;Potential alt account detected}
+{void;{timeout;{userid};1w;Potential alt account detected;noperms}}
+{//;also timeout matching user if they joined less than 5 minutes ago}
+{if;{math;-;{time;X};{userjoinedat;X;{jget;~altblock.found;id}}};<=;300;
+{void;{timeout;{jget;~altblock.found;id};1w;Potential alt account detected;noperms}}
+}
+{return;false}
+}
+{//;mute user if mute role is set}
+{if;{get;_altblock.mute};!=;{null};
+{void;{dm;{userid};You have been muted in {guildName} due to being identified as a potential alt account.  If you believe this is an error, please message {usermention;{guildownerid}} or an available moderator.}}
+{reason;Potential alt account detected.  Please message {usermention;{guildownerid}} or an available moderator if you believe this is an error.}
+{void;{roleadd;{get;_altblock.mute};{userid}}}
+{//;also mute matching user if they joined less than 5 minutes ago}
+{if;{math;-;{time;X};{userjoinedat;X;{jget;~altblock.found;id}}};<=;300;
+{void;{roleadd;{get;_altblock.mute};{jget;~altblock.found;id}}}
+}
+{return;false}
+}
+{//;kick user if kick is set to true}
+{if;{get;_altblock.kick};==;true;
+{void;{dm;{userid};You have been kicked from {guildName} due to being identified as a potential alt account.  If you believe this is an error, please message {usermention;{guildownerid}}.}}
+{void;{kick;{userid};Potential alt account detected;noperms}}
+{//;also kick matching user if they joined less than 5 minutes ago}
+{if;{math;-;{time;X};{userjoinedat;X;{jget;~altblock.found;id}}};<=;300;
+{void;{kick;{jget;~altblock.found;id};Potential alt account detected;noperms}}
+}
+{return;false}
+}
+{//;ban user if ban is set to true}
+{if;{get;_altblock.ban};==;true;
+{void;{dm;{userid};You have been banned from {guildName} due to being identified as a potential alt account.  If you believe this is an error, please message {usermention;{guildownerid}}.}}
+{void;{ban;{userid};0;Potential alt account detected;;noperms}}
+{//;also ban matching user if they joined less than 5 minutes ago}
+{if;{math;-;{time;X};{userjoinedat;X;{jget;~altblock.found;id}}};<=;300;
+{void;{ban;{jget;~altblock.found;id};0;Potential alt account detected;;noperms}}
+}
+{return;false}
+}
+{//;run custom bbtag if custom tag is present}
+{if;{get;_altblock.custom};!=;{null};
+{void;{inject;{get;_altblock.custom}}}
+}
+
+}
+
+}
+
+{//;setup and help}
+{if;{commandname};==;altblock;
+{switch;{lower;{flag;_}};
+["setup"];
+
+{//;setup}
+
+{//;only allow staff to run setup}
+{if;{isstaff;{userid}};!=;true;
+{void;{send;{channelid};;
+{embedBuild;
+author.name:AltBlock Setup;
+color:{func.dlcolors;red};
+title:User Not Staff;
+description:Error. Only staff members can run AltBlock setup.  Setup exited.;
+}}}
+{return;false}
+}
+
+{//;set _altblock.length}
+{set;!~asm.l;{send;{channelid};;
+{embedBuild;
+author.name:AltBlock Setup;
+thumbnail.url:{func.linuxhacker};
+color:{func.dlcolors;green};
+title:Set Amount Of Users To Store;
+description:Set the amount of users to be stored to be used for checking if a new join is an alt of a previous user.  Default is 300 users.  Less users will result in higher accuracy, but may miss some alt accounts.  More users will result in lower accuracy, but may catch more alt accounts.;
+}}}
+{//;wait for response}
+{set;!~altsetup.users;{waitmessage;{channelid};{userid};;300}}
+{//;return if no response}
+{if;{jget;~altsetup.users;1};==;{null};
+{void;{send;{channelid};;
+{embedBuild;
+author.name:AltBlock Setup;
+color:{func.dlcolors;red};
+title:Set Amount Of Users To Store;
+description:Error. No input detected.  Setup exited.;
+}}}
+{return;false}
+}
+{//;check if input is a number}
+{if;{numformat;{messagetext;{jget;~altsetup.users;0};{jget;~altsetup.users;1}};};==;NaN;
+{void;{send;{channelid};;
+{embedBuild;
+author.name:AltBlock Setup;
+color:{func.dlcolors;red};
+title:Set Amount Of Users To Store;
+description:Error. Input is not a number.  Setup exited.;
+}}}
+{return;false}
+}
+{//;set variable}
+{set;!_altblock.length;{messagetext;{jget;~altsetup.users;0};{jget;~altsetup.users;1}}}
+{void;{delete;{channelid};{get;~asm.l}}}
+
+{//;set _altblock.time}
+{set;!~asm.t;{send;{channelid};;
+{embedBuild;
+author.name:AltBlock Setup;
+thumbnail.url:{func.linuxhacker};
+color:{func.dlcolors;green};
+title:Set Time Detection Window;
+description:Set the amount of seconds between account creation dates to trigger detection of alt accounts.  Default is 7200 seconds (2 hours).  Less time will result in higher accuracy, but may miss some alt accounts.  More time will result in lower accuracy, but may catch more alt accounts.  This time is divided by 4 for accounts less than 24 hours old, and by 24 for accounts that were created less than the given time ago for better accuracy.;
+}}}
+{//;wait for response}
+{set;!~altsetup.time;{waitmessage;{channelid};{userid};;300}}
+{//;return if no response}
+{if;{jget;~altsetup.time;1};==;{null};
+{void;{send;{channelid};;
+{embedBuild;
+author.name:AltBlock Setup;
+color:{func.dlcolors;red};
+title:Set Amount Of Users To Store;
+description:Error. No input detected.  Setup exited.;
+}}}
+{return;false}
+}
+{//;check if input is a number}
+{if;{numformat;{jget;{split;{messagetext;{jget;~altsetup.time;0};{jget;~altsetup.time;1}};{space}};0};};==;NaN;
+{void;{send;{channelid};;
+{embedBuild;
+author.name:AltBlock Setup;
+color:{func.dlcolors;red};
+title:Set Time Detection Window;
+description:Error. Input is not a number.  Setup exited.;
+}}}
+{return;false}
+}
+{//;set variable}
+{set;!_altblock.time;{jget;{split;{messagetext;{jget;~altsetup.time;0};{jget;~altsetup.time;1}};{space}};0}}
+{void;{delete;{channelid};{get;~asm.t}}}
+
+{//;set _altblock.channel}
+{set;!~asm.ch;{send;{channelid};;
+{embedBuild;
+author.name:AltBlock Setup;
+thumbnail.url:{func.linuxhacker};
+color:{func.dlcolors;green};
+title:Set AltBlock Log Channel;
+description:Set the channel where log messages about potential alt accounts will be sent to.;
+}}}
+{//;wait for response}
+{set;!~altsetup.channel;{waitmessage;{channelid};{userid};;300}}
+{//;return if no response}
+{if;{jget;~altsetup.channel;1};==;{null};
+{void;{send;{channelid};;
+{embedBuild;
+author.name:AltBlock Setup;
+color:{func.dlcolors;red};
+title:Set AltBlock Log Channel;
+description:Error. No input detected.  Setup exited.;
+}}}
+{return;false}
+}
+{//;check if input is a channel}
+{if;{numformat;{channelid;{messagetext;{jget;~altsetup.channel;0};{jget;~altsetup.channel;1}}};};==;NaN;
+{void;{send;{channelid};;
+{embedBuild;
+author.name:AltBlock Setup;
+color:{func.dlcolors;red};
+title:Set AltBlock Log Channel;
+description:Error. Input is not a channel.  Setup exited.;
+}}}
+{return;false}
+}
+{//;set variable}
+{set;!_altblock.channel;{channelid;{messagetext;{jget;~altsetup.channel;0};{jget;~altsetup.channel;1}}}}
+{void;{delete;{channelid};{get;~asm.ch}}}
+
+{//;set method for dealing with new accounts}
+{set;!~asm.me;{send;{channelid};;
+{embedBuild;
+author.name:AltBlock Setup;
+thumbnail.url:{func.linuxhacker};
+color:{func.dlcolors;green};
+title:Set Method For Dealing With Detected Potential Alts;
+description:Set the method for dealing with detected potential alt accounts.
+- React with ❌ to take no additional action
+- React with ⏲️ to timeout the user for 1 week
+- React with 🔇 to add a 'muted' role to the user (will be configured after this)
+- React with 👢 to kick the user
+- React with 🔨 to ban the user
+- React with ⚙️ to set a custom action using BBTag (will be configured after this);
+}}}
+{//;add reactions}
+{reactadd;{channelid};{get;~asm.me};❌;⏲️;🔇;👢;🔨;⚙️}
+{//;wait for reaction}
+{set;!~altsetup.react;{waitreact;{get;~asm.me};{userid};["❌","⏲️","🔇","👢","🔨","⚙️"];;300}}
+{void;{delete;{channelid};{get;~asm.me}}}
+{//;detect what reaction was used}
+{switch;{jget;~altsetup.react;3};
+["⏲️"];
+{//;timeout}
+{//;set _altblock.timeout to true and reset rest of relevant variables}
+{set;!_altblock.timeout;true}
+{set;!_altblock.kick;false}
+{set;!_altblock.ban;false}
+{set;!_altblock.mute;}
+{set;!_altblock.custom;}
+{set;!~altsetup.txt;Detected potential alt accounts will be timed out.};
+["👢"];
+{//;kick}
+{//;set _altblock.kick to true and reset rest of relevant variables}
+{set;!_altblock.timeout;false}
+{set;!_altblock.kick;true}
+{set;!_altblock.ban;false}
+{set;!_altblock.mute;}
+{set;!_altblock.custom;}
+{set;!~altsetup.txt;Detected potential alt accounts will be kicked.};
+["🔨"];
+{//;ban}
+{//;set _altblock.ban to true and reset rest of relevant variables}
+{set;!_altblock.timeout;false}
+{set;!_altblock.kick;false}
+{set;!_altblock.ban;true}
+{set;!_altblock.mute;}
+{set;!_altblock.custom;}
+{set;!~altsetup.txt;Detected potential alt accounts will be banned.};
+["⚙️"];
+{//;custom}
+{//;reset rest of relevant variables and ask for custom BBTag}
+{set;!_altblock.timeout;false}
+{set;!_altblock.kick;false}
+{set;!_altblock.ban;false}
+{set;!_altblock.muted;}
+{set;!~asm.cu;{send;{channelid};;
+{embedBuild;
+author.name:AltBlock Setup;
+thumbnail.url:{func.linuxhacker};
+color:{func.dlcolors;green};
+title:Set AltBlock Custom BBTag;
+description:Set the custom BBTag to be executed on potential alt account detection.;
+}}}
+{//;wait for response}
+{set;!~altsetup.custom;{waitmessage;{channelid};{userid};;300}}
+{//;return if no response}
+{if;{jget;~altsetup.custom;1};==;{null};
+{void;{send;{channelid};;
+{embedBuild;
+author.name:AltBlock Setup;
+color:{func.dlcolors;red};
+title:Set AltBlock Custom BBTag;
+description:Error. No input detected.  Setup exited.;
+}}}
+{return;false}
+}
+{//;set variable}
+{set;!_altblock.custom;{messagetext;{jget;~altsetup.custom;0};{jget;~altsetup.custom;1}}}
+{set;!~altsetup.txt;The following custom BBTag will be executed upon potential alt account detection:{newline}{repeat;`;3}{newline}{get;_altblock.custom}{newline}{repeat;`;3}}
+{void;{delete;{channelid};{get;~asm.cu}}};
+["🔇"];
+{//;mute}
+{//;reset rest of relevant variables and ask for muted role}
+{set;!_altblock.timeout;false}
+{set;!_altblock.kick;false}
+{set;!_altblock.ban;false}
+{set;!_altblock.custom;}
+{set;!~asm.mu;{send;{channelid};;
+{embedBuild;
+author.name:AltBlock Setup;
+thumbnail.url:{func.linuxhacker};
+color:{func.dlcolors;green};
+title:Set AltBlock Muted Role;
+description:Set the muted role to add to potential alt accounts on detection.;
+}}}
+{//;wait for response}
+{set;!~altsetup.mute;{waitmessage;{channelid};{userid};;300}}
+{//;return if no response}
+{if;{jget;~altsetup.mute;1};==;{null};
+{void;{send;{channelid};;
+{embedBuild;
+author.name:AltBlock Setup;
+color:{func.dlcolors;red};
+title:Set AltBlock Muted Role;
+description:Error. No input detected.  Setup exited.;
+}}}
+{return;false}
+}
+{//;check if input is a channel}
+{if;{numformat;{roleid;{messagetext;{jget;~altsetup.mute;0};{jget;~altsetup.mute;1}}};};==;NaN;
+{void;{send;{channelid};;
+{embedBuild;
+author.name:AltBlock Setup;
+color:{func.dlcolors;red};
+title:Set AltBlock Muted Role;
+description:Error. Input is not a role.  Setup exited.;
+}}}
+{return;false}
+}
+{//;set variable}
+{set;!_altblock.mute;{roleid;{messagetext;{jget;~altsetup.mute;0};{jget;~altsetup.mute;1}}}}
+{set;!~altsetup.txt;Detected potential alt accounts will be given the <@&{get;_altblock.mute}> role.}
+{void;{delete;{channelid};{get;~asm.mu}}};
+
+{//;no action}
+{set;!_altblock.timeout;false}
+{set;!_altblock.kick;false}
+{set;!_altblock.ban;false}
+{set;!_altblock.mute;}
+{set;!_altblock.custom;}
+{set;!~altsetup.txt;No additional action will be taken on detected potential alt accounts.}
+
+}
+{//;setup completion message}
+{void;{send;{channelid};;
+{embedBuild;
+author.name:AltBlock Setup;
+color:{func.dlcolors;cyan};
+title:AltBlock Setup Complete;
+description:**Stored Users**: {get;_altblock.length}
+**Time Between Creation Dates**: {get;_altblock.time} seconds
+**Log Channel**: <#{get;_altblock.channel}>
+
+{get;~altsetup.txt}
+
+Setup complete.;
+}}};
+
+{//;help output}
+{embed;{embedBuild;
+title:AltBlock Help;
+color:{func.dlcolors;yellow};
+description:__**Usage**__: `altblock [setup]`
+Blocks potential alt accounts based on creation date.  Amount of users to check against, time between creation dates, log channel, and method for dealing with potential alt accounts can be configured through `setup`.
+
+__**Current Configuration**__
+**Stored Users**: {get;_altblock.length}
+**Time Between Creation Dates**: {get;_altblock.time} seconds
+**Log Channel**: {if;{get;_altblock.channel};!=;{null};<#{get;_altblock.channel}>}
+**Timeout**: {get;_altblock.timeout}
+**Muted Role**: {if;{get;_altblock.mute};!=;{null};<@&{get;_altblock.mute}>}
+**Kick**: {get;_altblock.kick}
+**Ban**: {get;_altblock.ban}
+**Custom BBTag**: {if;{get;_altblock.custom};!=;{null};`{get;_altblock.custom}`}
+}}
+
+}
+}
