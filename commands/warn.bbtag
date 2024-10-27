@@ -57,4 +57,4 @@ description:Failed to warn {usermention;{get;~userid}}.  {get;~warns};
 }
 
 {//;modlog}
-{execcc;modlog;warn;{get;~userid};{userid};{get;~count};{get;~reason};{get;~messagetext}}
+{execcc;modlog;warn;{get;~userid};{userid};{get;~reason};{get;~count};{get;~messagetext}}
