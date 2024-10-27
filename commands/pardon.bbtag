@@ -1,20 +1,40 @@
+{//;inject functions}
 {inject;{get;_gitcmd.functions}}
-{inject;{get;_gitcmd.libmod}}
-{if;{flag;_};==;{null};
-{func.error;You have to tell me who to pardon!}
-{return}}
-{//;Set the user.}
+
+{//;get input}
+{set;!~count;{replace;{numformat;{flag;c};};NaN;1}}
+{set;!~reason;{if;{flag;r};==;{null};No reason given;{flag;r}}}
+{set;!~modid;{userid}}
+
+{//;get user to pardon}
 {suppresslookup}
-{set;~user;{userid;{flag;_}}}
-{if;{get;~user};==;{null};
-{func.error;'{flag;_}' is not a valid Discord user.}
-{return}}
-{//;Muting the user.}
-{if;{flagset;r};
-{set;~reason;{flag;r}{zws} {zws}};
-{set;~reason;No reason given.}}
-{func.pardon;{get;~user};{flag;c};{get;~reason}}
-{if;{jget;~libmod;success};!=;true;
-{func.error;Failed to unmute '{flag;_}':{newline}{jget;~libmod;output}}
-{return}}
-{func.whmodlog;pardon;{get;~user};{userid};{get;~reason};{if;{flag;c};!=;{null};{flag;c};1}}
+{set;!~userid;{userid;{flag;_}}}
+
+{//;check if valid user input}
+{switch;{get;~userid};
+["no input given","","{get;~modid}"];
+{//;invalid user input}
+{output;{embed;{embedbuild;
+color:{func.dlcolors;red};
+title:Pardon Error;
+description:Input does not contain valid user;
+}}}
+{return}
+}
+
+{//;pardon user}
+{set;!~warns;{pardon;{get;~userid};{replace;{parseint;{get;~count}};NaN;};{get;~reason}}}
+
+{//;check if pardon succeeded}
+{if;{parseint;{get;~warns}};==;NaN;
+{//;pardon failed}
+{output;{embed;{embedbuild;
+color:{func.dlcolors;red};
+title:Pardon Error;
+description:Failed to pardon {usermention;{get;~userid}}.  {get;~warns};
+}}}
+{return}
+}
+
+{//;modlog}
+{execcc;modlog;pardon;{get;~userid};{userid};{get;~reason};{get;~count}}
