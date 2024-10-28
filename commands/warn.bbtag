@@ -53,7 +53,7 @@ description:Failed to warn {usermention;{get;~userid}}.  {get;~warns};
 
 {//;Time out for 10 x number of warns if 3+ warnings}
 {if;{get;~warns};>;2;
-{void;{timeout;{get;~userid};{math;*;10;{get;~warns}};{get;~reason};noperms}}
+{void;{timeout;{get;~userid};{math;*;10;{get;~warns}}m;{get;~reason};noperms}}
 }
 
 {//;modlog}
