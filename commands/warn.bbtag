@@ -3,7 +3,13 @@
 {//;get input}
 {set;!~count;{replace;{numformat;{flag;c};};NaN;1}}
 {set;!~reason;{if;{flag;r};==;{null};No reason given;{flag;r}}}
-{set;!~modid;{userid}}
+{//;set modid based on commandname}
+{switch;{commandname};
+["warn","rule"];
+{set;!~modid;{userid}};
+{//;set modid to bot's id when ran outside of warn/rule}
+{set;!~modid;{exec;botid}}
+}
 
 {//;check if message is reply}
 {suppresslookup}
