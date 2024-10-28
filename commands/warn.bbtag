@@ -13,7 +13,8 @@
 
 {//;check if message is reply}
 {suppresslookup}
-{if;{commandname};==;warn;
+{switch;{commandname};
+["warn","rule"];
 {if;{flag;m};!=;{null};
 {set;!~wmessageid;{flag;m}};
 {set;!~wmessageid;{messagereply}}
