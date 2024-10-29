@@ -56,6 +56,9 @@ description: No message found.;
 {jset;~msg;message_snapshots.0.mention_roles;[];c}
 {set;!~msg;{jclean;{jget;~msg}}}
 
+{//;reset fallback to show potential errors}
+{fallback}
+
 {//;send quote as message forward}
 {set;!~req;{exec;dapi;POST;/channels/{channelid}/messages;{jget;~msg}}}
 
