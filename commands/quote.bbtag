@@ -16,7 +16,7 @@ description:**Flags**
 
 __**Arguments**__:;
 fields.name:<messageID>;
-fields.value:The ID of the message to quote.;
+fields.value:Quotes a message using message forwarding.  `messageID` is the ID of the message to quote.;
 }}
 {return;false}
 }
