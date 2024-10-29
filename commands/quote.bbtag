@@ -53,7 +53,7 @@ description: No message found.;
 {jset;~msg;message_snapshots.0.mentions;[];c}
 {jset;~msg;message_snapshots.0.mention_roles;[];c}
 {jset;~msg;message_snapshots.0.components;[];c}
-{jset;~msg;message_snapshots.0.content;{messagetext;{get;~chanid};{get;~msgid}};c}
+{jset;~msg;message_snapshots.0.content;-# Sent by {messagesender;{get;~chanid};{get;~msgid}}{newline}{messagetext;{get;~chanid};{get;~msgid}};c}
 {jset;~msg;message_snapshots.0.attachments;[];c}
 {jset;~msg;message_snapshots.0.embeds;{messageembeds;{get;~chanid};{get;~msgid}};c}
 {jset;~msg;message_snapshots.0.timestamp;{messagetime;{get;~chanid};{get;~msgid};YYYY-MM-DDTHH:mm:ss.SSSSSSZ};c}
