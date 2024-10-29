@@ -45,19 +45,13 @@ description: No message found.;
 }
 
 {//;setup reference message JSON}
-{set;!~msg;{j;{"message_reference":{"type":1},"message_snapshots":[{"type":0,"flags":0}]}}}
+{set;!~msg;{j;{"message_reference":{"type":1}}}}
 {jset;~msg;content;{null};c}
 {jset;~msg;message_reference.channel_id;{get;~chanid};c}
 {jset;~msg;message_reference.message_id;{get;~msgid};c}
 {jset;~msg;message_reference.guild_id;{guildid};c}
 {jset;~msg;message_snapshots.0.mentions;[];c}
 {jset;~msg;message_snapshots.0.mention_roles;[];c}
-{jset;~msg;message_snapshots.0.components;[];c}
-{jset;~msg;message_snapshots.0.content;-# Sent by {messagesender;{get;~chanid};{get;~msgid}}{newline}{messagetext;{get;~chanid};{get;~msgid}};c}
-{jset;~msg;message_snapshots.0.attachments;[];c}
-{jset;~msg;message_snapshots.0.embeds;{messageembeds;{get;~chanid};{get;~msgid}};c}
-{jset;~msg;message_snapshots.0.timestamp;{messagetime;{get;~chanid};{get;~msgid};YYYY-MM-DDTHH:mm:ss.SSSSSSZ};c}
-{jset;~msg;message_snapshots.0.edited_timestamp;{messageedittime;{get;~chanid};{get;~msgid};YYYY-MM-DDTHH:mm:ss.SSSSSSZ};c}
 {set;!~msg;{jclean;{jget;~msg}}}
 
 {//;send quote as message forward}
