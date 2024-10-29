@@ -6,7 +6,7 @@
 {bool;{commandname};==;help};
 {bool;{flag;_};==;help};
 {bool;{flag;_};==;{null}}};
-{output;{embed;{embedbuild;
+{embed;{embedbuild;
 author.name:{guildname};
 author.icon_url:{guildicon};
 color:{func.dlcolors;yellow};
@@ -17,7 +17,7 @@ description:**Flags**
 __**Arguments**__:;
 fields.name:<messageID>;
 fields.value:The ID of the message to quote.;
-}}}
+}}
 {return;false}
 }
 
