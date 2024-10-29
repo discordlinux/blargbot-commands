@@ -16,7 +16,7 @@ __**Arguments**__:;
 fields.name:<messageID>;
 fields.value:The ID of the message to quote.;
 }}}
-{return}
+{return;false}
 }
 
 {//;fallback to null}
