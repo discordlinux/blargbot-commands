@@ -1,0 +1,73 @@
+{//;inject functions}
+{inject;{get;_gitcmd.functions}}
+
+{//;output help}
+{switch;{flag;_};
+["help",""];
+{output;{embed;{embedbuild;
+author.name:{guildname};
+author.icon_url:{guildicon};
+color:{func.dlcolors;yellow};
+title:Help for quote;
+description:**Flags**
+`-c`: Channel to fetch message from if not current channel.
+
+__**Arguments**__:;
+fields.name:<messageID>;
+fields.value:The ID of the message to quote.;
+}}}
+{return}
+}
+
+{//;fallback to null}
+{fallback;}
+
+{//;set message id}
+{if;{flag;_};==;{null};
+{set;!~msgid;{messagereply}};
+{set;!~msgid;{flag;_}}
+}
+
+{//;set channel id}
+{if;{flag;c};==;{null};
+{set;!~chanid;{channelid}};
+{set;!~chanid;{channelid;{flag;c}}}
+}
+
+{//;check if message exists}
+{if;{messagetime;{get;~chanid};{get;~msgid}};==;{null};
+{output;{embed;{embedbuild;
+color:{func.dlcolors;red};
+title:Quote Error;
+description: No message found.;
+}}}
+{return}
+}
+
+{//;setup reference message JSON}
+{set;!~msg;{j;{"message_reference":{"type":1},"message_snapshots":[{"type":0,"flags":0}]}}}
+{jset;~msg;content;{null};c}
+{jset;~msg;message_reference.channel_id;{get;~chanid};c}
+{jset;~msg;message_reference.message_id;{get;~msgid};c}
+{jset;~msg;message_reference.guild_id;{guildid};c}
+{jset;~msg;message_snapshots.0.mentions;[];c}
+{jset;~msg;message_snapshots.0.mention_roles;[];c}
+{jset;~msg;message_snapshots.0.components;[];c}
+{jset;~msg;message_snapshots.0.content;{messagetext;{get;~chanid};{get;~msgid}};c}
+{jset;~msg;message_snapshots.0.attachments;[];c}
+{jset;~msg;message_snapshots.0.embeds;{messageembeds;{get;~chanid};{get;~msgid}};c}
+{jset;~msg;message_snapshots.0.timestamp;{messagetime;{get;~chanid};{get;~msgid};YYYY-MM-DDTHH:mm:ss.SSSSSSZ};c}
+{jset;~msg;message_snapshots.0.edited_timestamp;{messageedittime;{get;~chanid};{get;~msgid};YYYY-MM-DDTHH:mm:ss.SSSSSSZ};c}
+{set;!~msg;{jclean;{jget;~msg}}}
+
+{//;send quote as message forward}
+{set;!~req;{exec;dapi;POST;/channels/{channelid}/messages;{jget;~msg}}}
+
+{//;check req status}
+{if;{jget;~req;status};!=;200;
+{output;{embed;{embedbuild;
+color:{func.dlcolors;red};
+title:Quote Error;
+description: {get;~req};
+}}}
+}
