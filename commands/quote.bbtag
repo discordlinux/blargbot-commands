@@ -2,8 +2,10 @@
 {inject;{get;_gitcmd.functions}}
 
 {//;output help}
-{switch;{flag;_};
-["help",""];
+{if;{logic;||;
+{bool;{commandname};==;help};
+{bool;{flag;_};==;help};
+{bool;{flag;_};==;{null}}};
 {output;{embed;{embedbuild;
 author.name:{guildname};
 author.icon_url:{guildicon};
