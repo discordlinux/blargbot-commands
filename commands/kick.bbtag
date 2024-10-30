@@ -39,7 +39,7 @@ description:Input does not contain valid user;
 }
 
 {//;DM user before kicking}
-{void;{dm;{get;~user};**You have been kicked from {guildname} by <@{get;~modid}>!**{newline}**Reason**: {get;~reason}}}
+{void;{dm;{get;~userid};**You have been kicked from {guildname} by <@{get;~modid}>!**{newline}**Reason**: {get;~reason}}}
 
 {//;kick user}
 {set;!~kicked;{kick;{get;~userid};{get;~reason}}}
