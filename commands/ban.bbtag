@@ -31,8 +31,7 @@
 {set;!~userid;{userid;{jget;{split;{flag;_};{space}};0}}}
 {//;get days from input}
 {if;{numformat;{jget;{split;{flag;_};{space}};1};};!=;NaN;
-{set;!~deletedays;{jget;{split;{flag;_};{space}};1}};
-{set;!~deletedays;0}
+{set;!~deletedays;{jget;{split;{flag;_};{space}};1}}
 };
 {set;!~userid;{userid;{flag;_}}}
 }}
