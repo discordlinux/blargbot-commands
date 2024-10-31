@@ -15,10 +15,8 @@
 {suppresslookup}
 {switch;{commandname};
 ["kick"];
-{if;{flag;m};!=;{null};
-{set;!~kmessageid;{flag;m}};
 {set;!~kmessageid;{messagereply}}
-}}
+}
 
 {//;get user to kick}
 {if;{get;~kmessageid};!=;{null};
