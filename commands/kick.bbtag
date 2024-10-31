@@ -43,7 +43,7 @@ description:Input does not contain valid user;
 {set;!~kicked;{kick;{get;~userid};{get;~reason}}}
 
 {//;check if kick succeeded}
-{if;{parseint;{get;~kicked}};==;false;
+{if;{get;~kicked};startswith;`;
 {//;kick failed}
 {output;{embed;{embedbuild;
 color:{func.dlcolors;red};
