@@ -64,7 +64,10 @@ description:Input does not contain valid user;
 {void;{dm;{get;~userid};**You have been banned from {guildname} by <@{get;~modid}>!**{newline}**Reason**: {get;~reason}{newline}**Duration**: {if;{get;~duration};==;{null};permanent;{get;~duration}}}}
 
 {//;ban user}
+{if;{get;~duration};==;{null};
+{set;!~banned;{ban;{get;~userid};{get;~deletedays};{get;~reason}}};
 {set;!~banned;{ban;{get;~userid};{get;~deletedays};{get;~reason};{get;~duration}}}
+}
 
 {//;check if ban succeeded}
 {if;{get;~banned};startswith;`;
