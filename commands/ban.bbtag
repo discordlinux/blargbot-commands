@@ -1,0 +1,75 @@
+{//;inject functions}
+{inject;{get;_gitcmd.functions}}
+
+{//;get input}
+{set;!~reason;{if;{flag;r};==;{null};No reason given;{flag;r}}}
+{set;!~duration;{flag;t}}
+{//;set modid based on commandname}
+{switch;{commandname};
+["ban"];
+{set;!~modid;{userid}};
+{//;set modid to bot's id when ran outside of ban command}
+{set;!~modid;{exec;botid}}
+}
+
+{//;check if message is reply}
+{suppresslookup}
+{switch;{commandname};
+["ban"];
+{set;!~bmessageid;{messagereply}}
+}
+
+{//;get user to ban and days of messages to delete}
+{if;{get;~bmessageid};!=;{null};
+{set;!~userid;{messagesender;{get;~bmessageid}}}
+{//;check for days input}
+{if;{numformat;{flag;_};};!=;NaN;
+{set;!~deletedays;{flag;_}}
+};
+{//;check if input contains days}
+{if;{length;{split;{flag;_};{space}}};>;1;
+{set;!~userid;{userid;{jget;{split;{flag;_};{space}};0}}}
+{//;get days from input}
+{if;{numformat;{jget;{split;{flag;_};{space}};1};};!=;NaN;
+{set;!~deletedays;{jget;{split;{flag;_};{space}};1}};
+{set;!~deletedays;0}
+};
+{set;!~userid;{userid;{flag;_}}}
+}}
+
+{//;check if days set}
+{if;{get;~deletedays};==;{null};
+{set;!~deletedays;0}
+}
+
+{//;check if valid user input}
+{switch;{get;~userid};
+["no input given","","{get;~modid}"];
+{//;invalid user input}
+{output;{embed;{embedbuild;
+color:{func.dlcolors;red};
+title:Ban Error;
+description:Input does not contain valid user;
+}}}
+{return}
+}
+
+{//;DM user before banning}
+{void;{dm;{get;~userid};**You have been banned from {guildname} by <@{get;~modid}>!**{newline}**Reason**: {get;~reason}}}
+
+{//;ban user}
+{set;!~banned;{ban;{get;~userid};{get;~deletedays};{get;~reason};{get;~duration}}}
+
+{//;check if ban succeeded}
+{if;{get;~banned};startswith;`;
+{//;ban failed}
+{output;{embed;{embedbuild;
+color:{func.dlcolors;red};
+title:Ban Error;
+description:Failed to ban {usermention;{get;~userid}}.  {get;~kicked};
+}}}
+{return}
+}
+
+{//;modlog}
+{execcc;modlog;ban;{get;~userid};{get;~modid};{get;~reason};{if;{get;~duration};==;{null};permanent;{get;~duration}}}
