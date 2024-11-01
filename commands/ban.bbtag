@@ -74,7 +74,7 @@ description:Input does not contain valid user;
 {output;{embed;{embedbuild;
 color:{func.dlcolors;red};
 title:Ban Error;
-description:Failed to ban {usermention;{get;~userid}}.  {get;~kicked};
+description:Failed to ban {usermention;{get;~userid}}.  {get;~banned};
 }}}
 {return}
 }
