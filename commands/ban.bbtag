@@ -3,7 +3,7 @@
 
 {//;if clear is first arg run unban}
 {if;{lower;{args;0}};==;clear;
-{execcc;unban;{args;1};{flag;r}}
+{execcc;unban;{args;1};-r {flag;r}}
 {return}
 }
 
