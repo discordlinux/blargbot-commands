@@ -1,0 +1,48 @@
+{//;inject functions}
+{inject;{get;_gitcmd.functions}}
+
+{//;get input}
+{set;!~reason;{if;{flag;r};==;{null};No reason given;{flag;r}}}
+{set;!~duration;{flag;t}}
+{set;!~modid;{userid}}
+
+{//;check if message is reply}
+{suppresslookup}
+{switch;{commandname};
+["unban"];
+{set;!~umessageid;{messagereply}}
+}
+
+{//;get user to unban}
+{if;{get;~umessageid};!=;{null};
+{set;!~userid;{messagesender;{get;~umessageid}}};
+{set;!~userid;{userid;{flag;_}}}
+}
+
+{//;check if valid user input}
+{switch;{get;~userid};
+["no input given","","{get;~modid}"];
+{//;invalid user input}
+{output;{embed;{embedbuild;
+color:{func.dlcolors;red};
+title:Unban Error;
+description:Input does not contain valid user;
+}}}
+{return}
+}
+
+{set;!~unbanned;{unban;{get;~userid};{get;~deletedays};{get;~reason}}}
+
+{//;check if unban succeeded}
+{if;{get;~unbanned};startswith;`;
+{//;unban failed}
+{output;{embed;{embedbuild;
+color:{func.dlcolors;red};
+title:Unban Error;
+description:Failed to unban {usermention;{get;~userid}}.  {get;~unbanned};
+}}}
+{return}
+}
+
+{//;modlog}
+{execcc;modlog;unban;{get;~userid};{get;~modid};{get;~reason}}
