@@ -1,6 +1,12 @@
 {//;inject functions}
 {inject;{get;_gitcmd.functions}}
 
+{//;if clear is first arg run unban}
+{if;{lower;{args;0}};==;clear;
+{execcc;unban;{args;1};{flag;r}}
+{return}
+}
+
 {//;get input}
 {set;!~reason;{if;{flag;r};==;{null};No reason given;{flag;r}}}
 {set;!~duration;{flag;t}}
@@ -50,12 +56,6 @@ color:{func.dlcolors;red};
 title:Ban Error;
 description:Input does not contain valid user;
 }}}
-{return}
-}
-
-{//;if clear is first arg run unban}
-{if;{lower;{args;0}};==;clear;
-{execcc;unban;{args;1};{flag;r}}
 {return}
 }
 
