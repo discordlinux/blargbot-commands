@@ -3,7 +3,6 @@
 
 {//;get input}
 {set;!~reason;{if;{flag;r};==;{null};No reason given;{flag;r}}}
-{set;!~duration;{flag;t}}
 {set;!~modid;{userid}}
 
 {//;check if message is reply}
@@ -31,7 +30,7 @@ description:Input does not contain valid user;
 {return}
 }
 
-{set;!~unbanned;{unban;{get;~userid};{get;~deletedays};{get;~reason}}}
+{set;!~unbanned;{unban;{get;~userid};{get;~reason}}}
 
 {//;check if unban succeeded}
 {if;{get;~unbanned};startswith;`;
