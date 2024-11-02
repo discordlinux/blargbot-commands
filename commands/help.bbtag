@@ -93,7 +93,25 @@ description: No help entry found for `{get;~cmd}`.;
 
 {//;function to list help entries}
 {function;helplist;
-TODO
+{//;setup embed base}
+{set;!~hfields;[]}
+{push;~hfields;author.name:{guildname}}
+{push;~hfields;author.icon_url:{guildicon}}
+{push;~hfields;color:{func.dlcolors;blurple}}
+
+{//;loop through each category and add entries to field array}
+{foreach;~key;{jkeys;~helpjson};
+{//;set category name to role mention if mention is valid}
+{fallback;{get;~key}}
+{set;!~catname;{rolemention;{get;~key}}}
+{//;push name and entries to fields array}
+{push;~hfields;fields.name:{get;~catname}}
+{push;~hfields;fields.value:{repeat;`;3}{newline}{foreach;~entry;{jget;~helpjson;{get;~key}};{jget;{jkeys;~entry};0},{space}}{newline}{repeat;`;3}}
+{push;~hfields;fields.inline:false}
+}
+
+{//;build help list embed}
+{output;{embed;{apply;embedbuild;{jget;~hfields}}}}
 }
 
 {//;fetch help.json file}
