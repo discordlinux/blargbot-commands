@@ -13,6 +13,7 @@
 }
 
 {//;get user to unban}
+{fallback;}
 {if;{get;~umessageid};!=;{null};
 {set;!~userid;{messagesender;{get;~umessageid}}};
 {set;!~userid;{userid;{flag;_}}}
@@ -29,6 +30,7 @@ description:Input does not contain valid user;
 }}}
 {return}
 }
+{fallback}
 
 {set;!~unbanned;{unban;{get;~userid};{get;~reason}}}
 

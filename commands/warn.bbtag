@@ -21,6 +21,7 @@
 }}
 
 {//;get user to warn}
+{fallback;}
 {if;{get;~wmessageid};!=;{null};
 {set;!~userid;{messagesender;{get;~wmessageid}}};
 {set;!~userid;{userid;{flag;_}}}
@@ -37,6 +38,7 @@ description:Input does not contain valid user;
 }}}
 {return}
 }
+{fallback}
 
 {//;warn user}
 {set;!~warns;{warn;{get;~userid};{replace;{parseint;{get;~count}};NaN;};{get;~reason}}}

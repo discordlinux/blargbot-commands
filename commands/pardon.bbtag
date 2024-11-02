@@ -7,6 +7,7 @@
 {set;!~modid;{userid}}
 
 {//;get user to pardon}
+{fallback;}
 {suppresslookup}
 {set;!~userid;{userid;{flag;_}}}
 
@@ -21,6 +22,7 @@ description:Input does not contain valid user;
 }}}
 {return}
 }
+{fallback}
 
 {//;pardon user}
 {set;!~warns;{pardon;{get;~userid};{replace;{parseint;{get;~count}};NaN;};{get;~reason}}}

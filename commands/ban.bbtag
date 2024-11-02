@@ -26,6 +26,7 @@
 }
 
 {//;get user to ban and days of messages to delete}
+{fallback;}
 {if;{get;~bmessageid};!=;{null};
 {set;!~userid;{messagesender;{get;~bmessageid}}}
 {//;check for days input}
@@ -58,6 +59,7 @@ description:Input does not contain valid user;
 }}}
 {return}
 }
+{fallback}
 
 {//;DM user before banning}
 {void;{dm;{get;~userid};**You have been banned from {guildname} by <@{get;~modid}>!**{newline}**Reason**: {get;~reason}{newline}**Duration**: {if;{get;~duration};==;{null};permanent;{get;~duration}}}}
