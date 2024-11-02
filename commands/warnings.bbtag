@@ -1,0 +1,40 @@
+{//;inject functions}
+{inject;{get;_gitcmd.functions}}
+
+{//;get user}
+{suppresslookup}
+{fallback;}
+{if;{flag;_};==;{null};
+{set;!~userid;{userid}};
+{set;!~userid;{userid;{flag;_}}}
+}
+
+{//;check if valid user input}
+{if;{get;~userid};==;{null};
+{//;invalid user input}
+{output;{embed;{embedbuild;
+color:{func.dlcolors;red};
+title:Warnings Error;
+description:Input does not contain valid user;
+}}}
+{return}
+}
+{fallback}
+
+{//;get warnings}
+{set;!~warns;{warnings;{get;~userid}}}
+{if;{get;~warns};==;1;
+{set;!~warntext;warning};
+{set;!~warntext;warnings}
+}
+
+{//;output warnings}
+{output;{embed;{embedbuild;
+author.name:{guildname};
+author.icon_url:{guildicon};
+color:{func.dlcolors;yellow};
+description:{usermention;{get;~userid}} has {get;~warns} {get;~warntext}.;
+footer.text:{username;{get;~userid}} ({get;~userid});
+footer.icon_url:{useravatar;{get;~userid}};
+timestamp:{time};
+}}}
