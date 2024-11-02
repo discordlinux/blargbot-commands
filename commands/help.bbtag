@@ -105,8 +105,8 @@ description: No help entry found for `{get;~cmd}`.;
 {fallback;{get;~key}}
 {set;!~catname;{rolemention;{get;~key}}}
 {//;push name and entries to fields array}
-{push;~hfields;fields.name:{get;~catname}}
-{push;~hfields;fields.value:{repeat;`;3}{newline}{foreach;~entry;{jget;~helpjson;{get;~key}};{jget;{jkeys;~entry};0},{space}}{newline}{repeat;`;3}}
+{push;~hfields;fields.name:{zws}}
+{push;~hfields;fields.value:{get;~catname}{newline}{repeat;`;3}{newline}{foreach;~entry;{jget;~helpjson;{get;~key}};{join;{jkeys;~entry};,{space}}}{newline}{repeat;`;3}}
 {push;~hfields;fields.inline:false}
 }
 
