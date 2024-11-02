@@ -1,0 +1,181 @@
+{//;inject functions}
+{inject;{get;_gitcmd.functions}}
+
+{//;function to get help from blargbot's API}
+{function;helpapi;
+{set;!~req;{request;https://blargbot.xyz/api/commands/{get;~cmd}}}
+
+{//;error}
+{if;{jget;~req;status};!=;200;
+{output;{embed;{embedbuild;
+author.name:{guildname};
+author.icon_url:{guildicon};
+title:Help not found for {get;~cmd};
+color:{func.dlcolors;red};
+description: No help entry found for `{get;~cmd}`.;
+}}}
+}
+
+{//;setup embed array}
+{set;!~emb.ar;[]}
+{set;!~fields;[]}
+{push;~emb.ar;title:Help for {jget;~req;body.name}}
+{push;~emb.ar;url:https://blargbot.xyz/commands#{jget;~req;body.name}}
+{push;~emb.ar;color:{get;~color}}
+{push;~emb.ar;author.name:{guildname}}
+{push;~emb.ar;author.icon_url:{guildicon}}
+
+{//;flags}
+{if;{length;{jget;~req;body.flags}};>;0;
+{push;~fields;fields.name:Flags}
+{if;{logic;&&;
+{bool;{length;{jget;~req;body.aliases}};==;0};
+{bool;{jget;~req;body.description};==;{null}}};
+{push;~fields;fields.value:{foreach;~flag;{jget;~req;body.flags};`-{jget;~flag;flag} / --{jget;~flag;word}`: {jget;~flag;description}{newline}}{zws}{newline}__**Arguments**__:};
+{push;~fields;fields.value:{foreach;~flag;{jget;~req;body.flags};`-{jget;~flag;flag} / --{jget;~flag;word}`: {jget;~flag;description}{newline}}}
+}
+{push;~fields;fields.inline:false};
+}
+
+{//;aliases}
+{if;{length;{jget;~req;body.aliases}};>;0;
+{if;{jget;~req;body.description};!=;{null};
+{push;~emb.ar;description:{jget;~req;body.description}}
+}
+{push;~fields;fields.name:Aliases}
+{push;~fields;fields.value:{zws}`{join;{jget;~req;body.aliases};`}`{newline}{zws}{newline}__**Arguments**__:}
+{push;~fields;fields.inline:false};
+{if;{jget;~req;body.description};!=;{null};
+{push;~emb.ar;description:{jget;~req;body.description}{newline}{zws}{newline}__**Arguments**__:}
+}
+}
+
+{//;arguments}
+{if;{length;{jget;~req;body.signatures}};>;0;
+{foreach;~sig;{jget;~req;body.signatures};
+{if;{jget;~sig;hidden};!=;true;
+{//;parts of argument}
+{set;!~panam;[]}
+{set;!~pdesc;}
+{foreach;~param;{jget;~sig;parameters};
+{if;{jget;~param;hidden}{jget;~param;kind};==;literal;
+{push;~panam;{jget;~param;name}}
+{if;{length;{jget;~param;aliases}};>;0;
+{set;!~pdesc;Aliases for {jget;~param;name}: `{join;{jget;~param;aliases};`,}`{newline}{jget;~sig;description}};
+{if;{get;~pdesc};==;{null};
+{set;!~pdesc;{jget;~sig;description}}
+}
+};
+{if;{get;~pdesc};==;{null};
+{set;!~pdesc;{jget;~sig;description}}
+}
+{if;{logic;||;
+{bool;0{jget;~param;minLength};>;0};
+{bool;{jget;~param;requi{func.dlcolors;red}};==;true}};
+{push;~panam;<{jget;~param;name}>};
+{push;~panam;[{jget;~param;name}]}
+}
+}
+}
+{if;{length;{jget;~panam}};==;0;
+{push;~emb.ar;description:{zws}{jget;~sig;description}{newline}{zws}{newline}__**Arguments**__:};
+{push;~fields;fields.name:{prefix}{jget;~req;body.name} {join;~panam;{space}}}
+{push;~fields;fields.value:{zws}{get;~pdesc}}
+{push;~fields;fields.inline:false}
+}
+}
+}
+}
+
+{//;output embed}
+{output;{embed;{apply;embedbuild;{jget;~emb.ar};{jget;~fields}}}}
+}
+
+{//;function to list help entries}
+{function;helplist;
+TODO
+}
+
+{//;fetch help.json file}
+{set;!~helpjson;{jget;{request;{get;@help.json}};body}}
+
+{if;{get;~helpjson};==;{null};
+{output;{embed;{embedbuild;
+author.name:{guildname};
+author.icon_url:{guildicon};
+title:Error Fetching help.json;
+color:{func.dlcolors;red};
+description: Please make sure to set the variable `@help.json` to the URL of your help.json file.;
+}}}
+{return}
+}
+
+{//;output list if no input}
+{if;{flag;_};==;{null};
+{func.helplist}
+{return}
+}
+
+{//;get input}
+{set;!~cmd;{lower;{flag;_}}}
+
+{//;check help.json for matching command}
+{foreach;~key;{jkeys;~helpjson};
+{//;check for matching entry in each category}
+{if;{get;~helptype};==;{null};
+{foreach;~entry;{jget;~helpjson;{get;~key}};
+{if;{jget;~entry;{get;~cmd}};!=;{null};
+{//;matching entry found}
+{set;!~helpcat;{get;~key}}
+{set;!~helptype;{jget;~entry;{get;~cmd}}}
+}}}}
+
+{//;check if match found}
+{if;{get;~helpcat};==;{null};
+{output;{embed;{embedbuild;
+author.name:{guildname};
+author.icon_url:{guildicon};
+title:Help not found for {get;~cmd};
+color:{func.dlcolors;red};
+description:No help entry found for `{get;~cmd}`.;
+}}}
+{return}
+}
+
+{//;set embed color based on category}
+{switch;{get;~helpcat};
+["tty"];
+{set;!~color;{jget;{embedbuild;color:{func.dlcolors;gray};};color}};
+["users"];
+{set;!~color;{jget;{embedbuild;color:{func.dlcolors;brightyellow};};color}};
+["sudoers"];
+{set;!~color;{jget;{embedbuild;color:{func.dlcolors;brightorange};};color}};
+["trusted"];
+{set;!~color;{jget;{embedbuild;color:{func.dlcolors;orange};};color}};
+["systemd"];
+{set;!~color;{jget;{embedbuild;color:{func.dlcolors;red};};color}}
+}
+
+{//;run helpapi function if type is api}
+{if;{get;~helptype};==;api;
+{func.helpapi}
+{return}
+}
+
+{//;otherwise get embed from command and change color}
+{set;!~helpembed;{execcc;{get;~cmd};help}}
+{//;make sure embed is json}
+{if;{jget;~helpembed};==;{jget;{null}};
+{output;{embed;{embedbuild;
+author.name:{guildname};
+author.icon_url:{guildicon};
+title:Help embed not found for {get;~cmd};
+color:{func.dlcolors;red};
+description:Error getting help embed for `{get;~cmd}`.;
+}}}
+{return}
+}
+{//;set embed color}
+{jset;~helpembed;color;{get;~color};c}
+{//;output help embed}
+{output;{embed;{jget;~helpembed}}}
