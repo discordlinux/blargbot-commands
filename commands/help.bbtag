@@ -98,6 +98,7 @@ description: No help entry found for `{get;~cmd}`.;
 {push;~hfields;author.name:{guildname} Commands}
 {push;~hfields;author.icon_url:{guildicon}}
 {push;~hfields;color:{func.dlcolors;blurple}}
+{push;~hfields;footer.text:See '{prefix} help <command>' for help with a specific command}
 
 {//;loop through each category and add entries to field array}
 {foreach;~key;{jkeys;~helpjson};
