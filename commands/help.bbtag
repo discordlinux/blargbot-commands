@@ -95,7 +95,7 @@ description: No help entry found for `{get;~cmd}`.;
 {function;helplist;
 {//;setup embed base}
 {set;!~hfields;[]}
-{push;~hfields;author.name:{guildname}}
+{push;~hfields;author.name:{guildname} Commands}
 {push;~hfields;author.icon_url:{guildicon}}
 {push;~hfields;color:{func.dlcolors;blurple}}
 
