@@ -142,7 +142,22 @@ description:No help entry found for `{get;~cmd}`.;
 {return}
 }
 
-{//;set embed color based on category}
+{//;set embed color based on category and type}
+{if;{get;~helptype};==;api;
+{//;use hex color if type is api}
+{switch;{get;~helpcat};
+["tty"];
+{set;!~color;{func.dlcolors;gray}};
+["users"];
+{set;!~color;{func.dlcolors;brightyellow}};
+["sudoers"];
+{set;!~color;{func.dlcolors;brightorange}};
+["trusted"];
+{set;!~color;{func.dlcolors;orange}};
+["systemd"];
+{set;!~color;{func.dlcolors;red}}
+};
+{//;use dec color if not api}
 {switch;{get;~helpcat};
 ["tty"];
 {set;!~color;{jget;{embedbuild;color:{func.dlcolors;gray};};color}};
@@ -154,6 +169,7 @@ description:No help entry found for `{get;~cmd}`.;
 {set;!~color;{jget;{embedbuild;color:{func.dlcolors;orange};};color}};
 ["systemd"];
 {set;!~color;{jget;{embedbuild;color:{func.dlcolors;red};};color}}
+}
 }
 
 {//;run helpapi function if type is api}
