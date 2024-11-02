@@ -171,7 +171,7 @@ description:No help entry found for `{get;~cmd}`.;
 ["sudoers"];
 {set;!~color;{func.dlcolors;brightorange}};
 ["trusted"];
-{set;!~color;{func.dlcolors;orange}};
+{set;!~color;{func.dlcolors;brightred}};
 ["systemd"];
 {set;!~color;{func.dlcolors;red}}
 };
@@ -184,7 +184,7 @@ description:No help entry found for `{get;~cmd}`.;
 ["sudoers"];
 {set;!~color;{jget;{embedbuild;color:{func.dlcolors;brightorange};};color}};
 ["trusted"];
-{set;!~color;{jget;{embedbuild;color:{func.dlcolors;orange};};color}};
+{set;!~color;{jget;{embedbuild;color:{func.dlcolors;brightred};};color}};
 ["systemd"];
 {set;!~color;{jget;{embedbuild;color:{func.dlcolors;red};};color}}
 }
