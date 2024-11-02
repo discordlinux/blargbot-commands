@@ -1,0 +1,57 @@
+{//;inject functions}
+{inject;{get;_gitcmd.functions}}
+
+{//;check input}
+{switch;{args;0};
+["off"];
+{//;set time to 0 to turn off slowmode}
+{set;!~sltime;0};
+{//;check if input is number or if contains units also}
+{if;{parseint;{args;0}};==;NaN;
+{//;no number don't set time};
+{if;{parseint;{args;0}};==;{args;0};
+{//;input is just number}
+{set;!~sltime;{args;0}};
+{//;input contains units, convert to seconds}
+{set;!~sltime;{func.timeinsecs;{args;0}}}
+}}}
+
+{//;check time input}
+{if;{get;~sltime};==;{null};
+{output;{embed;{embedbuild;
+color:{func.dlcolors;red};
+title:Slowmode Error;
+description:Input does not contain valid time;
+}}}
+{return}
+}
+
+{//;get channel}
+{//;fallback to current channel in case no input}
+{fallback;{channelid}}
+{set;!~chanid;{channelid;{args;1}}}
+{fallback}
+
+{//;set slowmode}
+{set;!~slowmode;{slowmode;{get;~chanid};{get;~sltime}}}
+
+{//;check if slowmode succeeded}
+{if;{get;~slowmode};contains;`;
+{//;ban failed}
+{output;{embed;{embedbuild;
+color:{func.dlcolors;red};
+title:Slowmode Error;
+description:Failed to set slowmode for <#{get;~chanid}>.  {get;~slowmode};
+}}}
+{return}
+}
+
+{output;{embed;{embedbuild;
+author.icon_url:{guildicon};
+author.name:#{channelname;{get;~chanid}};
+color:{if;{get;~sltime};==;0;{func.dlcolors;green};{func.dlcolors;orange}};
+description:Slowmode set to {get;~sltime} seconds for <#{get;~chanid}>;
+footer.text:{usernick} ({userid});
+footer.icon_url:{useravatar};
+timestamp:{time};
+}}}
