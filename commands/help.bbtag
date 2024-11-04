@@ -84,11 +84,12 @@ description: No help entry found for `{get;~cmd}`.;
 }
 }
 {if;{length;{jget;~panam}};==;0;
-{push;~emb.ar;description:{zws}{jget;~sig;description}};
+{push;~fields;fields.name:{prefix}{jget;~req;body.name}}
+{push;~fields;fields.value:{zws}{jget;~sig;description}};
 {push;~fields;fields.name:{prefix}{jget;~req;body.name} {join;~panam;{space}}}
 {push;~fields;fields.value:{zws}{get;~pdesc}}
-{push;~fields;fields.inline:false}
 }
+{push;~fields;fields.inline:false}
 }
 }
 }
