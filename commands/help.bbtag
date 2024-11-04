@@ -43,7 +43,7 @@ description: No help entry found for `{get;~cmd}`.;
 {push;~emb.ar;description:{jget;~req;body.description}}
 }
 {push;~fields;fields.name:Aliases}
-{push;~fields;fields.value:{zws}`{join;{jget;~req;body.aliases};`}`{newline}{zws}{newline}__**Arguments**__:}
+{push;~fields;fields.value:{zws}`{join;{jget;~req;body.aliases};`{space}`}`{newline}{zws}{newline}__**Arguments**__:}
 {push;~fields;fields.inline:false};
 {if;{jget;~req;body.description};!=;{null};
 {push;~emb.ar;description:{jget;~req;body.description}{newline}{zws}{newline}__**Arguments**__:}
