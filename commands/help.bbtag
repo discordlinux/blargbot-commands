@@ -30,7 +30,8 @@ description: No help entry found for `{get;~cmd}`.;
 {push;~fields;fields.name:Flags}
 {if;{logic;&&;
 {bool;{length;{jget;~req;body.aliases}};==;0};
-{bool;{jget;~req;body.description};==;{null}}};
+{bool;{jget;~req;body.description};==;{null}};
+{bool;{length;{jget;~req;body.signatures}};>;0}};
 {push;~fields;fields.value:{foreach;~flag;{jget;~req;body.flags};`-{jget;~flag;flag} / --{jget;~flag;word}`: {jget;~flag;description}{newline}}{zws}{newline}__**Arguments**__:};
 {push;~fields;fields.value:{foreach;~flag;{jget;~req;body.flags};`-{jget;~flag;flag} / --{jget;~flag;word}`: {jget;~flag;description}{newline}}}
 }
@@ -43,11 +44,16 @@ description: No help entry found for `{get;~cmd}`.;
 {push;~emb.ar;description:{jget;~req;body.description}}
 }
 {push;~fields;fields.name:Aliases}
-{push;~fields;fields.value:{zws}`{join;{jget;~req;body.aliases};`{space}`}`{newline}{zws}{newline}__**Arguments**__:}
+{if;{length;{jget;~req;body.signatures}};>;0;
+{push;~fields;fields.value:{zws}`{join;{jget;~req;body.aliases};`{space}`}`{newline}{zws}{newline}__**Arguments**__:};
+{push;~fields;fields.value:{zws}`{join;{jget;~req;body.aliases};`{space}`}`}
+}
 {push;~fields;fields.inline:false};
 {if;{jget;~req;body.description};!=;{null};
-{push;~emb.ar;description:{jget;~req;body.description}{newline}{zws}{newline}__**Arguments**__:}
-}
+{if;{length;{jget;~req;body.signatures}};>;0;
+{push;~emb.ar;description:{jget;~req;body.description}{newline}{zws}{newline}__**Arguments**__:};
+{push;~emb.ar;description:{jget;~req;body.description}}
+}}
 }
 
 {//;arguments}
