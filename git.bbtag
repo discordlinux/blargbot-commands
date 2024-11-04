@@ -81,7 +81,7 @@ Current commit: {get;_g2.sha}
 {foreach;~f;{jget;_g2.list};
 {set;!~fname;{jget;{split;{pop;{split;{jget;~f;path};/}};.};0}}
 {jset;~g2shrink;payload.cc.{get;~fname}.hidden;false;c}
-{jset;~g2shrink;payload.cc.{get;~fname}.content;{lb}//{semi}Edit this command here: https://github.com/{get;_g2.repo}/blob/{get;~g2.branch}/{jget;~f;path}{rb}{newline}{lb}inject{semi}{lb}get{semi}_gitcmd.{params;0}{rb}{rb};c}
+{jset;~g2shrink;payload.cc.{get;~fname}.content;{lb}//{semi}Edit this command here: https://github.com/{get;_g2.repo}/blob/{get;~g2.branch}/{jget;~f;path}{rb}{newline}{lb}inject{semi}{lb}get{semi}_gitcmd.{get;~fname}{rb}{rb};c}
 }
 {output;All commands shrinkwrapped:{file;{jstringify;~g2shrink};shrinkwrap.json}}
 {return}
