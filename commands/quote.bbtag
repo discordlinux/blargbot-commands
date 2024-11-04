@@ -1,12 +1,8 @@
 {//;inject functions}
 {inject;{get;_gitcmd.functions}}
 
-{//;output help}
-{if;{logic;||;
-{bool;{commandname};==;help};
-{bool;{flag;_};==;help};
-{bool;{flag;_};==;{null}}};
-{embed;{embedbuild;
+{//;setup help embed}
+{set;!~helpembed;{embedbuild;
 author.name:{guildname};
 author.icon_url:{guildicon};
 color:{func.dlcolors;yellow};
@@ -18,6 +14,15 @@ __**Arguments**__:;
 fields.name:<messageID>;
 fields.value:Quotes a message using message forwarding.  `messageID` is the ID of the message to quote.;
 }}
+
+{//;output help}
+{if;{logic;||;
+{bool;{flag;_};==;help};
+{bool;{flag;_};==;{null}}};
+{if;{commandname};==;quote;
+{embed;{jget;~helpembed}};
+{jget;~helpembed}
+}
 {return;false}
 }
 
