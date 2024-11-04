@@ -174,7 +174,7 @@ description:No help entry found for `{get;~cmd}`.;
 ["trusted"];
 {set;!~color;{func.dlcolors;brightred}};
 ["systemd"];
-{set;!~color;{func.dlcolors;red}}
+{set;!~color;{func.dlcolors;pink}}
 };
 {//;use dec color if not api}
 {switch;{get;~helpcat};
@@ -187,7 +187,7 @@ description:No help entry found for `{get;~cmd}`.;
 ["trusted"];
 {set;!~color;{jget;{embedbuild;color:{func.dlcolors;brightred};};color}};
 ["systemd"];
-{set;!~color;{jget;{embedbuild;color:{func.dlcolors;red};};color}}
+{set;!~color;{jget;{embedbuild;color:{func.dlcolors;pink};};color}}
 }
 }
 
