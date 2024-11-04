@@ -30,8 +30,7 @@ description: No help entry found for `{get;~cmd}`.;
 {push;~fields;fields.name:Flags}
 {if;{logic;&&;
 {bool;{length;{jget;~req;body.aliases}};==;0};
-{bool;{jget;~req;body.description};==;{null}};
-{bool;{length;{jget;~req;body.signatures}};>;0}};
+{bool;{jget;~req;body.description};==;{null}}};
 {push;~fields;fields.value:{foreach;~flag;{jget;~req;body.flags};`-{jget;~flag;flag} / --{jget;~flag;word}`: {jget;~flag;description}{newline}}{zws}{newline}__**Arguments**__:};
 {push;~fields;fields.value:{foreach;~flag;{jget;~req;body.flags};`-{jget;~flag;flag} / --{jget;~flag;word}`: {jget;~flag;description}{newline}}}
 }
@@ -44,17 +43,11 @@ description: No help entry found for `{get;~cmd}`.;
 {push;~emb.ar;description:{jget;~req;body.description}}
 }
 {push;~fields;fields.name:Aliases}
-{if;{length;{jget;~req;body.signatures}};>;0;
-{push;~fields;fields.value:{zws}`{join;{jget;~req;body.aliases};`{space}`}`{newline}{zws}{newline}__**Arguments**__:};
-{push;~fields;fields.value:{zws}`{join;{jget;~req;body.aliases};`{space}`}`}
-}
+{push;~fields;fields.value:{zws}`{join;{jget;~req;body.aliases};`{space}`}`{newline}{zws}{newline}__**Arguments**__:}
 {push;~fields;fields.inline:false};
 {if;{jget;~req;body.description};!=;{null};
-{if;{length;{jget;~req;body.signatures}};>;0;
-{push;~emb.ar;description:{jget;~req;body.description}{newline}{zws}{newline}__**Arguments**__:};
-{push;~emb.ar;description:{jget;~req;body.description}}
+{push;~emb.ar;description:{jget;~req;body.description}{newline}{zws}{newline}__**Arguments**__:}
 }}
-}
 
 {//;arguments}
 {if;{length;{jget;~req;body.signatures}};>;0;
@@ -77,14 +70,14 @@ description: No help entry found for `{get;~cmd}`.;
 }
 {if;{logic;||;
 {bool;0{jget;~param;minLength};>;0};
-{bool;{jget;~param;requi{func.dlcolors;red}};==;true}};
+{bool;{jget;~param;required};==;true}};
 {push;~panam;<{jget;~param;name}>};
 {push;~panam;[{jget;~param;name}]}
 }
 }
 }
 {if;{length;{jget;~panam}};==;0;
-{push;~emb.ar;description:{zws}{jget;~sig;description}{newline}{zws}{newline}__**Arguments**__:};
+{push;~emb.ar;description:{zws}{jget;~sig;description}};
 {push;~fields;fields.name:{prefix}{jget;~req;body.name} {join;~panam;{space}}}
 {push;~fields;fields.value:{zws}{get;~pdesc}}
 {push;~fields;fields.inline:false}
