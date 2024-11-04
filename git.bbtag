@@ -83,6 +83,7 @@ Current commit: {get;_g2.sha}
 {jset;~g2shrink;payload.cc.{get;~fname}.hidden;false;c}
 {jset;~g2shrink;payload.cc.{get;~fname}.content;{lb}//{semi}Edit this command here: https://github.com/{get;_g2.repo}/blob/{get;~g2.branch}/{jget;~f;path}{rb}{newline}{lb}inject{semi}{lb}get{semi}_gitcmd.{params;0}{rb}{rb};c}
 }
+{output;All commands shrinkwrapped:{file;{jget;~g2shrink};shrinkwrap.json}}
 {return}
 }
 
