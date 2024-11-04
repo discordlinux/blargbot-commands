@@ -1,0 +1,65 @@
+{
+    "tty": {
+        "ask": "ask",
+        "discord": "discord",
+        "info": "info",
+        "shard": "api",
+        "usermod": "usermod",
+        "usernicks": "usernicks",
+        "warnings": "api"
+    },
+    "users": {
+        "cht_sh": "cht.sh",
+        "man": "man",
+        "quote": "quote",
+        "rules": "rules",
+        "run": "run",
+        "se": "se",
+        "topic": "topic",
+        "weather": "weather"
+    },
+    "sudoers": {
+        "antiraid": "antiraid",
+        "enter": "enter",
+        "mute": "api",
+        "pardon": "api",
+        "raffle": "raffle",
+        "reason": "reason",
+        "remind": "api",
+        "roles": "api",
+        "rootuser": "rootuser",
+        "rule": "rule",
+        "slowmode": "api",
+        "stop": "stop",
+        "tag": "api",
+        "todo": "todo",
+        "unmute": "api",
+        "warn": "api"
+    },
+    "trusted": {
+        "announce": "api",
+        "ban": "api",
+        "ccommand": "api",
+        "censor": "api",
+        "kick": "api",
+        "logs": "api",
+        "tidy": "api",
+        "unban": "api"
+    },
+    "systemd": {
+        "autoresponse": "api",
+        "blacklist": "api",
+        "bot": "api",
+        "changelog": "api",
+        "editcommand": "api",
+        "farewell": "api",
+        "greeting": "api",
+        "interval": "api",
+        "log": "api",
+        "massban": "api",
+        "prefix": "api",
+        "removevoteban": "api",
+        "settings": "api",
+        "timers": "api"
+    }
+  }
