@@ -11,7 +11,7 @@ description:**Flags**
 `-c`: Channel to fetch message from if not current channel.
 
 __**Arguments**__:;
-fields.name:<messageID>;
+fields.name:{prefix}quote <messageID>;
 fields.value:Quotes a message using message forwarding.  `messageID` is the ID of the message to quote.;
 }}
 
