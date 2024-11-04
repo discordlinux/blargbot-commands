@@ -50,7 +50,9 @@ description: No help entry found for `{get;~cmd}`.;
 }}
 
 {//;add description if no aliases or flags}
-{if;{length;{jget;~emb.ar}};==;5;
+{if;{logic;&&;
+{bool;{length;{jget;~emb.ar}};==;5};
+{bool;{length;{jget;~fields}};==;0}};
 {push;~emb.ar;description:__**Arguments**__:}
 }
 
