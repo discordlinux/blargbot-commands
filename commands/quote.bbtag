@@ -7,10 +7,11 @@ author.name:{guildname};
 author.icon_url:{guildicon};
 color:{func.dlcolors;yellow};
 title:Help for quote;
-description:**Flags**
-`-c`: Channel to fetch message from if not current channel.
+fields.name:Flags;
+fields.value:`-c`: Channel to fetch message from if not current channel.
 
 __**Arguments**__:;
+fields.inline:false;
 fields.name:{prefix}quote <messageID>;
 fields.value:Quotes a message using message forwarding.  `messageID` is the ID of the message to quote.;
 }}
