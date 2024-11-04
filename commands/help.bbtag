@@ -139,15 +139,17 @@ description: Please make sure to set the variable `@help.json` to the URL of you
 {set;!~cmd;{replace;{lower;{flag;_}};cht.sh;cht_sh}}
 
 {//;check help.json for matching command}
-{foreach;~key;{jkeys;~helpjson};
+{//;fallback to null for easy error checking}
+{fallback;}
 {//;check for matching entry in each category}
-{if;{get;~helptype};==;{null};
-{foreach;~entry;{jkeys;{jget;~helpjson;{get;~key}}};
-{if;{jget;~entry;{get;~cmd}};!=;{null};
+{foreach;~key;{jkeys;~helpjson};
+{if;{jget;~helpjson;{get;~key}.{get;~cmd}};!=;{null};
 {//;matching entry found}
 {set;!~helpcat;{get;~key}}
 {set;!~helptype;{jget;~helpjson;{get;~key}.{get;~cmd}}}
-}}}}
+}}
+{//;reset fallback}
+{fallback}
 
 {//;check if match found}
 {if;{get;~helpcat};==;{null};
