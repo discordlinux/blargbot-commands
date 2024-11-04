@@ -1,0 +1,155 @@
+{//;function to update stored data}
+{function;g2update;
+{//;setup header}
+{jset;~head;method;GET;c}
+{//;use token if available}
+{if;{logic;&&;
+{bool;{get;@gittoken};!=;{null}};
+{bool;{commandname};!=;gitv2}};
+{jset;~head;headers.Authorization;token {get;@gittoken};c}
+}
+{//;check rate limit}
+{set;!~g2.ratelimit;{jget;{request;https://api.github.com/rate_limit;{get;~head}};body.resources.core}}
+{if;{jget;~g2.ratelimit;remaining};==;0;
+{output;Rate limit reached.{if;{get;@gittoken};==;{null};{space}Set your own github token using '{prefix}{if;{iscc};cc;t} test {escape;{set;@gittoken;YourTokenHere}}' to increase your rate limit.}
+Remaining: {jget;~g2.ratelimit;remaining}
+Reset: <t:{jget;~g2.ratelimit;reset}:R>}
+{return}
+}
+{//;get list of files}
+{set;!~g2.fetch;{request;https://api.github.com/repos/{get;_g2.repo}/git/trees/{get;~g2.branch}?recursive=1;{jget;~head}}}
+{if;{jget;~g2.fetch;status};!=;200;
+{get;~g2.fetch}
+{return}
+}
+{//;if shas do not match, update stored data}
+{if;{hash;{jget;~g2.fetch;body.sha}};!=;{hash;{get;_g2.sha}};
+{set;!~g2.upmsg;{output;{repeat;`;3}
+New update available.
+Current commit: {get;_g2.sha}
+Latest commit: {jget;~g2.fetch;body.sha}
+Updating...
+{repeat;`;3}}}
+{//;update variables}
+{set;!_g2.fetch;{jget;~g2.fetch;body}}
+{set;!_g2.list;{filter;~file;{jget;~g2.fetch;body.tree};{bool;{jget;~file;path};endswith;bbtag}}}
+{jset;_g2.fetch;tree;{jget;_g2.list};c}
+{set;!_g2.fetch;{jclean;{jget;_g2.fetch}}}
+{//;loop through file list and update each one if sha does not match}
+{set;!~g2.updated;[]}
+{foreach;~f;{jget;_g2.list};
+{set;!~fname;{jget;{split;{pop;{split;{jget;~f;path};/}};.};0}}
+{if;{hash;{get;_gitcmd.{get;~fname}.sha}};!=;{hash;{jget;~f;sha}};
+{set;!~g2req;{request;https://raw.githubusercontent.com/{get;_g2.repo}/{jget;~g2.fetch;body.sha}/{jget;~f;path}}}
+{if;{jget;~g2req;status};!=;200;
+{edit;{channelid};{get;~g2.upmsg};{repeat;`;3}
+Error during update.
+Failed to fetch file: https://raw.githubusercontent.com/{get;_g2.repo}/{jget;~g2.fetch;body.sha}/{jget;~f;path}
+{repeat;`;3}
+}
+{return}
+}
+{set;!_gitcmd.{get;~fname};{jget;~g2req;body}}
+{set;!_gitcmd.{get;~fname}.sha;{jget;~f;sha}}
+{push;~g2.updated;{get;~fname}}
+}
+}
+{//;update complete}
+{set;!_g2.sha;{jget;~g2.fetch;body.sha}}
+{edit;{channelid};{get;~g2.upmsg};{repeat;`;3}
+Update complete.
+Current commit: {get;_g2.sha}
+Updated files: {join;~g2.updated;,{space}}
+{repeat;`;3}
+};
+{//;no update}
+{output;{repeat;`;3}
+No update available.
+Current commit: {get;_g2.sha}
+{repeat;`;3}}
+}
+}
+
+{//;function to output command to set ccs}
+{function;g2cc;
+{//;get matching files}
+{set;!~matches;{filter;~file;{jget;_g2.list};{bool;{jget;~file;path};endswith;{params;0}.bbtag}}}
+
+{//;no matches}
+{if;{length;{jget;~matches}};==;0;
+{//;shrinkwrap all commands}
+{foreach;~f;{jget;_g2.list};
+{set;!~fname;{jget;{split;{pop;{split;{jget;~f;path};/}};.};0}}
+{jset;~g2shrink;payload.cc.{get;~fname}.hidden;false;c}
+{jset;~g2shrink;payload.cc.{get;~fname}.content;{lb}//{semi}Edit this command here: https://github.com/{get;_g2.repo}/blob/{get;~g2.branch}/{jget;~f;path}{rb}{newline}{lb}inject{semi}{lb}get{semi}_gitcmd.{params;0}{rb}{rb};c}
+}
+{return}
+}
+
+{//;output command}
+{output;The following can be used to set `{params;0}` as a custom command:
+{repeat;`;3}
+{prefix}cc set {params;0} {lb}//{semi}Edit this command here: https://github.com/{get;_g2.repo}/blob/{get;~g2.branch}/{jget;~matches;0.path}{rb}
+{lb}inject{semi}{lb}get{semi}_gitcmd.{params;0}{rb}{rb}
+{repeat;`;3}}
+}
+
+{//;function to output status}
+{function;g2status;
+{if;{length;{split;{jstringify;_g2.fetch};}};<;2000;
+{repeat;`;3}json
+{jstringify;_g2.fetch}
+{repeat;`;3};
+{jstringify;_g2.fetch}
+}
+}
+
+{//;function to output ratelimit}
+{function;g2ratelimit;
+{//;use token if available}
+{if;{logic;&&;
+{bool;{get;@gittoken};!=;{null}};
+{bool;{commandname};!=;gitv2}};
+{jset;~head;headers.Authorization;token {get;@gittoken};c}
+}
+{//;check rate limit}
+{set;!~g2.ratelimit;{jget;{request;https://api.github.com/rate_limit;{get;~head}};body.resources.core}}
+{output;{if;{get;@gittoken};==;{null};Set your own github token using '{prefix}{if;{iscc};cc;t} test {escape;{set;@gittoken;YourTokenHere}}' to increase your rate limit.{newline}}Remaining: {jget;~g2.ratelimit;remaining}
+Reset: <t:{jget;~g2.ratelimit;reset}:R>}
+}
+
+{//;check if repo is set}
+{if;{get;_g2.repo};==;{null};
+{output;{repeat;`;3}
+No repository configured.  Please run '{prefix}{if;{iscc};cc;t} test {escape;{set;_g2.repo;user/repo}}' before use.
+{repeat;`;3}}
+}
+{//;check if branch is set}
+{if;{get;_g2.branch};!=;{null};
+{set;!~g2.branch;{get;_g2.branch}};
+{set;!~g2.branch;main}
+}
+
+{//;detect input}
+{switch;{jget;{split;{lower;{flag;_}};{space}};0};
+["pull",""];
+{//;set branch if more than one argument}
+{if;{length;{argsarray}};>;1;
+{set;!~g2.branch;{args;1}}
+}
+{//;update}
+{func.g2update};
+["cc"];
+{//;output command to set injected data as cc}
+{if;{length;{argsarray}};==;1;
+{output;{repeat;`;3}
+Missing file name.
+{repeat;`;3}}
+{return}
+}
+{func.g2cc;{args;1}};
+["status"];
+{func.g2status};
+["ratelimit"];
+{func.g2ratelimit}
+}
