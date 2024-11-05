@@ -164,8 +164,8 @@
     "name": "Fedora",
     "supported": "Yes",
     "experience_level": "Intermediate",
-    "recommended": "No",
-    "notes": null
+    "recommended": "Yes",
+    "notes": "Frequent kernel and mesa updates"
   },
   {
     "name": "Fedora Spins",
