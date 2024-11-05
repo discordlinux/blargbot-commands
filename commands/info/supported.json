@@ -283,8 +283,8 @@
     "name": "Mageia",
     "supported": "Yes",
     "experience_level": "Intermediate",
-    "recommended": "Yes",
-    "notes": null
+    "recommended": "No",
+    "notes": "Small community around it"
   },
   {
     "name": "Manjaro",
