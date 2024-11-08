@@ -51,6 +51,7 @@
 
 {//;get results}
 {set;!~codex.result;{jget;~codex.post.json;body.output}
+
 Time: {math;-;{jget;~codex.post.json;body.timeStamp};{get;~codex.start}}ms{if;{jget;~codex.post.json;body.error};!=;{null};{space}|{space}Error:{space}{jget;~codex.post.json;body.error}}}
 {//;output results}
 [Link to Result]({dump;{get;~codex.result}}.txt)
