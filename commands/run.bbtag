@@ -12,7 +12,7 @@
 {//;set language}
 {switch;{jget;~input.json;language};
 ["bash"];
-{jset;~codex.body;code;import subprocess{newline}subprocess.run('{regexreplace;{jget;~input.json;source_code};/\n\r?/g;{semi}{space}}', shell=True);c}
+{jset;~codex.body;code;import subprocess{newline}subprocess.run('bash -c \'{regexreplace;{regexreplace;{jget;~input.json;source_code};/\n\r?/g;{semi}{space}};/'/g;\'}\'', shell=True);c}
 {jset;~codex.body;language;py;c};
 ["c"];
 {jset;~codex.body;code;{jget;~input.json;source_code};c}
