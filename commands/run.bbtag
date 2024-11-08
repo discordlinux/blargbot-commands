@@ -178,5 +178,5 @@ fields.value:Data can be passed to stdin by replying to a message in chat.;
 }
 
 {//;run code}
-{func.paiza}
+{func.rextester}
 }
