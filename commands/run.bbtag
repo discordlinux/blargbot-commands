@@ -1,10 +1,68 @@
 {//;inject functions}
 {inject;{get;_gitcmd.functions}}
 
+{//;function to run code through codex.jaagrav.in}
+{function;codex;
+{//;POST code to api.codex.jaagrav.in}
+{//;setup header and body}
+{jset;~codex.head;method;POST;c}
+{jset;~codex.head;headers.content-type;application/json;c}
+{jset;~codex.body;input;{jget;~input.json;input};c}
+
+{//;set language}
+{switch;{jget;~input.json;language};
+["bash"];
+{jset;~codex.body;code;import subprocess{newline}subprocess.run('{regexreplace;{jget;~input.json;source_code};/\n\r?/g;{semi}{space}}', shell=True);c}
+{jset;~codex.body;language;py;c};
+["c"];
+{jset;~codex.body;code;{jget;~input.json;source_code};c}
+{jset;~codex.body;language;c;c};
+["cpp];
+{jset;~codex.body;code;{jget;~input.json;source_code};c}
+{jset;~codex.body;language;cpp;c};
+["csharp"];
+{jset;~codex.body;code;{jget;~input.json;source_code};c}
+{jset;~codex.body;language;cs;c};
+["java"];
+{jset;~codex.body;code;{jget;~input.json;source_code};c}
+{jset;~codex.body;language;java;c};
+["javascript", "js"];
+{jset;~codex.body;code;{jget;~input.json;source_code};c}
+{jset;~codex.body;language;js;c};
+["go"];
+{jset;~codex.body;code;{jget;~input.json;source_code};c}
+{jset;~codex.body;language;go;c};
+["python3"];
+{jset;~codex.body;code;{jget;~input.json;source_code};c}
+{jset;~codex.body;language;py;c};
+{//;else rextester}
+{func.rextester}
+{return;false}
+}
+
+{set;!~codex.start;{time;x}}
+{set;!~codex.post.json;{func.req;https://api.codex.jaagrav.in;{jget;~codex.head};{jget;~codex.body}}}
+
+{//;try rextester if status is not 200}
+{if;{jget;~codex.post.json;body.status};!=;200;
+{func.rextester}
+{return;false}
+}
+
+{//;get results}
+{set;!~codex.result;{jget;~codex.post.json;body.output}
+Time: {math;-;{jget;~codex.post.json;body.timeStamp};{get;~codex.start}}ms{if;{jget;~codex.post.json;body.error};!=;{null};{space}|{space}Error:{space}{jget;~codex.post.json;body.error}}}
+{//;output results}
+[Link to Result]({dump;{get;~codex.result}}.txt)
+{file;buffer:{base64encode;{get;~codex.result}};result.txt}
+}
+
 {//;function to run code through paiza.io}
 {function;paiza;
 {//;POST code to api.paiza.io}
-{set;!~paiza.post.json;{request;http://api.paiza.io/runners/create;{j;{"method":"POST","headers":{"Content-Type":"application/json"}}};{jget;~input.json}}}
+{jset;~paiza.head;method;POST;c}
+{jset;~paiza.head;headers.content-type;application/json;c}
+{set;!~paiza.post.json;{request;http://api.paiza.io/runners/create;{jget;~paiza.head};{jget;~input.json}}}
 {//;set variables from response}
 {set;!~paiza.id;{jget;~paiza.post.json;body.id}}
 {set;!~paiza.status;{jget;~paiza.post.json;body.status}}
@@ -142,20 +200,20 @@ Exit code: {fallback;1}{jget;~paiza.json;body.exit_code}{fallback} | Memory used
 title:Help for run;
 color:yellow;
 description:__**Usage**__: `run <language> <code to execute>`
-Executes code using [Rextester.com](https://rextester.com/) or [Piaza.io](https://paiza.io).;
+Executes code using [Codex.jaagrav.in](https://codex.jaagrav.in/) or [Rextester.com](https://rextester.com/).;
 fields.name:**Example:**;
 fields.value:run bash echo test;
 fields.name:**Output:**;
 fields.value:test
 
 Exit code: 0 | Memory used: 3,593.75 KiB | Time: 0.00 | Result: success;
+fields.name:**Codex.jaagrav.in Supported Languages:**;
+fields.value:{repeat;`;3}
+bash, c, cpp, csharp, go, java, javascript, python3
+{repeat;`;3};
 fields.name:**Rextester.com Supported Languages:**;
 fields.value:{repeat;`;3}
 assembly, bash, c, clientside, clojure, commonlisp, cpp, csharp, d, elixir, erlang, fsharp, fortran, go, haskell, java, javascript, kotlin, lua, mysql, node.js, ocaml, octave, objective-c, oracle, pascal, perl, php, postgresql, prolog, python, python3, r, rust, ruby, scala, scheme, sqlserver, swift, tcl, vb
-{repeat;`;3};
-fields.name:**Paiza.io Supported Languages:**;
-fields.value:{repeat;`;3}
-{join;{sort;{jget;{request;http://api.paiza.io/runners.json};body.apis.0.operations.0.parameters.1.allowableValues.values}};,{space}}
 {repeat;`;3};
 fields.name:**Setting stdin**;
 fields.value:Data can be passed to stdin by replying to a message in chat.;
@@ -178,5 +236,5 @@ fields.value:Data can be passed to stdin by replying to a message in chat.;
 }
 
 {//;run code}
-{func.rextester}
+{func.codex}
 }
