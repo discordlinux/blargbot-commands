@@ -6,7 +6,7 @@
 title:Help for se;
 color:{func.dlcolors;yellow};
 description:**__Usage:__** `se [arg] <search term>`
-Search the web using Qwant or use one of the arguments listed below to perform a specific search.
+Search the web using DuckDuckGo or use one of the arguments listed below to perform a specific search.
 If none of the arguments below are used, a normal search will be ran.
 
 **Available arguments**:
@@ -44,85 +44,46 @@ If none of the arguments below are used, a normal search will be ran.
 ```
 ;}}}
 
-{//;function to search Qwant}
-{function;qse;
+{//;function to search ddg}
+{function;ddgse;
 {//;set searchmsg color and message}
-{if;{get;~qsecolor};==;{null};
+{if;{get;~ddgsecolor};==;{null};
 {jset;~qjson;color;{func.dlcolors;blurple};c};
-{jset;~qjson;color;{get;~qsecolor};c}
+{jset;~qjson;color;{get;~ddgsecolor};c}
 }
-{jset;~qjson;message;Searching Qwant for `{params}`;c}
+{jset;~qjson;message;Searching ddg for `{params}`;c}
 {//;output message to let users know we're doing something}
 {func.searchmsg;{get;~qjson}}
-{//;get qwant results}
-{//;{set;!~qresults;{func.syretia;qse?q={uriencode;{params}}}}}
-{set;!~rawresults;{jget;{func.ant;https://api.qwant.com/v3/search/web?count=10&q={uriencode;{params}}&t=web&locale=en_US&device=desktop&offset=0&safesearch=1};body.data.result.items.mainline}}
-{set;!~qresults;{filter;~res;{jget;~rawresults};{logic;&&;{bool;{jget;~res;serpContextId};!=;{null}};{bool;{jget;~res;type};==;web}}}}
-{//;check results}
-{if;{jget;~qresults;0};==;{null};
-{//;try again if no results -- most likely filtered out junk results}
-{set;!~rawresults;{jget;{func.ant;https://api.qwant.com/v3/search/web?count=10&q={uriencode;{params}}&t=web&locale=en_US&device=desktop&offset=0&safesearch=1};body.data.result.items.mainline}}
-{set;!~qresults;{filter;~res;{jget;~rawresults};{logic;&&;{bool;{jget;~res;serpContextId};!=;{null}};{bool;{jget;~res;type};==;web}}}}
+{//;get ddg results}
+
+{set;!~rawresults;{jget;{base64decode;{jget;{request;https://api.duckduckgo.com/?q={uriencode;! {params}}&format=json&pretty=1&no_html=1&skip_disambig=1&no_redirect=1};body}};Redirect}}
+{//;set results to null if includes api.duckduckgo}
+{if;{get;~rawresults};startswith;https://api.duckduckgo;
+{set;!~ddgresult;{null}};
+{set;!~ddgresult;{get;~rawresults}}
 }
+
 {//;check results}
-{if;{jget;~qresults;0};==;{null};
+{if;{get;~ddgresult};==;{null};
 {//;no results}
-{set;!~qurl;https://www.qwant.com/?q={uriencode;{params}}&t=web}
-{set;!~qtitle;No results for '{params}'.}
-{set;!~qcolor;{func.dlcolors;red}}
-{set;!~qthumb;{func.fakeimg;No results;250;100}}
-{set;!~qdesc;No results for `{params}`.
-> https://www.qwant.com/?q={uriencode;{params}}&t=web}
-}
-{//;setup embed if results found}
-{if;{length;{jget;~qresults}};>;0;
-{//;results found}
-{set;!~qurl;{jget;~qresults;0.items.0.url}}
-{set;!~qtitle;{jget;~qresults;0.items.0.title}}
-{if;{jget;~qresults;0.count};>;1;
-{set;!~qnext;{jget;~qresults;0.items.1.url}};
-{if;{length;{jget;~qresults}};>;1;
-{set;!~qnext;{jget;~qresults;1.items.0.url}}
-}
-}
-{set;!~qdesc;{jget;~qresults;0.items.0.desc}
-{get;~qurl}
-{if;{get;~qnext};!=;{null};Next Result:{newline}*{get;~qnext}*}}
-{//;get metadata for color and thumbnail}
-{set;!~qmeta;{func.metadata;{get;~qurl}}}
-{fallback;}
-{if;{get;~qsecolor};!=;{null};
-{set;!~qcolor;{get;~qsecolor}};
-{if;{jget;~qmeta;meta.theme-color};!=;{null};
-{set;!~qcolor;{jget;~qmeta;meta.theme-color}};
-{set;!~qcolor;{func.dlcolors;blurple}}
-}
-}
-{if;{get;~qcolor};contains;(;
-{set;!~qcolor;{func.dlcolors;blurple}}
-}
-{if;{jget;~qmeta;meta.og:image};!=;{null};
-{set;!~qthumb;{jget;~qmeta;meta.og:image}};
-{set;!~qthumb;{func.fakeimg;null;1;1}}
-}
-{fallback}
-}
-{//;check if qthumb is valid url}
-{if;{get;~qthumb};startswith;/;
-{set;!~qdomain;{join;{slice;{split;{get;~qurl};/};0;3};/}}
-{set;!~qthumb;{get;~qdomain}{get;~qthumb}}
-}
-{//;output results}
+{//;output no results and return}
 {edit;{channelid};{get;~searchmsg};_delete;{embedbuild;
-author.name:Result via Qwant;
-author.icon_url:https://play-lh.googleusercontent.com/gZM93E0coPblwJysaGbAVgTRXPld0ZDRtrbmclDqWWrPJLKIjyVB9XKqOX8OM9_3GJI;
-author.url:https://www.qwant.com/?q={uriencode;{params}}&t=web;
-title:{get;~qtitle};
-url:{get;~qurl};
-color:{get;~qcolor};
-thumbnail.url:{get;~qthumb};
-description:{get;~qdesc};
+author.name:Result via ddg;
+author.icon_url:https://cdn.discordapp.com/emojis/496122815578374147.png;
+author.url:https://duckduckgo.com/?q={uriencode;{params}};
+title:No results for '{params}'.;
+url:https://duckduckgo.com/?q={uriencode;{params}};
+color:{func.dlcolors;red};
+description:No results for `{params}`.
+> https://duckduckgo.com/?q={uriencode;{params}};
 }}
+{return;false}
+}
+
+
+{//;output result}
+{edit;{channelid};{get;~searchmsg};{get;~ddgresult};_delete}
+
 }
 
 {//;function to search urban dictionary}
@@ -324,26 +285,26 @@ __**[Summary of ProtonDB ratings](https://www.protondb.com/app/{get;~id})**__
 
 {//;detect arguments}
 {switch;{lower;{args;0}};
-["!aw","aw","archwiki"];{set;!~qsecolor;{func.distrocolors;arch}}{func.qse;site:wiki.archlinux.org {args;1;n}};
-["dw","debianwiki"];{set;!~qsecolor;{func.distrocolors;debian}}{func.qse;site:wiki.debian.org {args;1;n}};
-["fw","fedorawiki"];{set;!~qsecolor;{func.distrocolors;fedora}}{func.qse;site:fedoraproject.org/wiki {args;1;n}};
-["game","games"];{set;!~qsecolor;1673C0}{func.qse;site:mobygames.com {args;1;n}};
-["gw","gentoowiki"];{set;!~qsecolor;{func.distrocolors;gentoo}}{func.qse;site:wiki.gentoo.org {args;1;n}};
-["osw","opensusewiki"];{set;!~qsecolor;{func.distrocolors;opensuse}}{func.qse;site:en.opensuse.org {args;1;n}};
-["osd","opensusedocs"];{set;!~qsecolor;{func.distrocolors;opensuse}}{func.qse;site:doc.opensuse.org {args;1;n}};
-["uw","ubuntuwiki"];{set;!~qsecolor;{func.distrocolors;ubuntu}}{func.qse;site:wiki.ubuntu.com {args;1;n}};
+["!aw","aw","archwiki"];{set;!~ddgsecolor;{func.distrocolors;arch}}{func.ddgse;site:wiki.archlinux.org {args;1;n}};
+["dw","debianwiki"];{set;!~ddgsecolor;{func.distrocolors;debian}}{func.ddgse;site:wiki.debian.org {args;1;n}};
+["fw","fedorawiki"];{set;!~ddgsecolor;{func.distrocolors;fedora}}{func.ddgse;site:fedoraproject.org/wiki {args;1;n}};
+["game","games"];{set;!~ddgsecolor;1673C0}{func.ddgse;site:mobygames.com {args;1;n}};
+["gw","gentoowiki"];{set;!~ddgsecolor;{func.distrocolors;gentoo}}{func.ddgse;site:wiki.gentoo.org {args;1;n}};
+["osw","opensusewiki"];{set;!~ddgsecolor;{func.distrocolors;opensuse}}{func.ddgse;site:en.opensuse.org {args;1;n}};
+["osd","opensusedocs"];{set;!~ddgsecolor;{func.distrocolors;opensuse}}{func.ddgse;site:doc.opensuse.org {args;1;n}};
+["uw","ubuntuwiki"];{set;!~ddgsecolor;{func.distrocolors;ubuntu}}{func.ddgse;site:wiki.ubuntu.com {args;1;n}};
 ["urban","urbandictionary"];{func.urbandictionary;{args;1;n}};
 ["proton","steam","protondb"];{func.proton;{args;1;n}};
 ["def","define","dict","dictionary"];{func.datamuse-dictionary;{args;1;n}};
 ["youtube","yt"];{func.youtube;{args;1;n}};
-["lsst"];{set;!~qsecolor;skyblue}{func.qse;site:bash.cyberciti.biz/guide/ {args;1;n}};
-["abs"];{set;!~qsecolor;skyblue}{func.qse;site:tldp.org/LDP/abs {args;1;n}};
-["bbg"];{set;!~qsecolor;skyblue}{func.qse;site:tldp.org/LDP/Bash-Beginners-Guide {args;1;n}};
-["au","askubuntu"];{set;!~qsecolor;{func.distrocolors;ubuntu}}{func.qse;site:askubuntu.com {args;1;n}};
-["wiki","wikipedia"];{set;!~qsecolor;{func.dlcolors;blurple}}{func.qse;site:wikipedia.org {args;1;n}};
+["lsst"];{set;!~ddgsecolor;skyblue}{func.ddgse;site:bash.cyberciti.biz/guide/ {args;1;n}};
+["abs"];{set;!~ddgsecolor;skyblue}{func.ddgse;site:tldp.org/LDP/abs {args;1;n}};
+["bbg"];{set;!~ddgsecolor;skyblue}{func.ddgse;site:tldp.org/LDP/Bash-Beginners-Guide {args;1;n}};
+["au","askubuntu"];{set;!~ddgsecolor;{func.distrocolors;ubuntu}}{func.ddgse;site:askubuntu.com {args;1;n}};
+["wiki","wikipedia"];{set;!~ddgsecolor;{func.dlcolors;blurple}}{func.ddgse;site:wikipedia.org {args;1;n}};
 ["-h","help","--help"];{func.help};
 {if;{args};==;;{func.help}{return}}
-{func.qse;{args}}}
+{func.ddgse;{args}}}
 
 {//;TODO:
 image search
