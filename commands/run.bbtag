@@ -120,7 +120,7 @@ Exit code: {fallback;1}{jget;~paiza.json;body.exit_code}{fallback} | Memory used
 {set;!~run.body;LanguageChoiceWrapper={get;~run.lang}&Program={regexreplace;{uriencode;{jget;~input.json;source_code}};/%20/g;+}&Input={regexreplace;{uriencode;{jget;~input.json;input}};/%20/g;+}}
 
 {//;run request}
-{set;!~rex.json;{func.ant;https://rextester.com/rundotnet/Run;{jget;~run.head};{get;~run.body}}}
+{set;!~rex.json;{request;https://rextester.com/rundotnet/Run;{jget;~run.head};{get;~run.body}}}
 
 {//;output result}
 {if;{jget;~rex.json;body.Stats};startswith;`;
