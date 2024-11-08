@@ -1,90 +1,31 @@
-{//;load functions}
+{//;inject functions}
 {inject;{get;_gitcmd.functions}}
 
-{//;help function}
-{function;manhelp;{embed;{embedbuild;
-author.name:ManKier;
-author.url:https://www.mankier.com;
-author.icon_url:https://www.mankier.com/img/kier-sq.png;
-color:465870;
+{set;!~manq;{replace;{replace;{flag;_};(;.};);}}
+{switch;{get;~manq};
+["","help"];
+{//;output help based on command name}
+{set;!~mhelp;{embedbuild;
+author.name:{guildname};
+author.icon_url:{guildicon};
 title:Help for man;
-description:Searches [ManKier.com](https://www.mankier.com) for man pages and returns a description and link for the result.}}
-}
+color:{func.dlcolors;brightyellow};
+description:Uses [man.he.net](http://man.he.net) to fetch man pages.
 
-{//;check prefix}
-{func.prefixtest}
-
-{//;check arguments}
-{switch;{lower;{flag;_}};
-["help","--help","-h",""];
-{func.manhelp};
-{//;output message while we get results}
-{jset;~mansearch;color;465870;c}
-{jset;~mansearch;message;Searching for `{args}` manpage on [ManKier.com](https://mankier.com);c}
-{func.searchmsg;{get;~mansearch}}
-
-{//;get results}
-{if;{argslength};>;1;
-{//;info about specific flags}
-{set;!~manq;{args}}
-{set;!~manr;{clean;{jget;{request;https://www.mankier.com/api/explain/?q={uriencode;{get;~manq}}&cols=70};body}}}
-{if;{regexreplace;{get;~manr};/(\n)/g;};==;{get;~manq};
-{set;!~mantitle;No results found for '{get;~manq}'}
-{set;!~manurl;https://www.mankier.com/?q={uriencode;{get;~manq}}};
-{set;!~mantitle;{jget;{split;{get;~manr};{newline}};1}}
-{set;!~manurl;{reverse;{jget;{split;{reverse;{get;~manr}};{newline}};1}}}
-{set;!~mandesc;{replace;{reverse;{join;{slice;{split;{reverse;{get;~manr}};{newline}};2;};{newline}}};{get;~mantitle}{newline};}}};
-
-{if;{length;{split;{replace;{replace;{flag;_};(;.};);};.}};==;2;
-{//;input contains section, don't search}
-{set;!~manr;{base64decode;{jget;{request;https://www.mankier.com/api/v2/mans/{uriencode;{replace;{replace;{flag;_};(;.};);}}/sections/Examples_(TL%3BDR)};body}}}
-{//;check results}
-{if;{jget;~manr;error};!=;{null};
-{//;no results found for section, get without section}
-{set;!~manr;{base64decode;{jget;{request;https://www.mankier.com/api/v2/mans/{uriencode;{replace;{replace;{flag;_};(;.};);}}};body}}}
-{if;{jget;~manr;error};!=;{null};
-{//;no results found}
-{set;!~mantitle;No results found for '{flag;_}'}
-{set;!~manurl;https://www.mankier.com/?q={uriencode;{flag;_}}};
-{//;results found}
-{set;!~mantitle;{jget;~manr;name}({jget;~manr;section})}
-{set;!~manurl;{jget;~manr;url}}
-{set;!~mandesc;{jget;~manr;description}}};
-{//;results found}
-{set;!~mantitle;{replace;{replace;{replace;{flag;_};(;.};);};.;(})}
-{set;!~manurl;{jget;{split;{jget;~manr;url};#};0}}
-{set;!~mandesc;{func.htmltomd;{base64encode;{jget;~manr;html}}}}};
-
-{//;input doesn't contain section, search}
-{set;!~manr;{base64decode;{jget;{request;https://www.mankier.com/api/v2/mans/?q={uriencode;{flag;_}}};body}}}
-{//;check results}
-{if;{length;{jget;~manr;results}};==;0;
-{//;no results found}
-{set;!~mantitle;No results found for '{flag;_}'}
-{set;!~manurl;https://www.mankier.com/?q={uriencode;{flag;_}}};
-{//;results found}
-{set;!~manq;{jget;~manr;results.0.name}.{jget;~manr;results.0.section}}
-{//;get tldr for result}
-{set;!~manr;{base64decode;{jget;{request;https://www.mankier.com/api/v2/mans/{uriencode;{get;~manq}}/sections/Examples_(TL%3BDR)};body}}}
-{//;check results}
-{if;{jget;~manr;error};!=;{null};
-{//;no results found for section, get without section}
-{set;!~manr;{base64decode;{jget;{request;https://www.mankier.com/api/v2/mans/{uriencode;{get;~manq}}};body}}}
-{set;!~mantitle;{jget;~manr;name}({jget;~manr;section})}
-{set;!~manurl;{jget;~manr;url}}
-{set;!~mandesc;{jget;~manr;description}};
-{//;results found}
-{set;!~mantitle;{flag;_}}
-{set;!~manurl;{jget;{split;{jget;~manr;url};#};0}}
-{set;!~mandesc;{func.htmltomd;{base64encode;{jget;~manr;html}}}}}}
+__**Arguments**__:;
+fields.name:{prefix}man <page>;
+fields.value:Fetches the given man `page` and returns the result as an attached text file.;
+fields.inline:false;
 }}
-
-{edit;{channelid};{get;~searchmsg};_delete;{embedbuild;
-author.name:ManKier;
-author.url:https://www.mankier.com;
-author.icon_url:https://www.mankier.com/img/kier-sq.png;
-color:465870;
-footer.text:{get;~manurl};
-title:{get;~mantitle};
-url:{get;~manurl};
-description:{get;~mandesc};}}}
+{if;{commandname};!=;man;
+{jget;~mhelp};
+{output;{embed;{jget;~mhelp}}}
+}
+{return;false};
+{//;get man page and strip HTML}
+{//;use req func for backup bot because request doesn't work for some reason}
+{if;{exec;botid};==;134133271750639616;
+{output;Man Page for `{get;~manq}` <http://man.he.net/?topic={uriencode;{get;~manq}}&section=all>{file;{htmldecode;{join;{slice;{split;{regexreplace;{jget;{request;http://man.he.net/?topic={uriencode;{get;~manq}}&section=all};body};/<[^>]*>/g;};{newline}};9;};{newline}}};man.txt}};
+{output;Man Page for `{get;~manq}` <http://man.he.net/?topic={uriencode;{get;~manq}}&section=all>{file;{htmldecode;{join;{slice;{split;{regexreplace;{jget;{func.req;http://man.he.net/?topic={uriencode;{get;~manq}}&section=all};body};/<[^>]*>/g;};{newline}};14;};{newline}}};man.txt}}
+}
+}
