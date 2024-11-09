@@ -22,10 +22,6 @@ fields.inline:false;
 {output;{embed;{jget;~mhelp}}}
 }
 {return;false};
-{//;get man page and strip HTML}
-{//;use req func for backup bot because request doesn't work for some reason}
-{if;{exec;botid};==;134133271750639616;
-{output;Man Page for `{get;~manq}` <http://man.he.net/?topic={uriencode;{get;~manq}}&section=all>{file;{htmldecode;{join;{slice;{split;{regexreplace;{jget;{request;http://man.he.net/?topic={uriencode;{get;~manq}}&section=all};body};/<[^>]*>/g;};{newline}};9;};{newline}}};man.txt}};
-{output;Man Page for `{get;~manq}` <http://man.he.net/?topic={uriencode;{get;~manq}}&section=all>{file;{htmldecode;{join;{slice;{split;{regexreplace;{jget;{func.req;http://man.he.net/?topic={uriencode;{get;~manq}}&section=all};body};/<[^>]*>/g;};{newline}};14;};{newline}}};man.txt}}
-}
+{//;get text_content from metadata}
+{output;Man Page for `{get;~manq}` <http://man.he.net/?topic={uriencode;{get;~manq}}&section=all>{file;{htmldecode;{join;{slice;{split;{jget;{request;https://syretia.xyz/metanu?u={uriencode;http://man.he.net/?topic={uriencode;{get;~manq}}&section=all}};body.text_content};{newline}};3;};{newline}}};man.txt}}
 }
