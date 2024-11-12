@@ -151,21 +151,35 @@ timestamp:{time}}}}
 
 {//;function that replicates built-in request, but through syretia.xyz}
 {function;req;
-{if;{get;~req.raw};!=;true;
-{set;!~req.raw;false}}
-{set;!~url;{params;0}}
-{if;{logic;||;{bool;{get;~url};==;{null}};{bool;{get;~url};startswith;`}};{throw;Missing required arguments {get;~url}}{return}}
-{set;!~headers;{params;1}}
-{if;{get;~headers};startswith;`;
-{set;!~headers;}}
-{set;!~method;{jget;~headers;method}}
-{if;{logic;||;{bool;{get;~method};==;{null}};{bool;{get;~method};startswith;`}};
-{set;!~method;GET}}
-{jset;~headers;method;POST;c}
-{set;!~body;{params;2;n}}
-{if;{get;~body};startswith;`;
-{set;!~body;}}
-{jget;{request;https://syretia.xyz/req?url={uriencode;{get;~url}}&x={get;~method}&raw={get;~req.raw}&f={get;~req.flags};{get;~headers};{get;~body}};body}
+{//;head for request}
+{if;{jget;{params;1};method};!=;{null};
+  {set;!~nuhead;{jget;{params;1}}};
+  {jset;~nuhead;method;GET;c}
+}
+{if;{jget;~nuhead;headers};==;{null};
+  {jset;~nuhead;headers.user-agent;blargbot (blargbot.xyz);c}
+}
+
+{//;setup headers aray}
+{set;!~headers;[]}
+{foreach;~key;{jkeys;~nuhead;headers};
+  {if;{lower;{get;~key}};!=;x-authorization;
+    {push;~headers;{get;~key};{jget;~nuhead;headers.{get;~key}}}
+  }
+}
+{jset;~nuhead;headers.x-headers;{uriencode;{jget;~headers}};c}
+
+{//;request}
+{if;{length;{paramsarray}};>;2;
+  {set;!~nureq;{request;https://syretia.xyz/api/v1/req?url={uriencode;{params;0}};{jget;~nuhead};{params;2;n}}};
+  {set;!~nureq;{request;https://syretia.xyz/api/v1/req?url={uriencode;{params;0}};{jget;~nuhead}}}
+}
+
+{//;check status}
+{if;{jget;~nureq;status};!=;200;
+  {jset;~nureq;body;{get;~nureq};c}
+}
+{jget;~nureq;body}
 }
 
 {//;function to interact with firebase}
