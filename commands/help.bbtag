@@ -207,15 +207,15 @@ description:No help entry found for `{get;~cmd}`.;
 }
 
 {//;otherwise get embed from command and change color}
-{set;!~helpembed;{execcc;{get;~cmd};help}}
+{set;!~helpembed;{execcc;{get;~helptype};help}}
 {//;make sure embed is json}
 {if;{jget;~helpembed};==;{jget;{null}};
 {output;{embed;{embedbuild;
 author.name:{guildname};
 author.icon_url:{guildicon};
-title:Help embed not found for {get;~cmd};
+title:Help embed not found for {get;~helptype};
 color:{func.dlcolors;red};
-description:Error getting help embed for `{get;~cmd}`.;
+description:Error getting help embed for `{get;~helptype}`.;
 }}}
 {return}
 }
