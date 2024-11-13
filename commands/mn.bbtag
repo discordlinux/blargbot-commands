@@ -24,7 +24,7 @@ fields.name:{prefix}plan <flags>;
 fields.value:Plan a movie night with the settings provided by the given `flags` (see Flags above).;
 fields.inline:false;
 fields.name:{prefix}reschedule <id> <flags>;
-fields.value:Reschedule planned movie night `id` with the settings provided by the given `flags` (see Flags above)  `id` is the Unix time the movie was previously scheduled at.;
+fields.value:Reschedule planned movie night `id` with the settings provided by the given `flags` (see Flags above).  `id` is the Unix time the movie was previously scheduled at.;
 fields.inline:false;
 fields.name:{prefix}cancel <id>;
 fields.value:Cancel planned movie night `id`. `id` is the Unix time the movie was previously scheduled at.;
