@@ -7,7 +7,7 @@
 author.name:Help for mn;
 author.icon_url:{guildicon};
 color:{func.dlcolors;brightorange};
-description:Plan movie nights nights.  Will output a message 24 hours before the event, 1 hour before the event, and when the event starts.  The movie will be chosen randomly from entries provied through the `add` argument.;
+description:Plan movie nights.  Will output a message 24 hours before the event, 1 hour before the event, and when the event starts.  The movie will be chosen randomly from entries provied through the `add` argument.;
 fields.name:Flags;
 fields.value:`-t`: Time that the movie night starts in Unix format (required for plan, reschedule).
 `-r`: Role to mention in reminder messages (optional for plan, reschedule).
