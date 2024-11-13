@@ -48,6 +48,7 @@
         "unban": "api"
     },
     "systemd": {
+        "altblock": "altblock",
         "autoresponse": "api",
         "blacklist": "api",
         "bot": "api",
