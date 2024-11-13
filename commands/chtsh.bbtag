@@ -2,7 +2,7 @@
 {inject;{get;_gitcmd.functions}}
 
 {//;output help}
-{if;;{logic;||;
+{if;{logic;||;
 {bool;{commandname};==;help};
 {bool;{flag;_};==;{null}}};
 {set;!~askhelp;{embedbuild;
