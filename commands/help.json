@@ -21,6 +21,7 @@
     "sudoers": {
         "antiraid": "antiraid",
         "enter": "enter",
+        "mn": "mn",
         "mute": "api",
         "pardon": "api",
         "raffle": "raffle",
@@ -53,6 +54,7 @@
         "changelog": "api",
         "editcommand": "api",
         "farewell": "api",
+        "git":"git",
         "greeting": "api",
         "interval": "api",
         "log": "api",
