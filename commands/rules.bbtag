@@ -3,21 +3,24 @@
 
 {//;help function}
 {function;help;
-{embed;{embedbuild;
-title:Help for rules;
-color:{func.dlcolors;yellow};
-description:__**Usage**__: `rules [all|rule to show]`
-Displays a message telling someone to read <#172522057291005953>.  Can also show the entire list of rules using the `all` argument or a specific rule from the list that matches the text input.
-
-**Examples**:
-{repeat;`;3}
-rules 1
-rules spam
-{repeat;`;3}}}
+{set;!~rulehelp;{embedbuild;
+author.name:Help for rules;
+author.icon_url:{guildicon};
+color:{func.dlcolors;brightyellow};
+description:__**Arguments**__;
+fields.name:{prefix}rules;
+fields.value:Displays a message telling someone to read <#172522057291005953>.;
+fields.inline:false;
+fields.name:{prefix}rules <rule>;
+fields.value:Displays a the given `rule`.;
+fields.inline:false;
+}}
+{//;only output json if commandname is help}
+{if;{commandname};==;help;
+{jget;~rulehelp};
+{embed;{jget;~rulehelp}}
 }
-
-{//;check prefix}
-{func.prefixtest}
+}
 
 {//;detect arguments}
 {switch;{lower;{args;0}};

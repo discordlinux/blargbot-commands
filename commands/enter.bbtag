@@ -1,5 +1,26 @@
 {//;load functions}
 {inject;{get;_gitcmd.functions}}
+
+{//;output help}
+{if;;{logic;||;
+{bool;{commandname};==;help};
+{bool;{flag;_};==;help}};
+{set;!~askhelp;{embedbuild;
+author.name:Help for enter;
+author.icon_url:{guildicon};
+color:{func.dlcolors;brightorange};
+description:__**Arguments**__:;
+fields.name:{prefix}enter;
+fields.value:Outputs a message asking users to stop splitting chat between mutliple messages.;
+}}
+{//;only output json if commandname is help}
+{if;{commandname};==;help;
+{jget;~askhelp};
+{embed;{jget;~askhelp}}
+}
+{return;false}
+}
+
 {//;output message}
 {embed;{embedbuild;
 title:Please type in complete sentences, don't split over multiple messages;

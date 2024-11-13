@@ -200,9 +200,13 @@ description:Thank you for joining {guildname}.  You have been given the `{rolena
 }
 }
 
-{switch;{commandname};
-["antiraid","help"];
-{switch;{guildid};["96230004047740928","204061452707954688"];{//;do nothing};{return;false}}
+
+{if;{logic;&&;
+{bool;{commandname};!=;antiraid};
+{bool;{commandname};!=;help}};
+{return;false}
+}
+
 {if;{guildid};==;96230004047740928;{set;!_welcome.chanid;607332202153377829}}
 {//;check input}
 {switch;{flag;l};
@@ -371,19 +375,35 @@ color:{func.dlcolors;blurple};
 thumbnail.url:https://cdn.discordapp.com/emojis/842708658310742027.png;
 description:Please complete the membership screening process below, read our rules, and [click this link](https://forms.gle/7Z3MVAyvThXBi7R38) to fill out the Google form to gain access to Discord Linux.;}}};
 {//;output embed}
-{embed;{embedbuild;
-title:Anti-Raid {switch;{get;@{guildid}.anti.raid.level};["0"];Disabled;Enabled at Level {get;@{guildid}.anti.raid.level}};
-color:{switch;{get;@{guildid}.anti.raid.level};["3"];{func.dlcolors;red};["2"];orange;["1"];{func.dlcolors;yellow};{func.dlcolors;green}};
-description:__**Usage**__: `antiraid [-l <0|1|2|3>]`
-Sets anti-raid mode level.  By default, level 1 anti-raid mode is enabled.  Use the `-l` flag to set the desired anti-raid level.
+{set;!~arhelp;{embedbuild;
+author.name:Help for antiraid;
+author.icon_url:{guildicon};
+color:{func.dlcolors;brightred};
+description:Antiraid is currently {switch;{get;@{guildid}.anti.raid.level};["0"];disabled;enabled at level {get;@{guildid}.anti.raid.level}};
+fields.name:Flags;
+fields.value:`-l`: Set the antiraid level (0-3).;
+fields.inline:false;
+fields.name:Level 0;
+fields.value:Disables Anti-Raid mode.;
+fields.inline:false;
+fields.name:Level 1;
+fields.value:Accounts less than 24 hours old are kicked, the guild's verification level is set to level 3, and a 5 minute timeout is added.;
+fields.inline:false;
+fields.name:Level 2;
+fields.value:Accounts less than 30 days old are kicked, the guild's verification level is set to level 3, slowmode is enabled at 5 seconds, and a 5 minute timeout is added.;
+fields.inline:false;
+fields.name:Level 3;
+fields.value:Accounts less than 60 days old are kicked, the guild's verification level is set to level 4, slowmode is enabled at 5 seconds, and a 10 minute timeout is added.
 
-**Levels**
-{repeat;`;3}
-0 - Disables Anti-Raid mode.
-1 - Accounts less than 24 hours old are kicked, the guild's verification level is set to level 3, and a 5 minute timeout is added.
-2 - Accounts less than 30 days old are kicked, the guild's verification level is set to level 3, slowmode is enabled at 5 seconds, and a 5 minute timeout is added.
-3 - Accounts less than 60 days old are kicked, the guild's verification level is set to level 4, slowmode is enabled at 5 seconds, and a 10 minute timeout is added.
-{repeat;`;3}
-The current anti-raid mode level is {get;@{guildid}.anti.raid.level},{space}{switch;{get;@{guildid}.anti.raid.level};["3"];guild verification level is set to 4, accounts less than 60 days old will be kicked, and a 10 minute timeout is enabled;["2"];guild verification level is set to 3, accounts less than 30 days old will be kicked, and a 5 minute timeout is enabled;["1"];guild verification level is set to 3, accounts less than 24 hours old will be kicked, and a 5 minute timeout is enabled;anti-raid is disabled}.;}}
+__**Arguments**__;
+fields.inline:false;
+fields.name:{prefix}antiraid;
+fields.value:View current antiraid level.;
+fields.inline:false;
+}}
+{//;output only json if commandname is help}
+{if;{commandname};==;help;
+{jget;~arhelp};
+{embed;{jget;~arhelp}}
 }
 }

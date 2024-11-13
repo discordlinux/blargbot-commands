@@ -3,64 +3,50 @@
 
 {//;help function}
 {function;help;
-{embed;{embedbuild;
-author.name:{username}#{userdiscrim} ({userid});
-author.icon_url:{useravatar};
-title:Help for mn;
-color:{func.dlcolors;yellow};
-description:__**Usage**__: `gt <add <-c movie> <-n name>|plan <-t time> [-r role] [-c channel]|reschedule <-i id> <-t time> [-r role] [-c channel]|cancel <-i id>>`
-Plan movie nights nights.  Will output a message 24 hours before the event, 1 hour before the event, and when the event starts.  The movie will be chosen randomly from entries provied through the `add` argument.
+{set;!~mnhelp;{embedbuild;
+author.name:Help for mn;
+author.icon_url:{guildicon};
+color:{func.dlcolors;brightorange};
+description:Plan movie nights nights.  Will output a message 24 hours before the event, 1 hour before the event, and when the event starts.  The movie will be chosen randomly from entries provied through the `add` argument.;
+fields.name:Flags;
+fields.value:`-t`: Time that the movie night starts in Unix format (required for plan, reschedule).
+`-r`: Role to mention in reminder messages (optional for plan, reschedule).
+`-c`: Channel to output reminder messages in. Defaults to current channel (optional for plan, reschedule).
 
-**Arguments**
-{repeat;`;3}
-add: Add a movie to the list.
-Flags:
- -n: Name of movie. Required.
-Example:
-  'add -n Movie Name'
-
-remove: Remove a movie from the list.
-Flags:
- -n: Name of movie. Required.
-Example:
-  'remove -n Movie Name'
-
-plan: Plan a movie night.
-Flags:
-  -t: Time that the movie night starts in Unix format. Required.
-  -r: Role to mention in reminder messages. Optional.
-  -c: Channel to output reminder messages in. Defaults to current channel. Optional.
-Example:
-  'plan -t {math;+;{time;X};86400} -r sudoers -c #moderator-chat'
-
-reschedule: Reschedule a planned movie night.
-Flags:
-  -i: ID of the movie night to reschedule. Required.
-  -t: Time that the movie night starts in Unix format. Required.
-  -r: Role to mention in reminder messages. Optional.
-  -c: Channel to output reminder messages in. Defaults to current channel. Optional.
-Example:
-  'reschedule -i {time;X} -t {math;+;{time;X};86400} -r sudoers -c #moderator-chat'
-
-cancel: Cancel a planned movie night.
-Flags:
-  -i: ID of the movie night to cancel. Required.
-Example:
-  'cancel -i {time;X}'
-{repeat;`;3}
+__**Arguments**__;
+fields.name:{prefix}add <name>;
+fields.value:Add movie `name` to the list.;
+fields.inline:false;
+fields.name:{prefix}remove <name>;
+fields.value:Remove movie `name` from the list.;
+fields.inline:false;
+fields.name:{prefix}plan <flags>;
+fields.value:Plan a movie night with the settings provided by the given `flags` (see Flags above).;
+fields.inline:false;
+fields.name:{prefix}reschedule <id> <flags>;
+fields.value:Reschedule planned movie night `id` with the settings provided by the given `flags` (see Flags above)  `id` is the Unix time the movie was previously scheduled at.;
+fields.inline:false;
+fields.name:{prefix}cancel <id>;
+fields.value:Cancel planned movie night `id`. `id` is the Unix time the movie was previously scheduled at.;
+fields.inline:false;
 }}
+{//;only output json if commandname is help}
+{if;{commandname};==;help;
+{jget;~mnhelp};
+{embed;{jget;~mnhelp}}
+}
 }
 
 {//;function to add movies to the list}
 {function;addmovie;
 {//;check input}
-{if;{flag;n};==;{null};
+{if;{flag;_};==;{null};
 {func.error;No movie provided.}
 {return}}
 {//;get info about movie}
-{set;!~omdb;{func.getjson;https://www.omdbapi.com/?t={uriencode;{flag;n}}&apikey=2a94c44e}}
+{set;!~omdb;{func.getjson;https://www.omdbapi.com/?t={uriencode;{flag;_}}&apikey=2a94c44e}}
 {if;{jget;~omdb;Title};==;{null};
-{func.error;No results found for '{flag;n}'}
+{func.error;No results found for '{flag;_}'}
 {return}}
 {//;check if movie is already in list}
 {set;!~mn.check;{filter;~movie;{jvalues;_mn.movies};
@@ -112,19 +98,19 @@ description:**Title**: {jget;~omdb;Title}
 {//;function to remove movies from the list}
 {function;removemovie;
 {//;check input}
-{if;{flag;n};==;{null};
+{if;{flag;_};==;{null};
 {func.error;No movie provided.}
 {return}}
 {if;{get;_mn.movies};==;{null};
 {func.error;No movies in list.}
 {return}}
 {//;check if movie is in list}
-{set;!~omdb;{jget;{filter;~movie;{jvalues;_mn.movies};{bool;{lower;{jget;~movie;Title}};==;{lower;{flag;n}}}};0}}
+{set;!~omdb;{jget;{filter;~movie;{jvalues;_mn.movies};{bool;{lower;{jget;~movie;Title}};==;{lower;{flag;_}}}};0}}
 {if;{jget;~omdb;Title};==;{null};
-{func.error;No results found for '{flag;n}'}
+{func.error;No results found for '{flag;_}'}
 {return}}
 {//;remove movie from list}
-{set;!_mn.movies;{filter;~movie;{jvalues;_mn.movies};{bool;{lower;{jget;~movie;Title}};!=;{lower;{flag;n}}}}}
+{set;!_mn.movies;{filter;~movie;{jvalues;_mn.movies};{bool;{lower;{jget;~movie;Title}};!=;{lower;{flag;_}}}}}
 {set;!_mn.movies;{jclean;_mn.movies}}
 {//;output info about movie}
 {embed;{embedbuild;
@@ -271,7 +257,7 @@ description:**Title**: {jget;_mn.movie.{flag;t};Title}
 {//;function to reschedule movie night}
 {function;reschedule;
 {//;check ID input}
-{if;{get;_mn.movie.{flag;i}};==;{null};
+{if;{get;_mn.movie.{flag;_}};==;{null};
 {func.error;Invalid ID provided.}
 {return}}
 {//;check time input}
@@ -283,9 +269,9 @@ description:**Title**: {jget;_mn.movie.{flag;t};Title}
 {func.error;Invalid Unix time provided.}
 {return}}
 {//;set variable for new time to contents of old variable}
-{set;!_mn.movie.{flag;t};{get;_mn.movie.{flag;i}}}
+{set;!_mn.movie.{flag;t};{get;_mn.movie.{flag;_}}}
 {//;delete old variable}
-{set;!_mn.movie.{flag;i}}
+{set;!_mn.movie.{flag;_}}
 {//;output info}
 {set;!_mn.msg;{send;{channelid;{flag;c}};;{embedbuild;
 author.name:{username}#{userdiscrim} ({userid});
@@ -407,7 +393,7 @@ description:**Title**: {jget;_mn.movie.{flag;t};Title}
 {//;function to cancel movie night}
 {function;cancel;
 {//;check ID input}
-{if;{get;_mn.movie.{flag;i}};==;{null};
+{if;{get;_mn.movie.{flag;_}};==;{null};
 {func.error;Invalid ID provided.}
 {return}}
 {//;output info}
@@ -416,19 +402,19 @@ author.name:{username}#{userdiscrim} ({userid});
 author.icon_url:{useravatar};
 title:Movie Night Canceled;
 color:{func.dlcolors;red};
-image.url:{jget;_mn.movie.{flag;i};Poster};
-description:**Time**: <t:{flag;i}> (<t:{flag;i}:R>)
-**Title**: {jget;_mn.movie.{flag;i};Title}
-**Released**: {jget;_mn.movie.{flag;i};Released}
-**Runtime**: {jget;_mn.movie.{flag;i};Runtime}
-**Genre**: {jget;_mn.movie.{flag;i};Genre}
-**Director**: {jget;_mn.movie.{flag;i};Director}
-**Writer**: {jget;_mn.movie.{flag;i};Writer}
-**Actors**: {jget;_mn.movie.{flag;i};Actors}
-**Plot Summary**: {jget;_mn.movie.{flag;i};Plot}
+image.url:{jget;_mn.movie.{flag;_};Poster};
+description:**Time**: <t:{flag;_}> (<t:{flag;_}:R>)
+**Title**: {jget;_mn.movie.{flag;_};Title}
+**Released**: {jget;_mn.movie.{flag;_};Released}
+**Runtime**: {jget;_mn.movie.{flag;_};Runtime}
+**Genre**: {jget;_mn.movie.{flag;_};Genre}
+**Director**: {jget;_mn.movie.{flag;_};Director}
+**Writer**: {jget;_mn.movie.{flag;_};Writer}
+**Actors**: {jget;_mn.movie.{flag;_};Actors}
+**Plot Summary**: {jget;_mn.movie.{flag;_};Plot}
 }}
 {//;delete old variable}
-{set;!_mn.movie.{flag;i}}
+{set;!_mn.movie.{flag;_}}
 }
 
 {//;detect arguments}

@@ -1,6 +1,26 @@
 {//;inject functions}
 {inject;{get;_gitcmd.functions}}
 
+{//;output help}
+{if;;{logic;||;
+{bool;{commandname};==;help};
+{bool;{flag;_};==;help}};
+{set;!~askhelp;{embedbuild;
+author.name:Help for rule;
+author.icon_url:{guildicon};
+color:{func.dlcolors;brightorange};
+description:__**Arguments**__:;
+fields.name:{prefix}rule <number> <user>;
+fields.value:Shortcut for the `warn` command.  Gives `user` a warning with reason 'Rule #`number`'.;
+}}
+{//;only output json if commandname is help}
+{if;{commandname};==;help;
+{jget;~askhelp};
+{embed;{jget;~askhelp}}
+}
+{return;false}
+}
+
 {fallback;}
 
 {//;check if message is reply}

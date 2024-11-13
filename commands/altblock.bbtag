@@ -19,7 +19,9 @@
 }
 
 {//;section that is ran in greet}
-{if;{commandname};!=;altblock;
+{if;{logic;&&;
+{bool;{commandname};!=;altblock};
+{bool;{commandname};!=;help}};
 {//;setup and maintain array of users and creation dates}
 {if;{get;_altblock.array};==;{null};
 {set;!_altblock.array;[]}
@@ -139,7 +141,13 @@ timestamp:{time};}}}
 }
 
 {//;setup and help}
-{if;{commandname};==;altblock;
+
+{if;{logic;&&;
+{bool;{commandname};!=;altblock};
+{bool;{commandname};!=;help}};
+{return;false}
+}
+
 {switch;{lower;{flag;_}};
 ["setup"];
 
@@ -418,22 +426,33 @@ Setup complete.;
 }}};
 
 {//;help output}
-{embed;{embedBuild;
-title:AltBlock Help;
-color:{func.dlcolors;yellow};
-description:__**Usage**__: `altblock [setup]`
-Blocks potential alt accounts based on creation date.  Amount of users to check against, time between creation dates, log channel, and method for dealing with potential alt accounts can be configured through `setup`.
+{set;!~abhelp;{embedBuild;
+author.name:Help for altblock;
+author.icon_url:{guildicon};
+color:{func.dlcolors;pink};
+description:Blocks potential alt accounts based on creation date.
 
-__**Current Configuration**__
-**Stored Users**: {get;_altblock.length}
+__**Arguments**__;
+fields.name:{prefix}altblock;
+fields.value:Show current altblock configuration.;
+fields.inline:false;
+fields.name:{prefix}altblock setup;
+fields.value:Configure amount of users to check against, time between creation dates, log channel, and method for dealing with potential alt accounts.;
+fields.inline:false;
+fields.name:Current Configuration;
+fields.value:**Stored Users**: {get;_altblock.length}
 **Time Between Creation Dates**: {get;_altblock.time} seconds
 **Log Channel**: {if;{get;_altblock.channel};!=;{null};<#{get;_altblock.channel}>}
 **Timeout**: {get;_altblock.timeout}
 **Muted Role**: {if;{get;_altblock.mute};!=;{null};<@&{get;_altblock.mute}>}
 **Kick**: {get;_altblock.kick}
 **Ban**: {get;_altblock.ban}
-**Custom BBTag**: {if;{get;_altblock.custom};!=;{null};`{get;_altblock.custom}`}
+**Custom BBTag**: {if;{get;_altblock.custom};!=;{null};`{get;_altblock.custom}`};
+fields.inline:false;
 }}
-
+{//;output only embed if commandname is help}
+{if;{commandname};==;help;
+{jget;~abhelp};
+{embed;{jget;~abhelp}}
 }
 }

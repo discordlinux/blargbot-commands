@@ -20,9 +20,24 @@ Or in an autoresponse:
 {return}
 }
 
-{if;{argslength};==;0;
-{output;You have to ask me something!}
-{return}
+{switch;{flag;_};
+["","help"];
+{set;!~chathelp;{embedbuild;
+author.name:Help for chat;
+author.icon_url:{guildicon};
+color:{func.dlcolors;brightyellow};
+description:Uses [Cohere's](https://cohere.com) command-r engine to provide responses for the given input.  Chat history is saved until user reaches 100k tokens used and then is reset.
+
+__**Arguments**__;
+fields.name:{prefix}chat <message>;
+fields.value:Get a response for the given `message`.;
+}}
+{//;only output json if commandname is help}
+{if;{commandname};==;help;
+{jget;~chathelp};
+{embed;{jget;~chathelp}}
+}
+{return;false}
 }
 
 {//;setup headers}

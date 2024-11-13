@@ -3,21 +3,26 @@
 
 {//;help function}
 {function;help;
-{embed;{embedbuild;
-title:Help for raffle;
+{set;!~rhelp;{embedbuild;
+author.name:Help for raffle;
+author.icon_url:{guildicon};
 color:{func.dlcolors;brightred};
-description:__**Usage**__: `raffle <thing to raffle> [flags]`
-Sends an embed that allows users to enter a raffle by reacting to the message.  The item to raffle must be specified as the first argument.
+fields.name:Flags;
+fields.value:`-e`: Emoji to add to embed.  Defaults to 🎁.
+`-t`: Time to wait before drawing a winner.  Defaults to 5 minutes.
+`-r`: Role name to restrict raffle to.  Defaults to no restriction.
 
-**Available flags:**
-```
--e    Emoji to add to embed.  Defaults to 🎁.
-
--t    Time to wait before drawing a winner.  Defaults to 5 minutes.
-
--r    Role name to restrict raffle to.  Defaults to no restriction.
-
-```;}}
+__**Arguments**__;
+fields.inline:false;
+fields.name:{prefix}raffle <item> [flags];
+fields.value:Sends an embed that allows users to enter a raffle for the given `item` by reacting to the message.;
+fields.inline:false;
+}}
+{//;only output json if commandname is help}
+{if;{commandname};==;help;
+{jget;~rhelp};
+{embed;{jget;~rhelp}}
+}
 }
 
 {//;set last winner if unset}

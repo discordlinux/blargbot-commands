@@ -1,23 +1,26 @@
 {//;load functions}
 {inject;{get;_gitcmd.functions}}
-{//;check prefix}
-{func.prefixtest}
-{//;help function}
-{function;help;
-{embed;{embedbuild;
-color:{func.dlcolors;yellow};
-title:Help for ask;
-description:__**Usage**__: `ask`
-Outputs a message with info on how to properly ask questions.;}}
+
+{//;output help}
+{if;;{logic;||;
+{bool;{commandname};==;help};
+{bool;{flag;_};==;help}};
+{set;!~askhelp;{embedbuild;
+author.name:Help for ask;
+author.icon_url:{guildicon};
+color:{func.dlcolors;gray};
+description:__**Arguments**__:;
+fields.name:{prefix}ask;
+fields.value:Outputs a message with info on how to properly ask questions.;
+}}
+{//;only output json if commandname is help}
+{if;{commandname};==;help;
+{jget;~askhelp};
+{embed;{jget;~askhelp}}
 }
-{//;output help if any arguments passed}
-{if;{flag;_};!=;{null};
-{switch;{lower;{args}};
-["help","-h","--help"];
-{func.help};
-{exec;openai;{join;{slice;{split;{messagetext};ask{space}};1;};ask{space}}}
+{return;false}
 }
-{return;false}}
+
 {//;output embed}
 {embed;{embedbuild;
 author.name:Asking for Help;

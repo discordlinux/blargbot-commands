@@ -1,7 +1,28 @@
 {//;load functions}
 {inject;{get;_gitcmd.functions}}
-{//;check prefix}
-{func.prefixtest}
+
+{//;output help}
+{if;;{logic;||;
+{bool;{commandname};==;help};
+{bool;{flag;_};==;{null}}};
+{set;!~askhelp;{embedbuild;
+author.name:Help for cht.sh;
+author.icon_url:{guildicon};
+color:{func.dlcolors;brightyellow};
+description:Uses [cht.sh](http://cht.sh) to return TL{semi}DR-style help.
+
+__**Arguments**__:;
+fields.name:{prefix}cht.sh <query>;
+fields.value:Returns the cht.sh response for the given `query`.;
+}}
+{//;only output json if commandname is help}
+{if;{commandname};==;help;
+{jget;~askhelp};
+{embed;{jget;~askhelp}}
+}
+{return;false}
+}
+
 {//; Set the array here }
 {set;!~request;{jget;{request;http://cheat.sh/{if;{flag;_};!=;;{uriencode;{flag;_}};:help}?qT&style=bw};body}}
 {if;{get;~request};startswith;{lb};{set;!~request;{jget;{get;~request};answer}}}
