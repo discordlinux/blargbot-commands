@@ -19,7 +19,6 @@
         "weather": "weather"
     },
     "sudoers": {
-        "antiraid": "antiraid",
         "enter": "enter",
         "mn": "mn",
         "mute": "api",
@@ -39,6 +38,7 @@
     },
     "trusted": {
         "announce": "api",
+        "antiraid": "antiraid",
         "ban": "api",
         "ccommand": "api",
         "censor": "api",
