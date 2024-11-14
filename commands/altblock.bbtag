@@ -440,7 +440,7 @@ fields.inline:false;
 fields.name:{prefix}altblock setup;
 fields.value:Configure amount of users to check against, time between creation dates, log channel, and method for dealing with potential alt accounts.;
 fields.inline:false;
-fields.name:Current Configuration;
+fields.name:__Current Configuration__;
 fields.value:**Stored Users**: {get;_altblock.length}
 **Time Between Creation Dates**: {get;_altblock.time} seconds
 **Log Channel**: {if;{get;_altblock.channel};!=;{null};<#{get;_altblock.channel}>}
