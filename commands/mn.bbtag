@@ -15,19 +15,19 @@ fields.value:`-t`: Time that the movie night starts in Unix format (required for
 `-c`: Channel to output reminder messages in. Defaults to current channel (optional for plan, reschedule).
 
 __**Arguments**__;
-fields.name:{prefix}add <name>;
+fields.name:{prefix}mn add <name>;
 fields.value:Add movie `name` to the list.;
 fields.inline:false;
-fields.name:{prefix}remove <name>;
+fields.name:{prefix}mn remove <name>;
 fields.value:Remove movie `name` from the list.;
 fields.inline:false;
-fields.name:{prefix}plan <flags>;
+fields.name:{prefix}mn plan <flags>;
 fields.value:Plan a movie night with the settings provided by the given `flags` (see Flags above).;
 fields.inline:false;
-fields.name:{prefix}reschedule <id> <flags>;
+fields.name:{prefix}mn reschedule <id> <flags>;
 fields.value:Reschedule planned movie night `id` with the settings provided by the given `flags` (see Flags above).  `id` is the Unix time the movie was previously scheduled at.;
 fields.inline:false;
-fields.name:{prefix}cancel <id>;
+fields.name:{prefix}mn cancel <id>;
 fields.value:Cancel planned movie night `id`. `id` is the Unix time the movie was previously scheduled at.;
 fields.inline:false;
 }}
