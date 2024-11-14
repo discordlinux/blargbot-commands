@@ -380,9 +380,11 @@ author.name:{guildname};
 author.icon_url:{guildicon};
 title:Help for antiraid;
 color:{func.dlcolors;brightred};
-description:Antiraid is currently {switch;{get;@{guildid}.anti.raid.level};["0"];disabled;enabled at level {get;@{guildid}.anti.raid.level}};
+description:Antiraid is currently {switch;{get;@{guildid}.anti.raid.level};["0",""];disabled;enabled at level {get;@{guildid}.anti.raid.level}.};
 fields.name:Flags;
-fields.value:`-l`: Set the antiraid level (0-3).;
+fields.value:`-l`: Set the antiraid level (0-3).
+
+__**Antiraid Levels**__:;
 fields.inline:false;
 fields.name:Level 0;
 fields.value:Disables Anti-Raid mode.;
@@ -396,7 +398,7 @@ fields.inline:false;
 fields.name:Level 3;
 fields.value:Accounts less than 60 days old are kicked, the guild's verification level is set to level 4, slowmode is enabled at 5 seconds, and a 10 minute timeout is added.
 
-__**Arguments**__;
+__**Arguments**__:;
 fields.inline:false;
 fields.name:{prefix}antiraid;
 fields.value:View current antiraid level.;
