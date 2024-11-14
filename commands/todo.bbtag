@@ -16,10 +16,10 @@ fields.value:{prefix}todo add <item>;
 fields.value:Add an `item` to a todo list.;
 fields.inline:false;
 fields.value:{prefix}todo edit <item number>;
-fields.value:Edit `item number` in a todo list.
+fields.value:Edit `item number` in a todo list.;
 fields.inline:false;
 fields.value:{prefix}todo remove <item number>;
-fields.value:Remove `item number` from a todo list.
+fields.value:Remove `item number` from a todo list.;
 fields.inline:false;
 }}
 {//;only output json if commandname is help}
