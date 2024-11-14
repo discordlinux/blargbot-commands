@@ -452,9 +452,7 @@ This command is not meant to be interacted with directly.  To edit a reason for 
 author.name:Help for reason;
 author.icon_url:{guildicon};
 color:{func.dlcolors;brightorange};
-description:Update the reason for an existing modlog.  Use either `latest` for the most recent modlog or specify a case number for a different modlog.  The case number is the message ID of the modlog.
-
-__**Arguments**__;
+description:__**Arguments**__:;
 fields.name:{prefix}reason latest <reason>;
 fields.value:Update the `reason` for the latest modlog.
 fields.inline:false;
