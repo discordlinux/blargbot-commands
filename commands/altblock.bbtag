@@ -427,8 +427,9 @@ Setup complete.;
 
 {//;help output}
 {set;!~abhelp;{embedBuild;
-author.name:Help for altblock;
+author.name:{guildname};
 author.icon_url:{guildicon};
+title:Help for altblock;
 color:{func.dlcolors;pink};
 description:Blocks potential alt accounts based on creation date.
 

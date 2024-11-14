@@ -3,8 +3,9 @@
 
 {//;help function}
 {function;help;{set;!~thelp;{embedbuild;
-author.name:Help for topic;
+author.name:{guildname};
 author.icon_url:{guildicon};
+title:Help for topic;
 color:{func.dlcolors;brightyellow};
 description:__**Arguments**__:;
 fields.name:{prefix}topic;

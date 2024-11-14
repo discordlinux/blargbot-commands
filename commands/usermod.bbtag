@@ -264,8 +264,9 @@ timestamp:{time};}}}
 }
 {//;output help}
 {set;!~uhelp;{embedbuild;
-author.name:Help for usermod;
+author.name:{guildname};
 author.icon_url:{guildicon};
+title:Help for usermod;
 color:{func.dlcolors;gray};
 description:Add or remove roles from the user.;
 fields.name:Flags;

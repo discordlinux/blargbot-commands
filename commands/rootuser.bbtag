@@ -6,8 +6,9 @@
 {bool;{commandname};==;help};
 {bool;{flag;_};==;help}};
 {set;!~askhelp;{embedbuild;
-author.name:Help for rootuser;
+author.name:{guildname};
 author.icon_url:{guildicon};
+title:Help for rootuser;
 color:{func.dlcolors;brightorange};
 description:__**Arguments**__:;
 fields.name:{prefix}rootuser;

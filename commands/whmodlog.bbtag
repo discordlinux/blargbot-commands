@@ -449,8 +449,9 @@ This command is not meant to be interacted with directly.  To edit a reason for 
 ["reason"];
 {//;reason help}
 {set;!~rhelp;{embedbuild;
-author.name:Help for reason;
+author.name:{guildname};
 author.icon_url:{guildicon};
+title:Help for reason;
 color:{func.dlcolors;brightorange};
 description:__**Arguments**__:;
 fields.name:{prefix}reason latest <reason>;

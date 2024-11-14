@@ -6,8 +6,9 @@
 {bool;{commandname};==;help};
 {bool;{flag;_};==;help}};
 {set;!~askhelp;{embedbuild;
-author.name:Help for ask;
+author.name:{guildname};
 author.icon_url:{guildicon};
+title:Help for ask;
 color:{func.dlcolors;gray};
 description:__**Arguments**__:;
 fields.name:{prefix}ask;

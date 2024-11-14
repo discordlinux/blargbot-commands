@@ -4,8 +4,9 @@
 {//;help function}
 {function;help;
 {set;!~rulehelp;{embedbuild;
-author.name:Help for rules;
+author.name:{guildname};
 author.icon_url:{guildicon};
+title:Help for rules;
 color:{func.dlcolors;brightyellow};
 description:__**Arguments**__;
 fields.name:{prefix}rules;

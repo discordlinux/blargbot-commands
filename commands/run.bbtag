@@ -198,8 +198,9 @@ Exit code: {fallback;1}{jget;~paiza.json;body.exit_code}{fallback} | Memory used
 {switch;{lower;{args}};
 ["","help"];
 {set;!~runhelp;{embedbuild;
-author.name:Help for run;
+author.name:{guildname};
 author.icon_url:{guildicon};
+title:Help for run;
 color:{func.dlcolors;brightyellow};
 description:Executes code using [Codex.jaagrav.in](https://codex.jaagrav.in/) or [Rextester.com](https://rextester.com/).
 

@@ -3,8 +3,9 @@
 
 {//;help function}
 {function;help;{set;!~sehelp;{embedbuild;
-author.name:Help for se;
+author.name:{guildname};
 author.icon_url:{guildicon};
+title:Help for se;
 color:{func.dlcolors;brightyellow};
 description:Searches the web and returns results.
 

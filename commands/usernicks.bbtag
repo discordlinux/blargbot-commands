@@ -2,7 +2,9 @@
 {inject;{get;_gitcmd.functions}}
 
 {function;nickshelp;{set!~nhelp;{embedbuild;
-author.name:Help for usernicks;
+author.name:{guildname};
+author.icon_url:{guildicon};
+title:Help for usernicks;
 color:{func.dlcolors;yellow};
 description:Tracks and shows nicknames.
 

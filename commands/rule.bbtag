@@ -6,8 +6,9 @@
 {bool;{commandname};==;help};
 {bool;{flag;_};==;help}};
 {set;!~askhelp;{embedbuild;
-author.name:Help for rule;
+author.name:{guildname};
 author.icon_url:{guildicon};
+title:Help for rule;
 color:{func.dlcolors;brightorange};
 description:__**Arguments**__:;
 fields.name:{prefix}rule <number> <user>;

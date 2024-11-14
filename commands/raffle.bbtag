@@ -4,8 +4,9 @@
 {//;help function}
 {function;help;
 {set;!~rhelp;{embedbuild;
-author.name:Help for raffle;
+author.name:{guildname};
 author.icon_url:{guildicon};
+title:Help for raffle;
 color:{func.dlcolors;brightred};
 fields.name:Flags;
 fields.value:`-e`: Emoji to add to embed.  Defaults to 🎁.

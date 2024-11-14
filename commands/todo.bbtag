@@ -3,8 +3,9 @@
 
 {//;Function to output help}
 {function;help;{set;!~todohelp;{embedbuild;
-author.name:Help for todo;
+author.name:{guildname};
 author.icon_url:{guildicon};
+title:Help for todo;
 color:{func.dlcolors;brightorange};
 description:Create, manage, and view todo lists.;
 fields.name:Flags;

@@ -6,8 +6,9 @@
 {bool;{commandname};==;help};
 {bool;{flag;_};==;{null}}};
 {set;!~askhelp;{embedbuild;
-author.name:Help for cht.sh;
+author.name:{guildname};
 author.icon_url:{guildicon};
+title:Help for cht.sh;
 color:{func.dlcolors;brightyellow};
 description:Uses [cht.sh](http://cht.sh) to return TL{semi}DR-style help.
 

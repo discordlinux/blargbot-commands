@@ -4,8 +4,9 @@
 {//;help function}
 {function;help;
 {set;!~mnhelp;{embedbuild;
-author.name:Help for mn;
+author.name:{guildname};
 author.icon_url:{guildicon};
+title:Help for mn;
 color:{func.dlcolors;brightorange};
 description:Plan movie nights.  Will output a message 24 hours before the event, 1 hour before the event, and when the event starts.  The movie will be chosen randomly from entries provied through the `add` argument.;
 fields.name:Flags;
