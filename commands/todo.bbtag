@@ -12,14 +12,14 @@ fields.name:Flags;
 fields.value:`-c`: Select the todo list category.
 
 __**Arguments**__:;
-fields.value:{prefix}todo add <item>;
 fields.inline:false;
+fields.name:{prefix}todo add <item>;
 fields.value:Add an `item` to a todo list.;
 fields.inline:false;
-fields.value:{prefix}todo edit <item number>;
+fields.name:{prefix}todo edit <item number>;
 fields.value:Edit `item number` in a todo list.;
 fields.inline:false;
-fields.value:{prefix}todo remove <item number>;
+fields.name:{prefix}todo remove <item number>;
 fields.value:Remove `item number` from a todo list.;
 fields.inline:false;
 }}
