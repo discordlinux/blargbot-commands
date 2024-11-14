@@ -6,7 +6,7 @@
 author.name:Help for topic;
 author.icon_url:{guildicon};
 color:{func.dlcolors;brightyellow};
-description:__**Arguments**__;
+description:__**Arguments**__:;
 fields.name:{prefix}topic;
 fields.value:Get the topic for the current channel.;
 fields.inline:false;

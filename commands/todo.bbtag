@@ -10,7 +10,7 @@ description:Create, manage, and view todo lists.;
 fields.name:Flags;
 fields.values:`-c`: Select the todo list category.
 
-__**Arguments**__;
+__**Arguments**__:;
 fields.value:{prefix}todo add <item>;
 fields.value:Add an `item` to a todo list.;
 fields.inline:false;
