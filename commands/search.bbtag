@@ -2,47 +2,62 @@
 {inject;{get;_gitcmd.functions}}
 
 {//;help function}
-{function;help;{embed;{embedbuild;
-title:Help for se;
-color:{func.dlcolors;yellow};
-description:**__Usage:__** `se [arg] <search term>`
-Search the web using DuckDuckGo or use one of the arguments listed below to perform a specific search.
-If none of the arguments below are used, a normal search will be ran.
+{function;help;{set;!~sehelp;{embedbuild;
+author.name:Help for se;
+author.icon_url:{guildicon};
+color:{func.dlcolors;brightyellow};
+description:Searches the web and returns results.
 
-**Available arguments**:
-```
-• abs
-  tldp Advanced Bash Scripting search
-• aw
-  Arch wiki Search
-• bbg
-  tldp Bash Beginners Guide search
-• define or def
-  Dictionary search
-• dw
-  Debian wiki search
-• fw
-  Fedora wiki search
-• game or games
-  MobyGames search
-• gw
-  Gentoo wiki search
-• lsst
-  Linux Shell Scripting Tutorial
-• osd
-  openSUSE docs search
-• osw
-  openSUSE wiki search
-• steam or proton
-  Steam Play compatability search
-• uw
-  Ubuntu wiki search
-• wiki or wikipedia
-  Wikipedia search
-• youtube or yt
-  Youtube search
-```
-;}}}
+__**Arguments**__:;
+fields.name:{prefix}se abs <query>;
+fields.value:tldp Advanced Bash Scripting search for `query`.;
+fields.inline:false;
+fields.name:{prefix}se aw <query>;
+fields.value:Arch Wiki earch for `query`.;
+fields.inline:false;
+fields.name:{prefix}se bbg <query>;
+fields.value:tldp Bash Beginners Guide search for `query`.;
+fields.inline:false;
+fields.name:{prefix}se def <query>;
+fields.value:Dictionary search for `query`.;
+fields.inline:false;
+fields.name:{prefix}se dw <query>;
+fields.value:Debian wiki search for `query`.;
+fields.inline:false;
+fields.name:{prefix}se fw <query>;
+fields.value:Fedora wiki search for `query`.;
+fields.inline:false;
+fields.name:{prefix}se game <query>;
+fields.value:MobyGames search for `query`.;
+fields.inline:false;
+fields.name:{prefix}se gw <query>;
+fields.value:Gentoo wiki search for `query`.;
+fields.inline:false;
+fields.name:{prefix}se lsst <query>;
+fields.value:Linux Shell Scripting Tutorial search for `query`.;
+fields.inline:false;
+fields.name:{prefix}se osd <query>;
+fields.value:openSUSE docs search for `query`.;
+fields.inline:false;
+fields.name:{prefix}se osw <query>;
+fields.value:openSUSE wiki search for `query`.;
+fields.inline:false;
+fields.name:{prefix}se steam <query>;
+fields.value:Steam Play compatability search for `query`.;
+fields.inline:false;
+fields.name:{prefix}se uw <query>;
+fields.value:Ubuntu wiki search for `query`.;
+fields.inline:false;
+fields.name:{prefix}se yt <query>;
+fields.value:Youtube search for `query`.;
+fields.inline:false;
+}}
+{//;only output json if commandname is help}
+{if;{commandname};==;help;
+{jget;~sehelp};
+{embed;{jget;~sehelp}}
+}
+}
 
 {//;function to search ddg}
 {function;ddgse;

@@ -448,21 +448,37 @@ This command is not meant to be interacted with directly.  To edit a reason for 
 
 ["reason"];
 {//;reason help}
-{embed;{embedbuild;
-title:Help for reason;
-color:{func.dlcolors;red};
-description:__**Usage**__: `reason <latest|case number> <new reason>`
-Update the reason for an existing modlog.  Use either `latest` for the most recent modlog or specify a case number for a different modlog.  The case number is the message ID of the modlog.;}}
-}
+{set;!~rhelp;{embedbuild;
+author.name:Help for reason;
+author.icon_url:{guildicon};
+color:{func.dlcolors;brightorange};
+description:Update the reason for an existing modlog.  Use either `latest` for the most recent modlog or specify a case number for a different modlog.  The case number is the message ID of the modlog.
 
+__**Arguments**__;
+fields.name:{prefix}reason latest <reason>;
+fields.value:Update the `reason` for the latest modlog.
+fields.inline:false;
+fields.name:{prefix}reason <case> <reason>;
+fields.value:Update the `reason` for the modlog for the given `case`.  `case` is the message ID of the modlog.;
+fields.inline:false;
+}}
+{//;only output json if commandname is help}
+{if;{commandname};==;help;
+{jget;~rhelp};
+{embed;{jget;~rhelp}}
+}
+}
 }
 
 {suppresslookup}
 
-{//;output help and return if being ran through modlog command}
+{//;output help and return if being ran through modlog or help command}
 {switch;{commandname};
 ["modlog","whmodlog"];
 {func.modlog_help;modlog}
+{return;false};
+["help"];
+{func.modlog_help;reason}
 {return;false}
 }
 

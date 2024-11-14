@@ -197,28 +197,40 @@ Exit code: {fallback;1}{jget;~paiza.json;body.exit_code}{fallback} | Memory used
 
 {switch;{lower;{args}};
 ["","help"];
-{embed;{embedbuild;
-title:Help for run;
-color:yellow;
-description:__**Usage**__: `run <language> <code to execute>`
-Executes code using [Codex.jaagrav.in](https://codex.jaagrav.in/) or [Rextester.com](https://rextester.com/).;
-fields.name:**Example:**;
-fields.value:run bash echo test;
-fields.name:**Output:**;
-fields.value:test
+{set;!~runhelp;{embedbuild;
+author.name:Help for run;
+author.icon_url:{guildicon};
+color:{func.dlcolors;brightyellow};
+description:Executes code using [Codex.jaagrav.in](https://codex.jaagrav.in/) or [Rextester.com](https://rextester.com/).
 
-Exit code: 0 | Memory used: 3,593.75 KiB | Time: 0.00 | Result: success;
+__**Arguments**__;
+fields.name:{prefix}run <language> <code>;
+fields.value:Executes the given `code` using the given `language`.  `language` must be from the list below.;
+fields.inline:false;
+fields.name:{prefix}run \`\`\`<language>
+<code>
+\`\`\`;
+fields.value:Executes the given `code` using the given `language` in code block format.  `language` must be from the list below.;
+fields.inline:false;
 fields.name:**Codex.jaagrav.in Supported Languages:**;
 fields.value:{repeat;`;3}
 bash, c, cpp, csharp, go, java, javascript, python3
 {repeat;`;3};
+fields.inline:false;
 fields.name:**Rextester.com Supported Languages:**;
 fields.value:{repeat;`;3}
 assembly, bash, c, clientside, clojure, commonlisp, cpp, csharp, d, elixir, erlang, fsharp, fortran, go, haskell, java, javascript, kotlin, lua, mysql, node.js, ocaml, octave, objective-c, oracle, pascal, perl, php, postgresql, prolog, python, python3, r, rust, ruby, scala, scheme, sqlserver, swift, tcl, vb
 {repeat;`;3};
+fields.inline:false;
 fields.name:**Setting stdin**;
 fields.value:Data can be passed to stdin by replying to a message in chat.;
-}};
+fields.inline:false;
+}}
+{//;only output json if commandname is help}
+{if;{commandname};==;help;
+{jget;~runehlp};
+{embed;{jget;~runehlp}}
+};
 {//;set default json}
 {set;!~input.json;{j;{"source_code":"help","input":"","language":"","api_key":"guest","network":true,"longpoll":true,"longpoll_timeout":30}}}
 {//;set language}

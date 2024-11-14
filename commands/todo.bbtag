@@ -2,36 +2,32 @@
 {inject;{get;_gitcmd.functions}}
 
 {//;Function to output help}
-{function;help;{embed;{embedbuild;
-title:Help for todo;
-color:{func.dlcolors;yellow};
-description:__**Usage**__: `todo [add <item text>|edit <item number> <text>|remove <item number>] [flag <text>]`
-Create, manage, and view todo lists.  If no argument is passed, the selected todo list will be outputted.  Different todo lists can be stored using the `-c` flag to set the category.
+{function;help;{set;!~todohelp;{embedbuild;
+author.name:Help for todo;
+author.icon_url:{guildicon};
+color:{func.dlcolors;brightorange};
+description:Create, manage, and view todo lists.;
+fields.name:Flags;
+fields.values:`-c`: Select the todo list category.
 
-**Available arguments**
-{repeat;`;3}
-add or a
-• Add an item to a todo list.
-• Ex: 'todo add Some thing I want to do'
+__**Arguments**__;
+fields.value:{prefix}todo add <item>;
+fields.value:Add an `item` to a todo list.;
+fields.inline:false;
+fields.value:{prefix}todo edit <item number>;
+fields.value:Edit `item number` in a todo list.
+fields.inline:false;
+fields.value:{prefix}todo remove <item number>;
+fields.value:Remove `item number` from a todo list.
+fields.inline:false;
+}}
+{//;only output json if commandname is help}
+{if;{commandname};==;help;
+{jget;~todohelp};
+{embed;{jget;~todohelp}}
+}
+}
 
-edit or ed
-• Edit an item in a todo list.
-• Ex: 'todo edit 1 Some other thing'
-
-remove or rm
-• Remove an item from a todo list.
-• Ex: 'todo remove 1'
-{repeat;`;3}
-
-**Available flags**
-{repeat;`;3}
--c
-• Select the todo list category.
-• Ex: 'todo add Some stuff -c Some Category'
-• Ex: 'todo edit 1 Some other stuff -c Some Category'
-• Ex: 'todo remove 1 -c Some Category'
-• Ex: 'todo -c Some Category'
-{repeat;`;3};}}}
 {//;Function to embed todo lists}
 {function;embed;{fallback;[{uridecode;{get;~cat}}{if;{get;~cat};!=;Todo;{space}todo} list too long{semi} contents dumped to this link.]({dump;{for;~i;1;<;{length;{get;@todo.{get;~cat}.{userid}}};**{get;~i}**. {get;@todo.{get;~cat}.{userid};{get;~i}}{newline}}})}
 {embed;{embedbuild;

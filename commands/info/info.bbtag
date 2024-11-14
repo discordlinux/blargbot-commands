@@ -6,16 +6,20 @@
 {set;!~manifest;{jget;{request;https://github.com/discordlinux/blargbot-commands/raw/main/commands/info/manifest.json};body}}
 {//;setup static parts of embed}
 {set;!~embed;[]}
-{push;~embed;title:Info List}
+{push;~embed;author.name:Info List}
+{push;~embed;author.icon_url:{guildicon}}
 {push;~embed;url:https://discordlinux.github.io/wiki/}
-{push;~embed;color:{func.dlcolors;yellow}}
+{push;~embed;color:{func.dlcolors;gray}}
 {push;~embed;footer.text:Any arguments not listed will return Wikipedia search results.}
 {//;get rest of embed from manifest}
 {foreach;~cat;{jget;~manifest;info.categories};
 {push;~embed;fields.name:• {jget;~cat;name}}
 {push;~embed;fields.value:{repeat;`;3}{newline}{join;{jget;~cat;contents};,{space}}{newline}{repeat;`;3}}}
-{//;output embed}
+{//;only output json if commandname is help}
+{if;{commandname};==;help;
+{apply;embedbuild;{get;~embed}};
 {embed;{apply;embedbuild;{get;~embed}}}
+}
 }
 
 {//;function to output a search message while we wait for results}
