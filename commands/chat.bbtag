@@ -29,7 +29,7 @@ title:Help for chat;
 color:{func.dlcolors;brightyellow};
 description:Uses [Cohere's](https://cohere.com) command-r-plus engine to provide responses for the given input.  Chat history is saved until user reaches 100k tokens used and then is reset.
 
-__**Arguments**__;
+__**Arguments**__:;
 fields.name:{prefix}chat <message>;
 fields.value:Get a response for the given `message`.;
 }}
