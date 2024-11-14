@@ -203,7 +203,7 @@ author.icon_url:{guildicon};
 color:{func.dlcolors;brightyellow};
 description:Executes code using [Codex.jaagrav.in](https://codex.jaagrav.in/) or [Rextester.com](https://rextester.com/).
 
-__**Arguments**__;
+__**Arguments**__:;
 fields.name:{prefix}run <language> <code>;
 fields.value:Executes the given `code` using the given `language`.  `language` must be from the list below.;
 fields.inline:false;
