@@ -242,7 +242,7 @@ timestamp:{time};}}}
 }
 
 {//;function to output help}
-{function;help;
+{function;uhelp;
 {//;get list of roles for help output}
 {if;{userhasrole;428637054922915850;{userid};quiet};
 {//;get a list of valid roles by slicing beginning at role '475451558218432512' and ending at role '176607163580547073'}
@@ -270,8 +270,7 @@ color:{func.dlcolors;gray};
 description:Add or remove roles from the user.;
 fields.name:Flags;
 fields.value:`-a`: Add role(s) to the user.
-`-r`: Remove role(s) from the user.
-Multiple roles must be separated by commas.{if;{userhasrole;428637054922915850;{userid}};{newline}`-c`: Set the colored role for the user.};
+`-r`: Remove role(s) from the user.{if;{userhasrole;428637054922915850;{userid}};{newline}`-c`: Set the colored role for the user.};
 fields.inline:false;
 fields.name:Available Roles;
 fields.value:{get;~desc.roles};
@@ -284,8 +283,12 @@ fields.inline:false;
 }
 }
 
-{//;make sure command only works if prefix is used with space}
-{func.prefixtest}
+{//;output help for help command}
+{if;{commandname};==;help;
+{func.uhelp}
+{return;false}
+}
+
 {//;only run in allowed channels}
 {if;{commandname};==;usermod;
 {switch;{channelid};
@@ -349,4 +352,4 @@ fields.inline:false;
 }
 
 {//;output help if no flags used}
-{func.help}
+{func.uhelp}
