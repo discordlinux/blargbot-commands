@@ -448,7 +448,7 @@ fields.value:**Stored Users**: {get;_altblock.length}
 **Muted Role**: {if;{get;_altblock.mute};!=;{null};<@&{get;_altblock.mute}>}
 **Kick**: {get;_altblock.kick}
 **Ban**: {get;_altblock.ban}
-**Custom BBTag**: {if;{get;_altblock.custom};!=;{null};`{get;_altblock.custom}`};
+**Custom BBTag**: {if;{get;_altblock.custom};!=;{null};{dump;{get;_altblock.custom}}};
 fields.inline:false;
 }}
 {//;output only embed if commandname is help}
