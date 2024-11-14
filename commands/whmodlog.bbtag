@@ -455,7 +455,7 @@ title:Help for reason;
 color:{func.dlcolors;brightorange};
 description:__**Arguments**__:;
 fields.name:{prefix}reason latest <reason>;
-fields.value:Update the `reason` for the latest modlog.
+fields.value:Update the `reason` for the latest modlog.;
 fields.inline:false;
 fields.name:{prefix}reason <case> <reason>;
 fields.value:Update the `reason` for the modlog for the given `case`.  `case` is the message ID of the modlog.;
