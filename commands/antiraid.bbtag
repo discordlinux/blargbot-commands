@@ -380,7 +380,7 @@ author.name:{guildname};
 author.icon_url:{guildicon};
 title:Help for antiraid;
 color:{func.dlcolors;brightred};
-description:Antiraid is currently {switch;{get;@{guildid}.anti.raid.level};["0",""];disabled;enabled at level {get;@{guildid}.anti.raid.level}.};
+description:Antiraid is currently {switch;{get;@{guildid}.anti.raid.level};["0",""];disabled;enabled at level {get;@{guildid}.anti.raid.level}}.;
 fields.name:Flags;
 fields.value:`-l`: Set the antiraid level (0-3).
 
