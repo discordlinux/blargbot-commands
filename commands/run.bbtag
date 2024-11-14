@@ -212,24 +212,24 @@ fields.name:{prefix}run \`\`\`<language>
 \`\`\`;
 fields.value:Executes the given `code` using the given `language` in code block format.  `language` must be from the list below.;
 fields.inline:false;
-fields.name:**Codex.jaagrav.in Supported Languages:**;
+fields.name:Codex.jaagrav.in Supported Languages:;
 fields.value:{repeat;`;3}
 bash, c, cpp, csharp, go, java, javascript, python3
 {repeat;`;3};
 fields.inline:false;
-fields.name:**Rextester.com Supported Languages:**;
+fields.name:Rextester.com Supported Languages:;
 fields.value:{repeat;`;3}
 assembly, bash, c, clientside, clojure, commonlisp, cpp, csharp, d, elixir, erlang, fsharp, fortran, go, haskell, java, javascript, kotlin, lua, mysql, node.js, ocaml, octave, objective-c, oracle, pascal, perl, php, postgresql, prolog, python, python3, r, rust, ruby, scala, scheme, sqlserver, swift, tcl, vb
 {repeat;`;3};
 fields.inline:false;
-fields.name:**Setting stdin**;
+fields.name:Setting stdin;
 fields.value:Data can be passed to stdin by replying to a message in chat.;
 fields.inline:false;
 }}
 {//;only output json if commandname is help}
 {if;{commandname};==;help;
-{jget;~runehlp};
-{embed;{jget;~runehlp}}
+{jget;~runhelp};
+{embed;{jget;~runhelp}}
 };
 {//;set default json}
 {set;!~input.json;{j;{"source_code":"help","input":"","language":"","api_key":"guest","network":true,"longpoll":true,"longpoll_timeout":30}}}
