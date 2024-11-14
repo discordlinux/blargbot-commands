@@ -14,7 +14,7 @@ fields.value:`-t`: Time that the movie night starts in Unix format (required for
 `-r`: Role to mention in reminder messages (optional for plan, reschedule).
 `-c`: Channel to output reminder messages in. Defaults to current channel (optional for plan, reschedule).
 
-__**Arguments**__;
+__**Arguments**__:;
 fields.name:{prefix}mn add <name>;
 fields.value:Add movie `name` to the list.;
 fields.inline:false;
