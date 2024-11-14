@@ -9,6 +9,7 @@
         "warnings": "api"
     },
     "users": {
+        "chat": "chat",
         "cht_sh": "cht.sh",
         "man": "man",
         "quote": "quote",
@@ -23,6 +24,7 @@
         "mn": "mn",
         "mute": "api",
         "pardon": "api",
+        "ping": "api",
         "raffle": "raffle",
         "reason": "reason",
         "remind": "api",
