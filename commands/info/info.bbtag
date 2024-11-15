@@ -52,7 +52,14 @@ description:Getting info for `{params}`...;}}}}
 {//;check matching value}
 {if;{jget;~match;0.value};endswith;.json;
 {//;embed matching value}
-{edit;{channelid};{get;~searchmsg};_delete;{jget;{request;https://github.com/discordlinux/blargbot-commands/raw/main/commands/info{jget;~match;0.value}};body}};
+{set;!~infojson;{jget;{request;https://github.com/discordlinux/blargbot-commands/raw/main/commands/info{jget;~match;0.value}};body.0}}
+{//;setup embed}
+{set;!~infoembed;{embedbuild;
+color:{jget;~infojson;embed_color};
+description:# {jget;~infojson;author_emoji} [{jget;~infojson;caption}]({jget;~infojson;author_url})
+{inject;{regexreplace;{regexreplace;{jget;~infojson;text};/(<div emoji="|" style="display:none."\/>|\n<br>\n|\[[^\]]*\]\(#[^\)]*\))/g;};/(^|\n?\n)##\s/g;{newline}###{space}}};
+}}
+{edit;{channelid};{get;~searchmsg};_delete;{jget;~infoembed}};
 {//;get wikipedia result for matching value}
 {func.wikipedia;{jget;~match;0.value}}
 }

@@ -20,11 +20,8 @@
         "contents": [
           "blargbot",
           "Images",
-          "mail",
-          "news",
           "Pastes",
-          "Supported",
-          "users"
+          "Supported"
         ]
       },
       {
@@ -60,7 +57,6 @@
           "Ubuntu Budgie",
           "Ubuntu MATE",
           "Void",
-          "Windows",
           "Xubuntu"
         ]
       },
@@ -109,35 +105,35 @@
       },
       {
         "name": "Arch",
-        "value": "/distros/arch.json"
+        "value": "/distros/arch-linux.json"
       },
       {
         "name": "Arch Based",
-        "value": "/distros/arch_variants.json"
+        "value": "/distros/arch-variants.json"
       },
       {
         "name": "Archbased",
-        "value": "/distros/arch_variants.json"
+        "value": "/distros/arch-variants.json"
       },
       {
         "name": "Arch Variant",
-        "value": "/distros/arch_variants.json"
+        "value": "/distros/arch-variants.json"
       },
       {
         "name": "Arch Variants",
-        "value": "/distros/arch_variants.json"
+        "value": "/distros/arch-variants.json"
       },
       {
         "name": "Archvariant",
-        "value": "/distros/arch_variants.json"
+        "value": "/distros/arch-variants.json"
       },
       {
         "name": "Archvariants",
-        "value": "/distros/arch_variants.json"
+        "value": "/distros/arch-variants.json"
       },
       {
         "name": "Artix",
-        "value": "/distros/arch_variants.json"
+        "value": "/distros/arch-variants.json"
       },
       {
         "name": "blargbot",
@@ -189,11 +185,11 @@
       },
       {
         "name": "Endeavour",
-        "value": "/distros/arch_variants.json"
+        "value": "/distros/arch-variants.json"
       },
       {
         "name": "EndeavourOS",
-        "value": "/distros/arch_variants.json"
+        "value": "/distros/arch-variants.json"
       },
       {
         "name": "Fedora",
@@ -225,19 +221,23 @@
       },
       {
         "name": "Kali",
-        "value": "/distros/kali.json"
+        "value": "/distros/ubunt-based.json"
       },
       {
         "name": "Kali Linux",
-        "value": "/distros/kali.json"
+        "value": "/distros/ubunt-based.json"
       },
       {
         "name": "KDE neon",
-        "value": "/distros/kde_neon.json"
+        "value": "/distros/kde-neon.json"
       },
       {
         "name": "Kubuntu",
         "value": "/distros/kubuntu.json"
+      },
+      {
+        "name": "Leap",
+        "value": "/distros/opensuse-leap.json"
       },
       {
         "name": "Linux Mint",
@@ -264,10 +264,6 @@
         "value": "/distros/mageia.json"
       },
       {
-        "name": "mail",
-        "value": "/discord_linux/mail.json"
-      },
-      {
         "name": "Manjaro",
         "value": "/distros/manjaro.json"
       },
@@ -280,10 +276,6 @@
         "value": "/distros/mint.json"
       },
       {
-        "name": "news",
-        "value": "/discord_linux/news.json"
-      },
-      {
         "name": "NixOS",
         "value": "/distros/nixos.json"
       },
@@ -293,11 +285,15 @@
       },
       {
         "name": "openSUSE",
-        "value": "/distros/opensuse.json"
+        "value": "/distros/opensuse-leap.json"
+      },
+      {
+        "name": "openSUSE Leap",
+        "value": "/distros/opensuse-leap.json"
       },
       {
         "name": "openSUSE Tumbleweed",
-        "value": "/distros/tumbleweed.json"
+        "value": "/distros/opensuse-tumbleweed.json"
       },
       {
         "name": "Package Manager",
@@ -305,15 +301,15 @@
       },
       {
         "name": "Panda",
-        "value": "/linux/panda_wifi.json"
+        "value": "/linux/panda-wifi.json"
       },
       {
         "name": "Panda-WiFi",
-        "value": "/linux/panda_wifi.json"
+        "value": "/linux/panda-wifi.json"
       },
       {
         "name": "Panda WiFi",
-        "value": "/linux/panda_wifi.json"
+        "value": "/linux/panda-wifi.json"
       },
       {
         "name": "Parrot",
@@ -337,27 +333,27 @@
       },
       {
         "name": "Pop",
-        "value": "/distros/ubuntu_based.json"
+        "value": "/distros/ubuntu-based.json"
       },
       {
         "name": "Pop!_OS",
-        "value": "/distros/ubuntu_based.json"
+        "value": "/distros/ubuntu-based.json"
       },
       {
         "name": "Pop_OS",
-        "value": "/distros/ubuntu_based.json"
+        "value": "/distros/ubuntu-based.json"
       },
       {
         "name": "Pop_OS!",
-        "value": "/distros/ubuntu_based.json"
+        "value": "/distros/ubuntu-based.json"
       },
       {
         "name": "PopOS",
-        "value": "/distros/ubuntu_based.json"
+        "value": "/distros/ubuntu-based.json"
       },
       {
         "name": "Pop OS",
-        "value": "/distros/ubuntu_based.json"
+        "value": "/distros/ubuntu-based.json"
       },
       {
         "name": "Recommended",
@@ -377,7 +373,7 @@
       },
       {
         "name": "Rolling",
-        "value": "/linux/rolling.json"
+        "value": "/linux/rolling-releases.json"
       },
       {
         "name": "Slackware",
@@ -413,7 +409,7 @@
       },
       {
         "name": "Tumbleweed",
-        "value": "/distros/tumbleweed.json"
+        "value": "/distros/opensuse-tumbleweed.json"
       },
       {
         "name": "Ubuntu",
@@ -421,7 +417,7 @@
       },
       {
         "name": "Ubuntu Based",
-        "value": "/distros/ubuntu_based.json"
+        "value": "/distros/ubuntu-based.json"
       },
       {
         "name": "Ubuntu Budgie",
@@ -436,20 +432,16 @@
         "value": "/linux/universal_packages.json"
       },
       {
-        "name": "users",
-        "value": "/discord_linux/users.json"
+        "name": "Void",
+        "value": "/distros/void-linux.json"
       },
       {
-        "name": "Void",
-        "value": "/distros/void.json"
+        "name": "Void Linux",
+        "value": "/distros/void-linux.json"
       },
       {
         "name": "Window Manager",
         "value": "Window Manager"
-      },
-      {
-        "name": "Windows",
-        "value": "/distros/windows.json"
       },
       {
         "name": "Xfce",
@@ -465,15 +457,15 @@
       },
       {
         "name": "Zorin",
-        "value": "/distros/ubuntu_based.json"
+        "value": "/distros/ubuntu-based.json"
       },
       {
         "name": "Zorin OS",
-        "value": "/distros/ubuntu_based.json"
+        "value": "/distros/ubuntu-based.json"
       },
       {
         "name": "ZorinOS",
-        "value": "/distros/ubuntu_based.json"
+        "value": "/distros/ubuntu-based.json"
       }
     ]
   }
