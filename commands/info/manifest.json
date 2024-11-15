@@ -421,15 +421,15 @@
       },
       {
         "name": "Ubuntu Budgie",
-        "value": "/distros/ubuntu_budgie.json"
+        "value": "/distros/ubuntu-budgie.json"
       },
       {
         "name": "Ubuntu MATE",
-        "value": "/distros/ubuntu_mate.json"
+        "value": "/distros/ubuntu-mate.json"
       },
       {
         "name": "Universal Packages",
-        "value": "/linux/universal_packages.json"
+        "value": "/linux/universal-packages.json"
       },
       {
         "name": "Void",
