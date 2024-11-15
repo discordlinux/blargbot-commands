@@ -129,7 +129,7 @@ description:{get;~desc}{if;{length;{get;~desc}};>=;1900;{space}[...]}
 color:{func.dlcolors;yellow};
 title:Help for supported;
 description:__**Usage**__: `info supported <distro>`
-Searches the [Discord Linux Supported Distros](https://discordlinux.github.io/wiki/#Supported%20Distributions) and outputs a list of results.;}}
+Searches the [Discord Linux Supported Distros](https://discordlinux.github.io/wiki/#supported) and outputs a list of results.;}}
 }
 
 {//;function to get supported distros spreadsheet}
@@ -147,7 +147,7 @@ Searches the [Discord Linux Supported Distros](https://discordlinux.github.io/wi
 {set;!~res;{filter;~d;{jget;{request;https://github.com/discordlinux/blargbot-commands/raw/main/commands/info/supported.json};body};{bool;{lower;{jget;~d;name}};includes;{lower;{params}}}}}
 {//;start setting up embed}
 {set;!~embed;[]}
-{push;~embed;title:Is {capitalize;{params}} Supported in Discord Linux?;url:https://discordlinux.github.io/wiki/#Supported%20Distributions;color:{func.dlcolors;blurple}}
+{push;~embed;title:Is {capitalize;{params}} Supported in Discord Linux?;url:https://discordlinux.github.io/wiki/#supported;color:{func.dlcolors;blurple}}
 {//;check for results}
 {if;{length;{get;~res}};==;0;
 {//;no results}
