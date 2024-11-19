@@ -70,6 +70,7 @@
 |Ubuntu LTS|Yes|Beginner|Yes||
 |Ubuntu MATE LTS|Yes|Beginner|Yes||
 |Ubuntu non-LTS|No|Intermediate|No||
+|Ubuntu Server LTS|Yes|Intermediate|Yes||
 |Ubuntu Studio LTS|Yes|Beginner|No||
 |UbuntuDDE|No|N/A|No||
 |Void|Partial|Advanced|No|Void users are expected to solve basic problems on their own.|

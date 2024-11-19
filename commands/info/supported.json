@@ -490,6 +490,13 @@
     "notes": null
   },
   {
+    "name": "Ubuntu Server LTS",
+    "supported": "Yes",
+    "experience_level": "Intermediate",
+    "recommended": "Yes",
+    "notes": null
+  },
+  {
     "name": "Ubuntu Studio LTS",
     "supported": "Yes",
     "experience_level": "Beginner",
