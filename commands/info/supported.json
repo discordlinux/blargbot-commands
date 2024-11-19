@@ -469,9 +469,9 @@
     "notes": null
   },
   {
-    "name": "Ubuntu Cinnamon",
-    "supported": "No",
-    "experience_level": "N/A",
+    "name": "Ubuntu Cinnamon LTS",
+    "supported": "Yes",
+    "experience_level": "Beginner",
     "recommended": "No",
     "notes": null
   },
