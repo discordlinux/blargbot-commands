@@ -11,7 +11,6 @@
 |BlackArch Linux|No|Advanced|No||
 |Bodhi Linux|No|N/A|No||
 |BOSS Linux|No|N/A|No|BOSS Linux is a Linux distro created by CDAC, part of the Indian Government|
-|CentOS|Yes|Advanced|No||
 |CentOS Stream|No|Advanced|No||
 |Chrome OS|Yes|Beginner|No||
 |Clear Linux|No|Advanced|No||
@@ -24,9 +23,8 @@
 |elementaryOS|No|Advanced|No||
 |EndeavourOS|No|Advanced|No||
 |Fedora|Yes|Intermediate|No||
-|Fedora Spins|Yes|Intermediate|No|Fedora Spins are supported, but are low quality compared to Fedora itself|
+|Fedora Spins|Yes|Intermediate|No|Fedora Spins are supported, but may be low quality compared to Fedora itself|
 |Feren OS|No|N/A|No||
-|GalliumOS|Yes|Intermediate|No|GalliumOS is unmaintained, and is only meant for chromebooks.|
 |Garuda Linux|No|Advanced|No||
 |Gecko Linux|No|N/A|No||
 |Gentoo|Partial|Advanced|No|Gentoo users are expected to solve basic problems on their own.|
@@ -60,7 +58,7 @@
 |PureOS|No|Advanced|No||
 |Raspberry Pi OS|Yes|Intermediate|No||
 |RebornOS|No|Advanced|No||
-|RHEL|Yes|Advanced|No||
+|RHEL|Yes|Advanced|No|This includes distributions like AlmaLinux and Rocky Linux that are binary-compatible with RHEL.|
 |Slackware|No|Advanced|No||
 |Slax|No|N/A|No||
 |Solus|No|N/A|No||
