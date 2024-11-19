@@ -24,7 +24,7 @@
     "name": "Arch Linux",
     "supported": "Partial",
     "experience_level": "Advanced",
-    "recommended": "Yes",
+    "recommended": "No",
     "notes": "Arch Linux users are expected to solve basic problems on their own."
   },
   {
@@ -339,7 +339,7 @@
     "name": "openSUSE Tumbleweed",
     "supported": "Partial",
     "experience_level": "Advanced",
-    "recommended": "Yes",
+    "recommended": "No",
     "notes": "openSUSE Tumbleweed users are expected to solve basic problems on their own."
   },
   {
@@ -486,7 +486,7 @@
     "name": "Ubuntu LTS",
     "supported": "Yes",
     "experience_level": "Beginner",
-    "recommended": "No",
+    "recommended": "Yes",
     "notes": null
   },
   {

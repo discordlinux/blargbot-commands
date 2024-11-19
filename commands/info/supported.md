@@ -3,7 +3,7 @@
 |Alpine Linux|Partial|Advanced|No|Alpine Linux is intended for non-desktop usage, we only support it for non-desktop usage.|
 |Android|Yes|Beginner|No|Discord Linux does not consider Android as Linux, as such, this listing is just for clarity.|
 |antiX|No|Intermediate|No||
-|Arch Linux|Partial|Advanced|Yes|Arch Linux users are expected to solve basic problems on their own.|
+|Arch Linux|Partial|Advanced|No|Arch Linux users are expected to solve basic problems on their own.|
 |Arch Linux Derivatives|No|Advanced|No||
 |ArcoLinux|No|Advanced|No||
 |Artix|No|Advanced|No||
@@ -48,7 +48,7 @@
 |NixOS|Yes|Advanced|No||
 |Nobara Linux|No|Intermediate|No||
 |openSUSE Leap|Yes|Intermediate|Yes||
-|openSUSE Tumbleweed|Partial|Advanced|Yes|openSUSE Tumbleweed users are expected to solve basic problems on their own.|
+|openSUSE Tumbleweed|Partial|Advanced|No|openSUSE Tumbleweed users are expected to solve basic problems on their own.|
 |Oracle Linux|Yes|Advanced|No||
 |ParrotOS|No|Advanced|No||
 |PCLinuxOS|No|N/A|No||
@@ -69,7 +69,7 @@
 |Ubuntu Budgie LTS|Yes|Beginner|No||
 |Ubuntu Cinnamon LTS|Yes|Beginner|No||
 |Ubuntu Gamepack|No|N/A|No||
-|Ubuntu LTS|Yes|Beginner|No||
+|Ubuntu LTS|Yes|Beginner|Yes||
 |Ubuntu MATE LTS|Yes|Beginner|Yes||
 |Ubuntu non-LTS|No|Intermediate|No||
 |Ubuntu Studio LTS|Yes|Beginner|No||
