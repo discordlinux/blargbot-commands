@@ -257,9 +257,8 @@ description:{get;~desc}{if;{length;{get;~desc}};>=;300;{space}[...]}
 **Price**: {jget;~steamjson;body.{get;~id}.data.price_overview.final_formatted} ({jget;~steamjson;body.{get;~id}.data.price_overview.discount_percent}% discount)
 **Recommendations**: {jget;~steamjson;body.{get;~id}.data.recommendations.total}
 **Current Players**: {get;~cplayers}
-{zws}
 ### [Steam Deck Status](https://steamdeck.com/en/verified): {get;~deckstatus}{if;{length;{jget;~deckitems}};!=;0;{newline}{join;~deckitems;{newline}}}
-### Summary of ProtonDB ratings](https://www.protondb.com/app/{get;~id})
+### [Summary of ProtonDB ratings](https://www.protondb.com/app/{get;~id})
 {if;{jget;~pjson;body.confidence};==;;No ratings found.;**Confidence**: {jget;~pjson;body.confidence}
 **Score**: {jget;~pjson;body.score}
 **Tier**: {jget;~pjson;body.tier}
