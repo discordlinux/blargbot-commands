@@ -236,7 +236,7 @@ description:'{params}' not found.}};
 {set;!~itemtype;❌};
 {set;!~itemtype;🗒️}}
 {set;!~itemtoken;{replace;{trim;{join;{map;~l;{split;{jget;{split;{jget;~item;loc_token};_};2};};{if;{regextest;{get;~l};/[A-Z]/};{space}{get;~l};{get;~l}}};}};O{space}S;OS}}
-{push;~deckitems;-# {get;~itemtype}{space}{capitalize;{get;~itemtoken};true}}
+{push;~deckitems;{get;~itemtype}{space}{capitalize;{get;~itemtoken};true}}
 }
 {//;genres}
 {set;!~genres;[]}
@@ -244,31 +244,28 @@ description:'{params}' not found.}};
 {fallback;}
 {//;output results}
 {edit;{channelid};{get;~searchmsg};_delete;{embedbuild;
-author.name:Steam · {jget;~steamjson;body.{get;~id}.data.name} · AppID: {get;~id};
-author.icon_url:https://sy.imgix.net/steam.png;
-author.url:https://store.steampowered.com/app/{get;~id};
+title:Steam · {jget;~steamjson;body.{get;~id}.data.name} · AppID: {get;~id};
+url:https://store.steampowered.com/app/{get;~id};
 color:1B2838;
 image.url:https://steamcdn-a.akamaihd.net/steam/apps/{get;~id}/header.jpg;
 description:{get;~desc}{if;{length;{get;~desc}};>=;300;{space}[...]}
 {zws}
-__**[Steam Store Page](https://store.steampowered.com/app/{get;~id})**__
--# **OSes**: {get;~platforms}
--# **Developer**: {join;{jget;~steamjson;body.{get;~id}.data.developers};,{space}}
--# **Publisher**: {join;{jget;~steamjson;body.{get;~id}.data.publishers};,{space}}
--# **Genre**: {join;{jget;~genres};,{space}}
--# **Price**: {jget;~steamjson;body.{get;~id}.data.price_overview.final_formatted} ({jget;~steamjson;body.{get;~id}.data.price_overview.discount_percent}% discount)
--# **Recommendations**: {jget;~steamjson;body.{get;~id}.data.recommendations.total}
--# **Current Players**: {get;~cplayers}
+**OSes**: {get;~platforms}
+**Developer**: {join;{jget;~steamjson;body.{get;~id}.data.developers};,{space}}
+**Publisher**: {join;{jget;~steamjson;body.{get;~id}.data.publishers};,{space}}
+**Genre**: {join;{jget;~genres};,{space}}
+**Price**: {jget;~steamjson;body.{get;~id}.data.price_overview.final_formatted} ({jget;~steamjson;body.{get;~id}.data.price_overview.discount_percent}% discount)
+**Recommendations**: {jget;~steamjson;body.{get;~id}.data.recommendations.total}
+**Current Players**: {get;~cplayers}
 {zws}
-__**[Steam Deck Status](https://steamdeck.com/en/verified)**__: {get;~deckstatus}{if;{length;{jget;~deckitems}};!=;0;{newline}{join;~deckitems;{newline}}}
-{zws}
-__**[Summary of ProtonDB ratings](https://www.protondb.com/app/{get;~id})**__
-{if;{jget;~pjson;body.confidence};==;;No ratings found.;-# **Confidence**: {jget;~pjson;body.confidence}
--# **Score**: {jget;~pjson;body.score}
--# **Tier**: {jget;~pjson;body.tier}
--# **Total Ratings**: {jget;~pjson;body.total}
--# **Trending Tier**: {jget;~pjson;body.trendingTier}
--# **Best Reported Tier**: {jget;~pjson;body.bestReportedTier}}
+### [Steam Deck Status](https://steamdeck.com/en/verified): {get;~deckstatus}{if;{length;{jget;~deckitems}};!=;0;{newline}{join;~deckitems;{newline}}}
+### Summary of ProtonDB ratings](https://www.protondb.com/app/{get;~id})
+{if;{jget;~pjson;body.confidence};==;;No ratings found.;**Confidence**: {jget;~pjson;body.confidence}
+**Score**: {jget;~pjson;body.score}
+**Tier**: {jget;~pjson;body.tier}
+**Total Ratings**: {jget;~pjson;body.total}
+**Trending Tier**: {jget;~pjson;body.trendingTier}
+**Best Reported Tier**: {jget;~pjson;body.bestReportedTier}}
 -# *https://store.steampowered.com/app/{get;~id}*
 -# *https://www.protondb.com/app/{get;~id}*}}}
 }
