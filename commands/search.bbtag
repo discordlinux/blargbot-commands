@@ -236,7 +236,7 @@ description:'{params}' not found.}};
 {set;!~itemtype;❌};
 {set;!~itemtype;🗒️}}
 {set;!~itemtoken;{replace;{trim;{join;{map;~l;{split;{jget;{split;{jget;~item;loc_token};_};2};};{if;{regextest;{get;~l};/[A-Z]/};{space}{get;~l};{get;~l}}};}};O{space}S;OS}}
-{push;~deckitems;{get;~itemtype}{space}{capitalize;{get;~itemtoken};true}}
+{push;~deckitems;-# {get;~itemtype}{space}{capitalize;{get;~itemtoken};true}}
 }
 {//;genres}
 {set;!~genres;[]}
