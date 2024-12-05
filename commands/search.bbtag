@@ -256,13 +256,15 @@ description:**OSes**: {get;~platforms}
 **Price**: {jget;~steamjson;body.{get;~id}.data.price_overview.final_formatted} ({jget;~steamjson;body.{get;~id}.data.price_overview.discount_percent}% discount)
 **Recommendations**: {jget;~steamjson;body.{get;~id}.data.recommendations.total}
 **Current Players**: {get;~cplayers}
+{zws}
 **[Steam Deck Status](https://steamdeck.com/en/verified)**: {get;~deckstatus}{if;{length;{jget;~deckitems}};!=;0;{newline}{join;~deckitems;{newline}}}
+{zws}
 **[Summary of ProtonDB ratings](https://www.protondb.com/app/{get;~id})**
 {if;{jget;~pjson;body.confidence};==;;No ratings found.;**Tier**: {jget;~pjson;body.tier} (score: {jget;~pjson;body.score}{if;{jget;~pjson;body.trendingTier};!=;{jget;~pjson;body.tier};,{space}trending towards: {jget;~pjson;body.trendingTier}})
 **Total Ratings**: {jget;~pjson;body.total}
 **Rating Confidence**: {jget;~pjson;body.confidence}}
--# *https://store.steampowered.com/app/{get;~id}*
--# *https://www.protondb.com/app/{get;~id}*}}}
+}}
+}
 }
 
 {//;function to search youtube}
