@@ -230,7 +230,7 @@ description:'{params}' not found.}};
 {switch;{jget;~item;display_type};
 ["4"];
 {set;!~itemtype;}
-{set;!~itemtoken;;
+{set;!~itemtoken;};
 ["3","1"];
 {set;!~itemtype;⚠️}
 {set;!~itemtoken;{trim;{join;{map;~l;{split;{jget;{split;{jget;~item;loc_token};_};2};};{if;{regextest;{get;~l};/[A-Z]/};{space}{get;~l};{get;~l}}};}}};
