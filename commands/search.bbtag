@@ -250,7 +250,7 @@ description:'{params}' not found.}};
 {fallback;}
 {//;output results}
 {edit;{channelid};{get;~searchmsg};_delete;{embedbuild;
-title:Steam · {jget;~steamjson;body.{get;~id}.data.name} · AppID: {get;~id};
+title:Steam - {jget;~steamjson;body.{get;~id}.data.name};
 url:https://store.steampowered.com/app/{get;~id};
 color:1B2838;
 image.url:https://steamcdn-a.akamaihd.net/steam/apps/{get;~id}/header.jpg;
