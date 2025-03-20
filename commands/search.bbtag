@@ -233,14 +233,16 @@ description:'{params}' not found.}};
 {set;!~itemtoken;};
 ["3","1"];
 {set;!~itemtype;⚠️}
-{set;!~itemtoken;{trim;{join;{map;~l;{split;{jget;{split;{jget;~item;loc_token};_};2};};{if;{regextest;{get;~l};/[A-Z]/};{space}{get;~l};{get;~l}}};}}};
+{set;!~itemtoken;{trim;{join;{map;~l;{split;{jget;{split;{jget;~item;loc_token};_};2};};{if;{regextest;{get;~l};/[A-Z]/};{space}{get;~l};{get;~l}}};}}}
+{push;~deckitems;{get;~itemtype}{space}{replace;{capitalize;{get;~itemtoken};true};team{space}o{space}s;teamOS}};
 ["2"];
 {set;!~itemtype;❌}
-{set;!~itemtoken;{trim;{join;{map;~l;{split;{jget;{split;{jget;~item;loc_token};_};2};};{if;{regextest;{get;~l};/[A-Z]/};{space}{get;~l};{get;~l}}};}}};
+{set;!~itemtoken;{trim;{join;{map;~l;{split;{jget;{split;{jget;~item;loc_token};_};2};};{if;{regextest;{get;~l};/[A-Z]/};{space}{get;~l};{get;~l}}};}}}
+{push;~deckitems;{get;~itemtype}{space}{replace;{capitalize;{get;~itemtoken};true};team{space}o{space}s;teamOS}};
 {set;!~itemtype;🗒️}
 {set;!~itemtoken;{trim;{join;{map;~l;{split;{jget;{split;{jget;~item;loc_token};_};2};};{if;{regextest;{get;~l};/[A-Z]/};{space}{get;~l};{get;~l}}};}}}
-}
 {push;~deckitems;{get;~itemtype}{space}{replace;{capitalize;{get;~itemtoken};true};team{space}o{space}s;teamOS}}
+}
 }
 {//;genres}
 {set;!~genres;[]}
