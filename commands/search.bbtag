@@ -229,7 +229,8 @@ description:'{params}' not found.}};
 {set;!~itemtoken}
 {switch;{jget;~item;display_type};
 ["4"];
-{//;do nothing};
+{set;!~itemtype;}
+{set;!~itemtoken;;
 ["3","1"];
 {set;!~itemtype;⚠️}
 {set;!~itemtoken;{trim;{join;{map;~l;{split;{jget;{split;{jget;~item;loc_token};_};2};};{if;{regextest;{get;~l};/[A-Z]/};{space}{get;~l};{get;~l}}};}}};
@@ -260,7 +261,7 @@ description:**OSes**: {get;~platforms}
 **Recommendations**: {jget;~steamjson;body.{get;~id}.data.recommendations.total}
 **Current Players**: {get;~cplayers}
 {zws}
-**[Steam Deck Status](https://steamdeck.com/en/verified)**: {get;~deckstatus}{if;{length;{jget;~deckitems}};!=;0;{newline}{join;~deckitems;{newline}}}
+**[Steam Deck Status](https://steamdeck.com/en/verified)**: {get;~deckstatus}{if;{length;{jget;~deckitems}};!=;0;{newline}{clean;{join;~deckitems;{newline}}}}
 {zws}
 **[ProtonDB Tier](https://www.protondb.com/app/{get;~id})**
 {if;{jget;~pjson;body.confidence};==;;No ratings found.;**{capitalize;{jget;~pjson;body.tier}}** (ratings: {jget;~pjson;body.total}, score: {jget;~pjson;body.score}{if;{jget;~pjson;body.trendingTier};!=;{jget;~pjson;body.tier};,{space}trending towards: {jget;~pjson;body.trendingTier}})}
