@@ -54,6 +54,9 @@ description:Failed to warn {usermention;{get;~userid}}.  {get;~warns};
 {return}
 }
 
+{//;reset users role timer}
+{set;!_users.role.time.{get;~userid};{time;X}}
+
 {//;delete message if messageid set}
 {if;{get;~wmessageid};!=;{null};
 {set;!~messagetext;{messagetext;{channelid};{get;~wmessageid}}}
