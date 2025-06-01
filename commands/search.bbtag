@@ -253,15 +253,15 @@ description:'{params}' not found.}};
 title:Steam - {jget;~steamjson;body.{get;~id}.data.name};
 url:https://store.steampowered.com/app/{get;~id};
 color:1B2838;
-image.url:https://steamcdn-a.akamaihd.net/steam/apps/{get;~id}/header.jpg;
+image.url:{if;{jget;~steamjson;body.{get;~id}.data.header_image};!=;{null};{jget;~steamjson;body.{get;~id}.data.header_image};https://steamcdn-a.akamaihd.net/steam/apps/{get;~id}/header.jpg};
 footer.text:{get;~desc}{if;{length;{get;~desc}};>=;300;{space}[...]};
 description:**OSes**: {get;~platforms}
 **Developer**: {join;{jget;~steamjson;body.{get;~id}.data.developers};,{space}}
 **Publisher**: {join;{jget;~steamjson;body.{get;~id}.data.publishers};,{space}}
 **Genre**: {join;{jget;~genres};,{space}}
-**Price**: {jget;~steamjson;body.{get;~id}.data.price_overview.final_formatted} ({jget;~steamjson;body.{get;~id}.data.price_overview.discount_percent}% discount)
-**Recommendations**: {jget;~steamjson;body.{get;~id}.data.recommendations.total}
-**Current Players**: {get;~cplayers}
+**Price**: {if;{jget;~steamjson;body.{get;~id}.data.is_free};==;true;Free;{jget;~steamjson;body.{get;~id}.data.price_overview.final_formatted} {jget;~steamjson;body.{get;~id}.data.price_overview.currency} {if;0{jget;~steamjson;body.{get;~id}.data.price_overview.discount_percent};>;0;({jget;~steamjson;body.{get;~id}.data.price_overview.discount_percent}% discount)}}
+**Recommendations**: {numformat;{jget;~steamjson;body.{get;~id}.data.recommendations.total};;;,}
+**Current Players**: {numformat;{get;~cplayers};;;,}
 **[ProtonDB Tier](https://www.protondb.com/app/{get;~id})**: {if;{jget;~pjson;body.confidence};==;;No ratings found.;{capitalize;{jget;~pjson;body.tier}} (ratings: {jget;~pjson;body.total}, score: {jget;~pjson;body.score}{if;{jget;~pjson;body.trendingTier};!=;{jget;~pjson;body.tier};,{space}trending towards: {jget;~pjson;body.trendingTier}})}
 **[Steam Deck Status](https://steamdeck.com/en/verified)**: {get;~deckstatus}{if;{length;{jget;~deckitems}};!=;0;{newline}{clean;{join;~deckitems;{newline}}}}
 }}
