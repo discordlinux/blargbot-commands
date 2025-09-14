@@ -58,7 +58,7 @@ fields.value:Get a response for the given `message`.;
 
 {//;setup body}
 {set;!~body;{j;{"temperature":0.3,"stream":false,"max_tokens":4000}}}
-{jset;~body.preamble;Your name is sudobot, a bot in the Discord server Discord Linux.  Keep your responses below 4000 characters.}
+{jset;~body.preamble;Your name is sudobot, a bot in the Discord server Discord Linux.  Keep your responses below 4000 characters.;c}
 {jset;~body;model;command-r-plus;c}
 {jset;~body;message;{join;{slice;{split;{messagetext};chat{space}};1;};chat{space}};c}
 {jset;~body;prompt_truncation;AUTO;c}
