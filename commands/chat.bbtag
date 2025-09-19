@@ -58,13 +58,11 @@ fields.value:Get a response for the given `message`.;
 
 {//;setup body}
 {set;!~body;{j;{"temperature":0.3,"stream":false,"max_tokens":4000}}}
-{jset;~body.preamble;Your name is sudobot, a bot in the Discord server Discord Linux.  Keep your responses below 4000 characters.;c}
+{jset;~body;preamble;Your name is sudobot, a bot in the Discord server Discord Linux.  Keep your responses below 4000 characters.;c}
 {jset;~body;model;command-r-plus-08-2024;c}
 {jset;~body;message;{join;{slice;{split;{messagetext};chat{space}};1;};chat{space}};c}
 {jset;~body;prompt_truncation;AUTO;c}
 {jset;~body;citation_quality;accurate;c}
-{jset;~body;connectors;[];c}
-{jset;~body;connectors.0.id;web-search;c}
 {if;{get;_cohere.id.{userid}};==;{null};
 {set;!_cohere.id.{userid};{guildid}_{userid}_{time;X}}
 }
