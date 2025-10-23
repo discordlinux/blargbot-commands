@@ -49,6 +49,13 @@
     "notes": null
   },
   {
+    "name": "Bazzite",
+    "supported": "No",
+    "experience_level": "Intermediate",
+    "recommended": "No",
+    "notes": null
+  },
+  {
     "name": "Bedrock Linux",
     "supported": "No",
     "experience_level": "Advanced",
@@ -156,6 +163,13 @@
   {
     "name": "Fedora",
     "supported": "Yes",
+    "experience_level": "Intermediate",
+    "recommended": "No",
+    "notes": null
+  },
+  {
+    "name": "Fedora Based (Unofficial)",
+    "supported": "No",
     "experience_level": "Intermediate",
     "recommended": "No",
     "notes": null

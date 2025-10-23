@@ -7,6 +7,7 @@
 |Arch Linux Derivatives|No|Advanced|No||
 |ArcoLinux|No|Advanced|No||
 |Artix|No|Advanced|No||
+|Bazzite|No|Intermediate|No||
 |Bedrock Linux|No|Advanced|No||
 |BlackArch Linux|No|Advanced|No||
 |Bodhi Linux|No|N/A|No||
@@ -23,6 +24,7 @@
 |elementaryOS|No|Advanced|No||
 |EndeavourOS|No|Advanced|No||
 |Fedora|Yes|Intermediate|No||
+|Fedora Based (Unofficial)|No|Intermediate|No||
 |Fedora Spins|Yes|Intermediate|No|Fedora Spins are supported, but may be low quality compared to Fedora itself|
 |Feren OS|No|N/A|No||
 |Garuda Linux|No|Advanced|No||
