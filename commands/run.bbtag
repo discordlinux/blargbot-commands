@@ -12,7 +12,8 @@
 {set;!~paiza.status;{jget;~paiza.post.json;body.status}}
 {//;throw error if status is not completed}
 {if;{get;~paiza.status};!=;completed;
-{throw;Error running input}
+{throw;Error running input: {get;~paiza.post.json}}
+{file;buffer:{base64encode;{jstringify{jget;~input.json}}};result.txt}
 {return;false}
 }
 {//;get results}
