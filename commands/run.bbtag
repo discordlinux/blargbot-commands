@@ -11,7 +11,12 @@
 {set;!~paiza.id;{jget;~paiza.post.json;body.id}}
 {set;!~paiza.status;{jget;~paiza.post.json;body.status}}
 {//;throw error if status is not completed}
-{if;{get;~paiza.status};!=;completed;
+{switch;{get;~paiza.status};
+["running"];
+{//;wait for run to finish}
+{sleep;5s};
+["completed"];
+{//;do nothing};
 {throw;Error running input: {get;~paiza.post.json}}
 {file;buffer:{base64encode;{jstringify;{jget;~input.json}}};result.txt}
 {return;false}
