@@ -15,8 +15,9 @@
 ["running"];
 {//;wait for run to finish}
 {set;!~paiza.running;{jget;{request;https://api.paiza.io/runners/get_status?api_key=guest&id={get;~paiza.id}};body.status}}
-{if;{get;~paiza.running};!=;completed;
-{sleep;5s}
+{while;{get;~paiza.running};!=;completed;
+{sleep;1s}
+{set;!~paiza.running;{jget;{request;https://api.paiza.io/runners/get_status?api_key=guest&id={get;~paiza.id}};body.status}}
 };
 ["completed"];
 {//;do nothing};
