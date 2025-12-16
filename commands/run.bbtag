@@ -1,81 +1,24 @@
 {//;inject functions}
 {inject;{get;_gitcmd.functions}}
 
-{//;function to run code through codex.jaagrav.in}
-{function;codex;
-{//;POST code to api.codex.jaagrav.in}
-{//;setup header and body}
-{jset;~codex.head;method;POST;c}
-{jset;~codex.head;headers.content-type;application/json;c}
-{jset;~codex.body;input;{jget;~input.json;input};c}
-
-{//;set language}
-{switch;{jget;~input.json;language};
-["bash"];
-{jset;~codex.body;code;import subprocess{newline}subprocess.run('bash -c \'{regexreplace;{regexreplace;{jget;~input.json;source_code};/\n\r?/g;{semi}{space}};/'/g;\'}\'', shell=True);c}
-{jset;~codex.body;language;py;c};
-["c"];
-{jset;~codex.body;code;{jget;~input.json;source_code};c}
-{jset;~codex.body;language;c;c};
-["cpp];
-{jset;~codex.body;code;{jget;~input.json;source_code};c}
-{jset;~codex.body;language;cpp;c};
-["csharp"];
-{jset;~codex.body;code;{jget;~input.json;source_code};c}
-{jset;~codex.body;language;cs;c};
-["java"];
-{jset;~codex.body;code;{jget;~input.json;source_code};c}
-{jset;~codex.body;language;java;c};
-["javascript", "js"];
-{jset;~codex.body;code;{jget;~input.json;source_code};c}
-{jset;~codex.body;language;js;c};
-["go"];
-{jset;~codex.body;code;{jget;~input.json;source_code};c}
-{jset;~codex.body;language;go;c};
-["python3"];
-{jset;~codex.body;code;{jget;~input.json;source_code};c}
-{jset;~codex.body;language;py;c};
-{//;else rextester}
-{func.rextester}
-{return;false}
-}
-
-{set;!~codex.start;{time;x}}
-{set;!~codex.post.json;{func.req;https://api.codex.jaagrav.in;{jget;~codex.head};{jget;~codex.body}}}
-
-{//;try rextester if status is not 200}
-{if;{jget;~codex.post.json;body.status};!=;200;
-{func.rextester}
-{return;false}
-}
-
-{//;get results}
-{set;!~codex.result;{jget;~codex.post.json;body.output}
-
-Time: {math;-;{jget;~codex.post.json;body.timeStamp};{get;~codex.start}}ms{if;{jget;~codex.post.json;body.error};!=;{null};{space}|{space}Error:{space}{jget;~codex.post.json;body.error}}}
-{//;output results}
-[Link to Result]({dump;{get;~codex.result}}.txt)
-{file;buffer:{base64encode;{get;~codex.result}};result.txt}
-}
-
 {//;function to run code through paiza.io}
 {function;paiza;
 {//;POST code to api.paiza.io}
 {jset;~paiza.head;method;POST;c}
 {jset;~paiza.head;headers.content-type;application/json;c}
-{set;!~paiza.post.json;{request;http://api.paiza.io/runners/create;{jget;~paiza.head};{jget;~input.json}}}
+{set;!~paiza.post.json;{request;https://api.paiza.io/runners/create;{jget;~paiza.head};{jget;~input.json}}}
 {//;set variables from response}
 {set;!~paiza.id;{jget;~paiza.post.json;body.id}}
 {set;!~paiza.status;{jget;~paiza.post.json;body.status}}
 {//;throw error if status is not completed}
 {if;{get;~paiza.status};!=;completed;
-{func.rextester}
+{throw;Error running input}
 {return;false}
 }
 {//;get results}
-{set;!~paiza.json;{request;http://api.paiza.io/runners/get_details?id={get;~paiza.id}&api_key=guest}}
+{set;!~paiza.json;{request;https://api.paiza.io/runners/get_details?id={get;~paiza.id}&api_key=guest}}
 {if;{jget;~paiza.json;body.result};==;timeout;
-{func.rextester}
+{throw;Paiza.io timeout}
 {return;false}
 }
 {set;!~paiza.result;{replace;{jget;~paiza.json;body.stdout};Main.sh: line 1:{space};}
@@ -85,116 +28,6 @@ Exit code: {fallback;1}{jget;~paiza.json;body.exit_code}{fallback} | Memory used
 {file;buffer:{base64encode;{get;~paiza.result}};result.txt}
 }
 
-{//;function to run code through rextester}
-{function;rextester;
-{//;set language}
-{switch;{jget;~input.json;language};
-["assembly"];
-{set;!~run.lang;15};
-["bash"];
-{set;!~run.lang;38};
-["csharp"];
-{set;!~run.lang;1};
-["cpp"];
-{set;!~run.lang;7};
-["c"];
-{set;!~run.lang;6};
-["clientside"];
-{set;!~run.lang;36};
-["clojure"];
-{set;!~run.lang;47};
-["commonlisp"];
-{set;!~run.lang;18};
-["d"];
-{set;!~run.lang;30};
-["elixir"];
-{set;!~run.lang;41};
-["erlang"];
-{set;!~run.lang;40};
-["fsharp"];
-{set;!~run.lang;3};
-["fortran"];
-{set;!~run.lang;45};
-["go"];
-{set;!~run.lang;20};
-["haskell"];
-{set;!~run.lang;11};
-["java"];
-{set;!~run.lang;4};
-["javascript"];
-{set;!~run.lang;17};
-["kotlin"];
-{set;!~run.lang;43};
-["lua"];
-{set;!~run.lang;14};
-["mysql"];
-{set;!~run.lang;33};
-["node.js"];
-{set;!~run.lang;23};
-["ocaml"];
-{set;!~run.lang;42};
-["octave"];
-{set;!~run.lang;25};
-["objective-c"];
-{set;!~run.lang;10};
-["oracle"];
-{set;!~run.lang;35};
-["pascal"];
-{set;!~run.lang;9};
-["perl"];
-{set;!~run.lang;13};
-["php"];
-{set;!~run.lang;8};
-["postgresql"];
-{set;!~run.lang;34};
-["prolog"];
-{set;!~run.lang;19};
-["python"];
-{set;!~run.lang;5};
-["python3"];
-{set;!~run.lang;24};
-["r"];
-{set;!~run.lang;31};
-["rust"];
-{set;!~run.lang;46};
-["ruby"];
-{set;!~run.lang;12};
-["scala"];
-{set;!~run.lang;21};
-["scheme"];
-{set;!~run.lang;22};
-["sqlserver"];
-{set;!~run.lang;16};
-["swift"];
-{set;!~run.lang;37};
-["tcl"];
-{set;!~run.lang;32};
-["vb"];
-{set;!~run.lang;2}
-}
-
-{//;set head and body}
-{jset;~run.head;method;POST;c}
-{jset;~run.head;headers.content-type;application/x-www-form-urlencoded{semi} charset=UTF-8;c}
-{set;!~run.body;LanguageChoiceWrapper={get;~run.lang}&Program={regexreplace;{uriencode;{jget;~input.json;source_code}};/%20/g;+}&Input={regexreplace;{uriencode;{jget;~input.json;input}};/%20/g;+}}
-
-{//;run request}
-{set;!~rex.json;{request;https://rextester.com/rundotnet/Run;{jget;~run.head};{get;~run.body}}}
-
-{//;output result}
-{if;{jget;~rex.json;body.Stats};startswith;`;
-{//;error, output raw result}
-[Link to Error Output]({dump;{get;~rex.json}}.txt)
-{file;buffer:{base64encode;{get;~rex.json}};error.txt};
-{//;no error, format and output}
-{set;!~rex.result;{jget;~rex.json;body.Result}{if;{jget;~rex.json;body.Warnings};!=;{null};{newline}{jget;~rex.json;body.Warnings}}{if;{jget;~rex.json;body.Errors};!=;{null};{newline}{jget;~rex.json;body.Errors}}
-
-{jget;~rex.json;body.Stats}}
-[Link to Result]({dump;{get;~rex.result}}.txt)
-{file;buffer:{base64encode;{get;~rex.result}};result.txt}
-}
-}
-
 {switch;{lower;{args}};
 ["","help"];
 {set;!~runhelp;{embedbuild;
@@ -202,7 +35,7 @@ author.name:{guildname};
 author.icon_url:{guildicon};
 title:Help for run;
 color:{func.dlcolors;brightyellow};
-description:Executes code using [Codex.jaagrav.in](https://codex.jaagrav.in/) or [Rextester.com](https://rextester.com/).
+description:Executes code using [Paiza.io](https://paiza.io/en).
 
 __**Arguments**__:;
 fields.name:{prefix}run <language> <code>;
@@ -213,14 +46,9 @@ fields.name:{prefix}run \`\`\`<language>
 \`\`\`;
 fields.value:Executes the given `code` using the given `language` in code block format.  `language` must be from the list below.;
 fields.inline:false;
-fields.name:Codex.jaagrav.in Supported Languages:;
+fields.name:**Paiza.io Supported Languages:**;
 fields.value:{repeat;`;3}
-bash, c, cpp, csharp, go, java, javascript, python3
-{repeat;`;3};
-fields.inline:false;
-fields.name:Rextester.com Supported Languages:;
-fields.value:{repeat;`;3}
-assembly, bash, c, clientside, clojure, commonlisp, cpp, csharp, d, elixir, erlang, fsharp, fortran, go, haskell, java, javascript, kotlin, lua, mysql, node.js, ocaml, octave, objective-c, oracle, pascal, perl, php, postgresql, prolog, python, python3, r, rust, ruby, scala, scheme, sqlserver, swift, tcl, vb
+{join;{sort;{jget;{request;https://api.paiza.io/runners.json};body.apis.0.operations.0.parameters.1.allowableValues.values}};,{space}}
 {repeat;`;3};
 fields.inline:false;
 fields.name:Setting stdin;
@@ -250,5 +78,5 @@ fields.inline:false;
 }
 
 {//;run code}
-{func.codex}
+{func.paiza}
 }
