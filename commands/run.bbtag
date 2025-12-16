@@ -54,7 +54,7 @@ fields.value:Executes the given `code` using the given `language` in code block 
 fields.inline:false;
 fields.name:**Paiza.io Supported Languages:**;
 fields.value:{repeat;`;3}
-{join;{sort;{jget;{request;https://api.paiza.io/runners.json};body.apis.2.operations.parameters.0.2.allowableValues.values}};,{space}}
+{join;{sort;{jget;{request;https://api.paiza.io/runners.json};body.apis.2.operations.0.parameters.2.allowableValues.values}};,{space}}
 {repeat;`;3};
 fields.inline:false;
 fields.name:Setting stdin;
