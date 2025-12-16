@@ -14,10 +14,9 @@
 {switch;{get;~paiza.status};
 ["running"];
 {//;wait for run to finish}
-{set;!~paiza.running;{jget;{request;https://api.paiza.io/runners/get_status.json?api_key=guest&id={get;~paiza.id}};body.status}}
-{while;{get;!~paiza.running};!=;completed;
-{sleep;1s}
-{set;!~paiza.running;{jget;{request;https://api.paiza.io/runners/get_status.json?api_key=guest&id={get;~paiza.id}};body.status}}
+{set;!~paiza.running;{jget;{request;https://api.paiza.io/runners/get_status?api_key=guest&id={get;~paiza.id}};body.status}}
+{if;{get;~paiza.running};!=;completed;
+{sleep;5s}
 };
 ["completed"];
 {//;do nothing};
