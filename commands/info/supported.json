@@ -84,6 +84,13 @@
     "notes": "BOSS Linux is a Linux distro created by CDAC, part of the Indian Government"
   },
   {
+    "name": "CachyOS",
+    "supported": "No",
+    "experience_level": "Advanced",
+    "recommended": "No",
+    "notes": null
+  },
+  {
     "name": "CentOS Stream",
     "supported": "No",
     "experience_level": "Advanced",
