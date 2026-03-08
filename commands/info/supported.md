@@ -12,6 +12,7 @@
 |BlackArch Linux|No|Advanced|No||
 |Bodhi Linux|No|N/A|No||
 |BOSS Linux|No|N/A|No|BOSS Linux is a Linux distro created by CDAC, part of the Indian Government|
+|CachyOS|No|Advanced|No||
 |CentOS Stream|No|Advanced|No||
 |Chrome OS|Yes|Beginner|No||
 |Clear Linux|No|Advanced|No||
