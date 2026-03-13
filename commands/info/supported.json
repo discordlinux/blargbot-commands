@@ -335,6 +335,12 @@
     "recommended": "No",
     "notes": null
   },
+    "name": "Nyarch Linux",
+    "supported": "No",
+    "experience_level": "Advanced",
+    "recommended": "No",
+    "notes": null
+  },
   {
     "name": "openSUSE Leap",
     "supported": "Yes",
