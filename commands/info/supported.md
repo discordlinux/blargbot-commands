@@ -48,6 +48,7 @@
 |Neptune OS|No|Intermediate|No||
 |NixOS|Yes|Advanced|No||
 |Nobara Linux|No|Intermediate|No||
+|Nyarch Linux|No|Advanced|No||
 |openSUSE Leap|Yes|Intermediate|Yes||
 |openSUSE Tumbleweed|Partial|Advanced|No|openSUSE Tumbleweed users are expected to solve basic problems on their own.|
 |Oracle Linux|Yes|Advanced|No||
